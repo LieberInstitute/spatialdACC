@@ -1,5 +1,5 @@
-/dcs04/lieber/marmaypag/Visium_troubleshooting_LIBD001/Images/V12J03-002_01_10_23_ADR.tif	0	0	0	0
-/dcs04/lieber/marmaypag/Visium_troubleshooting_LIBD001/Images/V12N28-331_01_09_23_SVB.tif	0	0	0	0
-/dcs04/lieber/marmaypag/Visium_troubleshooting_LIBD001/Images/V12N28-332_01_18_23_HRD.tif	0	0	0	0
-/dcs04/lieber/marmaypag/Visium_troubleshooting_LIBD001/Images/V12N28-334_01_23_23_HRD.tif	0	0	0	0
-/dcs04/lieber/marmaypag/Visium_troubleshooting_LIBD001/Images/V12Y31-080_02_06_23_HRD.tif	0	0	0	0
+/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/Images/V12J03-002_01_10_23_ADR.tif	0	0	0	0
+/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/Images/V12N28-331_01_09_23_SVB.tif	0	0	0	0
+/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/Images/V12N28-332_01_18_23_HRD.tif	0	0	0	0
+/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/Images/V12N28-334_01_23_23_HRD.tif	0	0	0	0
+/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/Images/V12Y31-080_02_06_23_HRD.tif	0	0	0	0

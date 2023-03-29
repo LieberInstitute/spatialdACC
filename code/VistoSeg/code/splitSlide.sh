@@ -1,12 +1,12 @@
 #!/bin/bash
 #$ -cwd
 #$ -l mem_free=100G,h_vmem=100G,h_stack=256M,h_fsize=100G
-#$ -o /dcs04/lieber/marmaypag/Visium_troubleshooting_LIBD001/VistoSeg/code/logs/$TASK_ID_splitSlide.txt 
-#$ -e /dcs04/lieber/marmaypag/Visium_troubleshooting_LIBD001/VistoSeg/code/logs/$TASK_ID_splitSlide.txt
+#$ -o /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VistoSeg/code/logs/$TASK_ID_splitSlide.txt 
+#$ -e /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VistoSeg/code/logs/$TASK_ID_splitSlide.txt
 #$ -m e
-#$ -M heenadivecha@gmail.com
+#$ -M ryan.miller@libd.org
 #$ -t 5
-#$ -tc 1
+#$ -tc 4
 
 echo "**** Job starts ****"
 date
@@ -23,7 +23,7 @@ echo "Task id: ${SGE_TASK_ID}"
 module load matlab/R2019a
 
 ## Load toolbox for VistoSeg
-toolbox='/dcs04/lieber/marmaypag/Visium_troubleshooting_LIBD001/VistoSeg/code'
+toolbox='/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VistoSeg/code/'
 
 ## Read inputs from splitSlide_list.txt file
 fname=$(awk 'BEGIN {FS="\t"} {print $1}' splitSlide_list.txt | awk "NR==${SGE_TASK_ID}")
