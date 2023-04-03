@@ -1,0 +1,46 @@
+Adding LIBD modules
+Loading git
+Loading LIBD module for git-status-size/github
+Loading LIBD module for git-lfs/2.8.0
+Loading LIBD module for rmate/1.5.10
+Loading LIBD module for ruby/3.1.2
+Loading conda_R/4.2.x
+**** Job starts ****
+Wed Mar 29 10:41:21 EDT 2023
+**** JHPCE info ****
+User: rmiller
+Job id: 3083060s
+Job name: splitSlide.sh
+Hostname: compute-053.cm.cluster
+Task id: 5
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                               March 8, 2019
+
+ 
+For online documentation, see https://www.mathworks.com/support
+For product information, visit www.mathworks.com.
+ 
+The multiplane tif has 7 images
+Imported image 7 of the multiplane tif
+Elapsed time is 0.625256 seconds.
+Imported image 6 of the multiplane tif
+Elapsed time is 0.346996 seconds.
+Imported image 5 of the multiplane tif
+Elapsed time is 0.176213 seconds.
+Imported image 4 of the multiplane tif
+Elapsed time is 2.763052 seconds.
+Imported image 3 of the multiplane tif
+Elapsed time is 47.656255 seconds.
+Imported image 2 of the multiplane tif
+Elapsed time is 0.087055 seconds.
+Imported image 1 of the multiplane tif
+Elapsed time is 863.831992 seconds.
+Saving the multiplane tif to mat file
+Elapsed time is 5621.557938 seconds.
+Splitting whole slide into individual capture areas
+Elapsed time is 14170.496031 seconds.
+>> **** Job ends ****
+Wed Mar 29 16:30:03 EDT 2023
