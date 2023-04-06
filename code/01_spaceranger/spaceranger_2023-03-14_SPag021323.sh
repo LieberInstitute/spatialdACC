@@ -6,8 +6,8 @@
 #$ -o logs/spaceranger_2023-03-14_SPag021323.$TASK_ID.txt
 #$ -e logs/spaceranger_2023-03-14_SPag021323.$TASK_ID.txt
 #$ -m e
-#$ -t 1-24
-#$ -tc 8
+#$ -t 1-5
+#$ -tc 5
 
 echo "**** Job starts ****"
 date
@@ -37,7 +37,7 @@ SAM=$(paste <(echo ${SLIDE}) <(echo "-") <(echo ${CAPTUREAREA}) -d '')
 echo "Slide: ${SLIDE}, capture area: ${CAPTUREAREA}"
 
 ## Find FASTQ file path
-FASTQPATH=$(ls -d /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/${SAMPLE}/)
+FASTQPATH=$(ls -d /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/FASTQ/2023-03-14_SPag021323/${SAMPLE}/)
 
 ## Hank from 10x Genomics recommended setting this environment
 export NUMBA_NUM_THREADS=1
