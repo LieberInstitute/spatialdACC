@@ -1,0 +1,41 @@
+Adding LIBD modules
+Loading git
+Loading LIBD module for git-status-size/github
+Loading LIBD module for git-lfs/2.8.0
+Loading LIBD module for rmate/1.5.10
+Loading LIBD module for ruby/3.1.2
+Loading conda_R/4.2.x
+/cm/local/apps/sge/sge-8.1.9/default/spool/compute-097/job_scripts/3100897: line 10: a#$: command not found
+**** Job starts ****
+Thu Apr  6 15:08:20 EDT 2023
+**** JHPCE info ****
+User: rmiller
+Job id: 3100897
+Job name: VNS.sh
+Hostname: compute-097.cm.cluster
+Task id: 2
+****
+Sample id: /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/processed-data/Images/VistoSeg/Capture_areas/V12N28-334_C1.tif 
+****
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                               March 8, 2019
+
+ 
+For online documentation, see https://www.mathworks.com/support
+For product information, visit www.mathworks.com.
+ 
+Importing capture area
+Elapsed time is 21.026407 seconds.
+Performing smoothing and contrast adjustment
+Elapsed time is 38.102046 seconds.
+Performing rgb to Lab color space conversion
+Elapsed time is 66.993951 seconds.
+Applying Kmeans
+Elapsed time is 2451.209473 seconds.
+saving outputs
+Elapsed time is 429.129039 seconds.
+>> **** Job ends ****
+Thu Apr  6 15:58:43 EDT 2023
