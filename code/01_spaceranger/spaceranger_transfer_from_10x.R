@@ -38,13 +38,16 @@ unique(samples$directory)
 # [1] "2023-03-29_Transfer10x_SPage" "2023-02-09_Transfer10x_SPage"
 
 dir.create(here::here("processed-data", "01_spaceranger", unique(samples$directory)[1]))
-subfolders = samples$samples[samples$directory == "2023-03-29_Transfer10x_SPage"]
-for (name in subfolders) {
-  dir.create(here::here("processed-data", "01_spaceranger", "2023-03-29_Transfer10x_SPage", name))
+subfolders = samples[samples$directory == "2023-03-29_Transfer10x_SPage",]
+for (i in seq_along(subfolders$samples)) {
+  dir.create(here::here("processed-data", "01_spaceranger", "2023-03-29_Transfer10x_SPage", subfolders$samples[i]))
+  file.symlink(subfolders$path[i], (here::here("processed-data", "01_spaceranger", "2023-03-29_Transfer10x_SPage", subfolders$samples[i])))
 }
 
 dir.create(here::here("processed-data", "01_spaceranger", unique(samples$directory)[2]))
-subfolders = samples$samples[samples$directory == "2023-02-09_Transfer10x_SPage"]
-for (name in subfolders) {
-  dir.create(here::here("processed-data", "01_spaceranger", "2023-02-09_Transfer10x_SPage", name))
+subfolders = samples[samples$directory == "2023-02-09_Transfer10x_SPage",]
+for (i in seq_along(subfolders$samples)) {
+  dir.create(here::here("processed-data", "01_spaceranger", "2023-02-09_Transfer10x_SPage", subfolders$samples[i]))
+  file.symlink(subfolders$path[i], (here::here("processed-data", "01_spaceranger", "2023-02-09_Transfer10x_SPage", subfolders$samples[i])))
 }
+
