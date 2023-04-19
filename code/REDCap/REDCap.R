@@ -31,7 +31,7 @@ D1$array <- "D1"
 REDCap_table <- rbind(A1, B1, C1, D1)
 REDCap_table <- REDCap_table[order(REDCap_table$slide), ]
 
-REDCap_HPC <- REDCap_table[which(REDCap_table$project == "spatialdACC_LIBD4125"), ]
+REDCap_dACC <- REDCap_table[which(REDCap_table$project == "spatialdACC_LIBD4125"), ]
 
 Brain_nums <- unique(REDCap_HPC$sample)
 write.table(Brain_nums, file = (here::here("raw-data", "sample_info", "ALLbrains.txt")), row.names = FALSE, col.names = FALSE)
@@ -39,7 +39,7 @@ write.table(Brain_nums, file = (here::here("raw-data", "sample_info", "ALLbrains
 Samples <- unique(paste0(REDCap_HPC$slide, "_", REDCap_HPC$array))
 write.table(Samples, file = (here::here("raw-data", "sample_info", "ALLsamples.txt")), row.names = FALSE, col.names = FALSE)
 
-save(REDCap_HPC, file = (here::here("code", "REDCap", "REDCap_dACC.rda")))
+save(REDCap_dACC, file = (here::here("code", "REDCap", "REDCap_dACC.rda")))
 
 ## https://jhu-genomics.slack.com/archives/CR9NYA0BF/p1650383126365919
 ## /dcs04/lieber/lcolladotor/rawDataTDSC_LIBD001/raw-data/2022-04-12_SPag033122/
