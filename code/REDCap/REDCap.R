@@ -33,10 +33,10 @@ REDCap_table <- REDCap_table[order(REDCap_table$slide), ]
 
 REDCap_dACC <- REDCap_table[which(REDCap_table$project == "spatialdACC_LIBD4125"), ]
 
-Brain_nums <- unique(REDCap_HPC$sample)
+Brain_nums <- unique(REDCap_dACC$sample)
 write.table(Brain_nums, file = (here::here("raw-data", "sample_info", "ALLbrains.txt")), row.names = FALSE, col.names = FALSE)
 
-Samples <- unique(paste0(REDCap_HPC$slide, "_", REDCap_HPC$array))
+Samples <- unique(paste0(REDCap_dACC$slide, "_", REDCap_dACC$array))
 write.table(Samples, file = (here::here("raw-data", "sample_info", "ALLsamples.txt")), row.names = FALSE, col.names = FALSE)
 
 save(REDCap_dACC, file = (here::here("code", "REDCap", "REDCap_dACC.rda")))
