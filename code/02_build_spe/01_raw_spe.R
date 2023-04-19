@@ -12,23 +12,32 @@ library("sessioninfo")
 ## Define some info for the samples
 load(here::here("code", "REDCap", "REDCap_dACC.rda"))
 
-sample_info <- data.frame(dateImg = as.Date(REDCap_dACC$date)) 
-sample_info$experimenterImg <- as.factor(REDCap_dACC$experimenter_img)
-sample_info$slide <- as.factor(REDCap_dACC$slide)
+# sample_info <- data.frame(dateImg = as.Date(REDCap_dACC$date)) 
+# sample_info$experimenterImg <- as.factor(REDCap_dACC$experimenter_img)
+sample_info <- data.frame(slide = as.factor(REDCap_dACC$slide))
 sample_info$array <- as.factor(REDCap_dACC$array)
 sample_info$brnum <- as.factor(sapply(strsplit(REDCap_dACC$sample, "-"), `[`, 1))
-sample_info$position <- as.factor(REDCap_dACC$adjacent)
-sample_info$seqNum <- as.factor(REDCap_dACC$sample_number)
-sample_info$experimenterSeq <- as.factor(REDCap_dACC$experimenter_seq)
+sample_info$replicate <- as.factor(REDCap_dACC$serial)
 sample_info$sample_id <- paste(sample_info$slide, sample_info$array, sep = "_")
 
-sample_info$sample_path[sample_info$dateImg <= "2021-10-11"] <- file.path(here::here("processed-data", "01_spaceranger", "spaceranger_novaseq"), sample_info$sample_id, "outs")
-sample_info$sample_path[sample_info$dateImg > "2021-10-11"] <- file.path(here::here("processed-data", "01_spaceranger", "spaceranger_2022-04-12_SPag033122"), sample_info$sample_id[sample_info$dateImg > "2021-10-11"], "outs")
+sample_info$sample_path[sample_info$slide == "V12N28-331" | sample_info$slide == "V12J03-002"] <- file.path(here::here("processed-data", "01_spaceranger", "2023-03-29_Transfer10x_SPage"), sample_info$sample_id[sample_info$slide == "V12N28-331" | sample_info$slide == "V12J03-002"], "outs")
+sample_info$sample_path[sample_info$sample_id == "V12N28-331_B1"] <- file.path(here::here("processed-data", "01_spaceranger", "2023-02-09_Transfer10x_SPage"), "V12N28-331_B1", "outs")
+sample_info$sample_path[sample_info$sample_id == "V12J03-002_D1"] <- file.path(here::here("processed-data", "01_spaceranger", "2023-02-09_Transfer10x_SPage"), "V12J03-002_D1", "outs")
+
+sample_info$sample_path[sample_info$slide == "V12N28-332"] <- file.path(here::here("processed-data", "01_spaceranger", "2023-02-09_Transfer10x_SPage"), sample_info$sample_id[sample_info$slide == "V12N28-332"], "outs")
+sample_info$sample_path[sample_info$slide == "V12N28-334" | sample_info$slide == "V12Y31-080"] <- file.path(here::here("processed-data", "01_spaceranger", "spaceranger_2023-03-14_SPag021323"), sample_info$sample_id[sample_info$slide == "V12N28-334" | sample_info$slide == "V12Y31-080"], "outs")
+sample_info$sample_path[sample_info$sample_id == "V12N28-334_A1"] <- file.path(here::here("processed-data", "01_spaceranger", "spaceranger_2023-04-03_SPag022423"), "V12N28-334_A1", "outs")
+
+##discard barnyard samples
+sample_info = sample_info[sample_info$sample_id != "V12Y31-080_D1" & sample_info$sample_id != "V12J03-002_D1",]
+
 stopifnot(all(file.exists(sample_info$sample_path)))
 
 ## Define the donor info using information from
 donor_info <- read.csv(file.path(here::here("raw-data", "sample_info", "demographicInfo_Geo.csv")), header = TRUE, stringsAsFactors = FALSE)
-donor_info <- donor_info[-1]
+
+## check if all donor info included
+setdiff(sample_info$brnum, donor_info$brnum)
 
 ## Combine sample info with the donor info
 sample_info <- merge(sample_info, donor_info)
