@@ -1,5 +1,5 @@
 
-setwd("/dcs04/lieber/lcolladotor/spatialHPC_LIBD4035/spatial_hpc/")
+setwd("/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/")
 suppressPackageStartupMessages({
 library("here")
 library("SpatialExperiment")
@@ -10,16 +10,16 @@ library("sessioninfo")
 })
 
 ## Define some info for the samples
-load(here::here("code", "REDCap", "REDCap_HPC.rda"))
+load(here::here("code", "REDCap", "REDCap_dACC.rda"))
 
-sample_info <- data.frame(dateImg = as.Date(REDCap_HPC$date)) 
-sample_info$experimenterImg <- as.factor(REDCap_HPC$experimenter_img)
-sample_info$slide <- as.factor(REDCap_HPC$slide)
-sample_info$array <- as.factor(REDCap_HPC$array)
-sample_info$brnum <- as.factor(sapply(strsplit(REDCap_HPC$sample, "-"), `[`, 1))
-sample_info$position <- as.factor(REDCap_HPC$adjacent)
-sample_info$seqNum <- as.factor(REDCap_HPC$sample_number)
-sample_info$experimenterSeq <- as.factor(REDCap_HPC$experimenter_seq)
+sample_info <- data.frame(dateImg = as.Date(REDCap_dACC$date)) 
+sample_info$experimenterImg <- as.factor(REDCap_dACC$experimenter_img)
+sample_info$slide <- as.factor(REDCap_dACC$slide)
+sample_info$array <- as.factor(REDCap_dACC$array)
+sample_info$brnum <- as.factor(sapply(strsplit(REDCap_dACC$sample, "-"), `[`, 1))
+sample_info$position <- as.factor(REDCap_dACC$adjacent)
+sample_info$seqNum <- as.factor(REDCap_dACC$sample_number)
+sample_info$experimenterSeq <- as.factor(REDCap_dACC$experimenter_seq)
 sample_info$sample_id <- paste(sample_info$slide, sample_info$array, sep = "_")
 
 sample_info$sample_path[sample_info$dateImg <= "2021-10-11"] <- file.path(here::here("processed-data", "01_spaceranger", "spaceranger_novaseq"), sample_info$sample_id, "outs")
