@@ -1,12 +1,12 @@
 
 setwd("/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/")
 suppressPackageStartupMessages({
-library("here")
-library("SpatialExperiment")
-library("spatialLIBD")
-library("rtracklayer")
-library("lobstr")
-library("sessioninfo")
+    library("here")
+    library("SpatialExperiment")
+    library("spatialLIBD")
+    library("rtracklayer")
+    library("lobstr")
+    library("sessioninfo")
 })
 
 ## Define some info for the samples
@@ -41,6 +41,9 @@ setdiff(sample_info$brnum, donor_info$brnum)
 
 ## Combine sample info with the donor info
 sample_info <- merge(sample_info, donor_info)
+
+##re order to bring in-house samples 1st in the list
+sample_info = sample_info[c(4:6,15:17,1:3,7:14),]
 
 ## Build basic SPE
 Sys.time()
