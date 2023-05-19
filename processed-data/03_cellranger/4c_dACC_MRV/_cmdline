@@ -1,0 +1,1 @@
+cellranger count --id=4c_dACC_MRV --transcriptome=/dcs04/lieber/lcolladotor/annotationFiles_LIBD001/10x/refdata-gex-GRCh38-2020-A --fastqs=/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/FASTQ/2023-05-04_SPag041423/4c_dACC_MRV --sample=4c-dACC-MRV --jobmode=local --localcores=8 --localmem=64
