@@ -7,8 +7,7 @@
 *bam
 *bam.bai
 *h5
-*analysis
-*spatial_enrichment.csv
+analysis
 *cloupe
-*SPATIAL_RNA_COUNTER_CS
+SC_RNA_COUNTER_CS
 *.gz
