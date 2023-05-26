@@ -22,7 +22,7 @@ rsconnect::deployApp(
         "app.R",
         "spe_raw.Rdata"
     ),
-    appName = "spatial_dACC_2023",
+    appName = "spatialdACC_Visium",
     account = "libd",
     server = "shinyapps.io"
 )
