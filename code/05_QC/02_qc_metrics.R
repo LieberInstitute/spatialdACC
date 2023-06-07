@@ -137,14 +137,6 @@ table(spe$discard_auto_id)
 100 * sum(spe$discard_auto_id) / ncol(spe)
 # 2.75759
 
-spe$discard <- spe$discard_auto_br | spe$discard_auto_id
-table(spe$discard)
-# FALSE  TRUE
-# 73701  3903
-spe <- spe[, !spe$discard]
-dim(spe)
-# [1] 29720 73701
-
 save(spe, file = here::here("processed-data", "05_QC", "spe_QC.Rdata"))
 
 ## Reproducibility information
