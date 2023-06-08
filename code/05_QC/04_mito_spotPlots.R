@@ -17,7 +17,7 @@ for (i in 1:nrow(samples)) {
         sampleid = samples$sample_id[i],
         geneid = "subsets_Mito_percent",
         spatial = T,
-        point_size = 5,
+        point_size = 3,
         ... = paste0("_", samples$brnum[i])
     )
 

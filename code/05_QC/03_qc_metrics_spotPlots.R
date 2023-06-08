@@ -18,7 +18,7 @@ for (i in 1:nrow(samples)) {
         spe = spe,
         sampleid = samples$sample_id[i],
         clustervar = "discard_auto_br",
-        colors = c("FALSE" = "grey90", "TRUE" = "red"),
+        colors = c("FALSE" = "yellow", "TRUE" = "blue"),
         point_size = 2,
         ... = paste0("_", samples$brnum[i])
     )
@@ -38,29 +38,29 @@ for (i in seq_along(brains)){
     print(length(samples))
 
     if (length(samples) == 1){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 3,... = paste0("_",brains[i]) )
         grid.arrange(p1, nrow = 1)
     } else if (length(samples) == 2){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, nrow = 2)
     } else if (length(samples) == 3){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, nrow = 2)
     } else if (length(samples) == 4){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, p4, nrow = 2)
     } else if (length(samples) == 5){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p5 <- vis_clus(spe = speb, sampleid = samples[5], clustervar = "discard_auto_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p5 <- vis_clus(spe = speb, sampleid = samples[5], clustervar = "discard_auto_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, p4, p5, nrow = 2)}
 }
 
@@ -76,7 +76,7 @@ for (i in 1:nrow(samples)) {
         spe = spe,
         sampleid = samples$sample_id[i],
         clustervar = "discard_auto_id",
-        colors = c("FALSE" = "grey90", "TRUE" = "red"),
+        colors = c("FALSE" = "yellow", "TRUE" = "blue"),
         point_size = 2,
         ... = paste0("_", samples$brnum[i])
     )
@@ -96,29 +96,29 @@ for (i in seq_along(brains)){
     print(length(samples))
 
     if (length(samples) == 1){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 3,... = paste0("_",brains[i]) )
         grid.arrange(p1, nrow = 1)
     } else if (length(samples) == 2){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, nrow = 2)
     } else if (length(samples) == 3){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, nrow = 2)
     } else if (length(samples) == 4){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, p4, nrow = 2)
     } else if (length(samples) == 5){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p5 <- vis_clus(spe = speb, sampleid = samples[5], clustervar = "discard_auto_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p5 <- vis_clus(spe = speb, sampleid = samples[5], clustervar = "discard_auto_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, p4, p5, nrow = 2)}
 }
 
@@ -132,29 +132,29 @@ for (i in seq_along(brains)){
     print(length(samples))
 
     if (length(samples) == 1){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 3,... = paste0("_",brains[i]) )
         grid.arrange(p1, nrow = 1)
     } else if (length(samples) == 2){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, nrow = 2)
     } else if (length(samples) == 3){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, nrow = 2)
     } else if (length(samples) == 4){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, p4, nrow = 2)
     } else if (length(samples) == 5){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p5 <- vis_clus(spe = speb, sampleid = samples[5], clustervar = "high_mito_br", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p5 <- vis_clus(spe = speb, sampleid = samples[5], clustervar = "high_mito_br", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, p4, p5, nrow = 2)}
 }
 
@@ -168,29 +168,29 @@ for (i in seq_along(brains)){
     print(length(samples))
 
     if (length(samples) == 1){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 3,... = paste0("_",brains[i]) )
         grid.arrange(p1, nrow = 1)
     } else if (length(samples) == 2){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, nrow = 2)
     } else if (length(samples) == 3){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, nrow = 2)
     } else if (length(samples) == 4){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, p4, nrow = 2)
     } else if (length(samples) == 5){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
-        p5 <- vis_clus(spe = speb, sampleid = samples[5], clustervar = "high_mito_id", colors = c("FALSE" = "grey90", "TRUE" = "red"), point_size = 2,... = paste0("_",brains[i]) )
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p5 <- vis_clus(spe = speb, sampleid = samples[5], clustervar = "high_mito_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
         grid.arrange(p1, p2, p3, p4, p5, nrow = 2)}
 }
 
