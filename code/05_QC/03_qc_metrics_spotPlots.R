@@ -196,3 +196,75 @@ for (i in seq_along(brains)){
 
 dev.off()
 
+pdf(here("plots", "05_QC", "QC_discard_lowSumCount_by_capture_area_grid.pdf"), width = 21, height = 20)
+brains = unique(spe$brnum)
+for (i in seq_along(brains)){
+    speb <- spe[, which(spe$brnum == brains[i])]
+    samples <- unique(speb$sample_id)
+    print(length(samples))
+
+    if (length(samples) == 1){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 3,... = paste0("_",brains[i]) )
+        grid.arrange(p1, nrow = 1)
+    } else if (length(samples) == 2){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        grid.arrange(p1, p2, nrow = 2)
+    } else if (length(samples) == 3){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        grid.arrange(p1, p2, p3, nrow = 2)
+    } else if (length(samples) == 4){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        grid.arrange(p1, p2, p3, p4, nrow = 2)
+    } else if (length(samples) == 5){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p5 <- vis_clus(spe = speb, sampleid = samples[5], clustervar = "low_sum_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        grid.arrange(p1, p2, p3, p4, p5, nrow = 2)}
+}
+
+dev.off()
+
+pdf(here("plots", "05_QC", "QC_discard_lowDetectedCount_by_capture_area_grid.pdf"), width = 21, height = 20)
+brains = unique(spe$brnum)
+for (i in seq_along(brains)){
+    speb <- spe[, which(spe$brnum == brains[i])]
+    samples <- unique(speb$sample_id)
+    print(length(samples))
+
+    if (length(samples) == 1){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 3,... = paste0("_",brains[i]) )
+        grid.arrange(p1, nrow = 1)
+    } else if (length(samples) == 2){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        grid.arrange(p1, p2, nrow = 2)
+    } else if (length(samples) == 3){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        grid.arrange(p1, p2, p3, nrow = 2)
+    } else if (length(samples) == 4){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        grid.arrange(p1, p2, p3, p4, nrow = 2)
+    } else if (length(samples) == 5){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p4 <- vis_clus(spe = speb, sampleid = samples[4], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        p5 <- vis_clus(spe = speb, sampleid = samples[5], clustervar = "low_detected_id", colors = c("FALSE" = "yellow", "TRUE" = "blue"), point_size = 2,... = paste0("_",brains[i]) )
+        grid.arrange(p1, p2, p3, p4, p5, nrow = 2)}
+}
+
+dev.off()
+
