@@ -119,6 +119,23 @@ table(spe$low_sum_id, spe$high_mito_id)
 #FALSE 76163   377
 #TRUE   1040    24
 
+#filter by extremely low threshold
+spe$extreme_low_sum <- spe$sum < 20
+table(spe$extreme_low_sum)
+# FALSE  TRUE
+# 77565    39
+
+spe$extreme_low_detected <- spe$detected < 20
+table(spe$extreme_low_detected)
+# FALSE  TRUE
+# 77553    51
+
+## are all low sum are also low detected? yes
+table(spe$extreme_low_detected, spe$extreme_low_sum)
+#      FALSE  TRUE
+#FALSE 77553     0
+#TRUE     12    39
+
 ## Annotate spots to drop
 spe$discard_auto_br <- spe$high_mito_br | spe$low_sum_br | spe$low_detected_br
 spe$discard_auto_id <- spe$high_mito_id | spe$low_sum_id | spe$low_detected_id
