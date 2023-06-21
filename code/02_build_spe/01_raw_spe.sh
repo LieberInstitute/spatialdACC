@@ -1,9 +1,9 @@
 #!/bin/bash
 #$ -cwd
-#$ -l mem_free=8G,h_vmem=8G,h_fsize=100G
+#$ -l mem_free=20G,h_vmem=20G,h_fsize=100G
 #$ -N spatialdACC_build_spe
-#$ -o logs/raw_spe.$TASK_ID.txt
-#$ -e logs/raw_spe.$TASK_ID.txt
+#$ -o logs/raw_spe.txt
+#$ -e logs/raw_spe.txt
 #$ -m e
 
 echo "**** Job starts ****"
@@ -23,7 +23,7 @@ module load conda_R/4.2.x
 module list
 
 ## Edit with your job command
-Rscript -e 01_raw_spe.R
+Rscript 01_raw_spe.R
 
 echo "**** Job ends ****"
 date
