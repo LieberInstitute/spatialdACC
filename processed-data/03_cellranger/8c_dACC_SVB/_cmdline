@@ -1,0 +1,1 @@
+cellranger count --id=8c-dACC_SVB --transcriptome=/dcs04/lieber/lcolladotor/annotationFiles_LIBD001/10x/refdata-gex-GRCh38-2020-A --fastqs=/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/FASTQ/2023-06-09_SPag051623/8c-dACC_SVB --sample=8c-dACC-SVB --jobmode=local --localcores=8 --localmem=64
