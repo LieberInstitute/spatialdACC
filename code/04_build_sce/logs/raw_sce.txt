@@ -281,3 +281,519 @@ altExpNames(0):
 ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 **** Job ends ****
 Wed May 17 17:36:08 EDT 2023
+Adding LIBD modules
+Loading git
+Loading LIBD module for git-status-size/github
+Loading LIBD module for git-lfs/2.8.0
+Loading LIBD module for rmate/1.5.10
+Loading LIBD module for ruby/3.1.2
+Loading conda_R/4.3
+**** Job starts ****
+Mon Jun 26 14:38:37 EDT 2023
+**** JHPCE info ****
+User: rmiller
+Job id: 3586210
+Job name: spatialdACC_build_sce
+Hostname: compute-127.cm.cluster
+Task id: undefined
+Unloading conda_R/4.3
+Loading conda_R/4.3
+
+Currently Loaded Modules:
+  1) matlab/R2019a     6) COMMUNITY_CENTOS7_DEFAULT_ENV  11) ruby/3.1.2
+  2) stata/17          7) JHPCE_CENTOS7_DEFAULT_ENV      12) rmate/1.5.10
+  3) JHPCE_tools/1.0   8) git-status-size/github         13) conda/3-4.11.0
+  4) sge/8.1.9         9) git/2.28.0                     14) conda_R/4.3
+  5) gcc/4.4.7        10) git-lfs/2.8.0
+
+ 
+
+Loading required package: SummarizedExperiment
+Loading required package: MatrixGenerics
+Loading required package: matrixStats
+
+Attaching package: ‘MatrixGenerics’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+    colWeightedMeans, colWeightedMedians, colWeightedSds,
+    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+    rowWeightedSds, rowWeightedVars
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+    table, tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:utils’:
+
+    findMatches
+
+The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+Attaching package: ‘Biobase’
+
+The following object is masked from ‘package:MatrixGenerics’:
+
+    rowMedians
+
+The following objects are masked from ‘package:matrixStats’:
+
+    anyMissing, rowMedians
+
+here() starts at /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC
+
+Attaching package: ‘dplyr’
+
+The following object is masked from ‘package:Biobase’:
+
+    combine
+
+The following objects are masked from ‘package:GenomicRanges’:
+
+    intersect, setdiff, union
+
+The following object is masked from ‘package:GenomeInfoDb’:
+
+    intersect
+
+The following objects are masked from ‘package:IRanges’:
+
+    collapse, desc, intersect, setdiff, slice, union
+
+The following objects are masked from ‘package:S4Vectors’:
+
+    first, intersect, rename, setdiff, setequal, union
+
+The following objects are masked from ‘package:BiocGenerics’:
+
+    combine, intersect, setdiff, union
+
+The following object is masked from ‘package:matrixStats’:
+
+    count
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+       Sample..   Tissue  Brain Round PI.NeuN Nuclei.Sorted Nuclei.Targeted
+1       32c_scp  HPC-PI+ Br6522     4      PI          9000            6000
+2   1c_dACC_MRV dACC-PI+ Br2720     1 PI only          9000            6000
+3   2c_dACC_MRV dACC-PI+ Br6432     1 PI only          9000            6000
+4   3c_dACC_MRV dACC-PI+ Br6471     1 PI only          9000            6000
+5   4c_dACC_MRV dACC-PI+ Br6522     1 PI only          9000            6000
+6   5c_dACC_SVB dACC-PI+ Br2743     2      PI          9000            6000
+7   6c_dACC_SVB dACC-PI+ Br3942     2      PI          9000            6000
+8   7c_dACC_SVB dACC-PI+ Br6423     2      PI          9000            6000
+9   8c_dACC_SVB dACC-PI+ Br8325     3      PI          9000            6000
+10  9c_dACC_SVB dACC-PI+ Br8492     3      PI          9000            6000
+11 10c_dACC_SVB dACC-PI+ Br8667     3      PI          9000            6000
+   cDNA.Amp.Cycle Agilent..cDNA..pg.ul Dilution.Factor Final..cDNA..pg.ul
+1              12               1282.9              12           15394.80
+2              12             5,255.18               2           10510.36
+3              12             5,171.53               2           10343.06
+4              12             4,570.35               2            9140.70
+5              12             3,738.24               2            7476.48
+6              12              8157.56               1            8157.56
+7              12              4965.29               2            9930.58
+8              12              5069.19               3           15207.57
+9              12              5751.74               1            5751.74
+10             12              5953.98               1            5953.98
+11             12              4177.67               2            8355.34
+   Total.cDNA.ng cDNA.Input SI.cycles Ave.frag.length Agilent..lib..pg.ul
+1         615.79     153.95        12             447             2079.50
+2         420.41     105.10        13             568             4284.59
+3         413.72     103.43        13             563             3503.08
+4         365.63      91.41        13             525             6332.79
+5         299.06      74.76        13             537             3415.49
+6         326.30      81.58        13             462             3351.93
+7         397.22      99.31        13             451             3293.09
+8         608.30     152.08        12             452             3885.06
+9         230.07      57.52        14             455             2812.07
+10        238.16      59.54        14             507             3150.44
+11        334.21      83.55        13             465             2918.91
+   Dilution.Factor.1 Final..lib..pg.ul index_name  index.i7.
+1                  8          16636.00  SS-TT-C10 AGAATGGTTT
+2                  5          21422.95  SI-TT-G11 GATAACCTGC
+3                  8          28024.64  SI-TT-H11 ACAATCGATC
+4                  3          18998.37  SI-TT-A12 CACCGCACCA
+5                  5          17077.45  SI-TT-B12 CGTCAAGGGC
+6                  6          20111.58   SI-TT-C1 TGCGCGGTTT
+7                  6          19758.54   SI-TT-D1 TGCAATGTTC
+8                  6          23310.36   SI-TT-E1 TTATTCGAGG
+9                 14          39368.98   SI-TT-F1 AAGATTGGAT
+10                13          40955.72   SI-TT-G1 TGTAGTCATT
+11                10          29189.10   SI-TT-H1 ACAATGTGAA
+   index2_workflow_a.i5. index2_workflow_b.i5. Est.Read.Pairs..million.
+1             GAGGGTGGGA            TCCCACCCTC                      300
+2             CATTAGAAAC            GTTTCTAATG                      300
+3             TGACGGAATG            CATTCCGTCA                      300
+4             GACTGTCAAT            ATTGACAGTC                      300
+5             TAGGTCACTC            GAGTGACCTA                      300
+6             CAAGGATAAA            TTTATCCTTG                      300
+7             GCTTGTCGAA            TTCGACAAGC                      300
+8             CTGTCCTGCT            AGCAGGACAG                      300
+9             AGCGGGATTT            AAATCCCGCT                      300
+10            CTTGATCGTA            TACGATCAAG                      300
+11            CGTACCGTTA            TAACGGTACG                      300
+Read 10x data and create sce - 2023-06-26 14:38:52.32335
+Error: cannot allocate vector of size 3.1 Gb
+Execution halted
+**** Job ends ****
+Mon Jun 26 14:44:22 EDT 2023
+Adding LIBD modules
+Loading git
+Loading LIBD module for git-status-size/github
+Loading LIBD module for git-lfs/2.8.0
+Loading LIBD module for rmate/1.5.10
+Loading LIBD module for ruby/3.1.2
+Loading conda_R/4.3
+**** Job starts ****
+Mon Jun 26 15:34:12 EDT 2023
+**** JHPCE info ****
+User: rmiller
+Job id: 3586266
+Job name: spatialdACC_build_sce
+Hostname: compute-127.cm.cluster
+Task id: undefined
+Unloading conda_R/4.3
+Loading conda_R/4.3
+
+Currently Loaded Modules:
+  1) matlab/R2019a     6) COMMUNITY_CENTOS7_DEFAULT_ENV  11) ruby/3.1.2
+  2) stata/17          7) JHPCE_CENTOS7_DEFAULT_ENV      12) rmate/1.5.10
+  3) JHPCE_tools/1.0   8) git-status-size/github         13) conda/3-4.11.0
+  4) sge/8.1.9         9) git/2.28.0                     14) conda_R/4.3
+  5) gcc/4.4.7        10) git-lfs/2.8.0
+
+ 
+
+Loading required package: SummarizedExperiment
+Loading required package: MatrixGenerics
+Loading required package: matrixStats
+
+Attaching package: ‘MatrixGenerics’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+    colWeightedMeans, colWeightedMedians, colWeightedSds,
+    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+    rowWeightedSds, rowWeightedVars
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+    table, tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:utils’:
+
+    findMatches
+
+The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+Attaching package: ‘Biobase’
+
+The following object is masked from ‘package:MatrixGenerics’:
+
+    rowMedians
+
+The following objects are masked from ‘package:matrixStats’:
+
+    anyMissing, rowMedians
+
+here() starts at /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC
+
+Attaching package: ‘dplyr’
+
+The following object is masked from ‘package:Biobase’:
+
+    combine
+
+The following objects are masked from ‘package:GenomicRanges’:
+
+    intersect, setdiff, union
+
+The following object is masked from ‘package:GenomeInfoDb’:
+
+    intersect
+
+The following objects are masked from ‘package:IRanges’:
+
+    collapse, desc, intersect, setdiff, slice, union
+
+The following objects are masked from ‘package:S4Vectors’:
+
+    first, intersect, rename, setdiff, setequal, union
+
+The following objects are masked from ‘package:BiocGenerics’:
+
+    combine, intersect, setdiff, union
+
+The following object is masked from ‘package:matrixStats’:
+
+    count
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+       Sample..   Tissue  Brain Round PI.NeuN Nuclei.Sorted Nuclei.Targeted
+1       32c_scp  HPC-PI+ Br6522     4      PI          9000            6000
+2   1c_dACC_MRV dACC-PI+ Br2720     1 PI only          9000            6000
+3   2c_dACC_MRV dACC-PI+ Br6432     1 PI only          9000            6000
+4   3c_dACC_MRV dACC-PI+ Br6471     1 PI only          9000            6000
+5   4c_dACC_MRV dACC-PI+ Br6522     1 PI only          9000            6000
+6   5c_dACC_SVB dACC-PI+ Br2743     2      PI          9000            6000
+7   6c_dACC_SVB dACC-PI+ Br3942     2      PI          9000            6000
+8   7c_dACC_SVB dACC-PI+ Br6423     2      PI          9000            6000
+9   8c_dACC_SVB dACC-PI+ Br8325     3      PI          9000            6000
+10  9c_dACC_SVB dACC-PI+ Br8492     3      PI          9000            6000
+11 10c_dACC_SVB dACC-PI+ Br8667     3      PI          9000            6000
+   cDNA.Amp.Cycle Agilent..cDNA..pg.ul Dilution.Factor Final..cDNA..pg.ul
+1              12               1282.9              12           15394.80
+2              12             5,255.18               2           10510.36
+3              12             5,171.53               2           10343.06
+4              12             4,570.35               2            9140.70
+5              12             3,738.24               2            7476.48
+6              12              8157.56               1            8157.56
+7              12              4965.29               2            9930.58
+8              12              5069.19               3           15207.57
+9              12              5751.74               1            5751.74
+10             12              5953.98               1            5953.98
+11             12              4177.67               2            8355.34
+   Total.cDNA.ng cDNA.Input SI.cycles Ave.frag.length Agilent..lib..pg.ul
+1         615.79     153.95        12             447             2079.50
+2         420.41     105.10        13             568             4284.59
+3         413.72     103.43        13             563             3503.08
+4         365.63      91.41        13             525             6332.79
+5         299.06      74.76        13             537             3415.49
+6         326.30      81.58        13             462             3351.93
+7         397.22      99.31        13             451             3293.09
+8         608.30     152.08        12             452             3885.06
+9         230.07      57.52        14             455             2812.07
+10        238.16      59.54        14             507             3150.44
+11        334.21      83.55        13             465             2918.91
+   Dilution.Factor.1 Final..lib..pg.ul index_name  index.i7.
+1                  8          16636.00  SS-TT-C10 AGAATGGTTT
+2                  5          21422.95  SI-TT-G11 GATAACCTGC
+3                  8          28024.64  SI-TT-H11 ACAATCGATC
+4                  3          18998.37  SI-TT-A12 CACCGCACCA
+5                  5          17077.45  SI-TT-B12 CGTCAAGGGC
+6                  6          20111.58   SI-TT-C1 TGCGCGGTTT
+7                  6          19758.54   SI-TT-D1 TGCAATGTTC
+8                  6          23310.36   SI-TT-E1 TTATTCGAGG
+9                 14          39368.98   SI-TT-F1 AAGATTGGAT
+10                13          40955.72   SI-TT-G1 TGTAGTCATT
+11                10          29189.10   SI-TT-H1 ACAATGTGAA
+   index2_workflow_a.i5. index2_workflow_b.i5. Est.Read.Pairs..million.
+1             GAGGGTGGGA            TCCCACCCTC                      300
+2             CATTAGAAAC            GTTTCTAATG                      300
+3             TGACGGAATG            CATTCCGTCA                      300
+4             GACTGTCAAT            ATTGACAGTC                      300
+5             TAGGTCACTC            GAGTGACCTA                      300
+6             CAAGGATAAA            TTTATCCTTG                      300
+7             GCTTGTCGAA            TTCGACAAGC                      300
+8             CTGTCCTGCT            AGCAGGACAG                      300
+9             AGCGGGATTT            AAATCCCGCT                      300
+10            CTTGATCGTA            TACGATCAAG                      300
+11            CGTACCGTTA            TAACGGTACG                      300
+Read 10x data and create sce - 2023-06-26 15:34:24.043914
+RDone - 2023-06-26 15:39:26.684602
+class: SingleCellExperiment 
+dim: 36601 19473661 
+metadata(1): Samples
+assays(1): counts
+rownames(36601): MIR1302-2HG FAM138A ... AC007325.4 AC007325.2
+rowData names(7): source type ... gene_type Symbol.uniq
+colnames(19473661): 1_AAACCCAAGAAACCCA-1 1_AAACCCAAGAAACTCA-1 ...
+  10_TTTGTTGTCTTTGCTG-1 10_TTTGTTGTCTTTGGAG-1
+colData names(7): Sample Barcode ... brain round
+reducedDimNames(0):
+mainExpName: NULL
+altExpNames(0):
+[1] "Reproducibility information:"
+[1] "2023-06-26 16:09:13 EDT"
+    user   system  elapsed 
+1925.517  168.202 2099.918 
+─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.3.1 Patched (2023-06-26 r84601)
+ os       CentOS Linux 7 (Core)
+ system   x86_64, linux-gnu
+ ui       X11
+ language (EN)
+ collate  en_US.UTF-8
+ ctype    en_US.UTF-8
+ tz       US/Eastern
+ date     2023-06-26
+ pandoc   3.1.1 @ /jhpce/shared/jhpce/core/conda/miniconda3-4.11.0/envs/svnR-4.3/bin/pandoc
+
+─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+ package              * version   date (UTC) lib source
+ beachmat               2.16.0    2023-04-25 [2] Bioconductor
+ Biobase              * 2.60.0    2023-04-25 [2] Bioconductor
+ BiocGenerics         * 0.46.0    2023-04-25 [2] Bioconductor
+ BiocIO                 1.10.0    2023-04-25 [2] Bioconductor
+ BiocParallel           1.34.2    2023-05-22 [2] Bioconductor
+ Biostrings             2.68.1    2023-05-16 [2] Bioconductor
+ bitops                 1.0-7     2021-04-24 [2] CRAN (R 4.3.0)
+ cli                    3.6.1     2023-03-23 [2] CRAN (R 4.3.0)
+ codetools              0.2-19    2023-02-01 [3] CRAN (R 4.3.1)
+ crayon                 1.5.2     2022-09-29 [2] CRAN (R 4.3.0)
+ DelayedArray           0.26.3    2023-05-22 [2] Bioconductor
+ DelayedMatrixStats     1.22.1    2023-06-09 [2] Bioconductor
+ dplyr                * 1.1.2     2023-04-20 [2] CRAN (R 4.3.0)
+ dqrng                  0.3.0     2021-05-01 [2] CRAN (R 4.3.0)
+ DropletUtils         * 1.20.0    2023-04-25 [2] Bioconductor
+ edgeR                  3.42.4    2023-05-31 [2] Bioconductor
+ fansi                  1.0.4     2023-01-22 [2] CRAN (R 4.3.0)
+ generics               0.1.3     2022-07-05 [2] CRAN (R 4.3.0)
+ GenomeInfoDb         * 1.36.1    2023-06-21 [2] Bioconductor
+ GenomeInfoDbData       1.2.10    2023-04-11 [2] Bioconductor
+ GenomicAlignments      1.36.0    2023-04-25 [2] Bioconductor
+ GenomicRanges        * 1.52.0    2023-04-25 [2] Bioconductor
+ glue                   1.6.2     2022-02-24 [2] CRAN (R 4.3.0)
+ HDF5Array              1.28.1    2023-05-01 [2] Bioconductor
+ here                 * 1.0.1     2020-12-13 [2] CRAN (R 4.3.0)
+ IRanges              * 2.34.1    2023-06-22 [2] Bioconductor
+ lattice                0.21-8    2023-04-05 [3] CRAN (R 4.3.1)
+ lifecycle              1.0.3     2022-10-07 [2] CRAN (R 4.3.0)
+ limma                  3.56.2    2023-06-04 [2] Bioconductor
+ locfit                 1.5-9.8   2023-06-11 [2] CRAN (R 4.3.1)
+ magrittr               2.0.3     2022-03-30 [2] CRAN (R 4.3.0)
+ Matrix                 1.5-4.1   2023-05-18 [3] CRAN (R 4.3.1)
+ MatrixGenerics       * 1.12.2    2023-06-09 [2] Bioconductor
+ matrixStats          * 1.0.0     2023-06-02 [2] CRAN (R 4.3.0)
+ pillar                 1.9.0     2023-03-22 [2] CRAN (R 4.3.0)
+ pkgconfig              2.0.3     2019-09-22 [2] CRAN (R 4.3.0)
+ R.methodsS3            1.8.2     2022-06-13 [2] CRAN (R 4.3.0)
+ R.oo                   1.25.0    2022-06-12 [2] CRAN (R 4.3.0)
+ R.utils                2.12.2    2022-11-11 [2] CRAN (R 4.3.0)
+ R6                     2.5.1     2021-08-19 [2] CRAN (R 4.3.0)
+ Rcpp                   1.0.10    2023-01-22 [2] CRAN (R 4.3.0)
+ RCurl                  1.98-1.12 2023-03-27 [2] CRAN (R 4.3.0)
+ restfulr               0.0.15    2022-06-16 [2] CRAN (R 4.3.0)
+ rhdf5                  2.44.0    2023-04-25 [2] Bioconductor
+ rhdf5filters           1.12.1    2023-04-30 [2] Bioconductor
+ Rhdf5lib               1.22.0    2023-04-25 [2] Bioconductor
+ rjson                  0.2.21    2022-01-09 [2] CRAN (R 4.3.0)
+ rlang                  1.1.1     2023-04-28 [2] CRAN (R 4.3.0)
+ rprojroot              2.0.3     2022-04-02 [2] CRAN (R 4.3.0)
+ Rsamtools              2.16.0    2023-04-25 [2] Bioconductor
+ rtracklayer          * 1.60.0    2023-04-25 [2] Bioconductor
+ S4Arrays               1.0.4     2023-05-14 [2] Bioconductor
+ S4Vectors            * 0.38.1    2023-05-02 [2] Bioconductor
+ scuttle                1.10.1    2023-05-02 [2] Bioconductor
+ sessioninfo          * 1.2.2     2021-12-06 [2] CRAN (R 4.3.0)
+ SingleCellExperiment * 1.22.0    2023-04-25 [2] Bioconductor
+ sparseMatrixStats      1.12.1    2023-06-20 [2] Bioconductor
+ SummarizedExperiment * 1.30.2    2023-06-06 [2] Bioconductor
+ tibble                 3.2.1     2023-03-20 [2] CRAN (R 4.3.0)
+ tidyselect             1.2.0     2022-10-10 [2] CRAN (R 4.3.0)
+ utf8                   1.2.3     2023-01-31 [2] CRAN (R 4.3.0)
+ vctrs                  0.6.3     2023-06-14 [2] CRAN (R 4.3.1)
+ XML                    3.99-0.14 2023-03-19 [2] CRAN (R 4.3.0)
+ XVector                0.40.0    2023-04-25 [2] Bioconductor
+ yaml                   2.3.7     2023-01-23 [2] CRAN (R 4.3.0)
+ zlibbioc               1.46.0    2023-04-25 [2] Bioconductor
+
+ [1] /users/rmiller/R/4.3
+ [2] /jhpce/shared/jhpce/core/conda/miniconda3-4.11.0/envs/svnR-4.3/R/4.3/lib64/R/site-library
+ [3] /jhpce/shared/jhpce/core/conda/miniconda3-4.11.0/envs/svnR-4.3/R/4.3/lib64/R/library
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+**** Job ends ****
+Mon Jun 26 16:09:25 EDT 2023

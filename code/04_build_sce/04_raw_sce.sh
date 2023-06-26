@@ -1,6 +1,7 @@
 #!/bin/bash
 #$ -cwd
-#$ -l mem_free=20G,h_vmem=20G,h_fsize=100G
+#$ -pe local 4
+#$ -l mem_free=20G,h_vmem=20G,h_fsize=150G
 #$ -N spatialdACC_build_sce
 #$ -o logs/raw_sce.txt
 #$ -e logs/raw_sce.txt

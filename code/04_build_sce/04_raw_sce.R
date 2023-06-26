@@ -12,7 +12,7 @@ library("dplyr")
 
 # Read in the CSV file as a data frame
 tmp <- read.delim(here("raw-data","sample_info",
-                "2023.03.22_dACC_Chromium_round1_Br2720_6432_6471_6522_summary.csv"),
+                "running-Chromium_summary.csv"),
                 header = T,sep=',')
 
 # View the subsetted data
@@ -99,8 +99,8 @@ colData(sce) <- new_col
 
 ## Inspect object
 sce
-# class: SingleCellExperiment 
-# dim: 36601 2440869 
+# class: SingleCellExperiment
+# dim: 36601 2440869
 # metadata(1): Samples
 # assays(1): counts
 # rownames(36601): MIR1302-2HG FAM138A ... AC007325.4 AC007325.2
@@ -114,7 +114,7 @@ sce
 
 
 if (!dir.exists(here("processed-data", "04_build_sce"))) dir.create(here("processed-data", "04_build_sce"))
-save(sce, file = here("processed-data", "04_build_sce", "sce_raw.rda"))
+save(sce, file = here("processed-data", "04_build_sce", "1c-10c_sce_raw.rda"))
 
 
 ## Size in Gb
@@ -132,7 +132,7 @@ session_info()
 # setting  value
 # version  R version 4.2.3 Patched (2023-04-07 r84211)
 # os       CentOS Linux 7 (Core)
-# 
+#
 # cli                    3.6.1     2023-03-23 [2] CRAN (R 4.2.3)
 # codetools              0.2-19    2023-02-01 [3] CRAN (R 4.2.3)
 # colorout             * 1.2-2     2023-02-15 [1] Github (jalvesaq/colorout@79931fd)
