@@ -1,0 +1,49 @@
+**** Updating permissions for /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC ****
+Fri Jun 30 12:07:47 EDT 2023
+
+**** Note that warning/error messages are expected for files and directories that you are not the owner of.
+The expected warning/error messages are: 
+    'chgrp: changing group of ‘some_JHPCE_file_path’: Operation not permitted'
+ or 'chmod: changing permissions of ‘some_JHPCE_file_path’: Operation not permitted'.
+If for many files you are not the owner (creator of), you will get lots of these warning/error messages, this is expected!
+Error or warnings with another syntax are likely real. ****
+
+You will need to re-run this script anytime you upload files to JHPCE through Cyberduck / WinSCP as they break the ACLs.
+Every new team member on a given project will likely also need to run this script once.
+
+For more details about setting permissions at JHPCE using ACLs, please check https://lcolladotor.github.io/bioc_team_ds/organizing-your-work.html#setting-jhpce-file-permissions.
+
+This message will be displayed for 90 seconds before the script proceeds.
+That way you will have time enough to read it and/or copy it.
+
+**** Setting read (R), write (W), and execute (X) permissions for hickslab ****
+Fri Jun 30 12:09:22 EDT 2023
+
+**** Setting read (R), write (W), and execute (X) permissions for lieber_lcolladotor ****
+Fri Jun 30 12:16:47 EDT 2023
+
+**** Setting read (R), write (W), and execute (X) permissions for lieber_marmaypag ****
+Fri Jun 30 12:17:06 EDT 2023
+
+**** Running chgrp hickslab ****
+Fri Jun 30 12:17:22 EDT 2023
+
+**** Setting the group sticky bit ****
+Fri Jun 30 12:17:42 EDT 2023
+
+**** Checking the nfs4 (ACLs) settings ****
+Fri Jun 30 12:17:50 EDT 2023
+
+# file: /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC
+A::OWNER@:rwaDxtTcCy
+A::GROUP@:rwaDxtcy
+A:g:lieber_lcolladotor@cm.cluster:rwaDxtcy
+A:g:lieber_marmaypag@cm.cluster:rwaDxtcy
+A:g:hickslab@cm.cluster:rwaDxtcy
+A::EVERYONE@:tcy
+A:fdi:OWNER@:rwaDxtTcCy
+A:fdi:GROUP@:rwaDxtcy
+A:fdig:lieber_lcolladotor@cm.cluster:rwaDxtcy
+A:fdig:lieber_marmaypag@cm.cluster:rwaDxtcy
+A:fdig:hickslab@cm.cluster:rwaDxtcy
+A:fdi:EVERYONE@:tcy
