@@ -73,7 +73,7 @@ reducedDim(spe,'pp-GLM-PCA') <- reducedDim(res,'pp-GLM-PCA')
 message("Running runUMAP()")
 Sys.time()
 set.seed(11)
-spe <- runUMAP(spe, dimred = "pp-GLM-PCA")
+spe <- runUMAP(spe, dimred = "pp-GLM-PCA", name="UMAP-GLM-PCA")
 colnames(reducedDim(spe, "UMAP-GLM-PCA")) <- c("UMAP1", "UMAP2")
 Sys.time()
 
