@@ -33,4 +33,4 @@ plot_hexbin_meta(hex, col = "sample_id", action = "majority", xlab = "UMAP1", yl
 
 dev.off()
 
-save(spe, file = here::here("processed-data", "06_preprocessing", "spe_harmony.Rdata"))
+save(spe, file = here::here("processed-data", "07_batch_correction", "spe_harmony.Rdata"))
