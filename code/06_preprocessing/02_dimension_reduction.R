@@ -74,13 +74,13 @@ message("Running runUMAP()")
 Sys.time()
 set.seed(11)
 spe <- runUMAP(spe, dimred = "pp-GLM-PCA")
-colnames(reducedDim(spe, "UMAP")) <- c("UMAP1", "UMAP2")
+colnames(reducedDim(spe, "UMAP-GLM-PCA")) <- c("UMAP1", "UMAP2")
 Sys.time()
 
 #explore UMAP results
 pdf(file = here::here("plots", "06_preprocessing", "sel_poisson_pearson_UMAP.pdf"))
 
-hex <- make_hexbin(spe, nbins = 100, dimension_reduction = "UMAP", use_dims = c(1, 2))
+hex <- make_hexbin(spe, nbins = 100, dimension_reduction = "UMAP-GLM-PCA", use_dims = c(1, 2))
 label_df <- make_hexbin_label(hex, col = "brnum")
 plot_hexbin_meta(hex, col = "brnum", action = "majority", xlab = "UMAP1", ylab = "UMAP2") + ggtitle("Brain") + theme(legend.position = "right")
 
