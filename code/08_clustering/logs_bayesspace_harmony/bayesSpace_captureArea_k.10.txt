@@ -1,0 +1,24 @@
+**** Job starts ****
+Wed Jul 19 15:23:44 EDT 2023
+**** JHPCE info ****
+User: kshah
+Job id: 3635282
+Job name: bayesSpace_captureArea_k_many
+Hostname: compute-072.cm.cluster
+Task id: 10
+Loading conda_R/4.2.x
+
+Currently Loaded Modules:
+  1) matlab/R2019a     6) COMMUNITY_CENTOS7_DEFAULT_ENV
+  2) stata/17          7) JHPCE_CENTOS7_DEFAULT_ENV
+  3) JHPCE_tools/1.0   8) conda/3-4.11.0
+  4) sge/8.1.9         9) conda_R/4.2.x
+  5) gcc/4.4.7
+
+ 
+
+[1] 29720 77553
+Running spatialCluster()
+[1] "2023-07-19 15:27:29 EDT"
+Neighbors were identified for 77553 out of 77553 spots.
+Fitting model...
