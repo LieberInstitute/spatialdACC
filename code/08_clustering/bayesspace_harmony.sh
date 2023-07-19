@@ -5,7 +5,7 @@
 #$ -o logs_bayesspace_harmony/bayesSpace_captureArea_k.$TASK_ID.txt
 #$ -e logs_bayesspace_harmony/bayesSpace_captureArea_k.$TASK_ID.txt
 #$ -m e
-#$ -t 10-11
+#$ -t 10-20
 #$ -tc 2
 
 echo "**** Job starts ****"
@@ -19,7 +19,7 @@ echo "Hostname: ${HOSTNAME}"
 echo "Task id: ${SGE_TASK_ID}"
 
 ## Load the R module (absent since the JHPCE upgrade to CentOS v7)
-module load conda_R
+module load conda_R/devel
 
 ## List current modules for reproducibility
 module list
