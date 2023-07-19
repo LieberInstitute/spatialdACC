@@ -8,6 +8,7 @@ suppressPackageStartupMessages({
     library("RColorBrewer")
     library("ggplot2")
     library("gridExtra")
+    library("Polychrome")
 })
 
 load(here("processed-data", "07_batch_correction", "spe_harmony.Rdata"))
@@ -48,16 +49,16 @@ for (i in seq_along(brains)){
     print(length(samples))
 
     if (length(samples) == 1){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = clustV, colors = cols, point_size = 2, ... = paste0("_", brains[i]))
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = clustV, colors = cols, point_size = 4, ... = paste0("_", brains[i]))
         grid.arrange(p1, nrow = 1)
     } else if (length(samples) == 2){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = clustV, colors = cols, point_size = 2, ... = paste0("_", brains[i]))
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = clustV, colors = cols, point_size = 2, ... = paste0("_", brains[i]))
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = clustV, colors = cols, point_size = 3, ... = paste0("_", brains[i]))
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = clustV, colors = cols, point_size = 3, ... = paste0("_", brains[i]))
         grid.arrange(p1, p2, nrow = 2)
     } else if (length(samples) == 3){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = clustV, colors = cols, point_size = 2, ... = paste0("_", brains[i]))
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = clustV, colors = cols, point_size = 2, ... = paste0("_", brains[i]))
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = clustV, colors = cols, point_size = 2, ... = paste0("_", brains[i]))
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = clustV, colors = cols, point_size = 3, ... = paste0("_", brains[i]))
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = clustV, colors = cols, point_size = 3, ... = paste0("_", brains[i]))
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = clustV, colors = cols, point_size = 3, ... = paste0("_", brains[i]))
         grid.arrange(p1, p2, p3, nrow = 2)
     }
 }
