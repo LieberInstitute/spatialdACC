@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -cwd
-#$ -l mem_free=30G,h_vmem=30G,h_fsize=30G
+#$ -l mem_free=50G,h_vmem=50G,h_fsize=60G
 #$ -N bayesSpace_captureArea_k_many
 #$ -o logs_bayesspace_harmony/bayesSpace_captureArea_k.$TASK_ID.txt
 #$ -e logs_bayesspace_harmony/bayesSpace_captureArea_k.$TASK_ID.txt
