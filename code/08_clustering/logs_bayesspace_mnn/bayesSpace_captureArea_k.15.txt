@@ -1,11 +1,11 @@
 **** Job starts ****
-Thu Jul 20 09:52:20 EDT 2023
+Fri Jul 21 01:06:43 EDT 2023
 **** JHPCE info ****
 User: kshah
-Job id: 3635787
+Job id: 3636478
 Job name: bayesSpace_captureArea_k_many
-Hostname: compute-072.cm.cluster
-Task id: 11
+Hostname: compute-122.cm.cluster
+Task id: 15
 Loading conda_R/devel
 
 Currently Loaded Modules:
@@ -23,11 +23,11 @@ Warning message:
 replacing previous import ‘utils::findMatches’ by ‘S4Vectors::findMatches’ when loading ‘AnnotationDbi’ 
 [1] 29720 77553
 Running spatialCluster()
-[1] "2023-07-20 09:55:53 EDT"
+[1] "2023-07-21 01:08:43 EDT"
 Neighbors were identified for 77553 out of 77553 spots.
 Fitting model...
 Calculating labels using iterations 1000 through 10000.
-[1] "2023-07-20 20:18:37 EDT"
+[1] "2023-07-21 06:28:51 EDT"
 Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
 [1] 1
 [1] 1
@@ -42,4 +42,4 @@ Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite i
 null device 
           1 
 **** Job ends ****
-Thu Jul 20 20:20:00 EDT 2023
+Fri Jul 21 06:29:21 EDT 2023
