@@ -28,6 +28,8 @@ sample_info$sample_path[sample_info$slide == "V12N28-332"] <- file.path(here::he
 sample_info$sample_path[sample_info$slide == "V12N28-334" | sample_info$slide == "V12Y31-080"] <- file.path(here::here("processed-data", "01_spaceranger", "spaceranger_2023-03-14_SPag021323"), sample_info$sample_id[sample_info$slide == "V12N28-334" | sample_info$slide == "V12Y31-080"], "outs")
 sample_info$sample_path[sample_info$sample_id == "V12N28-334_A1"] <- file.path(here::here("processed-data", "01_spaceranger", "spaceranger_2023-04-03_SPag022423"), "V12N28-334_A1", "outs")
 
+sample_info$sample_path[sample_info$slide == "V12N28-333"] <- file.path(here::here("processed-data", "01_spaceranger", "spaceranger_if_2023-06-29_KMay061223"), sample_info$sample_id[sample_info$slide == "V12N28-333"], "outs")
+
 ##discard barnyard samples
 sample_info = sample_info[sample_info$sample_id != "V12Y31-080_D1" & sample_info$sample_id != "V12J03-002_D1",]
 
@@ -71,12 +73,12 @@ add_design <- function(spe) {
 spe <- add_design(spe)
 
 # dir.create(here::here("processed-data", "pilot_data_checks"), showWarnings = FALSE)
-save(spe, file = here::here("processed-data", "02_build_spe", "spe_raw.Rdata"))
+save(spe, file = here::here("processed-data", "02_build_spe", "spe_raw_wif.Rdata"))
 
 ## Size in Gb
-lobstr::obj_size(spe_raw)
+lobstr::obj_size(spe_raw_wif)
 # 5.141452 B
-dim(spe_raw)
+dim(spe_raw_wif)
 # 36601 159744
 
 ## Reproducibility information

@@ -1,0 +1,13 @@
+**** Job starts ****
+Wed Aug  2 11:11:04 AM EDT 2023
+**** JHPCE info ****
+User: rmiller
+Job id: 
+Job name: 
+Hostname: compute-111
+Task id: 
+character(0)
+[1] "2023-08-02 11:11:37 EDT"
+[1] "2023-08-02 11:15:24 EDT"
+**** Job ends ****
+Wed Aug  2 11:19:10 AM EDT 2023

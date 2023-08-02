@@ -1,0 +1,16 @@
+Loading conda_R/4.3
+
+Currently Loaded Modules:
+  1) JHPCE_ROCKY9_DEFAULT_ENV   3) conda/3-23.3.1
+  2) JHPCE_tools/3.0            4) conda_R/4.3
+
+ 
+
+2023-08-02 11:11:37.614256 SpatialExperiment::read10xVisium: reading basic data from SpaceRanger
+2023-08-02 11:14:27.300103 read10xVisiumAnalysis: reading analysis output from SpaceRanger
+2023-08-02 11:14:40.614181 add10xVisiumAnalysis: adding analysis output from SpaceRanger
+2023-08-02 11:14:43.295444 rtracklayer::import: reading the reference GTF file
+2023-08-02 11:15:19.704595 adding gene information to the SPE object
+2023-08-02 11:15:19.922246 adding information used by spatialLIBD
+Error: object 'spe_raw' not found
+Execution halted
