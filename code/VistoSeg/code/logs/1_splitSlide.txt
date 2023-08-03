@@ -1,0 +1,36 @@
+Adding LIBD modules
+Loading git
+Loading LIBD module for git-status-size/github
+Loading LIBD module for git-lfs/2.8.0
+Loading LIBD module for rmate/1.5.10
+Loading LIBD module for ruby/3.1.2
+Loading conda_R/4.3
+**** Job starts ****
+Wed Jul 12 14:07:44 EDT 2023
+**** JHPCE info ****
+User: rmiller
+Job id: 3624324
+Job name: splitSlide_IF.sh
+Hostname: compute-145.cm.cluster
+Task id: 1
+****
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                               March 8, 2019
+
+ 
+For online documentation, see https://www.mathworks.com/support
+For product information, visit www.mathworks.com.
+ 
+The IF image has 6 channels
+Splitting whole slide into individual capture areas
+Elapsed time is 3.981677 seconds.
+Elapsed time is 3.410287 seconds.
+Elapsed time is 3.425543 seconds.
+Elapsed time is 3.691468 seconds.
+Elapsed time is 3.407711 seconds.
+Elapsed time is 2.671469 seconds.
+>> **** Job ends ****
+Wed Jul 12 14:21:27 EDT 2023

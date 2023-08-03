@@ -2,7 +2,7 @@
 
 library("here")
 
-REDCap <- read.csv(file.path(here::here("raw-data", "sample_info", "Visium_DATA_2023-04-13_1440.csv")), header = TRUE, stringsAsFactors = FALSE)
+REDCap <- read.csv(file.path(here::here("raw-data", "sample_info", "Visium_DATA_2023-08-02_1027.csv")), header = TRUE, stringsAsFactors = FALSE)
 A1 <- subset(REDCap, select = c(
     "date", "slide", "experimenter", "species_a1", "sample_a1", "serial_a1", "adjacent_a1",
     "region_a1", "project_a1", "sample_number1_a1", "master_sheet1_a1", "experimenter1_a1"
