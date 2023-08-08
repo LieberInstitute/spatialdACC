@@ -1,13 +1,12 @@
 #!/bin/bash
 #$ -cwd
-#$ -l mem_free=10G,h_vmem=10G,h_fsize=80G
-#$ -pe local 8
+#$ -l mem_free=50G,h_vmem=50G,h_fsize=80G
 #$ -N precast_captureArea_k_many
 #$ -o logs_precast/precast_captureArea_k.$TASK_ID.txt
 #$ -e logs_precast/precast_captureArea_k.$TASK_ID.txt
 #$ -m e
 #$ -t 5-20
-#$ -tc 3
+#$ -tc 2
 
 echo "**** Job starts ****"
 date

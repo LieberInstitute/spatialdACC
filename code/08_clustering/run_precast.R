@@ -36,11 +36,12 @@ preobj@seulist
 
 PRECASTObj <- AddAdjList(preobj, platform = "Visium")
 
-PRECASTObj <- AddParSetting(PRECASTObj, Sigma_equal = FALSE, coreNum = 8, maxIter = 30, verbose = TRUE)
+PRECASTObj <- AddParSetting(PRECASTObj, Sigma_equal = FALSE,  maxIter = 30, verbose = TRUE)
 
 K <- as.numeric(Sys.getenv("SGE_TASK_ID"))
 
 tic()
+set.seed(1)
 PRECASTObj <- PRECAST(PRECASTObj, K = K)
 toc()
 
