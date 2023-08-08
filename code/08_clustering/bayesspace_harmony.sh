@@ -5,7 +5,7 @@
 #$ -o logs_bayesspace_harmony/bayesSpace_captureArea_k.$TASK_ID.txt
 #$ -e logs_bayesspace_harmony/bayesSpace_captureArea_k.$TASK_ID.txt
 #$ -m e
-#$ -t 10-20
+#$ -t 6-9
 #$ -tc 2
 
 echo "**** Job starts ****"

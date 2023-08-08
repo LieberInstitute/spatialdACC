@@ -5,7 +5,7 @@
 #$ -o logs_bayesspace_mnn/bayesSpace_captureArea_k.$TASK_ID.txt
 #$ -e logs_bayesspace_mnn/bayesSpace_captureArea_k.$TASK_ID.txt
 #$ -m e
-#$ -t 10-20
+#$ -t 5-9
 #$ -tc 2
 
 echo "**** Job starts ****"
