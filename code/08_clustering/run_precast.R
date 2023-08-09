@@ -14,12 +14,12 @@ suppressPackageStartupMessages({
 load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
 
 spe_to_seuratList <- function(spe){
-    uniq_brnum <- colData(spe)$brnum |> unique()
+    uniq_sample_id <- colData(spe)$sample_id |> unique()
 
-    # Create a seurat object for each unique brnum
-    map(uniq_brnum,
-        .f = function(bnum, spe){
-            ret_spe <- spe[, colData(spe)$brnum == bnum]
+    # Create a seurat object for each unique sample_id
+    map(uniq_sample_id,
+        .f = function(smpl_id, spe){
+            ret_spe <- spe[, colData(spe)$sample_id == smpl_id]
             ret_seurat <- spe_to_seurat(ret_spe)
 
             return(ret_seurat)
@@ -33,8 +33,7 @@ spe_to_seurat <- function(spe){
         counts=assays(spe)$counts,
         meta.data=data.frame(
             row=spatialCoords(spe)[,1],
-            col=spatialCoords(spe)[,2]),
-        spot_id = colData(spe_sub)$spot_id
+            col=spatialCoords(spe)[,2])
     )
 
     return(ret)
