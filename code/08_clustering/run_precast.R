@@ -13,6 +13,8 @@ suppressPackageStartupMessages({
 #start from spe without batch correction
 load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
 
+colnames(spe) <- spe$key
+
 seuList <- unique(spe$sample_id) |>
     set_names(unique(spe$sample_id)) |>
     map(.f = function(id) {
