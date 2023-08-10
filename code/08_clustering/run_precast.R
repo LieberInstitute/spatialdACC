@@ -29,7 +29,8 @@ seuList <- unique(spe$sample_id) |>
     })
 
 set.seed(1)
-preobj <- CreatePRECASTObject(seuList = seuList, gene.number=2000, selectGenesMethod='HVGs')
+preobj <- CreatePRECASTObject(seuList = seuList, gene.number=2000, selectGenesMethod='HVGs',
+                              premin.spots = 1, premin.features=1, postmin.spots=1, postmin.features=1)
 preobj@seulist
 
 PRECASTObj <- AddAdjList(preobj, platform = "Visium")
