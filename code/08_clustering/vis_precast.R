@@ -1,0 +1,70 @@
+setwd('/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/')
+suppressPackageStartupMessages({
+    library("here")
+    library("sessioninfo")
+    library("SpatialExperiment")
+    library("PRECAST")
+    library("tictoc")
+    library("dplyr")
+    library("purrr")
+    library("tidyverse")
+    library("spatialLIBD")
+    library("gridExtra")
+})
+
+load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
+colnames(spe) <- spe$key
+
+K <- as.numeric(Sys.getenv("SGE_TASK_ID"))
+load(file = here("processed-data", "08_clustering", "PRECAST", paste0("PRECASTObj_",K,".Rdata")))
+
+PRECASTObj <- SelectModel(PRECASTObj)
+seuInt <- IntegrateSpaData(PRECASTObj, species = "Human")
+
+# Merge with spe object
+col_data_df <- seuInt@meta.data |>
+    mutate(cluster = factor(cluster)) |>
+    rename_with(~ paste0("PRECAST_", .x)) |>
+    rownames_to_column(var = "key") |>
+    right_join(
+        colData(spe) |> data.frame(),
+        by = c("key"),
+        relationship = "one-to-one"
+    )
+
+rownames(col_data_df) <- colnames(spe)
+colData(spe)$PRECAST_cluster <- col_data_df$PRECAST_cluster
+
+precast_name <- paste0("PRECAST_captureArea_", K)
+
+cluster_export(
+    spe,
+    "PRECAST_cluster",
+    cluster_dir = here::here("processed-data", "08_clustering", "PRECAST", precast_name)
+)
+
+brains <- unique(spe$brnum)
+
+pdf(file = here::here("plots", "08_clustering", "PRECAST", paste0(precast_name, ".pdf")), width = 21, height = 20)
+
+for (i in seq_along(brains)){
+    speb <- spe[, which(spe$brnum == brains[i])]
+    samples <- unique(speb$sample_id)
+    print(length(samples))
+
+    if (length(samples) == 1){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, point_size = 4, ... = paste0("_", brains[i]))
+        grid.arrange(p1, nrow = 1)
+    } else if (length(samples) == 2){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, point_size = 3, ... = paste0("_", brains[i]))
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "PRECAST_cluster", colors = cols, point_size = 3, ... = paste0("_", brains[i]))
+        grid.arrange(p1, p2, nrow = 2)
+    } else if (length(samples) == 3){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, point_size = 3, ... = paste0("_", brains[i]))
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "PRECAST_cluster", colors = cols, point_size = 3, ... = paste0("_", brains[i]))
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "PRECAST_cluster", colors = cols, point_size = 3, ... = paste0("_", brains[i]))
+        grid.arrange(p1, p2, p3, nrow = 2)
+    }
+}
+
+dev.off()
