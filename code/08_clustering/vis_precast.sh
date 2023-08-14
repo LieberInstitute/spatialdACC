@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -cwd
-#$ -l mem_free=50G,h_vmem=50G,h_fsize=80G
+#$ -l mem_free=20G,h_vmem=20G,h_fsize=80G
 #$ -N vis_precast_captureArea_k_many
 #$ -o logs_precast/vis_precast_captureArea_k.$TASK_ID.txt
 #$ -e logs_precast/vis_precast_captureArea_k.$TASK_ID.txt

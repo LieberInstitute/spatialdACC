@@ -44,8 +44,6 @@ cluster_export(
 )
 
 brains <- unique(spe$brnum)
-samples <- unique(colData(spe)[, c("sample_id", "brnum")])
-rownames(samples) <- NULL
 
 pdf(file = here::here("plots", "08_clustering", "PRECAST", paste0(precast_name, ".pdf")), width = 21, height = 20)
 
@@ -68,6 +66,9 @@ for (i in seq_along(brains)){
         grid.arrange(p1, p2, p3, nrow = 2)
     }
 }
+
+samples <- unique(colData(spe)[, c("sample_id", "brnum")])
+rownames(samples) <- NULL
 
 for (i in 1:nrow(samples)) {
     p <- vis_clus(
