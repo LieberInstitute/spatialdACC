@@ -10,6 +10,7 @@ suppressPackageStartupMessages({
     library("tidyverse")
     library("spatialLIBD")
     library("gridExtra")
+    library("ggspavis")
 })
 
 load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
@@ -22,15 +23,14 @@ PRECASTObj <- SelectModel(PRECASTObj)
 seuInt <- IntegrateSpaData(PRECASTObj, species = "Human")
 
 # Merge with spe object
-col_data_df <- seuInt@meta.data |>
+cluster_df <- seuInt@meta.data |>
     mutate(cluster = factor(cluster)) |>
     rename_with(~ paste0("PRECAST_", .x)) |>
-    rownames_to_column(var = "key") |>
-    right_join(
-        colData(spe) |> data.frame(),
-        by = c("key"),
-        relationship = "one-to-one"
-    )
+    rownames_to_column(var = "key")
+
+col_data_df <- colData(spe) |>
+    data.frame() |>
+    left_join(cluster_df, by="key")
 
 rownames(col_data_df) <- colnames(spe)
 colData(spe)$PRECAST_cluster <- col_data_df$PRECAST_cluster
@@ -44,6 +44,8 @@ cluster_export(
 )
 
 brains <- unique(spe$brnum)
+samples <- unique(colData(spe)[, c("sample_id", "brnum")])
+rownames(samples) <- NULL
 
 pdf(file = here::here("plots", "08_clustering", "PRECAST", paste0(precast_name, ".pdf")), width = 21, height = 20)
 
@@ -65,6 +67,21 @@ for (i in seq_along(brains)){
         p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "PRECAST_cluster", colors = cols, point_size = 3, ... = paste0("_", brains[i]))
         grid.arrange(p1, p2, p3, nrow = 2)
     }
+}
+
+for (i in 1:nrow(samples)) {
+    p <- vis_clus(
+        spe = spe,
+        sampleid = samples$sample_id[i],
+        clustervar = "PRECAST_cluster",
+        colors = c("FALSE" = "yellow", "TRUE" = "blue"),
+        point_size = 2,
+        ... = paste0("_", samples$brnum[i])
+    )
+
+    p1 <- plotVisium(spe[, which(spe$sample_id == samples$sample_id[i])], spots = FALSE)
+
+    grid.arrange(p, p1, nrow = 1)
 }
 
 dev.off()
