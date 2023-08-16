@@ -1,8 +1,9 @@
 #!/bin/bash
-#SBATCH --mem=30G
-#SBATCH --job-name=spatialdACC_build_spe
-#SBATCH -o logs/raw_spe_IFo.txt
-#SBATCH -e logs/raw_spe_IFe.txt
+#$ -cwd
+#$ -l mem_free=20G,h_vmem=20G,h_fsize=100G
+#$ -N spatialdACC_build_spe
+#$ -o logs/raw_spe-sge-o.txt
+#$ -e logs/raw_spe-sge-e.txt
 
 
 echo "**** Job starts ****"
@@ -10,10 +11,10 @@ date
 
 echo "**** JHPCE info ****"
 echo "User: ${USER}"
-echo "Job id: ${SLURM_JOBID}"
-echo "Job name: ${SLURM_JOB_NAME}"
-echo "Hostname: ${SLURM_NODENAME}"
-echo "Task id: ${SLURM_ARRAY_TASK_ID}"
+echo "Job id: ${JOB_ID}"
+echo "Job name: ${JOB_NAME}"
+echo "Hostname: ${HOSTNAME}"
+echo "Task id: ${SGE_TASK_ID}"
 
 ## Load the R module (absent since the JHPCE upgrade to CentOS v7)
 module load conda_R/4.3

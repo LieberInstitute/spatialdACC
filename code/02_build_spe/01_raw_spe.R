@@ -33,10 +33,15 @@ sample_info$sample_path[sample_info$sample_id == "V12N28-334_A1"] <- file.path(h
 ##discard barnyard samples
 sample_info = sample_info[sample_info$sample_id != "V12Y31-080_D1" & sample_info$sample_id != "V12J03-002_D1",]
 
+#remove rows with na values
+sample_info <- na.omit(sample_info)
+
 stopifnot(all(file.exists(sample_info$sample_path)))
 
 ## Define the donor info using information from
 donor_info <- read.csv(file.path(here::here("raw-data", "sample_info", "demographicInfo_Geo.csv")), header = TRUE, stringsAsFactors = FALSE)
+
+
 
 ## check if all donor info included
 setdiff(sample_info$brnum, donor_info$brnum)
@@ -76,10 +81,10 @@ spe <- add_design(spe)
 save(spe, file = here::here("processed-data", "02_build_spe", "spe_raw_he.Rdata"))
 
 ## Size in Gb
-lobstr::obj_size(spe_raw_wif)
-# 5.141452 B
-dim(spe_raw_wif)
-# 36601 159744
+lobstr::obj_size(spe)
+# 3.33 GB
+dim(spe)
+# 36601 84864
 
 ## Reproducibility information
 print("Reproducibility information:")

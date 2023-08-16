@@ -39,7 +39,7 @@ write.table(Brain_nums, file = (here::here("raw-data", "sample_info", "ALLbrains
 Samples <- unique(paste0(REDCap_dACC$slide, "_", REDCap_dACC$array))
 write.table(Samples, file = (here::here("raw-data", "sample_info", "ALLsamples.txt")), row.names = FALSE, col.names = FALSE)
 
-save(REDCap_dACC, file = (here::here("code", "REDCap", "REDCap_dACC.rda")))
+save(REDCap_dACC, file = (here::here("code", "REDCap", "REDCap_dACC_if.rda")))
 
 ## https://jhu-genomics.slack.com/archives/CR9NYA0BF/p1650383126365919
 ## /dcs04/lieber/lcolladotor/rawDataTDSC_LIBD001/raw-data/2022-04-12_SPag033122/

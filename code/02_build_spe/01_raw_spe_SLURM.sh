@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --mem=30G
 #SBATCH --job-name=spatialdACC_build_spe
-#SBATCH -o logs/raw_spe_wIFo.txt
-#SBATCH -e logs/raw_spe_wIFe.txt
+#SBATCH -o logs/raw_spe-o.txt
+#SBATCH -e logs/raw_spe-e.txt
 
 
 echo "**** Job starts ****"
