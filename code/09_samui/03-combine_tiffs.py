@@ -16,7 +16,7 @@ Image.MAX_IMAGE_PIXELS = None
 # }
 
 sample_info_path = here(
-    'raw-data', 'Visium_IF_AD_ITG_MasterExcelSummarySheet.xlsx'
+    'raw-data', 'sample_info','dACC_Visium_summary_20230227_noImages.xlsx'
 )
 
 raw_img_path = here(
