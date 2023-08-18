@@ -16,11 +16,11 @@ Image.MAX_IMAGE_PIXELS = None
 # }
 
 sample_info_path = here(
-    'raw-data', 'sample_info','dACC_Visium_summary_20230227_noImages.xlsx'
+    'raw-data', 'sample_info','2023-06-09_LIBD_VisiumSPG_dACC_Linda.xlsx'
 )
 
 raw_img_path = here(
-    'processed-data', 'Images', 'VistoSeg', 'Capture_Areas', '{}.tif'
+    'processed-data', 'Images', 'VistoSeg', 'Capture_Areas', 'if-images', '{}.tif'
 )
 
 segmented_img_path = here(
@@ -28,7 +28,7 @@ segmented_img_path = here(
     '{}_segmentation.tif'
 )
 
-out_path = here('processed-data', '16_samui', 'combined_tiffs', '{}.tif')
+out_path = here('processed-data', '09_samui', 'combined_tiffs', '{}.tif')
 
 ################################################################################
 #   Read in sample info and clean

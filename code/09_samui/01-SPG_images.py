@@ -12,21 +12,21 @@ from loopy.sample import Sample
 from loopy.utils.utils import remove_dupes, Url
 
 spot_diameter_m = 55e-6 # 55-micrometer diameter for Visium spot
-img_channels = [
-    'DAPI', 'Abeta', 'pTau', 'GFAP', 'MAP2', 'Lipofuscin', 'segmented_Abeta',
-    'segmented_pTau'
-]
-default_channels = {'blue': 'DAPI', 'red': 'Abeta'}
-default_gene = 'SNAP25'
+# img_channels = [
+#     'DAPI', 'Abeta', 'pTau', 'GFAP', 'MAP2', 'Lipofuscin', 'segmented_Abeta',
+#     'segmented_pTau'
+# ]
+# default_channels = {'blue': 'DAPI', 'red': 'Abeta'}
+# default_gene = 'SNAP25'
 
 #   Names of continuous features expected to be columns in the observation 
 #   data (colData) of the AnnData
-spe_cont_features = ['PpTau', 'PAbeta']
+#spe_cont_features = ['PpTau', 'PAbeta']
 
 #   Diagnosis by brain number (not included in the sample_info sheet)
-sample_dx = {
-    'Br3854': 'AD', 'Br3873': 'AD', 'Br3880': 'AD', 'Br3874': 'control'
-}
+# sample_dx = {
+#     'Br3854': 'AD', 'Br3873': 'AD', 'Br3880': 'AD', 'Br3874': 'control'
+# }
 
 sample_info_path = here(
     'raw-data', 'Visium_IF_AD_ITG_MasterExcelSummarySheet.xlsx'
