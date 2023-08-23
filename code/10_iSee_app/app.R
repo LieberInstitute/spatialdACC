@@ -3,7 +3,7 @@ library("iSEE")
 library("shiny")
 library("paletteer")
 
-load("sce_for_iSEE_LS.rda", verbose = TRUE)
+load("1c-10c_sce_raw.rda", verbose = TRUE)
 
 stopifnot(all(unique(sce.ls.small$cellType.final) %in% names(cell_cols.clean)))
 
