@@ -10,15 +10,15 @@ spe_IF_in <- here(
 )
 
 spe_IF_out <- here(
-    "processed-data", "10_samui", "spe.h5ad"
+    "processed-data", "10_samui", "spe", "spg", "spe.h5ad"
 )
 
 spe_r_out <- here(
-    "processed-data", "10_samui", "spe_r.rds"
+    "processed-data", "10_samui", "spe", "spg", "spe_r.rds"
 )
 
 spe_out <- here(
-    "processed-data", "10_samui", "spe_py.rds"
+    "processed-data", "10_samui", "spe", "spg", "spe_py.rds"
 )
 
 spe <- load(spe_IF_in)
