@@ -2,8 +2,8 @@
 #$ -cwd
 #$ -l mem_free=24G,h_vmem=24G,h_fsize=24G
 #$ -N plots_diag
-#$ -o logs/plots_diag.txt
-#$ -e logs/plots_diag.txt
+#$ -o logs_diagnostics/plots_diag.txt
+#$ -e logs_diagnostics/plots_diag.txt
 #$ -m e
 echo "**** Job starts ****"
 date
@@ -16,4 +16,4 @@ echo "Task id: ${SGE_TASK_ID}"
 ## List current modules for reproducibility
 module list
 module load conda_R/devel
-Rscript cluster_diag.R
+Rscript cluster_diagnostics.R
