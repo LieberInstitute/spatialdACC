@@ -83,8 +83,6 @@ column_names <- colnames(colData(spe))[c(49:96)]
 
 purity.data.list <- list()
 
-i<-1
-
 for (i in seq_along(clustering_columns)) {
     current_clustering <- clustering_columns[, i]
     current_colname <- column_names[i]
@@ -93,17 +91,21 @@ for (i in seq_along(clustering_columns)) {
     current_clustering_no_na <- current_clustering[non_na_indices]
     reduced_dim_no_na <- reducedDim(spe, "pp-GLM-PCA")[non_na_indices,]
 
+    #create dataframe of purity data for current clustering
+    #purity and max calculated for each gene in current clustering
     purity.approx <- neighborPurity(reduced_dim_no_na, clusters = current_clustering_no_na)
     purity.data <- as.data.frame(purity.approx)
     purity.data$maximum <- factor(purity.data$maximum)
     purity.data$cluster <- current_clustering_no_na
 
+    #add dataframe of current clustering to list, named under current clustering
     purity.data.list[[current_colname]] <- purity.data
 }
 
 avg_purity <- data.frame(clustering = character(), cluster = integer(), avg_purity = numeric())
 for (colname in names(purity.data.list)) {
     purity.data <- purity.data.list[[colname]]
+    #for current clustering, compute average purity of genes per cluster
     avg_purity_col <- aggregate(purity.data$purity, by = list(purity.data$cluster), FUN = mean)
     colnames(avg_purity_col) <- c("cluster", "avg_purity")
     avg_purity_col$clustering <- colname
@@ -115,7 +117,8 @@ avg_purity$clustering <- factor(avg_purity$clustering, levels = names(purity.dat
 avg_purity$algorithm <- factor(ifelse(grepl("harmony", avg_purity$clustering), "Harmony - BS",
                                       ifelse(grepl("PRECAST", avg_purity$clustering), "PRECAST",
                                              "MNN - BS")))
-
+#dataframe has x values for clustering with x clusters
+#for example, box plot for harmony_bayesSpace_captureArea_5 is created with 5 average purity values for each of the 5 clusters
 save(avg_purity,file=here::here("plots","08_clustering","cluster_diagnostics","purity_boxplot.rda"))
 
 
