@@ -54,7 +54,7 @@ if (length(bad_clusters) > 0) {
 set.seed(7)
 fasthplus <- hpb(D = reducedDims(spe)$"pp-GLM-PCA", L = colData(spe)[[paste0("imported_bayesSpace_captureArea_", k)]], t = updated_t, r = 30)
 results <- data.frame(k = k, fasthplus = fasthplus)
-write.table(results, file = here::here("processed-data", "08_clustering", "cluster_diagnostics", "fasthplus", "fasthplus_results_bayesspace_harmony.csv"), append = TRUE)
+write.table(results, file = here::here("processed-data", "08_clustering", "cluster_diagnostics", "fasthplus", "fasthplus_results_bayesSpace_harmony.csv"), append = TRUE)
 
 ## Reproducibility information
 print("Reproducibility information:")

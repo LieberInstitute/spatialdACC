@@ -5,6 +5,7 @@
 #$ -o logs_diagnostics/discord_diag.txt
 #$ -e logs_diagnostics/discord_diag.txt
 #$ -m e
+#$ -t 5-20
 echo "**** Job starts ****"
 date
 echo "**** JHPCE info ****"
@@ -16,4 +17,4 @@ echo "Task id: ${SGE_TASK_ID}"
 ## List current modules for reproducibility
 module list
 module load conda_R/devel
-Rscript discordance_diagnostics.R
+Rscript discordance_diagnostics_bayesspace_harmony.R
