@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -cwd
-#$ -l mem_free=24G,h_vmem=24G,h_fsize=24G
-#$ -N plots_diag
+#$ -l mem_free=60G,h_vmem=60G,h_fsize=100G
+#$ -N discordance_diag
 #$ -o logs_diagnostics/discord_diag.txt
 #$ -e logs_diagnostics/discord_diag.txt
 #$ -m e

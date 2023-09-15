@@ -80,6 +80,7 @@ column_names <- colnames(colData(spe))[c(49:96)]
 hplus.list <- list()
 
 for (i in seq_along(clustering_columns)) {
+    print(i)
     current_clustering <- clustering_columns[, i]
     current_colname <- column_names[i]
 
