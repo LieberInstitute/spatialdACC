@@ -18,11 +18,11 @@ load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
 
 k <- as.numeric(Sys.getenv("SGE_TASK_ID"))
 
-#import bayesspace harmony clusters
+#import bayesspace mnn clusters
 bayesSpace_name <- paste0("bayesSpace_captureArea_", k)
 spe <- cluster_import(
     spe,
-    cluster_dir = here::here("processed-data", "08_clustering", "BayesSpace", "preprocess_harmony", bayesSpace_name)
+    cluster_dir = here::here("processed-data", "08_clustering", "BayesSpace", "preprocess_mnn", bayesSpace_name)
 )
 
 dim(reducedDims(spe)$"pp-GLM-PCA")
@@ -56,10 +56,10 @@ if (length(bad_clusters) > 0) {
 set.seed(7)
 fasthplus <- hpb(D = reducedDims(spe)$"pp-GLM-PCA", L = colData(spe)[[paste0("imported_bayesSpace_captureArea_", k)]], t = updated_t, r = 30)
 results <- data.frame(k = k, fasthplus = fasthplus)
-write.table(results, file = here::here("processed-data", "08_clustering", "cluster_diagnostics", "fasthplus", "fasthplus_results_bayesSpace_harmony.csv"),
+write.table(results, file = here::here("processed-data", "08_clustering", "cluster_diagnostics", "fasthplus", "fasthplus_results_bayesSpace_mnn.csv"),
 append = TRUE,
 row.names = FALSE,
-col.names =!file.exists(here("processed-data", "08_clustering", "cluster_diagnostics", "fasthplus", "fasthplus_results_bayesspace_harmony.csv")))
+col.names =!file.exists(here("processed-data", "08_clustering", "cluster_diagnostics", "fasthplus", "fasthplus_results_bayesspace_mnn.csv")))
 
 ## Reproducibility information
 print("Reproducibility information:")
