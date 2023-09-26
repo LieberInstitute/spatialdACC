@@ -1,0 +1,77 @@
+**** Job starts ****
+Fri Sep  1 11:21:14 EDT 2023
+**** JHPCE info ****
+User: kshah
+Job id: 3701029
+Job name: plots_diag
+Hostname: compute-124.cm.cluster
+Task id: undefined
+
+Currently Loaded Modules:
+  1) matlab/R2019a     5) gcc/4.4.7
+  2) stata/17          6) COMMUNITY_CENTOS7_DEFAULT_ENV
+  3) JHPCE_tools/1.0   7) JHPCE_CENTOS7_DEFAULT_ENV
+  4) sge/8.1.9
+
+ 
+
+Loading conda_R/devel
+Fatal error: cannot open file 'cluster_diag.R': No such file or directory
+**** Job starts ****
+Fri Sep  1 11:22:59 EDT 2023
+**** JHPCE info ****
+User: kshah
+Job id: 3701033
+Job name: plots_diag
+Hostname: compute-122.cm.cluster
+Task id: undefined
+
+Currently Loaded Modules:
+  1) matlab/R2019a     5) gcc/4.4.7
+  2) stata/17          6) COMMUNITY_CENTOS7_DEFAULT_ENV
+  3) JHPCE_tools/1.0   7) JHPCE_CENTOS7_DEFAULT_ENV
+  4) sge/8.1.9
+
+ 
+
+Loading conda_R/devel
+Warning in .make_numeric_version(x, strict, .standard_regexps()$valid_numeric_version) :
+  invalid non-character version specification 'x' (type: double)
+Warning message:
+replacing previous import ‘utils::findMatches’ by ‘S4Vectors::findMatches’ when loading ‘AnnotationDbi’ 
+[1] "2023-09-01 11:23:23 EDT"
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
+[1] "2023-09-01 11:25:51 EDT"
+null device 
+          1 
