@@ -3,7 +3,10 @@
 #SBATCH --job-name=r2python
 #SBATCH --array=1
 
-
+echo -en '\n'
+echo "**** Job starts ****"
+date
+echo -en '\n'
 
 echo "**** JHPCE info ****"
 echo "User: ${USER}"
@@ -17,8 +20,9 @@ Rscript 01_r2py.R
 
 mkdir -p ./logs/
 
-cat ./slurm-${SLURM_JOBID}.out >> ./logs/01_r2py.out
-#rm ./slurm-${SLURM_JOBID}.out
+cat ./slurm-${SLURM_JOBID}*.out >> ./logs/01_r2py.txt
+echo -en '\n'
+rm ./slurm-${SLURM_JOBID}*.out
 
 echo "**** Job ends ****"
 date

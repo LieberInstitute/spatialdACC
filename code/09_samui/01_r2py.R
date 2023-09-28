@@ -6,22 +6,26 @@ suppressPackageStartupMessages(library("sessioninfo"))
 suppressPackageStartupMessages(library("here"))
 
 spe_IF_in <- here(
-    "processed-data", "02_build_spe", "spe_raw_if.Rdata"
-)
-
-spe_IF_out <- here(
-    "processed-data", "10_samui", "spe", "spg", "spe.h5ad"
-)
-
-spe_r_out <- here(
-    "processed-data", "10_samui", "spe", "spg", "spe_r.rds"
+    'processed-data', '02_build_spe', 'spe_raw_if.Rdata'
 )
 
 spe_out <- here(
-    "processed-data", "10_samui", "spe", "spg", "spe_py.rds"
+    "processed-data", "10_samui", "spg", "spe.h5ad"
 )
 
-spe <- load(spe_IF_in)
+# spe_IF_out <- here(
+#     "processed-data", "10_samui", "spe", "spg", "spe.h5ad"
+# )
+
+spe_r_out <- here(
+    "processed-data", "10_samui", "spg", "spe_r.rds"
+)
+
+# spe_out <- here(
+#     "processed-data", "10_samui", "spe", "spg", "spe_py.rds"
+# )
+
+load(spe_IF_in)
 
 ###############################################################################
 #  Functions
@@ -67,7 +71,7 @@ rownames(spe) <- rowData(spe)$gene_id
 
 #   Save a copy of the filtered + slightly modified sce as an R object, and
 #   convert all objects to Anndatas
-saveRDS(spe, spe_r_out)
+# saveRDS(spe, spe_r_out)
 
 print("Converting objects to AnnDatas...")
 write_anndata(spe, spe_out)

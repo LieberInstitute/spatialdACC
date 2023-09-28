@@ -33,7 +33,7 @@ tissue_path = here(
 )
 out_dir = here('processed-data', '10_samui', 'IF', '{}')
 spe_path = here(
-    "processed-data", "10_samui", "spe", "spg", "spe.h5ad"
+    "processed-data", "10_samui", "spg", "spe.h5ad"
 )
 # marker_broad_path = here(
 #     "processed-data", "spot_deconvo", "05-shared_utilities", "markers_broad.txt"
