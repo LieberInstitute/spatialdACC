@@ -1,0 +1,9 @@
+**** JHPCE info ****
+User: rmiller
+Job id: 113116
+Job name: r2python
+Hostname: 
+Task id: 1
+/var/spool/slurm/d/job113116/slurm_script: line 16: Rscript: command not found
+**** Job ends ****
+Thu Aug 31 12:57:19 PM EDT 2023

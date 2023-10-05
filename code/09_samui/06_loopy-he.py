@@ -13,27 +13,27 @@ from loopy.utils.utils import remove_dupes
 
 
 spot_diameter_m = 55e-6 # 55-micrometer diameter for Visium spot
-img_channels = ['DAPI', 'NeuN', 'TMEM119', 'GFAP', 'OLIG2', 'AF']
-default_channels = {'blue': 'DAPI', 'red': 'NeuN'}
+img_channels = ['H&E']
+default_channels = {'blue': 'H&E'}
 
 sample_info_path = here(
-    'raw-data', 'sample_info', '2023-06-09_LIBD_VisiumSPG_dACC_Linda.xlsx'
+    'raw-data', 'sample_info', 'dACC_Visium_summary_20230227_noImages.xlsx'
 )
 
 img_path = here(
-    'processed-data', 'Images', 'VistoSeg', 'Capture_areas', 'if-images', '{}.tif'
+    'processed-data', 'Images', 'VistoSeg', 'Capture_areas', '{}1.tif'
 )
 json_path = here(
-    'processed-data', '09_spaceranger_reorg', 'spg', '{}', 'outs', 'spatial',
+    'processed-data', '09_spaceranger_reorg', 'hande', '{}', 'outs', 'spatial',
     'scalefactors_json.json'
 )
 tissue_path = here(
-    'processed-data', '09_spaceranger_reorg', 'spg', '{}', 'outs', 'spatial',
+    'processed-data', '09_spaceranger_reorg', 'hande', '{}', 'outs', 'spatial',
     'tissue_positions_list.csv'
 )
-out_dir = here('processed-data', '10_samui', 'IF', '{}')
+out_dir = here('processed-data', '10_samui', 'hande', '{}')
 spe_path = here(
-    "processed-data", "10_samui", "spg", "spe.h5ad"
+    "processed-data", "10_samui", "hande", "spe-he.h5ad"
 )
 # marker_broad_path = here(
 #     "processed-data", "spot_deconvo", "05-shared_utilities", "markers_broad.txt"

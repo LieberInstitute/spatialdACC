@@ -1,0 +1,13 @@
+**** JHPCE info ****
+User: rmiller
+Job id: 113118
+Job name: r2python
+Hostname: 
+Task id: 1
+Loading conda_R/4.3
+Error in library("zellkonverter") : 
+  there is no package called ‘zellkonverter’
+Calls: suppressPackageStartupMessages -> withCallingHandlers -> library
+Execution halted
+**** Job ends ****
+Thu Aug 31 12:58:40 PM EDT 2023

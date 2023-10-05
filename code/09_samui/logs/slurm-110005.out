@@ -1,0 +1,33 @@
+**** JHPCE info ****
+User: rmiller
+Job id: 110005
+Job name: r2python
+Hostname: 
+Task id: 
+Unloading conda_R/4.3
+Loading conda_R/4.3
+
+CommandNotFoundError: Your shell has not been properly configured to use 'conda deactivate'.
+To initialize your shell, run
+
+    $ conda init <SHELL_NAME>
+
+Currently supported shells are:
+  - bash
+  - fish
+  - tcsh
+  - xonsh
+  - zsh
+  - powershell
+
+See 'conda init --help' for more information and options.
+
+IMPORTANT: You may need to close and restart your shell after running 'conda init'.
+
+
+Error in library("zellkonverter") : 
+  there is no package called ‘zellkonverter’
+Calls: suppressPackageStartupMessages -> withCallingHandlers -> library
+Execution halted
+**** Job ends ****
+Wed Aug 30 12:00:56 PM EDT 2023

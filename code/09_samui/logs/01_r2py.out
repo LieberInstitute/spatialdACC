@@ -1,0 +1,500 @@
+**** JHPCE info ****
+User: rmiller
+Job id: 113116
+Job name: r2python
+Hostname: 
+Task id: 1
+/var/spool/slurm/d/job113116/slurm_script: line 16: Rscript: command not found
+**** JHPCE info ****
+User: rmiller
+Job id: 113118
+Job name: r2python
+Hostname: 
+Task id: 1
+Loading conda_R/4.3
+Error in library("zellkonverter") : 
+  there is no package called ‘zellkonverter’
+Calls: suppressPackageStartupMessages -> withCallingHandlers -> library
+Execution halted
+**** JHPCE info ****
+User: rmiller
+Job id: 113127
+Job name: r2python
+Hostname: 
+Task id: 1
+Loading conda_R/4.3
+Error in (function (classes, fdef, mtable)  : 
+  unable to find an inherited method for function ‘spatialCoords’ for signature ‘"character"’
+Calls: spatialCoords -> <Anonymous>
+Execution halted
+**** JHPCE info ****
+User: rmiller
+Job id: 113129
+Job name: r2python
+Hostname: 
+Task id: 1
+Unloading conda_R/4.3
+Loading conda_R/4.3
+
+CommandNotFoundError: Your shell has not been properly configured to use 'conda deactivate'.
+To initialize your shell, run
+
+    $ conda init <SHELL_NAME>
+
+Currently supported shells are:
+  - bash
+  - fish
+  - tcsh
+  - xonsh
+  - zsh
+  - powershell
+
+See 'conda init --help' for more information and options.
+
+IMPORTANT: You may need to close and restart your shell after running 'conda init'.
+
+
+[1] "Converting objects to AnnDatas..."
+trying URL 'https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh'
+Content type 'application/x-sh' length 76120962 bytes (72.6 MB)
+==================================================
+downloaded 72.6 MB
+
+PREFIX=/users/rmiller/.cache/R/basilisk/1.12.1/0
+Unpacking payload ...
+  0%|          | 0/39 [00:00<?, ?it/s]Extracting : libgomp-9.3.0-h5101ec6_17.conda:   0%|          | 0/39 [00:10<?, ?it/s]Extracting : libgomp-9.3.0-h5101ec6_17.conda:   3%|▎         | 1/39 [00:10<06:45, 10.68s/it]Extracting : readline-8.1.2-h7f8727e_1.conda:   3%|▎         | 1/39 [00:10<06:45, 10.68s/it]Extracting : conda-content-trust-0.1.1-pyhd3eb1b0_0.conda:   5%|▌         | 2/39 [00:10<06:35, 10.68s/it]Extracting : ld_impl_linux-64-2.35.1-h7274673_9.conda:   8%|▊         | 3/39 [00:10<06:24, 10.68s/it]    Extracting : ca-certificates-2022.3.29-h06a4308_1.conda:  10%|█         | 4/39 [00:10<06:13, 10.68s/it]Extracting : pip-21.2.4-py38h06a4308_0.conda:  13%|█▎        | 5/39 [00:36<06:03, 10.68s/it]           Extracting : pip-21.2.4-py38h06a4308_0.conda:  15%|█▌        | 6/39 [00:36<03:15,  5.92s/it]Extracting : libgcc-ng-9.3.0-h5101ec6_17.conda:  15%|█▌        | 6/39 [00:36<03:15,  5.92s/it]Extracting : wheel-0.37.1-pyhd3eb1b0_0.conda:  18%|█▊        | 7/39 [00:36<03:09,  5.92s/it]  Extracting : urllib3-1.26.8-pyhd3eb1b0_0.conda:  21%|██        | 8/39 [00:36<03:03,  5.92s/it]Extracting : libffi-3.3-he6710b0_2.conda:  23%|██▎       | 9/39 [00:36<02:57,  5.92s/it]      Extracting : brotlipy-0.7.0-py38h27cfd23_1003.conda:  26%|██▌       | 10/39 [00:36<02:51,  5.92s/it]Extracting : zlib-1.2.12-h7f8727e_1.conda:  28%|██▊       | 11/39 [00:36<02:45,  5.92s/it]          Extracting : pycparser-2.21-pyhd3eb1b0_0.conda:  31%|███       | 12/39 [00:36<02:39,  5.92s/it]Extracting : conda-4.12.0-py38h06a4308_0.conda:  33%|███▎      | 13/39 [01:27<02:34,  5.92s/it]Extracting : conda-4.12.0-py38h06a4308_0.conda:  36%|███▌      | 14/39 [01:27<02:34,  6.18s/it]Extracting : tk-8.6.11-h1ccaba5_0.conda:  36%|███▌      | 14/39 [01:27<02:34,  6.18s/it]       Extracting : cffi-1.15.0-py38hd667e15_1.conda:  38%|███▊      | 15/39 [01:27<02:28,  6.18s/it]Extracting : python-3.8.13-h12debd9_0.conda:  41%|████      | 16/39 [01:27<02:22,  6.18s/it]  Extracting : _libgcc_mutex-0.1-main.conda:  44%|████▎     | 17/39 [01:27<02:16,  6.18s/it]  Extracting : requests-2.27.1-pyhd3eb1b0_0.conda:  46%|████▌     | 18/39 [01:27<02:09,  6.18s/it]Extracting : pyopenssl-22.0.0-pyhd3eb1b0_0.conda:  49%|████▊     | 19/39 [01:27<02:03,  6.18s/it]Extracting : six-1.16.0-pyhd3eb1b0_1.conda:  51%|█████▏    | 20/39 [01:27<01:57,  6.18s/it]      Extracting : sqlite-3.38.2-hc218d9a_0.conda:  54%|█████▍    | 21/39 [01:27<01:51,  6.18s/it]Extracting : charset-normalizer-2.0.4-pyhd3eb1b0_0.conda:  56%|█████▋    | 22/39 [01:27<01:45,  6.18s/it]Extracting : certifi-2021.10.8-py38h06a4308_2.conda:  59%|█████▉    | 23/39 [01:27<01:38,  6.18s/it]     Extracting : openssl-1.1.1n-h7f8727e_0.conda:  62%|██████▏   | 24/39 [01:27<01:32,  6.18s/it]       Extracting : xz-5.2.5-h7b6447c_0.conda:  64%|██████▍   | 25/39 [01:27<01:26,  6.18s/it]      Extracting : setuptools-61.2.0-py38h06a4308_0.conda:  67%|██████▋   | 26/39 [01:27<01:20,  6.18s/it]Extracting : libstdcxx-ng-9.3.0-hd4cf53a_17.conda:  69%|██████▉   | 27/39 [01:27<01:14,  6.18s/it]  Extracting : ruamel_yaml-0.15.100-py38h27cfd23_0.conda:  72%|███████▏  | 28/39 [01:27<01:08,  6.18s/it]Extracting : pycosat-0.6.3-py38h7b6447c_1.conda:  74%|███████▍  | 29/39 [01:27<01:01,  6.18s/it]       Extracting : yaml-0.2.5-h7b6447c_0.conda:  77%|███████▋  | 30/39 [01:27<00:55,  6.18s/it]       Extracting : colorama-0.4.4-pyhd3eb1b0_0.conda:  79%|███████▉  | 31/39 [01:27<00:49,  6.18s/it]Extracting : tqdm-4.63.0-pyhd3eb1b0_0.conda:  82%|████████▏ | 32/39 [01:27<00:43,  6.18s/it]   Extracting : conda-package-handling-1.8.1-py38h7f8727e_0.conda:  85%|████████▍ | 33/39 [01:27<00:37,  6.18s/it]Extracting : pysocks-1.7.1-py38h06a4308_0.conda:  87%|████████▋ | 34/39 [01:27<00:30,  6.18s/it]               Extracting : ncurses-6.3-h7f8727e_2.conda:  90%|████████▉ | 35/39 [01:27<00:24,  6.18s/it]      Extracting : idna-3.3-pyhd3eb1b0_0.conda:  92%|█████████▏| 36/39 [01:27<00:18,  6.18s/it] Extracting : cryptography-36.0.0-py38h9ce1e76_0.conda:  95%|█████████▍| 37/39 [01:27<00:12,  6.18s/it]Extracting : _openmp_mutex-4.5-1_gnu.tar.bz2:  97%|█████████▋| 38/39 [01:27<00:06,  6.18s/it]                                                                                                      Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /users/rmiller/.cache/R/basilisk/1.12.1/0
+
+  added / updated specs:
+    - _libgcc_mutex==0.1=main
+    - _openmp_mutex==4.5=1_gnu
+    - brotlipy==0.7.0=py38h27cfd23_1003
+    - ca-certificates==2022.3.29=h06a4308_1
+    - certifi==2021.10.8=py38h06a4308_2
+    - cffi==1.15.0=py38hd667e15_1
+    - charset-normalizer==2.0.4=pyhd3eb1b0_0
+    - colorama==0.4.4=pyhd3eb1b0_0
+    - conda-content-trust==0.1.1=pyhd3eb1b0_0
+    - conda-package-handling==1.8.1=py38h7f8727e_0
+    - conda==4.12.0=py38h06a4308_0
+    - cryptography==36.0.0=py38h9ce1e76_0
+    - idna==3.3=pyhd3eb1b0_0
+    - ld_impl_linux-64==2.35.1=h7274673_9
+    - libffi==3.3=he6710b0_2
+    - libgcc-ng==9.3.0=h5101ec6_17
+    - libgomp==9.3.0=h5101ec6_17
+    - libstdcxx-ng==9.3.0=hd4cf53a_17
+    - ncurses==6.3=h7f8727e_2
+    - openssl==1.1.1n=h7f8727e_0
+    - pip==21.2.4=py38h06a4308_0
+    - pycosat==0.6.3=py38h7b6447c_1
+    - pycparser==2.21=pyhd3eb1b0_0
+    - pyopenssl==22.0.0=pyhd3eb1b0_0
+    - pysocks==1.7.1=py38h06a4308_0
+    - python==3.8.13=h12debd9_0
+    - readline==8.1.2=h7f8727e_1
+    - requests==2.27.1=pyhd3eb1b0_0
+    - ruamel_yaml==0.15.100=py38h27cfd23_0
+    - setuptools==61.2.0=py38h06a4308_0
+    - six==1.16.0=pyhd3eb1b0_1
+    - sqlite==3.38.2=hc218d9a_0
+    - tk==8.6.11=h1ccaba5_0
+    - tqdm==4.63.0=pyhd3eb1b0_0
+    - urllib3==1.26.8=pyhd3eb1b0_0
+    - wheel==0.37.1=pyhd3eb1b0_0
+    - xz==5.2.5=h7b6447c_0
+    - yaml==0.2.5=h7b6447c_0
+    - zlib==1.2.12=h7f8727e_1
+
+
+The following NEW packages will be INSTALLED:
+
+  _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main
+  _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-4.5-1_gnu
+  brotlipy           pkgs/main/linux-64::brotlipy-0.7.0-py38h27cfd23_1003
+  ca-certificates    pkgs/main/linux-64::ca-certificates-2022.3.29-h06a4308_1
+  certifi            pkgs/main/linux-64::certifi-2021.10.8-py38h06a4308_2
+  cffi               pkgs/main/linux-64::cffi-1.15.0-py38hd667e15_1
+  charset-normalizer pkgs/main/noarch::charset-normalizer-2.0.4-pyhd3eb1b0_0
+  colorama           pkgs/main/noarch::colorama-0.4.4-pyhd3eb1b0_0
+  conda              pkgs/main/linux-64::conda-4.12.0-py38h06a4308_0
+  conda-content-tru~ pkgs/main/noarch::conda-content-trust-0.1.1-pyhd3eb1b0_0
+  conda-package-han~ pkgs/main/linux-64::conda-package-handling-1.8.1-py38h7f8727e_0
+  cryptography       pkgs/main/linux-64::cryptography-36.0.0-py38h9ce1e76_0
+  idna               pkgs/main/noarch::idna-3.3-pyhd3eb1b0_0
+  ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.35.1-h7274673_9
+  libffi             pkgs/main/linux-64::libffi-3.3-he6710b0_2
+  libgcc-ng          pkgs/main/linux-64::libgcc-ng-9.3.0-h5101ec6_17
+  libgomp            pkgs/main/linux-64::libgomp-9.3.0-h5101ec6_17
+  libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-9.3.0-hd4cf53a_17
+  ncurses            pkgs/main/linux-64::ncurses-6.3-h7f8727e_2
+  openssl            pkgs/main/linux-64::openssl-1.1.1n-h7f8727e_0
+  pip                pkgs/main/linux-64::pip-21.2.4-py38h06a4308_0
+  pycosat            pkgs/main/linux-64::pycosat-0.6.3-py38h7b6447c_1
+  pycparser          pkgs/main/noarch::pycparser-2.21-pyhd3eb1b0_0
+  pyopenssl          pkgs/main/noarch::pyopenssl-22.0.0-pyhd3eb1b0_0
+  pysocks            pkgs/main/linux-64::pysocks-1.7.1-py38h06a4308_0
+  python             pkgs/main/linux-64::python-3.8.13-h12debd9_0
+  readline           pkgs/main/linux-64::readline-8.1.2-h7f8727e_1
+  requests           pkgs/main/noarch::requests-2.27.1-pyhd3eb1b0_0
+  ruamel_yaml        pkgs/main/linux-64::ruamel_yaml-0.15.100-py38h27cfd23_0
+  setuptools         pkgs/main/linux-64::setuptools-61.2.0-py38h06a4308_0
+  six                pkgs/main/noarch::six-1.16.0-pyhd3eb1b0_1
+  sqlite             pkgs/main/linux-64::sqlite-3.38.2-hc218d9a_0
+  tk                 pkgs/main/linux-64::tk-8.6.11-h1ccaba5_0
+  tqdm               pkgs/main/noarch::tqdm-4.63.0-pyhd3eb1b0_0
+  urllib3            pkgs/main/noarch::urllib3-1.26.8-pyhd3eb1b0_0
+  wheel              pkgs/main/noarch::wheel-0.37.1-pyhd3eb1b0_0
+  xz                 pkgs/main/linux-64::xz-5.2.5-h7b6447c_0
+  yaml               pkgs/main/linux-64::yaml-0.2.5-h7b6447c_0
+  zlib               pkgs/main/linux-64::zlib-1.2.12-h7f8727e_1
+
+
+Preparing transaction: ...working... done
+Executing transaction: ...working... done
+installation finished.
++ '/users/rmiller/.cache/R/basilisk/1.12.1/0/bin/conda' 'create' '--yes' '--prefix' '/users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0' 'python=3.8.13' '--quiet' '-c' 'conda-forge'
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... failed with repodata from current_repodata.json, will retry with next repodata source.
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0
+
+  added / updated specs:
+    - python=3.8.13
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    _libgcc_mutex-0.1          |      conda_forge           3 KB  conda-forge
+    _openmp_mutex-4.5          |            2_gnu          23 KB  conda-forge
+    bzip2-1.0.8                |       h7f98852_4         484 KB  conda-forge
+    ca-certificates-2023.7.22  |       hbcca054_0         146 KB  conda-forge
+    ld_impl_linux-64-2.40      |       h41732ed_0         688 KB  conda-forge
+    libffi-3.4.2               |       h7f98852_5          57 KB  conda-forge
+    libgcc-ng-13.1.0           |       he5830b7_0         758 KB  conda-forge
+    libgomp-13.1.0             |       he5830b7_0         409 KB  conda-forge
+    libnsl-2.0.0               |       h7f98852_0          31 KB  conda-forge
+    libsqlite-3.43.0           |       h2797004_0         821 KB  conda-forge
+    libuuid-2.38.1             |       h0b41bf4_0          33 KB  conda-forge
+    libzlib-1.2.13             |       hd590300_5          60 KB  conda-forge
+    ncurses-6.4                |       hcb278e6_0         860 KB  conda-forge
+    openssl-3.1.2              |       hd590300_0         2.5 MB  conda-forge
+    pip-23.2.1                 |     pyhd8ed1ab_0         1.3 MB  conda-forge
+    python-3.8.13              |ha86cf86_0_cpython        25.2 MB  conda-forge
+    readline-8.2               |       h8228510_1         275 KB  conda-forge
+    setuptools-68.1.2          |     pyhd8ed1ab_0         451 KB  conda-forge
+    sqlite-3.43.0              |       h2c6b66d_0         812 KB  conda-forge
+    tk-8.6.12                  |       h27826a3_0         3.3 MB  conda-forge
+    wheel-0.41.2               |     pyhd8ed1ab_0          56 KB  conda-forge
+    xz-5.2.6                   |       h166bdaf_0         409 KB  conda-forge
+    ------------------------------------------------------------
+                                           Total:        38.5 MB
+
+The following NEW packages will be INSTALLED:
+
+  _libgcc_mutex      conda-forge/linux-64::_libgcc_mutex-0.1-conda_forge
+  _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-2_gnu
+  bzip2              conda-forge/linux-64::bzip2-1.0.8-h7f98852_4
+  ca-certificates    conda-forge/linux-64::ca-certificates-2023.7.22-hbcca054_0
+  ld_impl_linux-64   conda-forge/linux-64::ld_impl_linux-64-2.40-h41732ed_0
+  libffi             conda-forge/linux-64::libffi-3.4.2-h7f98852_5
+  libgcc-ng          conda-forge/linux-64::libgcc-ng-13.1.0-he5830b7_0
+  libgomp            conda-forge/linux-64::libgomp-13.1.0-he5830b7_0
+  libnsl             conda-forge/linux-64::libnsl-2.0.0-h7f98852_0
+  libsqlite          conda-forge/linux-64::libsqlite-3.43.0-h2797004_0
+  libuuid            conda-forge/linux-64::libuuid-2.38.1-h0b41bf4_0
+  libzlib            conda-forge/linux-64::libzlib-1.2.13-hd590300_5
+  ncurses            conda-forge/linux-64::ncurses-6.4-hcb278e6_0
+  openssl            conda-forge/linux-64::openssl-3.1.2-hd590300_0
+  pip                conda-forge/noarch::pip-23.2.1-pyhd8ed1ab_0
+  python             conda-forge/linux-64::python-3.8.13-ha86cf86_0_cpython
+  readline           conda-forge/linux-64::readline-8.2-h8228510_1
+  setuptools         conda-forge/noarch::setuptools-68.1.2-pyhd8ed1ab_0
+  sqlite             conda-forge/linux-64::sqlite-3.43.0-h2c6b66d_0
+  tk                 conda-forge/linux-64::tk-8.6.12-h27826a3_0
+  wheel              conda-forge/noarch::wheel-0.41.2-pyhd8ed1ab_0
+  xz                 conda-forge/linux-64::xz-5.2.6-h166bdaf_0
+
+
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
++ '/users/rmiller/.cache/R/basilisk/1.12.1/0/bin/conda' 'install' '--yes' '--prefix' '/users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0' 'python=3.8.13'
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0
+
+  added / updated specs:
+    - python=3.8.13
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    ca-certificates-2023.05.30 |       h06a4308_0         120 KB
+    openssl-3.0.10             |       h7f8727e_2         5.2 MB
+    ------------------------------------------------------------
+                                           Total:         5.3 MB
+
+The following packages will be SUPERSEDED by a higher-priority channel:
+
+  ca-certificates    conda-forge::ca-certificates-2023.7.2~ --> pkgs/main::ca-certificates-2023.05.30-h06a4308_0
+  openssl             conda-forge::openssl-3.1.2-hd590300_0 --> pkgs/main::openssl-3.0.10-h7f8727e_2
+
+
+
+Downloading and Extracting Packages
+ca-certificates-2023 | 120 KB    |            |   0% ca-certificates-2023 | 120 KB    | ##6        |  27% ca-certificates-2023 | 120 KB    | ########## | 100% ca-certificates-2023 | 120 KB    | ########## | 100% 
+openssl-3.0.10       | 5.2 MB    |            |   0% openssl-3.0.10       | 5.2 MB    | ########9  |  90% openssl-3.0.10       | 5.2 MB    | ########## | 100% 
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+  current version: 4.12.0
+  latest version: 23.7.3
+
+Please update conda by running
+
+    $ conda update -n base -c defaults conda
+
+
++ '/users/rmiller/.cache/R/basilisk/1.12.1/0/bin/conda' 'install' '--yes' '--prefix' '/users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0' '-c' 'conda-forge' 'python=3.8.13' 'anndata=0.8.0' 'h5py=3.6.0' 'hdf5=1.12.1' 'natsort=8.1.0' 'numpy=1.22.3' 'packaging=21.3' 'pandas=1.4.2' 'python=3.8.13' 'scipy=1.7.3' 'sqlite=3.38.2'
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... failed with initial frozen solve. Retrying with flexible solve.
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0
+
+  added / updated specs:
+    - anndata=0.8.0
+    - h5py=3.6.0
+    - hdf5=1.12.1
+    - natsort=8.1.0
+    - numpy=1.22.3
+    - packaging=21.3
+    - pandas=1.4.2
+    - python[version='3.8.13.*,3.8.13.*']
+    - scipy=1.7.3
+    - sqlite=3.38.2
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    anndata-0.8.0              |     pyhd8ed1ab_1          74 KB  conda-forge
+    c-ares-1.19.1              |       hd590300_0         111 KB  conda-forge
+    cached-property-1.5.2      |       hd8ed1ab_1           4 KB  conda-forge
+    cached_property-1.5.2      |     pyha770c72_1          11 KB  conda-forge
+    h5py-3.6.0                 |nompi_py38hfbb2109_100         1.4 MB  conda-forge
+    hdf5-1.12.1                |nompi_h4df4325_104         3.6 MB  conda-forge
+    importlib-metadata-6.8.0   |     pyha770c72_0          25 KB  conda-forge
+    importlib_metadata-6.8.0   |       hd8ed1ab_0           9 KB  conda-forge
+    keyutils-1.6.1             |       h166bdaf_0         115 KB  conda-forge
+    krb5-1.21.2                |       h659d440_0         1.3 MB  conda-forge
+    libblas-3.9.0              |17_linux64_openblas          14 KB  conda-forge
+    libcblas-3.9.0             |17_linux64_openblas          14 KB  conda-forge
+    libcurl-8.2.1              |       hca28451_0         364 KB  conda-forge
+    libedit-3.1.20191231       |       he28a2e2_2         121 KB  conda-forge
+    libev-4.33                 |       h516909a_1         104 KB  conda-forge
+    libgfortran-ng-13.1.0      |       h69a702a_0          23 KB  conda-forge
+    libgfortran5-13.1.0        |       h15d22d2_0         1.4 MB  conda-forge
+    liblapack-3.9.0            |17_linux64_openblas          14 KB  conda-forge
+    libnghttp2-1.52.0          |       h61bc06f_0         608 KB  conda-forge
+    libopenblas-0.3.23         |pthreads_h80387f5_0         5.2 MB  conda-forge
+    libssh2-1.11.0             |       h0841786_0         265 KB  conda-forge
+    libstdcxx-ng-13.1.0        |       hfd8a6a1_0         3.7 MB  conda-forge
+    natsort-8.1.0              |     pyhd8ed1ab_0          35 KB  conda-forge
+    numpy-1.22.3               |   py38h99721a1_2         6.8 MB  conda-forge
+    packaging-21.3             |     pyhd8ed1ab_0          36 KB  conda-forge
+    pandas-1.4.2               |   py38h47df419_2        12.6 MB  conda-forge
+    pyparsing-3.1.1            |     pyhd8ed1ab_0          87 KB  conda-forge
+    python-dateutil-2.8.2      |     pyhd8ed1ab_0         240 KB  conda-forge
+    python_abi-3.8             |           3_cp38           6 KB  conda-forge
+    pytz-2023.3                |     pyhd8ed1ab_0         182 KB  conda-forge
+    scipy-1.7.3                |   py38h8ce737c_1        23.1 MB  conda-forge
+    six-1.16.0                 |     pyh6c4a22f_0          14 KB  conda-forge
+    sqlite-3.38.2              |       h4ff8645_0         1.5 MB  conda-forge
+    typing_extensions-4.7.1    |     pyha770c72_0          35 KB  conda-forge
+    zipp-3.16.2                |     pyhd8ed1ab_0          18 KB  conda-forge
+    zlib-1.2.13                |       hd590300_5          91 KB  conda-forge
+    zstd-1.5.5                 |       hfc55251_0         532 KB  conda-forge
+    ------------------------------------------------------------
+                                           Total:        63.6 MB
+
+The following NEW packages will be INSTALLED:
+
+  anndata            conda-forge/noarch::anndata-0.8.0-pyhd8ed1ab_1
+  c-ares             conda-forge/linux-64::c-ares-1.19.1-hd590300_0
+  cached-property    conda-forge/noarch::cached-property-1.5.2-hd8ed1ab_1
+  cached_property    conda-forge/noarch::cached_property-1.5.2-pyha770c72_1
+  h5py               conda-forge/linux-64::h5py-3.6.0-nompi_py38hfbb2109_100
+  hdf5               conda-forge/linux-64::hdf5-1.12.1-nompi_h4df4325_104
+  importlib-metadata conda-forge/noarch::importlib-metadata-6.8.0-pyha770c72_0
+  importlib_metadata conda-forge/noarch::importlib_metadata-6.8.0-hd8ed1ab_0
+  keyutils           conda-forge/linux-64::keyutils-1.6.1-h166bdaf_0
+  krb5               conda-forge/linux-64::krb5-1.21.2-h659d440_0
+  libblas            conda-forge/linux-64::libblas-3.9.0-17_linux64_openblas
+  libcblas           conda-forge/linux-64::libcblas-3.9.0-17_linux64_openblas
+  libcurl            conda-forge/linux-64::libcurl-8.2.1-hca28451_0
+  libedit            conda-forge/linux-64::libedit-3.1.20191231-he28a2e2_2
+  libev              conda-forge/linux-64::libev-4.33-h516909a_1
+  libgfortran-ng     conda-forge/linux-64::libgfortran-ng-13.1.0-h69a702a_0
+  libgfortran5       conda-forge/linux-64::libgfortran5-13.1.0-h15d22d2_0
+  liblapack          conda-forge/linux-64::liblapack-3.9.0-17_linux64_openblas
+  libnghttp2         conda-forge/linux-64::libnghttp2-1.52.0-h61bc06f_0
+  libopenblas        conda-forge/linux-64::libopenblas-0.3.23-pthreads_h80387f5_0
+  libssh2            conda-forge/linux-64::libssh2-1.11.0-h0841786_0
+  libstdcxx-ng       conda-forge/linux-64::libstdcxx-ng-13.1.0-hfd8a6a1_0
+  natsort            conda-forge/noarch::natsort-8.1.0-pyhd8ed1ab_0
+  numpy              conda-forge/linux-64::numpy-1.22.3-py38h99721a1_2
+  packaging          conda-forge/noarch::packaging-21.3-pyhd8ed1ab_0
+  pandas             conda-forge/linux-64::pandas-1.4.2-py38h47df419_2
+  pyparsing          conda-forge/noarch::pyparsing-3.1.1-pyhd8ed1ab_0
+  python-dateutil    conda-forge/noarch::python-dateutil-2.8.2-pyhd8ed1ab_0
+  python_abi         conda-forge/linux-64::python_abi-3.8-3_cp38
+  pytz               conda-forge/noarch::pytz-2023.3-pyhd8ed1ab_0
+  scipy              conda-forge/linux-64::scipy-1.7.3-py38h8ce737c_1
+  six                conda-forge/noarch::six-1.16.0-pyh6c4a22f_0
+  typing_extensions  conda-forge/noarch::typing_extensions-4.7.1-pyha770c72_0
+  zipp               conda-forge/noarch::zipp-3.16.2-pyhd8ed1ab_0
+  zlib               conda-forge/linux-64::zlib-1.2.13-hd590300_5
+  zstd               conda-forge/linux-64::zstd-1.5.5-hfc55251_0
+
+The following packages will be UPDATED:
+
+  ca-certificates    pkgs/main::ca-certificates-2023.05.30~ --> conda-forge::ca-certificates-2023.7.22-hbcca054_0
+  openssl              pkgs/main::openssl-3.0.10-h7f8727e_2 --> conda-forge::openssl-3.1.2-hd590300_0
+
+The following packages will be DOWNGRADED:
+
+  sqlite                                  3.43.0-h2c6b66d_0 --> 3.38.2-h4ff8645_0
+
+
+
+Downloading and Extracting Packages
+liblapack-3.9.0      | 14 KB     |            |   0% liblapack-3.9.0      | 14 KB     | ########## | 100% liblapack-3.9.0      | 14 KB     | ########## | 100% 
+libev-4.33           | 104 KB    |            |   0% libev-4.33           | 104 KB    | ########## | 100% libev-4.33           | 104 KB    | ########## | 100% 
+typing_extensions-4. | 35 KB     |            |   0% typing_extensions-4. | 35 KB     | ########## | 100% typing_extensions-4. | 35 KB     | ########## | 100% 
+scipy-1.7.3          | 23.1 MB   |            |   0% scipy-1.7.3          | 23.1 MB   |            |   0% scipy-1.7.3          | 23.1 MB   | #8         |  19% scipy-1.7.3          | 23.1 MB   | ##9        |  30% scipy-1.7.3          | 23.1 MB   | ###9       |  39% scipy-1.7.3          | 23.1 MB   | #####5     |  55% scipy-1.7.3          | 23.1 MB   | ######6    |  67% scipy-1.7.3          | 23.1 MB   | ########## | 100% scipy-1.7.3          | 23.1 MB   | ########## | 100% 
+krb5-1.21.2          | 1.3 MB    |            |   0% krb5-1.21.2          | 1.3 MB    | ########## | 100% krb5-1.21.2          | 1.3 MB    | ########## | 100% 
+importlib-metadata-6 | 25 KB     |            |   0% importlib-metadata-6 | 25 KB     | ########## | 100% importlib-metadata-6 | 25 KB     | ########## | 100% 
+zstd-1.5.5           | 532 KB    |            |   0% zstd-1.5.5           | 532 KB    | ########## | 100% zstd-1.5.5           | 532 KB    | ########## | 100% 
+cached-property-1.5. | 4 KB      |            |   0% cached-property-1.5. | 4 KB      | ########## | 100% cached-property-1.5. | 4 KB      | ########## | 100% 
+libblas-3.9.0        | 14 KB     |            |   0% libblas-3.9.0        | 14 KB     | ########## | 100% libblas-3.9.0        | 14 KB     | ########## | 100% 
+cached_property-1.5. | 11 KB     |            |   0% cached_property-1.5. | 11 KB     | ########## | 100% cached_property-1.5. | 11 KB     | ########## | 100% 
+libedit-3.1.20191231 | 121 KB    |            |   0% libedit-3.1.20191231 | 121 KB    | ########## | 100% libedit-3.1.20191231 | 121 KB    | ########## | 100% 
+sqlite-3.38.2        | 1.5 MB    |            |   0% sqlite-3.38.2        | 1.5 MB    | 1          |   1% sqlite-3.38.2        | 1.5 MB    | ########## | 100% sqlite-3.38.2        | 1.5 MB    | ########## | 100% 
+pandas-1.4.2         | 12.6 MB   |            |   0% pandas-1.4.2         | 12.6 MB   |            |   0% pandas-1.4.2         | 12.6 MB   | ####6      |  46% pandas-1.4.2         | 12.6 MB   | #######2   |  73% pandas-1.4.2         | 12.6 MB   | ########## | 100% pandas-1.4.2         | 12.6 MB   | ########## | 100% 
+libnghttp2-1.52.0    | 608 KB    |            |   0% libnghttp2-1.52.0    | 608 KB    | ########## | 100% libnghttp2-1.52.0    | 608 KB    | ########## | 100% 
+c-ares-1.19.1        | 111 KB    |            |   0% c-ares-1.19.1        | 111 KB    | ########## | 100% c-ares-1.19.1        | 111 KB    | ########## | 100% 
+numpy-1.22.3         | 6.8 MB    |            |   0% numpy-1.22.3         | 6.8 MB    | #####1     |  51% numpy-1.22.3         | 6.8 MB    | ########## | 100% 
+libopenblas-0.3.23   | 5.2 MB    |            |   0% libopenblas-0.3.23   | 5.2 MB    | ######9    |  69% libopenblas-0.3.23   | 5.2 MB    | ########## | 100% 
+libgfortran5-13.1.0  | 1.4 MB    |            |   0% libgfortran5-13.1.0  | 1.4 MB    | ########## | 100% libgfortran5-13.1.0  | 1.4 MB    | ########## | 100% 
+python_abi-3.8       | 6 KB      |            |   0% python_abi-3.8       | 6 KB      | ########## | 100% python_abi-3.8       | 6 KB      | ########## | 100% 
+importlib_metadata-6 | 9 KB      |            |   0% importlib_metadata-6 | 9 KB      | ########## | 100% importlib_metadata-6 | 9 KB      | ########## | 100% 
+python-dateutil-2.8. | 240 KB    |            |   0% python-dateutil-2.8. | 240 KB    | ########## | 100% python-dateutil-2.8. | 240 KB    | ########## | 100% 
+natsort-8.1.0        | 35 KB     |            |   0% natsort-8.1.0        | 35 KB     | ########## | 100% natsort-8.1.0        | 35 KB     | ########## | 100% 
+libgfortran-ng-13.1. | 23 KB     |            |   0% libgfortran-ng-13.1. | 23 KB     | ########## | 100% libgfortran-ng-13.1. | 23 KB     | ########## | 100% 
+hdf5-1.12.1          | 3.6 MB    |            |   0% hdf5-1.12.1          | 3.6 MB    | #########6 |  97% hdf5-1.12.1          | 3.6 MB    | ########## | 100% 
+zipp-3.16.2          | 18 KB     |            |   0% zipp-3.16.2          | 18 KB     | ########## | 100% zipp-3.16.2          | 18 KB     | ########## | 100% 
+libssh2-1.11.0       | 265 KB    |            |   0% libssh2-1.11.0       | 265 KB    | ########## | 100% libssh2-1.11.0       | 265 KB    | ########## | 100% 
+six-1.16.0           | 14 KB     |            |   0% six-1.16.0           | 14 KB     | ########## | 100% six-1.16.0           | 14 KB     | ########## | 100% 
+libcblas-3.9.0       | 14 KB     |            |   0% libcblas-3.9.0       | 14 KB     | ########## | 100% libcblas-3.9.0       | 14 KB     | ########## | 100% 
+packaging-21.3       | 36 KB     |            |   0% packaging-21.3       | 36 KB     | ########## | 100% packaging-21.3       | 36 KB     | ########## | 100% 
+libcurl-8.2.1        | 364 KB    |            |   0% libcurl-8.2.1        | 364 KB    | ########## | 100% libcurl-8.2.1        | 364 KB    | ########## | 100% 
+keyutils-1.6.1       | 115 KB    |            |   0% keyutils-1.6.1       | 115 KB    | ########## | 100% keyutils-1.6.1       | 115 KB    | ########## | 100% 
+libstdcxx-ng-13.1.0  | 3.7 MB    |            |   0% libstdcxx-ng-13.1.0  | 3.7 MB    | ########## | 100% libstdcxx-ng-13.1.0  | 3.7 MB    | ########## | 100% 
+pytz-2023.3          | 182 KB    |            |   0% pytz-2023.3          | 182 KB    | ########## | 100% pytz-2023.3          | 182 KB    | ########## | 100% 
+h5py-3.6.0           | 1.4 MB    |            |   0% h5py-3.6.0           | 1.4 MB    | #1         |  11% h5py-3.6.0           | 1.4 MB    | ##1        |  22% h5py-3.6.0           | 1.4 MB    | ########## | 100% h5py-3.6.0           | 1.4 MB    | ########## | 100% 
+zlib-1.2.13          | 91 KB     |            |   0% zlib-1.2.13          | 91 KB     | ########## | 100% zlib-1.2.13          | 91 KB     | ########## | 100% 
+pyparsing-3.1.1      | 87 KB     |            |   0% pyparsing-3.1.1      | 87 KB     | #8         |  18% pyparsing-3.1.1      | 87 KB     | ########## | 100% pyparsing-3.1.1      | 87 KB     | ########## | 100% 
+anndata-0.8.0        | 74 KB     |            |   0% anndata-0.8.0        | 74 KB     | ########## | 100% anndata-0.8.0        | 74 KB     | ########## | 100% 
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+  current version: 4.12.0
+  latest version: 23.7.3
+
+Please update conda by running
+
+    $ conda update -n base -c defaults conda
+
+
+ℹ Using the 'counts' assay as the X matrix
+/users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0/lib/python3.8/site-packages/anndata/_core/anndata.py:1828: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")
+**** JHPCE info ****
+User: rmiller
+Job id: 113319
+Job name: r2python
+Hostname: 
+Task id: 1
+Loading conda_R/4.3
+[1] "Converting objects to AnnDatas..."
+ℹ Using the 'counts' assay as the X matrix
+/users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0/lib/python3.8/site-packages/anndata/_core/anndata.py:1828: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")
+**** Job starts ****
+Thu Aug 31 04:20:38 PM EDT 2023
+**** JHPCE info ****
+User: rmiller
+Job id: 113325
+Job name: r2python
+Hostname: 
+Task id: 1
+Loading conda_R/4.3
+[1] "Converting objects to AnnDatas..."
+ℹ Using the 'counts' assay as the X matrix
+/users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0/lib/python3.8/site-packages/anndata/_core/anndata.py:1828: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")
+**** Job starts ****
+Thu Aug 31 04:30:15 PM EDT 2023
+**** JHPCE info ****
+User: rmiller
+Job id: 113326
+Job name: r2python
+Hostname: 
+Task id: 1
+Loading conda_R/4.3
+[1] "Converting objects to AnnDatas..."
+ℹ Using the 'counts' assay as the X matrix
+/users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0/lib/python3.8/site-packages/anndata/_core/anndata.py:1828: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")
+
+**** Job starts ****
+Thu Aug 31 04:35:59 PM EDT 2023
+
+**** JHPCE info ****
+User: rmiller
+Job id: 113327
+Job name: r2python
+Hostname: 
+Task id: 1
+Loading conda_R/4.3
+[1] "Converting objects to AnnDatas..."
+ℹ Using the 'counts' assay as the X matrix
+/users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0/lib/python3.8/site-packages/anndata/_core/anndata.py:1828: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")

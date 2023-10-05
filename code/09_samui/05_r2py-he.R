@@ -5,27 +5,27 @@ suppressPackageStartupMessages(library("zellkonverter"))
 suppressPackageStartupMessages(library("sessioninfo"))
 suppressPackageStartupMessages(library("here"))
 
-spe_IF_in <- here(
-    'processed-data', '02_build_spe', 'spe_raw_if.Rdata'
+spe_HE_in <- here(
+    'processed-data', '02_build_spe', 'spe_raw_he.Rdata'
 )
 
 spe_out <- here(
-    "processed-data", "10_samui", "spg", "spe.h5ad"
+    "processed-data", "10_samui", "hande", "spe-he.h5ad"
 )
 
-# spe_IF_out <- here(
+# spe_HE_out <- here(
 #     "processed-data", "10_samui", "spe", "spg", "spe.h5ad"
 # )
 
 spe_r_out <- here(
-    "processed-data", "10_samui", "spg", "spe_r.rds"
+    "processed-data", "10_samui", "hande", "spe_r.rds"
 )
 
 # spe_out <- here(
 #     "processed-data", "10_samui", "spe", "spg", "spe_py.rds"
 # )
 
-load(spe_IF_in)
+load(spe_HE_in)
 
 ###############################################################################
 #  Functions

@@ -1,6 +1,6 @@
 #!/bin/bash
 #$ -cwd
-#$ -l mem_free=30G,h_vmem=30G,h_fsize=100G
+#$ -l mem_free=50G,h_vmem=50G,h_fsize=100G
 #$ -N discordance_diag_precast
 #$ -o logs_diagnostics/qtune.txt
 #$ -e logs_diagnostics/qtune.txt
