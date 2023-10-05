@@ -16,11 +16,11 @@ echo "Hostname: ${SLURM_NODENAME}"
 echo "Task id: ${SLURM_ARRAY_TASK_ID}"
 
 module load conda_R/4.3
-Rscript 01_r2py.R
+Rscript 05_r2py-he.R
 
 mkdir -p ./logs/
 
-cat ./slurm-${SLURM_JOBID}*.out >> ./logs/01_r2py.txt
+cat ./slurm-${SLURM_JOBID}*.out >> ./logs/05_r2py-he.txt
 echo -en '\n'
 rm ./slurm-${SLURM_JOBID}*.out
 
