@@ -1,7 +1,5 @@
 #!/bin/bash
 #SBATCH --job-name=nnSVG
-#SBATCH --output=logs_nnSVG/nnSVG.txt
-#SBATCH --error=logs_nnSVG/nnSVG.txt
 #SBATCH --cpus-per-task=20
 #SBATCH --mem-per-cpu=20G
 #SBATCH --mail-type=END
@@ -15,7 +13,7 @@ echo "Job name: ${SLURM_JOB_NAME}"
 echo "Hostname: ${HOSTNAME}"
 echo "Task id: ${SLURM_ARRAY_TASK_ID}"
 
-module load conda_R/devel
+module load conda_R
 
 ## List current modules for reproducibility
 module list
