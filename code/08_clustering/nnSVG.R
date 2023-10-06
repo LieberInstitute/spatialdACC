@@ -48,7 +48,7 @@ for (s in seq_along(sample_ids)) {
 
     # run nnSVG
     set.seed(123)
-    spe_sub <- nnSVG(spe_sub,n_threads=12,verbose=F)
+    spe_sub <- nnSVG(spe_sub,n_threads=20,verbose=F)
 
     # store results for this sample
     res_list[[s]] <- rowData(spe_sub)
