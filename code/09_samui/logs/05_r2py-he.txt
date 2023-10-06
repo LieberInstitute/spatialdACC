@@ -1,0 +1,15 @@
+
+**** Job starts ****
+Thu Oct  5 08:53:23 PM EDT 2023
+
+**** JHPCE info ****
+User: rmiller
+Job id: 302090
+Job name: r2python
+Hostname: 
+Task id: 1
+Loading conda_R/4.3
+[1] "Converting objects to AnnDatas..."
+ℹ Using the 'counts' assay as the X matrix
+/users/rmiller/.cache/R/basilisk/1.12.1/zellkonverter/1.10.1/zellkonverterAnnDataEnv-0.8.0/lib/python3.8/site-packages/anndata/_core/anndata.py:1828: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")
