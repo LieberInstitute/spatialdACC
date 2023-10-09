@@ -4,7 +4,7 @@
 #SBATCH --mem-per-cpu=10G
 #SBATCH --output=logs_precast/vis_nnsvg_PRECAST_batch_k.%a.txt
 #SBATCH --error=logs_precast/vis_nnsvg_PRECAST_batch_k.%a.txt
-#SBATCH --array=5-20%5
+#SBATCH --array=17
 #SBATCH --mail-type=END
 #SBATCH --mail-user=kinnaryshahh@gmail.com
 echo "**** Job starts ****"
