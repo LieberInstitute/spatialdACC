@@ -1,10 +1,11 @@
 #!/bin/bash
-#$ -cwd
-#$ -l mem_free=24G,h_vmem=24G,h_fsize=24G
-#$ -N plots_diag
-#$ -o logs_diagnostics/plots_diag.txt
-#$ -e logs_diagnostics/plots_diag.txt
-#$ -m e
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=30G
+#$SBATCH --output=logs_diagnostics/plots_diag.txt
+#$SBATCH --error=logs_diagnostics/plots_diag.txt
+#SBATCH --mail-type=END
+#SBATCH --mail-user=kinnaryshahh@gmail.com
+
 echo "**** Job starts ****"
 date
 echo "**** JHPCE info ****"
@@ -12,8 +13,8 @@ echo "User: ${USER}"
 echo "Job id: ${JOB_ID}"
 echo "Job name: ${JOB_NAME}"
 echo "Hostname: ${HOSTNAME}"
-echo "Task id: ${SGE_TASK_ID}"
+echo "Task id: ${SLURM_ARRAY_TASK_ID}"
 ## List current modules for reproducibility
 module list
-module load conda_R/devel
-Rscript cluster_diagnostics.R
+module load conda_R
+Rscript purity_diagnostics.R
