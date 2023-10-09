@@ -1,0 +1,19 @@
+date: Fri Oct  6 04:08:20 PM EDT 2023
+**** JHPCE info ****
+User: rmiller
+Job id: 307057
+Job name: 02samui
+Hostname: 
+Task id: 
+Loading LIBD module for samui/1.0.0-next.45
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/pydantic/_internal/_config.py:261: UserWarning: Valid config keys have changed in V2:
+* 'allow_mutation' has been removed
+  warnings.warn(message, UserWarning)
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/openpyxl/worksheet/_reader.py:329: UserWarning: Unknown extension is not supported and will be removed
+  warn(msg)
+Traceback (most recent call last):
+  File "/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/09_samui/02_loopy-if.py", line 89, in <module>
+    with open(json_path, 'r') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/09_samui/../../processed-data/09_spaceranger_reorg/spg/0    V12N28-333_A1\n1    V12N28-333_B1\n2    V12N28-333_C1\n3    V12N28-333_D1\ndtype: object/outs/spatial/scalefactors_json.json'
+**** Job ends ****
+Fri Oct  6 04:08:34 PM EDT 2023

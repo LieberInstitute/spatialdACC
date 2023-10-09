@@ -71,18 +71,18 @@ spe_path = here(
 #   path variables accordingly
 sample_info = pd.read_excel(sample_info_path)[:4]
 sample_ids_img = sample_info['Slide #'] + '_' + sample_info['Array #']
-sample_ids_spot = 'Br' + sample_info['BrNumbr'].astype(int).astype(str) + \
-    '_' + pd.Series([x.split('_')[1] for x in sample_info['Br_Region']]) + \
-    '_IF'
+#sample_ids_spot = sample_info['Brain'] + \
+#    '_' + pd.Series([x.split('_')[1] for x in sample_info['Tissue']]) + \
+#    '_IF'
 
 #   Subset both types of IDs to this sample only
-sample_id_img = sample_ids_img[int(os.environ['SLURM_ARRAY_TASK_ID']) - 1]
-sample_id_spot = sample_ids_spot[int(os.environ['SLURM_ARRAY_TASK_ID']) - 1]
+#sample_id_img = sample_ids_img[int(os.environ['SLURM_ARRAY_TASK_ID']) - 1]
+#sample_id_spot = sample_ids_spot[int(os.environ['SLURM_ARRAY_TASK_ID']) - 1]
 
-out_dir = Path(str(out_dir).format(sample_id_spot))
-json_path = Path(str(json_path).format(sample_id_spot))
-img_path = Path(str(img_path).format(sample_id_img))
-tissue_path = Path(str(tissue_path).format(sample_id_spot))
+out_dir = Path(str(out_dir).format(sample_ids_img))
+json_path = Path(str(json_path).format(sample_ids_img))
+img_path = Path(str(img_path).format(sample_ids_img))
+tissue_path = Path(str(tissue_path).format(sample_ids_img))
 
 #   Read in the spaceranger JSON, ultimately to calculate meters per pixel for
 #   the full-resolution image

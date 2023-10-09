@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --mem=10G
-#SBATCH --job-name=r2python
+#SBATCH --job-name=06samui
 #SBATCH --output=logs/%x.txt
 #SBATCH --error=logs/%x.txt
 #SBATCH --array=1-4

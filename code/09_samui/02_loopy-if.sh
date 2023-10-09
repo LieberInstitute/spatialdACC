@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH --mem=10G
-#SBATCH --job-name=r2python
+#SBATCH --job-name=02samui
 #SBATCH --output=logs/%x.txt
 #SBATCH --error=logs/%x.txt
-#SBATCH --array=1-4
+# #SBATCH --array=1-4
 
-echo -e "\n"
+#echo -e "\n"
 echo "date: $(date)"
 echo "**** JHPCE info ****"
 echo "User: ${USER}"
@@ -20,4 +20,4 @@ python 02_loopy-if.py
 echo "**** Job ends ****"
 date
 
-echo -e "\n"
+#echo -e "\n"
