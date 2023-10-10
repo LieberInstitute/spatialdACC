@@ -27,6 +27,8 @@ df_precast <- df_precast[row_odd == 1, ]
 df_precast$k<-as.numeric(df_precast$k)
 df_precast$fasthplus<-as.numeric(df_precast$fasthplus)
 
+df_nnSVG_precast <- read.table(file=here("processed-data", "08_clustering", "cluster_diagnostics", "fasthplus", "fasthplus_results_nnSVG_precast.csv"), header=T)
+
 pdf(here("plots", "08_clustering", "fasthplus.pdf"), width = 21)
 
 
@@ -56,5 +58,14 @@ ggplot(data = df_precast, aes(x = k, y = fasthplus, group = 1)) +
     })) +
     theme_bw(base_size = 20) +
     ggtitle("PRECAST")
+
+ggplot(data = df_nnSVG_precast, aes(x = k, y = fasthplus, group = 1)) +
+    geom_line() +
+    geom_point() +
+    ylab(expression(H^{
+        "+"
+    })) +
+    theme_bw(base_size = 20) +
+    ggtitle("nnSVG PRECAST")
 
 dev.off()
