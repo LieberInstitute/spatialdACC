@@ -119,7 +119,7 @@ plotPCA(
 )
 
 vars <- getVarianceExplained(spe_pseudo,
-                             variables = c("layer","sample_id")
+                             variables = c("layer","sample_id", "sum_sample", "detected_sample")
 )
 
 
