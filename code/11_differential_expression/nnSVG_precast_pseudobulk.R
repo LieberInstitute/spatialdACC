@@ -92,9 +92,25 @@ plotPCA(
     percentVar = metadata(spe_pseudo)$PCA_var_explained
 )
 
+plotPCA(
+        spe_pseudo,
+        colour_by = "sum",
+        ncomponents = 2,
+        point_size = 2,
+        percentVar = metadata(spe_pseudo)$PCA_var_explained
+    )
+
+plotPCA(
+    spe_pseudo,
+    colour_by = "detected",
+    ncomponents = 2,
+    point_size = 2,
+    percentVar = metadata(spe_pseudo)$PCA_var_explained
+)
 vars <- getVarianceExplained(spe_pseudo,
                              variables = c("layer","sample_id")
 )
+
 
 plotExplanatoryVariables(vars)
 
