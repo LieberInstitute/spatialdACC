@@ -5,6 +5,7 @@ suppressPackageStartupMessages({
     library("SpatialExperiment")
     library("scater")
     library("spatialLIBD")
+    library("dplyr")
 })
 
 read_barcoded_csv <- function(x) {
@@ -37,6 +38,9 @@ nnSVG_PRECAST_import <- function(spe, cluster_dir = file.path(tempdir(), "export
 }
 
 load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
+
+sum_by_sample <- setNames(aggregate(sum ~ sample_id, colData(spe), sum), c("sample_id", "sum_sample"))
+detected_by_sample <- setNames(aggregate(detected ~ sample_id, colData(spe), sum), c("sample_id", "detected_sample"))
 
 k <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
 
@@ -72,6 +76,12 @@ save(
 )
 
 ## Plot PCs
+col_data_df <- as.data.frame(colData(spe_pseudo))
+col_data_df <- left_join(col_data_df, detected_by_sample, by = "sample_id")
+col_data_df <- left_join(col_data_df, sum_by_sample, by = "sample_id")
+
+colData(spe_pseudo) <- DataFrame(col_data_df)
+
 colData(spe_pseudo)["layer"] <- colData(spe_pseudo)[,nnSVG_precast_name]
 
 pdf(file = here("plots", "11_differential_expression", "pseudobulk", "nnSVG_precast_pseudobulk", paste0("pseudobulk_PC_",nnSVG_precast_name,".pdf")), width = 14, height = 14)
@@ -94,7 +104,7 @@ plotPCA(
 
 plotPCA(
         spe_pseudo,
-        colour_by = "sum",
+        colour_by = "sum_sample",
         ncomponents = 2,
         point_size = 2,
         percentVar = metadata(spe_pseudo)$PCA_var_explained
@@ -102,11 +112,12 @@ plotPCA(
 
 plotPCA(
     spe_pseudo,
-    colour_by = "detected",
+    colour_by = "detected_sample",
     ncomponents = 2,
     point_size = 2,
     percentVar = metadata(spe_pseudo)$PCA_var_explained
 )
+
 vars <- getVarianceExplained(spe_pseudo,
                              variables = c("layer","sample_id")
 )
