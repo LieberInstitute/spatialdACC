@@ -1,10 +1,10 @@
 **** Job starts ****
-Wed Oct 11 04:10:31 PM EDT 2023
+Thu Oct 12 01:09:37 PM EDT 2023
 **** SLURM info ****
 User: kshah
-Job id: 375881
+Job id: 463017
 Job name: nnSVG_PRECAST
-Hostname: compute-153
+Hostname: compute-147
 Task id: 8
 Loading conda_R/4.3
 
@@ -13,12 +13,12 @@ Currently Loaded Modules:
 
  
 
-2023-10-11 16:12:30.497261 make pseudobulk object
-2023-10-11 16:12:39.074605 dropping 4 pseudo-bulked samples that are below 'min_ncells'.
-2023-10-11 16:12:39.152657 drop lowly expressed genes
-2023-10-11 16:12:39.543482 normalize expression
+2023-10-12 13:11:51.258788 make pseudobulk object
+2023-10-12 13:12:01.755869 dropping 4 pseudo-bulked samples that are below 'min_ncells'.
+2023-10-12 13:12:01.828479 drop lowly expressed genes
+2023-10-12 13:12:02.061927 normalize expression
 [1] 12385   132
 null device 
           1 
 **** Job ends ****
-Wed Oct 11 04:12:51 PM EDT 2023
+Thu Oct 12 01:12:10 PM EDT 2023
