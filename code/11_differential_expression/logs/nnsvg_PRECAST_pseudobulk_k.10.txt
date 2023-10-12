@@ -1,10 +1,10 @@
 **** Job starts ****
-Thu Oct 12 01:09:39 PM EDT 2023
+Thu Oct 12 05:15:50 PM EDT 2023
 **** SLURM info ****
 User: kshah
-Job id: 463019
+Job id: 473159
 Job name: nnSVG_PRECAST
-Hostname: compute-093
+Hostname: compute-153
 Task id: 10
 Loading conda_R/4.3
 
@@ -13,12 +13,16 @@ Currently Loaded Modules:
 
  
 
-2023-10-12 13:13:10.611083 make pseudobulk object
-2023-10-12 13:13:26.185502 dropping 4 pseudo-bulked samples that are below 'min_ncells'.
-2023-10-12 13:13:26.311781 drop lowly expressed genes
-2023-10-12 13:13:26.786186 normalize expression
+2023-10-12 17:17:56.105358 make pseudobulk object
+2023-10-12 17:18:05.230002 dropping 4 pseudo-bulked samples that are below 'min_ncells'.
+2023-10-12 17:18:05.307709 drop lowly expressed genes
+2023-10-12 17:18:05.583173 normalize expression
 [1] 13323   166
+Warning messages:
+1: In self$trans$transform(x) : NaNs produced
+2: Transformation introduced infinite values in continuous x-axis 
+3: Removed 1 rows containing non-finite values (`stat_density()`). 
 null device 
           1 
 **** Job ends ****
-Thu Oct 12 01:13:43 PM EDT 2023
+Thu Oct 12 05:18:15 PM EDT 2023
