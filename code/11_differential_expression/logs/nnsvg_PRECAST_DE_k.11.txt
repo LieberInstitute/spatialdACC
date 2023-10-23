@@ -1,0 +1,82 @@
+**** Job starts ****
+Mon Oct 23 01:36:06 PM EDT 2023
+**** SLURM info ****
+User: kshah
+Job id: 559160
+Job name: nnSVG_PRECAST
+Hostname: compute-127
+Task id: 11
+Loading conda_R/4.3
+
+Currently Loaded Modules:
+  1) JHPCE_tools/3.0   2) conda/3-23.3.1   3) conda_R/4.3
+
+ 
+
+2023-10-23 13:38:00.34542 make pseudobulk object
+2023-10-23 13:38:08.584015 dropping 5 pseudo-bulked samples that are below 'min_ncells'.
+2023-10-23 13:38:08.660109 drop lowly expressed genes
+2023-10-23 13:38:08.977575 normalize expression
+2023-10-23 13:38:12.94834 create model matrix
+2023-10-23 13:38:13.025312 run duplicateCorrelation()
+2023-10-23 13:38:40.187719 The estimated correlation is: 0.0452576487266885
+2023-10-23 13:38:42.430699 computing enrichment statistics
+2023-10-23 13:38:46.810445 extract and reformat enrichment results
+2023-10-23 13:38:48.220577 computing F-statistics
+[1] 1
+[1] "Cluster 1"
+sig
+FALSE  TRUE 
+11042  1266 
+[1] 2
+[1] "Cluster 2"
+sig
+FALSE  TRUE 
+12082   226 
+[1] 3
+[1] "Cluster 3"
+sig
+FALSE  TRUE 
+ 8799  3509 
+[1] 4
+[1] "Cluster 4"
+sig
+FALSE  TRUE 
+12110   198 
+[1] 5
+[1] "Cluster 5"
+sig
+FALSE  TRUE 
+12213    95 
+[1] 6
+[1] "Cluster 6"
+sig
+FALSE  TRUE 
+12180   128 
+[1] 7
+[1] "Cluster 7"
+sig
+FALSE  TRUE 
+11151  1157 
+[1] 8
+[1] "Cluster 8"
+sig
+FALSE  TRUE 
+  617 11691 
+[1] 9
+[1] "Cluster 9"
+sig
+FALSE  TRUE 
+ 7674  4634 
+[1] 10
+[1] "Cluster 10"
+sig
+FALSE  TRUE 
+11397   911 
+[1] 11
+[1] "Cluster 11"
+sig
+FALSE  TRUE 
+11393   915 
+**** Job ends ****
+Mon Oct 23 01:38:59 PM EDT 2023
