@@ -1,43 +1,44 @@
 **** Job starts ****
-Mon Oct 23 01:36:06 PM EDT 2023
+Thu Oct 26 11:33:19 AM EDT 2023
 **** SLURM info ****
 User: kshah
-Job id: 559155
+Job id: 627143
 Job name: nnSVG_PRECAST
-Hostname: compute-109
+Hostname: compute-145
 Task id: 6
 Loading conda_R/4.3
 
 Currently Loaded Modules:
-  1) JHPCE_tools/3.0   2) conda/3-23.3.1   3) conda_R/4.3
+  1) JHPCE_ROCKY9_DEFAULT_ENV   3) conda/3-23.3.1
+  2) JHPCE_tools/3.0            4) conda_R/4.3
 
  
 
-2023-10-23 13:38:45.152764 make pseudobulk object
-2023-10-23 13:38:56.112306 dropping 5 pseudo-bulked samples that are below 'min_ncells'.
-2023-10-23 13:38:57.563416 drop lowly expressed genes
-2023-10-23 13:38:57.893643 normalize expression
-2023-10-23 13:38:59.564508 create model matrix
-2023-10-23 13:38:59.689181 run duplicateCorrelation()
-2023-10-23 13:39:29.825797 The estimated correlation is: 0.0326960291511295
-2023-10-23 13:39:29.832372 computing enrichment statistics
-2023-10-23 13:39:31.58204 extract and reformat enrichment results
-2023-10-23 13:39:31.83108 computing F-statistics
+2023-10-26 11:35:45.972314 make pseudobulk object
+2023-10-26 11:35:54.810474 dropping 5 pseudo-bulked samples that are below 'min_ncells'.
+2023-10-26 11:35:54.893373 drop lowly expressed genes
+2023-10-26 11:35:55.258869 normalize expression
+2023-10-26 11:35:56.767536 create model matrix
+2023-10-26 11:35:56.863584 run duplicateCorrelation()
+2023-10-26 11:36:22.305414 The estimated correlation is: 0.0326960291511295
+2023-10-26 11:36:22.357681 computing enrichment statistics
+2023-10-26 11:36:23.860097 extract and reformat enrichment results
+2023-10-26 11:36:24.062276 computing F-statistics
 [1] 1
 [1] "Cluster 1"
 sig
 FALSE  TRUE 
- 9594  2941 
+ 9532  3003 
 [1] 2
 [1] "Cluster 2"
 sig
 FALSE  TRUE 
-10844  1691 
+10774  1761 
 [1] 3
 [1] "Cluster 3"
 sig
 FALSE  TRUE 
- 8885  3650 
+ 8775  3760 
 [1] 4
 [1] "Cluster 4"
 sig
@@ -47,11 +48,11 @@ FALSE  TRUE
 [1] "Cluster 5"
 sig
 FALSE  TRUE 
-  534 12001 
+  381 12154 
 [1] 6
 [1] "Cluster 6"
 sig
 FALSE  TRUE 
- 8894  3641 
+ 8792  3743 
 **** Job ends ****
-Mon Oct 23 01:39:39 PM EDT 2023
+Thu Oct 26 11:36:29 AM EDT 2023
