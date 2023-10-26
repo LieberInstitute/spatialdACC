@@ -97,7 +97,7 @@ save(
 )
 
 thresh_fdr <- 0.05
-thresh_logfc <- log2(2)
+thresh_logfc <- log2(1.5)
 fdrs_gene_ids <- rowData(spe_pseudo)$gene_id
 fdrs_gene_names <- rowData(spe_pseudo)$gene_name
 
@@ -132,8 +132,8 @@ for (i in c(1:k)) {
                     lab = df_list[[i]]$gene_name,
                     x = 'logFC',
                     y = 'FDR',
-                    FCcutoff = 1,
-                    pCutoff = 0.049,
+                    FCcutoff = 1.5,
+                    pCutoff = 0.05,
                     ylab = "-log10 FDR",
                     legendLabels = c('Not sig.','Log (base 2) FC','FDR',
                                      'FDR & Log (base 2) FC'),
