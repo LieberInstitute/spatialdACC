@@ -56,6 +56,13 @@ colData(spe)[nnSVG_precast_name] <- as.factor(colData(spe)[,nnSVG_precast_name])
 #avoid limma make contrasts syntax error
 colData(spe)[nnSVG_precast_name] <- paste0("clust", colData(spe)[,nnSVG_precast_name])
 
+spe_pseudo <-
+     registration_pseudobulk(spe,
+                             var_registration = nnSVG_precast_name,
+                             var_sample_id = "sample_id",
+                             min_ncells = 10
+     )
+
 modeling_results <- registration_wrapper(
     spe,
     var_registration = nnSVG_precast_name,
@@ -70,7 +77,7 @@ save(
     file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_DE", paste0(nnSVG_precast_name,".Rdata"))
 )
 
-colData(spe_pseudo)$spatialLIBD <- colData(spe_pseudo)$registration_variable
+colData(spe)$spatialLIBD <- colData(spe)$registration_variable
 
 sig_genes <- sig_genes_extract(
     n = 20,
@@ -131,8 +138,8 @@ pdf(file = here::here("plots", "11_differential_expression","pseudobulk", "nnSVG
 for (i in c(1:k)) {
 
     print(i)
-    fdrs <- results_enrichment[,paste0("fdr_", i)]
-    logfc <- results_enrichment[,paste0("logFC_", i)]
+    fdrs <- modeling_results[["enrichment"]][,paste0("fdr_clust", i)]
+    logfc <- modeling_results[["enrichment"]][,paste0("logFC_clust", i)]
 
     # Identify significant genes (low FDR and high logFC)
     sig <- (fdrs < thresh_fdr) & (abs(logfc) > thresh_logfc)
@@ -142,7 +149,7 @@ for (i in c(1:k)) {
     print(table(sig))
 
     df_list[[i]] <- data.frame(
-        gene_name = results_enrichment$gene,
+        gene_name = modeling_results[["enrichment"]]$gene,
         logFC = logfc,
         FDR = fdrs,
         sig = sig
