@@ -53,49 +53,69 @@ spe <- nnSVG_PRECAST_import(
 ## Convert from character to a factor
 colData(spe)[nnSVG_precast_name] <- as.factor(colData(spe)[,nnSVG_precast_name])
 
-spe_pseudo <-
-    registration_pseudobulk(spe,
-                            var_registration = nnSVG_precast_name,
-                            var_sample_id = "sample_id",
-                            min_ncells = 10
-    )
+#avoid limma make contrasts syntax error
+colData(spe)[nnSVG_precast_name] <- paste0("clust", colData(spe)[,nnSVG_precast_name])
 
-registration_mod <-
-    registration_model(spe_pseudo,
-                       var_registration = nnSVG_precast_name)
-
-block_cor <-
-    registration_block_cor(spe_pseudo, registration_model = registration_mod)
-
-results_enrichment <-
-    registration_stats_enrichment(
-        spe_pseudo,
-        block_cor = block_cor,
-        gene_ensembl = 'gene_id',
-        gene_name = 'gene_name'
-    )
-
-results_anova <-
-    registration_stats_anova(
-        spe_pseudo,
-        block_cor = block_cor,
-        var_registration = nnSVG_precast_name,
-        gene_ensembl = 'gene_id',
-        gene_name = 'gene_name'
-    )
-
-modeling_results <- list(
-    "anova" = results_anova,
-    "enrichment" = results_enrichment
+modeling_results <- registration_wrapper(
+    spe,
+    var_registration = nnSVG_precast_name,
+    var_sample_id = "sample_id",
+    gene_ensembl = 'gene_id',
+    gene_name = 'gene_name'
 )
 
 ###save modeling results list
-
 save(
     modeling_results,
     file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_DE", paste0(nnSVG_precast_name,".Rdata"))
 )
 
+colData(spe_pseudo)$spatialLIBD <- colData(spe_pseudo)$registration_variable
+
+sig_genes <- sig_genes_extract(
+    n = 20,
+    modeling_results = modeling_results,
+    model_type = "enrichment",
+    sce_layer = spe_pseudo
+)
+
+indices <- c()
+
+indices <- append(indices, which(sig_genes$gene == "PVALB")) #DLPFC nat neuro previous marker for L4
+indices <- append(indices, which(sig_genes$gene == "FABP7")) #DLPFC nat neuro previous marker for L1
+indices <- append(indices, which(sig_genes$gene == "CCK")) #DLPFC nat neuro previous marker for L6
+indices <- append(indices, which(sig_genes$gene == "KRT17")) #DLPFC nat neuro new marker for L6
+indices <- append(indices, which(sig_genes$gene == "AQP4")) #DLPFC nat neuro new marker for L1
+indices <- append(indices, which(sig_genes$gene == "HPCAL1")) #DLPFC nat neuro new marker for L2
+indices <- append(indices, which(sig_genes$gene == "TRABD2A")) #DLPFC nat neuro new marker & known L5 marker
+indices <- append(indices, which(sig_genes$gene == "RELN")) #known L1 marker
+indices <- append(indices, which(sig_genes$gene == "FREM3")) #known L3 marker
+
+pdf(file = here::here("plots", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
+                      paste0("boxplots_", nnSVG_precast_name, ".pdf")),
+    width = 8.5, height = 8)
+
+for (i in indices) {
+    layer_boxplot(
+        i,
+        sig_genes = sig_genes,
+        short_title = TRUE,
+        sce_layer = spe_pseudo,
+        col_bkg_box = "grey80",
+        col_bkg_point = "grey40",
+        col_low_box = "violet",
+        col_low_point = "darkviolet",
+        col_high_box = "skyblue",
+        col_high_point = "dodgerblue4",
+        cex = 2,
+        group_var = nnSVG_precast_name,
+        assayname = "logcounts"
+    )
+}
+
+dev.off()
+
+#volcano plots
 thresh_fdr <- 0.05
 thresh_logfc <- log2(1.5)
 fdrs_gene_ids <- rowData(spe_pseudo)$gene_id
