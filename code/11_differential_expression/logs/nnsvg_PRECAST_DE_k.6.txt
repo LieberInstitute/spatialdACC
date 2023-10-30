@@ -1,10 +1,10 @@
 **** Job starts ****
-Thu Oct 26 11:33:19 AM EDT 2023
+Mon Oct 30 04:29:57 PM EDT 2023
 **** SLURM info ****
 User: kshah
-Job id: 627143
+Job id: 665524
 Job name: nnSVG_PRECAST
-Hostname: compute-145
+Hostname: compute-115
 Task id: 6
 Loading conda_R/4.3
 
@@ -14,16 +14,24 @@ Currently Loaded Modules:
 
  
 
-2023-10-26 11:35:45.972314 make pseudobulk object
-2023-10-26 11:35:54.810474 dropping 5 pseudo-bulked samples that are below 'min_ncells'.
-2023-10-26 11:35:54.893373 drop lowly expressed genes
-2023-10-26 11:35:55.258869 normalize expression
-2023-10-26 11:35:56.767536 create model matrix
-2023-10-26 11:35:56.863584 run duplicateCorrelation()
-2023-10-26 11:36:22.305414 The estimated correlation is: 0.0326960291511295
-2023-10-26 11:36:22.357681 computing enrichment statistics
-2023-10-26 11:36:23.860097 extract and reformat enrichment results
-2023-10-26 11:36:24.062276 computing F-statistics
+2023-10-30 16:36:12.243649 make pseudobulk object
+2023-10-30 16:36:27.015944 dropping 5 pseudo-bulked samples that are below 'min_ncells'.
+2023-10-30 16:36:27.184307 drop lowly expressed genes
+2023-10-30 16:36:27.81096 normalize expression
+2023-10-30 16:36:31.100769 make pseudobulk object
+2023-10-30 16:36:47.326234 dropping 5 pseudo-bulked samples that are below 'min_ncells'.
+2023-10-30 16:36:47.469815 drop lowly expressed genes
+2023-10-30 16:36:47.947218 normalize expression
+2023-10-30 16:36:50.833281 create model matrix
+2023-10-30 16:36:51.024298 run duplicateCorrelation()
+2023-10-30 16:37:33.306393 The estimated correlation is: 0.0326960291511295
+2023-10-30 16:37:33.316932 computing enrichment statistics
+2023-10-30 16:37:36.295056 extract and reformat enrichment results
+2023-10-30 16:37:36.380834 running the baseline pairwise model
+2023-10-30 16:37:36.800104 computing pairwise statistics
+2023-10-30 16:37:38.004594 computing F-statistics
+null device 
+          1 
 [1] 1
 [1] "Cluster 1"
 sig
@@ -55,4 +63,4 @@ sig
 FALSE  TRUE 
  8792  3743 
 **** Job ends ****
-Thu Oct 26 11:36:29 AM EDT 2023
+Mon Oct 30 04:37:50 PM EDT 2023
