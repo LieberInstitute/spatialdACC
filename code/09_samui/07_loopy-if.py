@@ -2,6 +2,7 @@ from pathlib import Path
 from pyhere import here
 import json
 import os
+import re
 import scanpy as sc
 
 import numpy as np
@@ -9,152 +10,178 @@ import pandas as pd
 from rasterio import Affine
 
 from loopy.sample import Sample
-from loopy.utils.utils import remove_dupes
+from loopy.utils.utils import remove_dupes, Url
 
-
-#samplenums = [str(i) for i in range(4)]
-samplenums = list(range(4))
 spot_diameter_m = 55e-6 # 55-micrometer diameter for Visium spot
 img_channels = ['DAPI', 'NeuN', 'TMEM119', 'GFAP', 'OLIG2', 'AF']
 default_channels = {'blue': 'DAPI', 'red': 'NeuN'}
+default_gene = 'SNAP25'
+
+#   Names of continuous features expected to be columns in the observation 
+#   data (colData) of the AnnData
+# spe_cont_features = ['PpTau', 'PAbeta']
+
+#   Diagnosis by brain number (not included in the sample_info sheet)
+# sample_dx = {
+#     'Br3854': 'AD', 'Br3873': 'AD', 'Br3880': 'AD', 'Br3874': 'control'
+# }
 
 sample_info_path = here(
     'raw-data', 'sample_info', '2023-06-09_LIBD_VisiumSPG_dACC_Linda.xlsx'
 )
 
-img_path = here(
-    'processed-data', 'Images', 'VistoSeg', 'Capture_areas', 'if-images', '{}.tif'
-)
+spe_path = here("processed-data", "10_samui", "spg", "spe.h5ad")
+# notes_path = str(Path(here('code', '16_samui', 'feature_notes.md')).resolve())
+img_path = here('processed-data', 'Images', 'VistoSeg', 'Capture_areas', 'if-images', '{}.tif')
 json_path = here(
     'processed-data', '09_spaceranger_reorg', 'spg', '{}', 'outs', 'spatial',
     'scalefactors_json.json'
 )
-tissue_path = here(
-    'processed-data', '09_spaceranger_reorg', 'spg', '{}', 'outs', 'spatial',
-    'tissue_positions_list.csv'
-)
+
 out_dir = here('processed-data', '10_samui', 'IF', '{}')
-spe_path = here(
-    "processed-data", "10_samui", "spg", "spe.h5ad"
+
+################################################################################
+#   Read in sample info and clean
+################################################################################
+
+#   Read in sample info, subset to relevant columns, and clean
+# sample_info = (pd.read_excel(sample_info_path)
+#     .query('`Sequenced? ` == "Yes"')
+#     .filter(["Br####", "Slide SN #", "Array #", "Sample #"])
+#     #   Clean up column names
+#     .rename(
+#         columns = {
+#             "Br####": "br_num",
+#             "Slide  #": "sample_id",
+#             "Array #": "array_num",
+#             "Sample #": "sample_num"
+#         }
+#     )
+# )
+sample_info = pd.read_excel(sample_info_path)
+sample_info = sample_info.dropna(subset=['Sample #', 'Tissue'])
+
+#   Prepend "Br" tp brain number and make a string
+sample_info['br_num'] = sample_info['Brain'].astype(str)
+
+#   Add diagnosis using brain number
+# sample_info['diagnosis'] = sample_info['br_num'].replace(sample_dx)
+
+#   Fix the experiment number column (use strings of integers), create experiment number for each slide
+sample_info['sample_num'] = sample_info.index + 1
+sample_info['experiment_num'] = ((sample_info['sample_num'] - 1) // 4  + 1).astype(str)
+
+# create column called sample_id from 'Sample #'
+pattern = '_shk'
+sample_info['sample_id'] = sample_info['Sample #'].str.split(pattern, expand = True)[0]
+
+#   Different forms of sample IDs appear to be used for spaceranger outputs
+#   and raw images
+sample_info = (sample_info
+    .assign(
+        spaceranger_id = sample_info['sample_id'].transform(lambda x: x.replace('-', '')) +
+            '_' + sample_info['array_num'] + '_' + sample_info['br_num'],
+        image_id = 'VIFAD' + sample_info['experiment_num'] + '_' + sample_info['sample_id'] + '_' + sample_info['array_num']
+    )
 )
-# marker_broad_path = here(
-#     "processed-data", "spot_deconvo", "05-shared_utilities", "markers_broad.txt"
-# )
+sample_info['spaceranger_id'] = sample_info['Slide #'] + '_' + sample_info['Array #']
+sample_info['image_id'] = sample_info['Slide #'] + '_' + sample_info['Array #']
+# sample_id_spaceranger = sample_info['Slide #'] + '_' + sample_info['Array #']
+# sample_id_image = sample_info['Slide #'] + '_' + sample_info['Array #']
 
-#   We'll include expression for the top 5 broad markers per cell type, and this
-#   additional list (of classical DLPFC layer markers)
-# other_genes = [
-#     "AQP4", "HPCAL1", "CUX2", "RORB", "PCP4", "KRT17", "SNAP25", "MOBP"
-# ]
-# n_markers_per_type = 5
-# n_markers_per_type_orig = 25 # used for the markers in 'marker_broad_path'
+#   Subset all types of IDs to this sample only
+sample_id_spaceranger = sample_info['spaceranger_id'].iloc[int(os.environ['SLURM_ARRAY_TASK_ID']) - 1]
+sample_id_image = sample_info['image_id'].iloc[int(os.environ['SLURM_ARRAY_TASK_ID']) - 1]
+sample_id_samui = sample_info['spaceranger_id'].iloc[int(os.environ['SLURM_ARRAY_TASK_ID']) - 1]
 
-# cell_types_broad = [
-#     "Astro", "EndoMural", "Micro", "Oligo", "OPC", "Excit", "Inhib"
-# ]
-# cell_types_layer = [
-#     "Astro", "EndoMural", "Micro", "Oligo", "OPC", "Excit_L2_3", "Excit_L3",
-#     "Excit_L3_4_5", "Excit_L4", "Excit_L5", "Excit_L5_6", "Excit_L6",
-#     "Inhib"
-# ]
-# cell_types_cart = ["astro", "micro", "neuron", "oligo", "other"]
 
-# raw_results_path = here(
-#     "processed-data", "spot_deconvo", "05-shared_utilities", "IF",
-#     "results_raw_{}.csv"
-# )
-# collapsed_results_path = here(
-#     "processed-data", "spot_deconvo", "05-shared_utilities", "IF",
-#     "results_collapsed_broad.csv"
-# )
+#sample_id_spaceranger = sample_info['spaceranger_id'].iloc[int()]
+# #   Update paths for this sample ID
+out_dir = Path(str(out_dir).format(sample_id_samui))
+json_path = Path(str(json_path).format(sample_id_spaceranger))
+img_path = Path(str(img_path).format(sample_id_image))
 
-#   Different sample IDs are used for different files associated with each
-#   sample. Determine both forms of the sample ID for this sample and update
-#   path variables accordingly
-sample_info = pd.read_excel(sample_info_path)[:4]
-sample_ids_img = sample_info['Slide #'] + '_' + sample_info['Array #']
-#sample_ids_spot = sample_info['Brain'] + \
-#    '_' + pd.Series([x.split('_')[1] for x in sample_info['Tissue']]) + \
-#    '_IF'
+# #find size of dataframe and assign slide + array info to sample_id_spaceranger
+# samplenums = sample_info['sample_num']
+# samplerows = list(range(len(sample_info)))
+# sample_id_spaceranger = sample_info['Slide #'] + '_' + sample_info['Array #']
 
-#   Subset both types of IDs to this sample only
-#sample_id_img = sample_ids_img[int(os.environ['SLURM_ARRAY_TASK_ID']) - 1]
-#sample_id_spot = sample_ids_spot[int(os.environ['SLURM_ARRAY_TASK_ID']) - 1]
+# for i in samplerows:
+#     sample_id_img = sample_id_spaceranger[i]
+    
+#     out_dir = Path(str(out_dir).format(sample_id_img))
+#     json_path = Path(str(json_path).format(sample_id_img))
+#     img_path = Path(str(img_path).format(sample_id_img))
 
-#sample_id_img = sample_ids_img[samplenums]
+out_dir.mkdir(exist_ok = True)
 
-for i in samplenums:
-    sample_id_img = sample_ids_img[i]
-    out_dir = Path(str(out_dir).format(sample_id_img))
-    json_path = Path(str(json_path).format(sample_id_img))
-    img_path = Path(str(img_path).format(sample_id_img))
-    tissue_path = Path(str(tissue_path).format(sample_id_img))
+#   All paths should exist
+assert all([x.exists() for x in [out_dir, json_path, img_path]])
 
-#   Read in the spaceranger JSON, ultimately to calculate meters per pixel for
+################################################################################
+#   Read in scale-factors info
+################################################################################
+
+#   Read in the spaceranger JSON to calculate meters per pixel for
 #   the full-resolution image
 with open(json_path, 'r') as f:
     spaceranger_json = json.load(f)
 
 m_per_px = spot_diameter_m / spaceranger_json['spot_diameter_fullres']
 
-
 ################################################################################
 #   Gather gene-expression data into a DataFrame to later as a feature
 ################################################################################
 
+#   Read in AnnData and subset to this sample
 spe = sc.read(spe_path)
-
-#   Read in broad markers, taking the top N for each cell type
-# with open(marker_broad_path, 'r') as f:
-#     markers_temp = f.read().splitlines()
-
-# markers = []
-# for piece in range(len(markers_temp) // n_markers_per_type_orig):
-#     markers += markers_temp[
-#         (n_markers_per_type_orig * piece):
-#         (n_markers_per_type_orig * piece + n_markers_per_type)
-#     ]
-
-#   Convert layer-marker genes to Ensembl ID
-#other_genes = set(
-#    spe.var['gene_id'][spe.var['gene_name'].isin(other_genes)]
-#)
-
-#   Take the union of the layer-marker genes with the top N broad markers
-# markers = set(markers).union(other_genes)
-
-#   Subset AnnData to this sample and just the markers
-# spe = spe[spe.obs['sample_id'] == sample_id_spot, spe.var['gene_id'].isin(markers)]
-# assert spe.shape == (all_results.shape[0], len(markers))
-# assert all(spe.obs.index ==  all_results.index)
+path_groups = spe.obs['path_groups'].cat.categories
+spe = spe[spe.obs['sample_id'] == sample_id_spaceranger, :]
+spe.obs.index.name = "barcode"
 
 #   Convert the sparse gene-expression matrix to pandas DataFrame, with the
 #   gene symbols as column names
-# marker_df = pd.DataFrame(
-#     spe.X.toarray(),
-#     index = all_results.index,
-#     columns = spe.var['gene_name'][spe.var['gene_id'].isin(markers)]
-# )
+gene_df = pd.DataFrame(
+    spe.X.toarray(),
+    index = spe.obs.index,
+    columns = spe.var['gene_name']
+)
+
+#   Some gene symbols are actually duplicated. Just take the first column in
+#   any duplicated cases
+gene_df = gene_df.loc[: , ~gene_df.columns.duplicated()].copy()
+
+#   Samui seems to break when using > ~ 5,000 genes. Take just the genes where
+#   at least 10% of spots have nonzero counts
+gene_df = gene_df.loc[:, np.sum(gene_df > 0, axis = 0) > (gene_df.shape[0] * 0.1)].copy()
+
+assert default_gene in gene_df.columns, "Default gene not in AnnData"
+
+print('Using {} genes as features.'.format(gene_df.shape[1]))
+
+################################################################################
+#   Split 'path_groups' column into binary columns for each of its values
+################################################################################
+
+#   Circumvent a Samui bug (https://github.com/chaichontat/samui/issues/84);
+#   turn the categorical column 'path_groups' into several numeric columns with
+#   just values of 0 and 1
+path_df = pd.DataFrame()
+for path_group in path_groups:
+    path_df[path_group] = (spe.obs['path_groups'] == path_group).astype(int)
 
 ################################################################################
 #   Use the Samui API to create the importable directory for this sample
 ################################################################################
 
-this_sample = Sample(name = sample_id_img, path = out_dir)
+this_sample = Sample(name = sample_id_samui, path = out_dir)
 
 this_sample.add_coords(
-    tissue_positions, name="coords", mPerPx=m_per_px, size=spot_diameter_m
+    spe.obsm['spatial'].rename(
+        columns = {'pxl_col_in_fullres': 'x', 'pxl_row_in_fullres': 'y'}
+    ),
+    name = "coords", mPerPx = m_per_px, size = spot_diameter_m
 )
-
-#   Add spot deconvolution results (multiple columns) as a feature
-# this_sample.add_csv_feature(
-#     all_results, name = "Spot deconvolution", coordName = "coords"
-# )
-
-#   Add gene expression results (multiple columns) as a feature
-# this_sample.add_csv_feature(
-#     marker_df, name = "Genes", coordName = "coords"
-# )
 
 #   Add the IF image for this sample
 this_sample.add_image(
@@ -162,6 +189,23 @@ this_sample.add_image(
     defaultChannels = default_channels
 )
 
-this_sample.set_default_feature(group = "Genes", feature = "SNAP25")
+#   Add gene expression results (multiple columns) as a feature
+this_sample.add_csv_feature(
+    gene_df, name = "Genes", coordName = "coords", dataType = "quantitative"
+)
+
+#   Add additional requested observational columns (colData columns)
+# this_sample.add_csv_feature(
+#     spe.obs[spe_cont_features], name = "Spot Coverage", coordName = "coords",
+#     dataType = "quantitative"
+# )
+
+#   Add pathology groups
+this_sample.add_csv_feature(
+    path_df, name = "Pathology Group", coordName = "coords",
+    dataType = "quantitative"
+)
+
+this_sample.set_default_feature(group = "Genes", feature = default_gene)
 
 this_sample.write()
