@@ -1,7 +1,7 @@
-date: Mon Oct  9 11:33:33 AM EDT 2023
+date: Thu Oct 26 10:26:22 AM EDT 2023
 **** JHPCE info ****
 User: rmiller
-Job id: 316926
+Job id: 626660
 Job name: 02samui
 Hostname: 
 Task id: 
@@ -11,9 +11,11 @@ Loading LIBD module for samui/1.0.0-next.45
   warnings.warn(message, UserWarning)
 /jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/openpyxl/worksheet/_reader.py:329: UserWarning: Unknown extension is not supported and will be removed
   warn(msg)
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/anndata/_core/anndata.py:1830: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")
 Traceback (most recent call last):
-  File "/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/09_samui/02_loopy-if.py", line 89, in <module>
-    with open(json_path, 'r') as f:
-FileNotFoundError: [Errno 2] No such file or directory: '/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/09_samui/../../processed-data/09_spaceranger_reorg/spg/0    V12N28-333_A1\n1    V12N28-333_B1\n2    V12N28-333_C1\n3    V12N28-333_D1\ndtype: object/outs/spatial/scalefactors_json.json'
+  File "/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/09_samui/02_loopy-if.py", line 146, in <module>
+    tissue_positions, name="coords", mPerPx=m_per_px, size=spot_diameter_m
+NameError: name 'tissue_positions' is not defined
 **** Job ends ****
-Mon Oct  9 11:34:02 AM EDT 2023
+Thu Oct 26 10:28:20 AM EDT 2023
