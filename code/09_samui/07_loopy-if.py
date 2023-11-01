@@ -77,13 +77,13 @@ sample_info['sample_id'] = sample_info['Sample #'].str.split(pattern, expand = T
 
 #   Different forms of sample IDs appear to be used for spaceranger outputs
 #   and raw images
-sample_info = (sample_info
-    .assign(
-        spaceranger_id = sample_info['sample_id'].transform(lambda x: x.replace('-', '')) +
-            '_' + sample_info['array_num'] + '_' + sample_info['br_num'],
-        image_id = 'VIFAD' + sample_info['experiment_num'] + '_' + sample_info['sample_id'] + '_' + sample_info['array_num']
-    )
-)
+# sample_info = (sample_info
+#     .assign(
+#         spaceranger_id = sample_info['sample_id'].transform(lambda x: x.replace('-', '')) +
+#             '_' + sample_info['array_num'] + '_' + sample_info['br_num'],
+#         image_id = 'VIFAD' + sample_info['experiment_num'] + '_' + sample_info['sample_id'] + '_' + sample_info['array_num']
+#     )
+# )
 sample_info['spaceranger_id'] = sample_info['Slide #'] + '_' + sample_info['Array #']
 sample_info['image_id'] = sample_info['Slide #'] + '_' + sample_info['Array #']
 # sample_id_spaceranger = sample_info['Slide #'] + '_' + sample_info['Array #']
