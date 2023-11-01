@@ -59,10 +59,15 @@ spe <- nnSVG_PRECAST_import(
 
 p1 <- vis_clus(spe, sampleid = "V12N28-331_D1", clustervar = nnSVG_precast_name,
                colors = c("#c2cea5", "#e9c891", "#c891e9", "#91e9c8", "#f57b9d", "#c6c506", "#c506c6", "#06c6c5", "#f8b200"),
-               point_size = 4, spatial = FALSE) +
+               point_size = 2, spatial = FALSE) +
     theme(legend.position="none") +
     ggtitle("PRECAST Clusters") +
     theme(plot.title = element_text(size=15, face="bold"))
+
+ggsave(here("plots", "poster_figs", "fig2a.png"),
+       p1
+
+)
 
 load(
     file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_pseudobulk", paste0(nnSVG_precast_name,".Rdata"))
@@ -83,12 +88,13 @@ p2 <- plotPCA(
     spe_pseudo,
     colour_by = "cluster",
     ncomponents = 2,
-    point_size = 3,
+    point_size = 2,
     percentVar = metadata(spe_pseudo)$PCA_var_explained) +
     scale_color_manual(values=c("#c2cea5", "#e9c891", "#c891e9", "#91e9c8", "#f57b9d", "#c6c506", "#c506c6", "#06c6c5", "#f8b200")) +
     guides(color=guide_legend("cluster"))  +
     ggtitle("PC Scores") +
-    theme(plot.title = element_text(size=15))
+    theme(plot.title = element_text(size=15)) +
+    theme(axis.text.x = element_text(angle=90, vjust=.5, hjust=1))
 
 
 vars <- getVarianceExplained(spe_pseudo,
@@ -97,9 +103,259 @@ vars <- getVarianceExplained(spe_pseudo,
 
 
 p3 <- plotExplanatoryVariables(vars)  +
-    ggtitle("PC Variance Explained") +
-    theme(plot.title = element_text(size=15))
+    ggtitle("Var. Explained") +
+    theme(plot.title = element_text(size=15)) +
+    guides(color=guide_legend(""))  +
+    scale_color_manual(labels = c("cluster", "sample", "sum", "detected"), values = c("#631879", "#008280", "#808180", "#FDAF91")) +
+    theme(axis.text.x = element_text(angle=90, vjust=.5, hjust=1))
+
+wrap_plots((p2 | p3)) &
+    theme(plot.tag = element_text(color = "black", size = 20, face="bold"))
+
+ggsave(here("plots", "poster_figs", "fig2.png"),
+       wrap_plots((p2 | p3)) &
+           theme(plot.tag = element_text(color = "black", size = 20, face="bold"))
+
+)
+
+#figure 3
+colData(spe)[nnSVG_precast_name] <- as.factor(colData(spe)[,nnSVG_precast_name])
+colData(spe)[nnSVG_precast_name] <- paste0("clust", colData(spe)[,nnSVG_precast_name])
+
+spe_pseudo <-
+    registration_pseudobulk(spe,
+                            var_registration = nnSVG_precast_name,
+                            var_sample_id = "sample_id",
+                            min_ncells = 10
+    )
+
+load(
+    file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_DE", paste0(nnSVG_precast_name,".Rdata"))
+)
+colData(spe)$spatialLIBD <- colData(spe)$registration_variable
+
+sig_genes <- sig_genes_extract(
+    n = 20,
+    modeling_results = modeling_results,
+    model_type = "enrichment",
+    sce_layer = spe_pseudo
+)
+
+indices <- c(87, 165, 21)
+
+png(here("plots", "poster_figs", "fig3a.png"))
+
+p1 <- layer_boxplot(
+    87,
+    sig_genes = sig_genes,
+    short_title = TRUE,
+    sce_layer = spe_pseudo,
+    col_bkg_box = "grey80",
+    col_bkg_point = "grey40",
+    col_low_box = "violet",
+    col_low_point = "darkviolet",
+    col_high_box = "skyblue",
+    col_high_point = "dodgerblue4",
+    cex = 2,
+    group_var = nnSVG_precast_name,
+    assayname = "logcounts"
+)
+
+dev.off()
+
+png(here("plots", "poster_figs", "fig3b.png"))
+
+p2 <- layer_boxplot(
+    165,
+    sig_genes = sig_genes,
+    short_title = TRUE,
+    sce_layer = spe_pseudo,
+    col_bkg_box = "grey80",
+    col_bkg_point = "grey40",
+    col_low_box = "violet",
+    col_low_point = "darkviolet",
+    col_high_box = "skyblue",
+    col_high_point = "dodgerblue4",
+    cex = 2,
+    group_var = nnSVG_precast_name,
+    assayname = "logcounts"
+)
+
+dev.off()
+
+png(here("plots", "poster_figs", "fig3c.png"))
 
 
-ggsave(here("plots", "11_differential_expression", "pseudobulk", "nnSVG_precast_pseudobulk", paste0("pseudobulk_PC_",nnSVG_precast_name,".pdf")),
-                wrap_plots(p1,p2,p3, nrow=2) + plot_annotation(tag_levels = 'A'))
+p3 <- layer_boxplot(
+    21,
+    sig_genes = sig_genes,
+    short_title = TRUE,
+    sce_layer = spe_pseudo,
+    col_bkg_box = "grey80",
+    col_bkg_point = "grey40",
+    col_low_box = "violet",
+    col_low_point = "darkviolet",
+    col_high_box = "skyblue",
+    col_high_point = "dodgerblue4",
+    cex = 2,
+    group_var = nnSVG_precast_name,
+    assayname = "logcounts"
+)
+
+dev.off()
+
+
+png(here("plots", "poster_figs", "fig3d.png"))
+
+vis_gene(
+    spe = spe,
+    sampleid = "V12N28-331_D1",
+    geneid = rownames(spe)[which(rowData(spe)$gene_name == "RELN")]
+)
+
+dev.off()
+
+png(here("plots", "poster_figs", "fig3e.png"))
+
+vis_gene(
+    spe = spe,
+    sampleid = "V12N28-331_D1",
+    geneid = rownames(spe)[which(rowData(spe)$gene_name == "FREM3")]
+)
+
+dev.off()
+
+png(here("plots", "poster_figs", "fig3f.png"))
+
+vis_gene(
+    spe = spe,
+    sampleid = "V12N28-331_D1",
+    geneid = rownames(spe)[which(rowData(spe)$gene_name == "KRT17")]
+)
+
+dev.off()
+
+
+#fig 4
+
+k=7
+nnSVG_precast_name <- paste0("nnSVG_PRECAST_captureArea_", k)
+spe <- nnSVG_PRECAST_import(
+    spe,
+    cluster_dir = here::here("processed-data", "08_clustering", "PRECAST", nnSVG_precast_name)
+)
+
+
+colData(spe)[nnSVG_precast_name] <- as.factor(colData(spe)[,nnSVG_precast_name])
+colData(spe)[nnSVG_precast_name] <- paste0("clust", colData(spe)[,nnSVG_precast_name])
+
+spe_pseudo <-
+    registration_pseudobulk(spe,
+                            var_registration = nnSVG_precast_name,
+                            var_sample_id = "sample_id",
+                            min_ncells = 10
+    )
+
+load(
+    file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_DE", paste0(nnSVG_precast_name,".Rdata"))
+)
+colData(spe)$spatialLIBD <- colData(spe)$registration_variable
+
+sig_genes <- sig_genes_extract(
+    n = 20,
+    modeling_results = modeling_results,
+    model_type = "enrichment",
+    sce_layer = spe_pseudo
+)
+
+png(here("plots", "poster_figs", "fig4a.png"))
+
+p1 <- layer_boxplot(
+    53,
+    sig_genes = sig_genes,
+    short_title = TRUE,
+    sce_layer = spe_pseudo,
+    col_bkg_box = "grey80",
+    col_bkg_point = "grey40",
+    col_low_box = "violet",
+    col_low_point = "darkviolet",
+    col_high_box = "skyblue",
+    col_high_point = "dodgerblue4",
+    cex = 2,
+    group_var = nnSVG_precast_name,
+    assayname = "logcounts"
+)
+
+dev.off()
+
+k=10
+nnSVG_precast_name <- paste0("nnSVG_PRECAST_captureArea_", k)
+spe <- nnSVG_PRECAST_import(
+    spe,
+    cluster_dir = here::here("processed-data", "08_clustering", "PRECAST", nnSVG_precast_name)
+)
+
+
+colData(spe)[nnSVG_precast_name] <- as.factor(colData(spe)[,nnSVG_precast_name])
+colData(spe)[nnSVG_precast_name] <- paste0("clust", colData(spe)[,nnSVG_precast_name])
+
+spe_pseudo <-
+    registration_pseudobulk(spe,
+                            var_registration = nnSVG_precast_name,
+                            var_sample_id = "sample_id",
+                            min_ncells = 10
+    )
+
+load(
+    file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_DE", paste0(nnSVG_precast_name,".Rdata"))
+)
+colData(spe)$spatialLIBD <- colData(spe)$registration_variable
+
+sig_genes <- sig_genes_extract(
+    n = 20,
+    modeling_results = modeling_results,
+    model_type = "enrichment",
+    sce_layer = spe_pseudo
+)
+
+png(here("plots", "poster_figs", "fig4b.png"))
+
+p1 <- layer_boxplot(
+    96,
+    sig_genes = sig_genes,
+    short_title = TRUE,
+    sce_layer = spe_pseudo,
+    col_bkg_box = "grey80",
+    col_bkg_point = "grey40",
+    col_low_box = "violet",
+    col_low_point = "darkviolet",
+    col_high_box = "skyblue",
+    col_high_point = "dodgerblue4",
+    cex = 2,
+    group_var = nnSVG_precast_name,
+    assayname = "logcounts"
+)
+
+dev.off()
+
+p1 <- vis_clus(spe, sampleid = "V12N28-331_D1", clustervar = nnSVG_precast_name,
+               colors = c("#c2cea5", "#e9c891", "#c891e9", "#91e9c8", "#f57b9d", "#c6c506", "#c506c6", "#06c6c5", "#f8b200", "dodgerblue4"),
+               point_size = 2, spatial = FALSE) +
+    ggtitle("PRECAST Clusters") +
+    theme(plot.title = element_text(size=25))
+
+ggsave(here("plots", "poster_figs", "fig4c.png"),
+       p1
+)
+
+
+
+p1 <- vis_clus(spe, sampleid = "V12N28-331_D1", clustervar = nnSVG_precast_name,
+               colors = c("#c2cea5", "#e9c891", "#c891e9", "#91e9c8", "#f57b9d", "#c6c506", "#c506c6"),
+               point_size = 2, spatial = FALSE) +
+    ggtitle("PRECAST Clusters") +
+    theme(plot.title = element_text(size=15, face="bold"))
+
+ggsave(here("plots", "poster_figs", "fig4d.png"),
+       p1
+)
