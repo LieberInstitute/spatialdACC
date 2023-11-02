@@ -1,3 +1,5 @@
 *spe*.Rdata
 *.rds
 *.h5ad
+*.csv
+*.tiff
