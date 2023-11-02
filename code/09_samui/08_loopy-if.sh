@@ -1,9 +1,10 @@
 #!/bin/bash
 #SBATCH --mem=10G
 #SBATCH --job-name=02samui
-#SBATCH --output=logs/%x.txt
-#SBATCH --error=logs/%x.txt
+#SBATCH --output=logs/%x%a.txt
 #SBATCH --array=1-4%4
+
+# #SBATCH --error=logs/%x%a.txt
 
 #echo -e "\n"
 echo "date: $(date)"

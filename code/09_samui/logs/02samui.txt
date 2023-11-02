@@ -1,21 +1,123 @@
-date: Thu Oct 26 10:26:22 AM EDT 2023
+date: Wed Nov  1 04:22:26 PM EDT 2023
 **** JHPCE info ****
 User: rmiller
-Job id: 626660
+Job id: 689040
 Job name: 02samui
 Hostname: 
-Task id: 
+Task id: 3
 Loading LIBD module for samui/1.0.0-next.45
+Loading LIBD module for samui/1.0.0-next.45
+Loading LIBD module for samui/1.0.0-next.45
+Loading LIBD module for samui/1.0.0-next.45
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/pydantic/_internal/_config.py:261: UserWarning: Valid config keys have changed in V2:
+* 'allow_mutation' has been removed
+  warnings.warn(message, UserWarning)
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/pydantic/_internal/_config.py:261: UserWarning: Valid config keys have changed in V2:
+* 'allow_mutation' has been removed
+  warnings.warn(message, UserWarning)
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/pydantic/_internal/_config.py:261: UserWarning: Valid config keys have changed in V2:
+* 'allow_mutation' has been removed
+  warnings.warn(message, UserWarning)
 /jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/pydantic/_internal/_config.py:261: UserWarning: Valid config keys have changed in V2:
 * 'allow_mutation' has been removed
   warnings.warn(message, UserWarning)
 /jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/openpyxl/worksheet/_reader.py:329: UserWarning: Unknown extension is not supported and will be removed
   warn(msg)
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/openpyxl/worksheet/_reader.py:329: UserWarning: Unknown extension is not supported and will be removed
+  warn(msg)
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/openpyxl/worksheet/_reader.py:329: UserWarning: Unknown extension is not supported and will be removed
+  warn(msg)
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/openpyxl/worksheet/_reader.py:329: UserWarning: Unknown extension is not supported and will be removed
+  warn(msg)
 /jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/anndata/_core/anndata.py:1830: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
   utils.warn_names_duplicates("obs")
-Traceback (most recent call last):
-  File "/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/09_samui/02_loopy-if.py", line 146, in <module>
-    tissue_positions, name="coords", mPerPx=m_per_px, size=spot_diameter_m
-NameError: name 'tissue_positions' is not defined
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/anndata/_core/anndata.py:1830: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/anndata/_core/anndata.py:1830: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/anndata/_core/anndata.py:1830: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")
+Using 5860 genes as features.
+[16:23:23] INFO     Transforming                                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/IF/V12N28-333_B1/V12N28-333_B1.tif to                
+                    COG.                                                        
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/09_samui/07_lo │
+│ opy-if.py:205 in <module>                                                    │
+│                                                                              │
+│   202                                                                        │
+│   203 #   Add pathology groups                                               │
+│   204 this_sample.add_csv_feature(                                           │
+│ ❱ 205 │   path_df, name = "Pathology Group", coordName = "coords",           │
+│   206 │   dataType = "quantitative"                                          │
+│   207 )                                                                      │
+│   208                                                                        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NameError: name 'path_df' is not defined
 **** Job ends ****
-Thu Oct 26 10:28:20 AM EDT 2023
+Wed Nov  1 04:23:24 PM EDT 2023
+Using 6241 genes as features.
+[16:23:29] INFO     Transforming                                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/IF/V12N28-333_A1/V12N28-333_A1.tif to                
+                    COG.                                                        
+Using 5979 genes as features.
+[16:23:29] INFO     Transforming                                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/IF/V12N28-333_C1/V12N28-333_C1.tif to                
+                    COG.                                                        
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/09_samui/07_lo │
+│ opy-if.py:205 in <module>                                                    │
+│                                                                              │
+│   202                                                                        │
+│   203 #   Add pathology groups                                               │
+│   204 this_sample.add_csv_feature(                                           │
+│ ❱ 205 │   path_df, name = "Pathology Group", coordName = "coords",           │
+│   206 │   dataType = "quantitative"                                          │
+│   207 )                                                                      │
+│   208                                                                        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NameError: name 'path_df' is not defined
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/09_samui/07_lo │
+│ opy-if.py:205 in <module>                                                    │
+│                                                                              │
+│   202                                                                        │
+│   203 #   Add pathology groups                                               │
+│   204 this_sample.add_csv_feature(                                           │
+│ ❱ 205 │   path_df, name = "Pathology Group", coordName = "coords",           │
+│   206 │   dataType = "quantitative"                                          │
+│   207 )                                                                      │
+│   208                                                                        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NameError: name 'path_df' is not defined
+**** Job ends ****
+Wed Nov  1 04:23:29 PM EDT 2023
+**** Job ends ****
+Wed Nov  1 04:23:29 PM EDT 2023
+Using 6202 genes as features.
+[16:23:29] INFO     Transforming                                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/IF/V12N28-333_D1/V12N28-333_D1.tif to                
+                    COG.                                                        
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/09_samui/07_lo │
+│ opy-if.py:205 in <module>                                                    │
+│                                                                              │
+│   202                                                                        │
+│   203 #   Add pathology groups                                               │
+│   204 this_sample.add_csv_feature(                                           │
+│ ❱ 205 │   path_df, name = "Pathology Group", coordName = "coords",           │
+│   206 │   dataType = "quantitative"                                          │
+│   207 )                                                                      │
+│   208                                                                        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+NameError: name 'path_df' is not defined
+**** Job ends ****
+Wed Nov  1 04:23:30 PM EDT 2023

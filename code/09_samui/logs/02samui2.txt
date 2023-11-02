@@ -1,0 +1,46 @@
+date: Thu Nov  2 11:45:49 AM EDT 2023
+**** JHPCE info ****
+User: rmiller
+Job id: 702737
+Job name: 02samui
+Hostname: 
+Task id: 2
+Loading LIBD module for samui/1.0.0-next.45
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/pydantic/_internal/_config.py:261: UserWarning: Valid config keys have changed in V2:
+* 'allow_mutation' has been removed
+  warnings.warn(message, UserWarning)
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/openpyxl/worksheet/_reader.py:329: UserWarning: Unknown extension is not supported and will be removed
+  warn(msg)
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/anndata/_core/anndata.py:1830: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")
+Using 5860 genes as features.
+[11:46:00] INFO     Transforming                                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/IF/V12N28-333_B1/V12N28-333_B1.tif to                
+                    COG.                                                        
+           INFO     'V12N28-333_B1' Executing queued functions      logger.py:27
+           INFO     V12N28-333_B1 Adding coords 'coords'            logger.py:27
+[11:46:01] INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/IF/V12N28-333_B1/V12N28-333_B1_1.tif                 
+[11:46:14] INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/IF/V12N28-333_B1/V12N28-333_B1_2.tif                 
+[11:46:22] INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/IF/V12N28-333_B1/V12N28-333_B1_1.tif                 
+           INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/IF/V12N28-333_B1/V12N28-333_B1_2.tif                 
+[11:46:35] INFO     V12N28-333_B1 Adding csv feature 'Genes'        logger.py:27
+[11:47:36] INFO     'V12N28-333_B1' written to                      logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/IF/V12N28-333_B1                                     
+**** Job ends ****
+Thu Nov  2 11:47:36 AM EDT 2023

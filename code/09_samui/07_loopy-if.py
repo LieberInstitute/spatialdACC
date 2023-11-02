@@ -135,7 +135,7 @@ m_per_px = spot_diameter_m / spaceranger_json['spot_diameter_fullres']
 
 #   Read in AnnData and subset to this sample
 spe = sc.read(spe_path)
-path_groups = spe.obs['path_groups'].cat.categories
+#path_groups = spe.obs['path_groups'].cat.categories
 spe = spe[spe.obs['sample_id'] == sample_id_spaceranger, :]
 spe.obs.index.name = "barcode"
 
@@ -166,9 +166,9 @@ print('Using {} genes as features.'.format(gene_df.shape[1]))
 #   Circumvent a Samui bug (https://github.com/chaichontat/samui/issues/84);
 #   turn the categorical column 'path_groups' into several numeric columns with
 #   just values of 0 and 1
-path_df = pd.DataFrame()
-for path_group in path_groups:
-    path_df[path_group] = (spe.obs['path_groups'] == path_group).astype(int)
+# path_df = pd.DataFrame()
+# for path_group in path_groups:
+#     path_df[path_group] = (spe.obs['path_groups'] == path_group).astype(int)
 
 ################################################################################
 #   Use the Samui API to create the importable directory for this sample
@@ -201,10 +201,10 @@ this_sample.add_csv_feature(
 # )
 
 #   Add pathology groups
-this_sample.add_csv_feature(
-    path_df, name = "Pathology Group", coordName = "coords",
-    dataType = "quantitative"
-)
+# this_sample.add_csv_feature(
+#     path_df, name = "Pathology Group", coordName = "coords",
+#     dataType = "quantitative"
+# )
 
 this_sample.set_default_feature(group = "Genes", feature = default_gene)
 
