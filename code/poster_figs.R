@@ -58,7 +58,7 @@ spe <- nnSVG_PRECAST_import(
 )
 
 p1 <- vis_clus(spe, sampleid = "V12N28-331_D1", clustervar = nnSVG_precast_name,
-               colors = c("#c2cea5", "#e9c891", "#c891e9", "#91e9c8", "#f57b9d", "#c6c506", "#c506c6", "#06c6c5", "#f8b200"),
+               colors = c("#000000", "#009292", "#FF6DB6", "#490092", "#006DDB", "#924900", "#24FF24", "#FF2A00", "#FFFF00"),
                point_size = 2, spatial = FALSE) +
     theme(legend.position="none") +
     ggtitle("PRECAST Clusters") +
@@ -88,9 +88,9 @@ p2 <- plotPCA(
     spe_pseudo,
     colour_by = "cluster",
     ncomponents = 2,
-    point_size = 2,
+    point_size = 1.5,
     percentVar = metadata(spe_pseudo)$PCA_var_explained) +
-    scale_color_manual(values=c("#c2cea5", "#e9c891", "#c891e9", "#91e9c8", "#f57b9d", "#c6c506", "#c506c6", "#06c6c5", "#f8b200")) +
+    scale_color_manual(values=c("#000000", "#009292", "#FF6DB6", "#490092", "#006DDB", "#924900", "#24FF24", "#FF2A00", "#FFFF00")) +
     guides(color=guide_legend("cluster"))  +
     ggtitle("PC Scores") +
     theme(plot.title = element_text(size=15)) +
@@ -112,11 +112,8 @@ p3 <- plotExplanatoryVariables(vars)  +
 wrap_plots((p2 | p3)) &
     theme(plot.tag = element_text(color = "black", size = 20, face="bold"))
 
-ggsave(here("plots", "poster_figs", "fig2.png"),
-       wrap_plots((p2 | p3)) &
-           theme(plot.tag = element_text(color = "black", size = 20, face="bold"))
-
-)
+ggsave(here("plots", "poster_figs", "fig2b.png"), p2)
+ggsave(here("plots", "poster_figs", "fig2c.png"), p3)
 
 #figure 3
 colData(spe)[nnSVG_precast_name] <- as.factor(colData(spe)[,nnSVG_precast_name])
@@ -187,7 +184,7 @@ png(here("plots", "poster_figs", "fig3c.png"))
 
 
 p3 <- layer_boxplot(
-    21,
+    64,
     sig_genes = sig_genes,
     short_title = TRUE,
     sce_layer = spe_pseudo,
@@ -220,7 +217,7 @@ png(here("plots", "poster_figs", "fig3e.png"))
 vis_gene(
     spe = spe,
     sampleid = "V12N28-331_D1",
-    geneid = rownames(spe)[which(rowData(spe)$gene_name == "FREM3")]
+    geneid = rownames(spe)[which(rowData(spe)$gene_name == "TRABD2A")]
 )
 
 dev.off()
@@ -338,11 +335,12 @@ p1 <- layer_boxplot(
 
 dev.off()
 
-p1 <- vis_clus(spe, sampleid = "V12N28-331_D1", clustervar = nnSVG_precast_name,
-               colors = c("#c2cea5", "#e9c891", "#c891e9", "#91e9c8", "#f57b9d", "#c6c506", "#c506c6", "#06c6c5", "#f8b200", "dodgerblue4"),
+p1 <- vis_clus(spe, sampleid = "V12N28-331_D1", clustervar = paste0("nnSVG_PRECAST_captureArea_", 10),
+               colors = c("#000000", "#009292", "#FF6DB6", "#490092", "#006DDB", "#924900", "#24FF24", "#FF2A00", "#FFFF00", "#00FFFF"),
                point_size = 2, spatial = FALSE) +
     ggtitle("PRECAST Clusters") +
-    theme(plot.title = element_text(size=25))
+    theme(plot.title = element_text(size=15, face="bold"))
+
 
 ggsave(here("plots", "poster_figs", "fig4c.png"),
        p1
@@ -350,8 +348,8 @@ ggsave(here("plots", "poster_figs", "fig4c.png"),
 
 
 
-p1 <- vis_clus(spe, sampleid = "V12N28-331_D1", clustervar = nnSVG_precast_name,
-               colors = c("#c2cea5", "#e9c891", "#c891e9", "#91e9c8", "#f57b9d", "#c6c506", "#c506c6"),
+p1 <- vis_clus(spe, sampleid = "V12N28-331_D1", clustervar = paste0("nnSVG_PRECAST_captureArea_", 7),
+               colors = c("#000000", "#009292", "#FF6DB6", "#490092", "#006DDB", "#924900", "#24FF24"),
                point_size = 2, spatial = FALSE) +
     ggtitle("PRECAST Clusters") +
     theme(plot.title = element_text(size=15, face="bold"))
