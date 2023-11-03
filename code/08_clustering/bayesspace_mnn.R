@@ -14,7 +14,7 @@ suppressPackageStartupMessages({
 load(here("processed-data", "07_batch_correction", "spe_mnn.Rdata"))
 dim(spe)
 
-k <- as.numeric(Sys.getenv("SGE_TASK_ID"))
+k <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
 
 colData(spe)$row <- spe$array_row
 colData(spe)$col <- spe$array_col

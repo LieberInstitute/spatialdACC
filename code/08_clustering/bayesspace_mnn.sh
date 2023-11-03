@@ -1,12 +1,10 @@
 #!/bin/bash
-#$ -cwd
-#$ -l mem_free=50G,h_vmem=50G,h_fsize=60G
-#$ -N bayesSpace_captureArea_k_many
-#$ -o logs_bayesspace_mnn/bayesSpace_captureArea_k.$TASK_ID.txt
-#$ -e logs_bayesspace_mnn/bayesSpace_captureArea_k.$TASK_ID.txt
-#$ -m e
-#$ -t 5-9
-#$ -tc 2
+#SBATCH --job-name=bayesspace_mnn
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=30G
+#SBATCH --array=5-20
+#SBATCH --mail-type=END
+#SBATCH --mail-user=kinnaryshahh@gmail.com
 
 echo "**** Job starts ****"
 date
@@ -16,10 +14,10 @@ echo "User: ${USER}"
 echo "Job id: ${JOB_ID}"
 echo "Job name: ${JOB_NAME}"
 echo "Hostname: ${HOSTNAME}"
-echo "Task id: ${SGE_TASK_ID}"
+echo "Task id: ${SLURM_ARRAY_TASK_ID}"
 
 ## Load the R module (absent since the JHPCE upgrade to CentOS v7)
-module load conda_R/devel
+module load conda_R
 
 ## List current modules for reproducibility
 module list
