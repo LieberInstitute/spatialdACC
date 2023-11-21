@@ -190,7 +190,7 @@ this_sample.add_image(
 )
 
 #   Add gene expression results (multiple columns) as a feature
-this_sample.add_csv_feature(
+this_sample.add_chunked_feature(
     gene_df, name = "Genes", coordName = "coords", dataType = "quantitative"
 )
 
