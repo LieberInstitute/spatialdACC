@@ -2,7 +2,7 @@
 #SBATCH --mem=10G
 #SBATCH --job-name=04samui
 #SBATCH --output=logs/%x%a.txt
-#SBATCH --array=1-4%4
+#SBATCH --array=1-18%6
 
 # #SBATCH --error=logs/%x%a.txt
 

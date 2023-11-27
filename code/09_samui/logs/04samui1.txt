@@ -1,0 +1,42 @@
+date: Mon Nov 27 11:04:13 AM EST 2023
+**** JHPCE info ****
+User: rmiller
+Job id: 888885
+Job name: 04samui
+Hostname: 
+Task id: 1
+Loading LIBD SLURM module for samui/1.0.0-next.45
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/pydantic/_internal/_config.py:261: UserWarning: Valid config keys have changed in V2:
+* 'allow_mutation' has been removed
+  warnings.warn(message, UserWarning)
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/openpyxl/worksheet/_reader.py:329: UserWarning: Unknown extension is not supported and will be removed
+  warn(msg)
+/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/anndata/_core/anndata.py:1830: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
+  utils.warn_names_duplicates("obs")
+Using 4666 genes as features.
+[11:05:57] INFO     Transforming                                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/hande/V12N28-331_A1/V12N28-331_A1.tif to             
+                    COG.                                                        
+           INFO     'V12N28-331_A1' Executing queued functions      logger.py:27
+           INFO     V12N28-331_A1 Adding coords 'coords'            logger.py:27
+[11:06:12] INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/hande/V12N28-331_A1/V12N28-331_A1.tif                
+[11:06:39] INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/hande/V12N28-331_A1/V12N28-331_A1.tif                
+[11:07:30] INFO     V12N28-331_A1 Adding chunked feature 'Genes'    logger.py:27
+[11:09:37] INFO     V12N28-331_A1 Concatenating and compressing     logger.py:27
+                    chunks                                                      
+[11:10:14] INFO     Writing compressed chunks for Genes: 5808151    logger.py:27
+                    bytes                                                       
+[11:10:15] INFO     'V12N28-331_A1' written to                      logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/hande/V12N28-331_A1                                  
+**** Job ends ****
+Mon Nov 27 11:10:17 AM EST 2023

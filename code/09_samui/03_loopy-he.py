@@ -13,8 +13,8 @@ from loopy.sample import Sample
 from loopy.utils.utils import remove_dupes, Url
 
 spot_diameter_m = 55e-6 # 55-micrometer diameter for Visium spot
-img_channels = ['DAPI', 'NeuN', 'TMEM119', 'GFAP', 'OLIG2', 'AF']
-default_channels = {'blue': 'DAPI', 'red': 'NeuN'}
+img_channels = ['rgb']
+# default_channels = {'blue': 'DAPI', 'red': 'NeuN'}
 default_gene = 'SNAP25'
 
 #   Names of continuous features expected to be columns in the observation 
@@ -27,18 +27,18 @@ default_gene = 'SNAP25'
 # }
 
 sample_info_path = here(
-    'raw-data', 'sample_info', '2023-06-09_LIBD_VisiumSPG_dACC_Linda.xlsx'
+    'raw-data', 'sample_info', 'dACC_Visium_summary_20230227_noImages.xlsx'
 )
 
-spe_path = here("processed-data", "10_samui", "spg", "spe.h5ad")
+spe_path = here("processed-data", "10_samui", "hande", "spe.h5ad")
 # notes_path = str(Path(here('code', '16_samui', 'feature_notes.md')).resolve())
-img_path = here('processed-data', 'Images', 'VistoSeg', 'Capture_areas', 'if-images', '{}.tif')
+img_path = here('processed-data', 'Images', 'VistoSeg', 'Capture_areas', '{}.tif')
 json_path = here(
-    'processed-data', '09_spaceranger_reorg', 'spg', '{}', 'outs', 'spatial',
+    'processed-data', '09_spaceranger_reorg', 'hande', '{}', 'outs', 'spatial',
     'scalefactors_json.json'
 )
 
-out_dir = here('processed-data', '10_samui', 'IF', '{}')
+out_dir = here('processed-data', '10_samui', 'hande', '{}')
 
 ################################################################################
 #   Read in sample info and clean
@@ -185,8 +185,7 @@ this_sample.add_coords(
 
 #   Add the IF image for this sample
 this_sample.add_image(
-    tiff = img_path, channels = img_channels, scale = m_per_px,
-    defaultChannels = default_channels
+    tiff = img_path, channels = img_channels, scale = m_per_px
 )
 
 #   Add gene expression results (multiple columns) as a feature
