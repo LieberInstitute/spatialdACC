@@ -13,7 +13,7 @@ from loopy.sample import Sample
 from loopy.utils.utils import remove_dupes, Url
 
 spot_diameter_m = 55e-6 # 55-micrometer diameter for Visium spot
-img_channels = ['rgb']
+img_channels = 'rgb'
 # default_channels = {'blue': 'DAPI', 'red': 'NeuN'}
 default_gene = 'SNAP25'
 

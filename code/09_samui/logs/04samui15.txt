@@ -1,7 +1,7 @@
-date: Mon Nov 27 11:14:44 AM EST 2023
+date: Tue Dec  5 12:06:58 PM EST 2023
 **** JHPCE info ****
 User: rmiller
-Job id: 888905
+Job id: 993629
 Job name: 04samui
 Hostname: 
 Task id: 15
@@ -14,7 +14,7 @@ Loading LIBD SLURM module for samui/1.0.0-next.45
 /jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/anndata/_core/anndata.py:1830: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
   utils.warn_names_duplicates("obs")
 Using 3528 genes as features.
-[11:15:27] INFO     Transforming                                    logger.py:27
+[12:08:29] INFO     Transforming                                    logger.py:27
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/hande/V12N28-334_C1/V12N28-334_C1.tif to             
@@ -25,18 +25,18 @@ Using 3528 genes as features.
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/hande/V12N28-334_C1/V12N28-334_C1.tif                
-[11:15:45] INFO     Writing COG                                     logger.py:27
+[12:08:56] INFO     Writing COG                                     logger.py:27
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/hande/V12N28-334_C1/V12N28-334_C1.tif                
-[11:16:11] INFO     V12N28-334_C1 Adding chunked feature 'Genes'    logger.py:27
-[11:17:42] INFO     V12N28-334_C1 Concatenating and compressing     logger.py:27
+[12:09:38] INFO     V12N28-334_C1 Adding chunked feature 'Genes'    logger.py:27
+[12:11:42] INFO     V12N28-334_C1 Concatenating and compressing     logger.py:27
                     chunks                                                      
-[11:18:09] INFO     Writing compressed chunks for Genes: 4273527    logger.py:27
+[12:12:18] INFO     Writing compressed chunks for Genes: 4273527    logger.py:27
                     bytes                                                       
-           INFO     'V12N28-334_C1' written to                      logger.py:27
+[12:12:19] INFO     'V12N28-334_C1' written to                      logger.py:27
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/hande/V12N28-334_C1                                  
 **** Job ends ****
-Mon Nov 27 11:18:09 AM EST 2023
+Tue Dec  5 12:12:19 PM EST 2023

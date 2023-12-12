@@ -1,7 +1,7 @@
-date: Mon Nov 27 11:09:44 AM EST 2023
+date: Tue Dec  5 12:00:00 PM EST 2023
 **** JHPCE info ****
 User: rmiller
-Job id: 888895
+Job id: 993617
 Job name: 04samui
 Hostname: 
 Task id: 8
@@ -18,4 +18,4 @@ Traceback (most recent call last):
     assert default_gene in gene_df.columns, "Default gene not in AnnData"
 AssertionError: Default gene not in AnnData
 **** Job ends ****
-Mon Nov 27 11:09:57 AM EST 2023
+Tue Dec  5 12:01:02 PM EST 2023
