@@ -80,26 +80,12 @@ hist(colData(sce)$subsets_Mito_percent, breaks = 400, ylim = c(0,2000))
 plotColData(sce, x = "Sample", y = "subsets_Mito_percent", colour_by = "high_mito") +
     ggtitle("Mito Percent")
 
-plotColData(sce, x = "Sample", y = "sum", colour_by = "low_lib") +
+plotColData(sce, x = "Sample", y = "sum", colour_by = "low_sum") +
     scale_y_log10() +
     ggtitle("Total UMIs")
 
-plotColData(sce, x = "Sample", y = "detected", colour_by = "low_genes") +
+plotColData(sce, x = "Sample", y = "detected", colour_by = "low_detected") +
     scale_y_log10() +
     ggtitle("Detected genes")
-
-# Mito rate vs n detected features
-
-plotColData(sce,
-            x = "detected", y = "subsets_Mito_percent",
-            colour_by = "discard_auto", point_size = 2.5, point_alpha = 0.5
-)
-
-# Detected features vs total count
-
-plotColData(sce,
-            x = "sum", y = "detected",
-            colour_by = "discard_auto", point_size = 2.5, point_alpha = 0.5
-)
 
 dev.off()
