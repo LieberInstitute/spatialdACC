@@ -12,8 +12,7 @@ library("sessioninfo")
 load(here("processed-data", "04_build_sce", "1c-10c_sce_raw.rda"))
 
 #run droplet processing per sample because the ambient solution differs between samples
-#sample_i <- as.integer(args[[1]])
-sample_i <- 1
+sample_i <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
 
 samples <- unique(sce$Sample)
 sample_run <- samples[[sample_i]]
