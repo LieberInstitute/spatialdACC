@@ -1,10 +1,10 @@
 **** Job starts ****
-Tue Dec 19 04:16:33 PM EST 2023
+Thu Dec 21 12:14:25 PM EST 2023
 **** SLURM info ****
 User: kshah
-Job id: 1212956
+Job id: 1259069
 Job name: drops
-Hostname: compute-062
+Hostname: compute-069
 Task id: 3
 Loading conda_R/4.3.x
 
@@ -114,7 +114,6 @@ Loading required package: ggplot2
 ✖ lubridate::second<-() masks S4Vectors::second<-()
 ✖ dplyr::slice()        masks IRanges::slice()
 ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-slurmstepd: error: *** JOB 1212513 ON compute-065 CANCELLED AT 2023-12-19T16:17:09 ***
 Running Sample: 3c_dACC_MRV (3/10)
 ncol:1814000
 'First knee point' = 221
@@ -128,24 +127,24 @@ knee_lower =321
 'Fifth knee point' = 221
 knee_lowest =421
 Starting emptyDrops
-[1] "2023-12-19 16:24:11 EST"
+[1] "2023-12-21 12:20:34 EST"
 Done - saving data
-[1] "2023-12-19 16:36:44 EST"
+[1] "2023-12-21 12:29:17 EST"
 QC check
        Limited
 Signif    FALSE    TRUE    <NA>     Sum
-  FALSE    2196       0       0    2196
-  TRUE      112    4574       0    4686
-  <NA>        0       0 1807118 1807118
-  Sum      2308    4574 1807118 1814000
-Non-empty: 4686
+  FALSE   60150       0       0   60150
+  TRUE        0    4328       0    4328
+  <NA>        0       0 1749522 1749522
+  Sum     60150    4328 1749522 1814000
+Non-empty: 4328
 Saving 7 x 7 in image
 Warning message:
 Transformation introduced infinite values in continuous y-axis 
 [1] "Reproducibility information:"
-[1] "2023-12-19 16:38:36 EST"
-    user   system  elapsed 
-1255.152   39.345 1319.374 
+[1] "2023-12-21 12:30:55 EST"
+   user  system elapsed 
+936.045  22.570 985.119 
 ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
  setting  value
  version  R version 4.3.2 Patched (2023-11-13 r85524)
@@ -156,7 +155,7 @@ Transformation introduced infinite values in continuous y-axis
  collate  en_US.UTF-8
  ctype    en_US.UTF-8
  tz       US/Eastern
- date     2023-12-19
+ date     2023-12-21
  pandoc   3.1.3 @ /jhpce/shared/community/core/conda_R/4.3.x/bin/pandoc
 
 ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -267,4 +266,4 @@ Transformation introduced infinite values in continuous y-axis
 
 ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 **** Job ends ****
-Tue Dec 19 04:38:38 PM EST 2023
+Thu Dec 21 12:31:00 PM EST 2023

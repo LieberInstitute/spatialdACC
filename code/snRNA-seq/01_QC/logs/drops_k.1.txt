@@ -1,10 +1,10 @@
 **** Job starts ****
-Tue Dec 19 04:16:32 PM EST 2023
+Thu Dec 21 12:14:25 PM EST 2023
 **** SLURM info ****
 User: kshah
-Job id: 1212954
+Job id: 1259067
 Job name: drops
-Hostname: compute-068
+Hostname: compute-062
 Task id: 1
 Loading conda_R/4.3.x
 
@@ -127,24 +127,24 @@ knee_lower =320
 'Fifth knee point' = 220
 knee_lowest =420
 Starting emptyDrops
-[1] "2023-12-19 16:26:02 EST"
+[1] "2023-12-21 12:18:28 EST"
 Done - saving data
-[1] "2023-12-19 16:36:54 EST"
+[1] "2023-12-21 12:24:45 EST"
 QC check
        Limited
 Signif    FALSE    TRUE    <NA>     Sum
-  FALSE    1947       0       0    1947
-  TRUE       85    4493       0    4578
-  <NA>        0       0 2005456 2005456
-  Sum      2032    4493 2005456 2011981
-Non-empty: 4578
+  FALSE   61598       0       0   61598
+  TRUE        0    4435       0    4435
+  <NA>        0       0 1945948 1945948
+  Sum     61598    4435 1945948 2011981
+Non-empty: 4435
 Saving 7 x 7 in image
 Warning message:
 Transformation introduced infinite values in continuous y-axis 
 [1] "Reproducibility information:"
-[1] "2023-12-19 16:38:44 EST"
-    user   system  elapsed 
-1275.551   44.121 1328.735 
+[1] "2023-12-21 12:26:18 EST"
+   user  system elapsed 
+676.936   9.001 709.461 
 ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
  setting  value
  version  R version 4.3.2 Patched (2023-11-13 r85524)
@@ -155,7 +155,7 @@ Transformation introduced infinite values in continuous y-axis
  collate  en_US.UTF-8
  ctype    en_US.UTF-8
  tz       US/Eastern
- date     2023-12-19
+ date     2023-12-21
  pandoc   3.1.3 @ /jhpce/shared/community/core/conda_R/4.3.x/bin/pandoc
 
 ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -266,4 +266,4 @@ Transformation introduced infinite values in continuous y-axis
 
 ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 **** Job ends ****
-Tue Dec 19 04:38:45 PM EST 2023
+Thu Dec 21 12:26:21 PM EST 2023
