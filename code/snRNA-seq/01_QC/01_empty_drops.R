@@ -60,7 +60,7 @@ Sys.time()
 e.out <- DropletUtils::emptyDrops(
     sce,
     niters = 25000,
-    lower = knee_lowest
+    lower = metadata(bcRanks)$knee
     # ,
     # BPPARAM = BiocParallel::MulticoreParam(4)
 )
