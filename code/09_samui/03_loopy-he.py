@@ -153,7 +153,7 @@ gene_df = gene_df.loc[: , ~gene_df.columns.duplicated()].copy()
 
 #   Samui seems to break when using > ~ 5,000 genes. Take just the genes where
 #   at least 10% of spots have nonzero counts
-gene_df = gene_df.loc[:, np.sum(gene_df > 0, axis = 0) > (gene_df.shape[0] * 0.1)].copy()
+#gene_df = gene_df.loc[:, np.sum(gene_df > 0, axis = 0) > (gene_df.shape[0] * 0.1)].copy()
 
 assert default_gene in gene_df.columns, "Default gene not in AnnData"
 
@@ -190,7 +190,7 @@ this_sample.add_image(
 
 #   Add gene expression results (multiple columns) as a feature
 this_sample.add_chunked_feature(
-    gene_df, name = "Genes", coordName = "coords", dataType = "quantitative"
+    gene_df, name = "genes", coordName = "coords", dataType = "quantitative"
 )
 
 #   Add additional requested observational columns (colData columns)
@@ -205,6 +205,6 @@ this_sample.add_chunked_feature(
 #     dataType = "quantitative"
 # )
 
-this_sample.set_default_feature(group = "Genes", feature = default_gene)
+this_sample.set_default_feature(group = "genes", feature = default_gene)
 
 this_sample.write()
