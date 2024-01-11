@@ -5,11 +5,75 @@ library("here")
 library("scater")
 library("scran")
 library("sessioninfo")
+library("purrr")
+library("tidyverse")
 
 load(here("processed-data", "04_build_sce", "1c-10c_sce_raw.rda"))
 
+##get droplet score filepaths
+droplet_paths <- list.files(here("processed-data", "snRNA-seq", "01_QC"),
+                            full.names = TRUE
+)
+
+names(droplet_paths) <- gsub("st", "s", gsub("droplet_scores_|.Rdata", "", basename(droplet_paths)))
+
+e.out <- lapply(droplet_paths, function(x) get(load(x)))
+
+#### Compile drop empty info ####
+logs <- list.files(here("code", "snRNA-seq", "01_QC", "logs"), pattern = "drops_k.[0-9]", full.names = TRUE)
+logs <- map(logs, readLines)
+
+knee_lower <- map_dbl(logs, ~ parse_number(.x[grepl("knee_lower =", .x)]))
+names(knee_lower) <- gsub("st", "s", map_chr(logs, ~str_sub(.x[grepl("Running Sample: ", .x)], " ", 3)))
+
+FDR_cutoff <- 0.001
+
+drop_summary <- stack(map_int(e.out, nrow)) %>%
+    rename(total_n = values) %>%
+    left_join(stack(map_int(e.out, ~ sum(.x$FDR < FDR_cutoff, na.rm = TRUE))) %>%
+                  rename(non_empty = values)) %>%
+    select(Sample = ind, total_n, non_empty) %>%
+    left_join(stack(knee_lower) %>% rename(Sample = ind, lower_cutoff = values))
+
+write_csv(drop_summary, file = here("processed-data", "snRNA-seq", "01_QC", "drop_summary.csv"))
+
+drop_summary %>%
+    arrange(non_empty)
+
+summary(drop_summary$non_empty)
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+# 2765    4217    4404    4276    4582    5569
+
+##which sample is problematic?
+drop_summary$Sample[which.max(drop_summary$non_empty)]
+# [1] 10c_dACC_SVB
+
+#make Louise-style barplot
+drop_barplot <- drop_summary %>%
+    mutate(empty = total_n - non_empty) %>%
+    select(-total_n) %>%
+    pivot_longer(!Sample, names_to = "drop_type", values_to = "n_drop") %>%
+    ggplot(aes(x = Sample, y = n_drop, fill = drop_type)) +
+    geom_col() +
+    scale_y_continuous(trans = "log10") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggsave(drop_barplot, filename = here("plots", "snRNA-seq", "01_QC", "drop_barplot.png"), width = 9)
+
+
+#### Eliminate empty droplets ####
 dim(sce)
-# [1]    36601 19473661
+#[1]    36601 19473661
+
+e.out.all <- do.call("rbind", e.out)[colnames(sce), ]
+sce <- sce[, which(e.out.all$FDR <= 0.001)]
+
+dim(sce)
+# [1]    36601 42764
+
+#save drops removed sce
+save(sce,file=here("processed-data", "snRNA-seq", "01_QC", "sce_drops_removed.rda"))
+
 
 ## Remove genes with no data
 no_expr <- which(rowSums(counts(sce)) == 0)
