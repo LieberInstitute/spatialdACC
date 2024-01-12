@@ -78,12 +78,12 @@ save(sce,file=here("processed-data", "snRNA-seq", "01_QC", "sce_drops_removed.rd
 ## Remove genes with no data
 no_expr <- which(rowSums(counts(sce)) == 0)
 length(no_expr)
-# [1] 1606
+# [1] 1735
 length(no_expr) / nrow(sce) * 100
-# [1] 4.387858
+# [1] 4.740308
 sce <- sce[-no_expr, ]
 dim(sce)
-# [1]    34995 19473661
+# [1]   34866 42764
 
 ## Remove spots without counts
 if (any(colSums(counts(sce)) == 0)) {
@@ -92,7 +92,7 @@ if (any(colSums(counts(sce)) == 0)) {
     dim(sce)
 }
 
-#[1]    34995 14472681
+#[1]    34866 42764
 
 #explore mitochondrial read percents
 sce <- scuttle::addPerCellQC(
@@ -100,7 +100,7 @@ sce <- scuttle::addPerCellQC(
     subsets = list(Mito = which(seqnames(sce) == "chrM")))
 
 fivenum(colData(sce)$subsets_Mito_percent)
-# [1]   0   0   0   0 100
+# [1]  0.00000000  0.04421320  0.09337795  0.20525799 16.99633700
 
 #### Check for low quality spots ####
 
@@ -108,33 +108,45 @@ fivenum(colData(sce)$subsets_Mito_percent)
 sce$high_mito <- isOutlier(sce$subsets_Mito_percent, nmads = 3, type = "higher", batch = sce$Sample)
 table(sce$high_mito)
 # FALSE  TRUE
-# 13417507  1055174
+# 37119  5645
 
 table(sce$Sample, sce$high_mito)
 #FALSE    TRUE
-#10c_dACC_SVB 1275052  108720
-#1c_dACC_MRV  1365858   94307
-#2c_dACC_MRV  1372737  115198
-#3c_dACC_MRV  1293772  104122
-#4c_dACC_MRV  1241509  123297
-#5c_dACC_SVB  1198363  106234
-#6c_dACC_SVB  1320320  120659
-#7c_dACC_SVB  1603770   67412
-#8c_dACC_SVB  1474837  110440
-#9c_dACC_SVB  1271289  104785
+#10c_dACC_SVB  4750  819
+#1c_dACC_MRV   3822  613
+#2c_dACC_MRV   3945  686
+#3c_dACC_MRV   3832  496
+#4c_dACC_MRV   3729  651
+#5c_dACC_SVB   2391  374
+#6c_dACC_SVB   2572  424
+#7c_dACC_SVB   4037  391
+#8c_dACC_SVB   3652  528
+#9c_dACC_SVB   4389  663
 
 
 ## low library size
 sce$low_sum <- isOutlier(sce$sum, log = TRUE, nmads = 3, type = "lower", batch = sce$Sample)
 table(sce$low_sum)
-# FALSE
-# 14472681
+# FALSE  TRUE
+# 42480   284
 
 ## low detected features
 sce$low_detected <- isOutlier(sce$detected, log = TRUE, nmads = 3, type = "lower", batch = sce$Sample)
 table(sce$low_detected)
-# FALSE
-# 14472681
+# FALSE  TRUE
+# 42408   356
+
+## All low sum are also low detected
+table(sce$low_sum, sce$low_detected)
+#         FALSE   TRUE
+# FALSE 42408    72
+# TRUE      0   284
+
+sce$discard_auto <- sce$high_mito | sce$low_sum | sce$low_detected
+
+table(sce$discard_auto)
+# FALSE   TRUE
+# 37032  5732
 
 #### QC plots ####
 pdf(here("plots", "snRNA-seq", "01_QC", "QC_violin_plots.pdf"), width = 21)
