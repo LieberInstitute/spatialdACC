@@ -85,7 +85,7 @@ sce <- sce[-no_expr, ]
 dim(sce)
 # [1]   34866 42764
 
-## Remove spots without counts
+## Remove nuclei without counts
 if (any(colSums(counts(sce)) == 0)) {
     message("removing cells without counts for sce")
     sce <- sce[, -which(colSums(counts(sce)) == 0)]
@@ -102,7 +102,7 @@ sce <- scuttle::addPerCellQC(
 fivenum(colData(sce)$subsets_Mito_percent)
 # [1]  0.00000000  0.04421320  0.09337795  0.20525799 16.99633700
 
-#### Check for low quality spots ####
+#### Check for low quality nuclei ####
 
 ## High mito
 sce$high_mito <- isOutlier(sce$subsets_Mito_percent, nmads = 3, type = "higher", batch = sce$Sample)
@@ -165,3 +165,8 @@ plotColData(sce, x = "Sample", y = "detected", colour_by = "low_detected") +
     ggtitle("Detected genes")
 
 dev.off()
+
+#save drops removed and qc removed sce
+sce <- sce[, !colData(sce)$discard_auto]
+save(sce,file=here("processed-data", "snRNA-seq", "01_QC", "sce_qc.rda"))
+
