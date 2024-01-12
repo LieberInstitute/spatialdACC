@@ -7,6 +7,9 @@ library("scran")
 library("sessioninfo")
 library("purrr")
 library("tidyverse")
+library("scDblFinder")
+library("jaffelab")
+library("batchelor")
 
 load(here("processed-data", "04_build_sce", "1c-10c_sce_raw.rda"))
 
@@ -166,7 +169,61 @@ plotColData(sce, x = "Sample", y = "detected", colour_by = "low_detected") +
 
 dev.off()
 
-#save drops removed and qc removed sce
 sce <- sce[, !colData(sce)$discard_auto]
+
+#### Doublet detection ####
+## To speed up, run on sample-level top-HDGs - just take top 2000
+set.seed(4)
+
+colData(sce)$doubletScore <- NA
+
+for (i in splitit(sce$Sample)) {
+    sce_temp <- sce[, i]
+    ## To speed up, run on sample-level top-HVGs - just take top 1000
+    normd <- logNormCounts(sce_temp)
+    geneVar <- modelGeneVar(normd)
+    topHVGs <- getTopHVGs(geneVar, n = 2000)
+
+    dbl_dens <- computeDoubletDensity(normd, subset.row = topHVGs)
+    colData(sce)$doubletScore[i] <- dbl_dens
+}
+
+summary(sce$doubletScore)
+#    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.
+# 0.00000  0.03058  0.12679  0.37908  0.37872 17.39800
+
+dbl_df <- colData(sce) %>%
+    as.data.frame() %>%
+    select(Sample, doubletScore)
+
+dbl_box_plot <- dbl_df %>%
+    ggplot(aes(x = reorder(Sample, doubletScore, FUN = median), y = doubletScore)) +
+    geom_boxplot() +
+    labs(x = "Sample") +
+    geom_hline(yintercept = 1, color = "red", linetype = "dashed") +
+    coord_flip()
+
+ggsave(dbl_box_plot, filename = here(plot_dir, "doublet_scores_boxplot.png"))
+
+dbl_density_plot <- dbl_df %>%
+    ggplot(aes(x = doubletScore)) +
+    geom_density() +
+    labs(x = "doublet score") +
+    facet_grid(Sample ~ .) +
+    theme_bw()
+
+ggsave(dbl_density_plot, filename = here(plot_dir, "doublet_scores_desnity.png"), height = 17)
+
+dbl_df %>%
+    group_by(Sample) %>%
+    summarize(
+        median = median(doubletScore),
+        q95 = quantile(doubletScore, .95),
+        drop = sum(doubletScore >= 2.75),
+        drop_percent = 100 * drop / n()
+    )
+
+
+#save drops removed and qc removed sce
 save(sce,file=here("processed-data", "snRNA-seq", "01_QC", "sce_qc.rda"))
 
