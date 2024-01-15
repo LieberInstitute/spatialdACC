@@ -4,7 +4,8 @@ library("SingleCellExperiment")
 library("here")
 library("scater")
 library("scDblFinder")
-library(BiocParallel)
+library("BiocParallel")
+library("tidyverse")
 
 load(here("processed-data", "snRNA-seq", "01_QC", "sce_qc.rda"))
 
@@ -16,6 +17,17 @@ save(sce, file=here("processed-data", "snRNA-seq", "01_QC", "sce_doublet.rda"))
 summary(sce$scDblFinder.score)
 
 table(sce$Sample, sce$scDblFinder.class)
+#               singlet doublet
+#  10c_dACC_SVB    4514     199
+#  1c_dACC_MRV     3654     168
+#  2c_dACC_MRV     3781     164
+#  3c_dACC_MRV     3629     203
+#  4c_dACC_MRV     3507     222
+#  5c_dACC_SVB     2267     124
+#  6c_dACC_SVB     2399     133
+#  7c_dACC_SVB     3857     170
+#  8c_dACC_SVB     3465     187
+#  9c_dACC_SVB     4088     301
 
 dbl_df <- colData(sce) %>%
     as.data.frame() %>%
