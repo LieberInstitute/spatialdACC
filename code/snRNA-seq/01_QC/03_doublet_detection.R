@@ -15,38 +15,41 @@ sce <- scDblFinder(sce, samples="Sample", BPPARAM=MulticoreParam(8,RNGseed=1234)
 save(sce, file=here("processed-data", "snRNA-seq", "01_QC", "sce_doublet.rda"))
 
 summary(sce$scDblFinder.score)
+#      Min.   1st Qu.    Median      Mean   3rd Qu.      Max.
+# 0.0002785 0.0006567 0.0010397 0.0644836 0.0031831 0.9997794
 
 table(sce$Sample, sce$scDblFinder.class)
 #               singlet doublet
-#  10c_dACC_SVB    4514     199
-#  1c_dACC_MRV     3654     168
-#  2c_dACC_MRV     3781     164
-#  3c_dACC_MRV     3629     203
-#  4c_dACC_MRV     3507     222
-#  5c_dACC_SVB     2267     124
-#  6c_dACC_SVB     2399     133
-#  7c_dACC_SVB     3857     170
-#  8c_dACC_SVB     3465     187
-#  9c_dACC_SVB     4088     301
+#  10c_dACC_SVB    5312     257
+# 1c_dACC_MRV     4206     229
+# 2c_dACC_MRV     4406     225
+# 3c_dACC_MRV     4068     260
+# 4c_dACC_MRV     4035     345
+# 5c_dACC_SVB     2606     159
+# 6c_dACC_SVB     2836     160
+# 7c_dACC_SVB     4218     210
+# 8c_dACC_SVB     3941     239
+# 9c_dACC_SVB     4658     394
 
-dbl_df <- colData(sce) %>%
-    as.data.frame() %>%
-    select(Sample, scDblFinder.score)
+sum(sce$scDblFinder.score > 0.99)
+# [1] 1745
 
-dbl_box_plot <- dbl_df %>%
-    ggplot(aes(x = reorder(Sample, scDblFinder.score, FUN = median), y = scDblFinder.score)) +
-    geom_boxplot() +
-    labs(x = "Sample") +
-    geom_hline(yintercept = 1, color = "red", linetype = "dashed") +
-    coord_flip()
+# check if doublets are overlapping with low qc
+#most of the high mito are singlets
+#none of the low sum/detected are doublets
+table(sce$high_mito, sce$scDblFinder.class)
+#        singlet doublet
+# FALSE   34831    2288
+# TRUE     5455     190
 
-ggsave(dbl_box_plot, here("plots", "snRNA-seq", "01_QC", "doublet_scores_boxplot.png"))
+table(sce$low_sum, sce$scDblFinder.class)
+#         singlet doublet
+# FALSE   40002    2478
+# TRUE      284       0
 
-dbl_density_plot <- dbl_df %>%
-    ggplot(aes(x = scDblFinder.score)) +
-    geom_density() +
-    labs(x = "doublet score") +
-    facet_grid(Sample ~ .) +
-    theme_bw()
+table(sce$low_detected, sce$scDblFinder.class)
+#         singlet doublet
+# FALSE   39930    2478
+# TRUE      356       0
 
-ggsave(dbl_density_plot, here("plots", "snRNA-seq", "01_QC", "doublet_scores_density.png"), height = 17)
+#we just flagged doublet scores, did not remove from sce
