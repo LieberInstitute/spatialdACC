@@ -63,6 +63,22 @@ drop_barplot <- drop_summary %>%
 
 ggsave(drop_barplot, filename = here("plots", "snRNA-seq", "01_QC", "drop_barplot.png"), width = 9)
 
+#boxplot of distribution of empty droplets
+drop_boxplot <- drop_summary %>%
+    ggplot(aes(x="", y=non_empty)) +
+    geom_boxplot()  +
+    stat_summary(
+        aes(label = round(stat(y), 1)),
+        geom = "text",
+        fun.y = function(y) { o <- boxplot.stats(y)$out; if(length(o) == 0) NA else o },
+        hjust = -1
+    ) +
+    ggtitle("Distribution of Non-empty Droplets") +
+    xlab("") +
+    ylab("Number of Non-empty droplets")
+
+ggsave(drop_boxplot, filename = here("plots", "snRNA-seq", "01_QC", "drop_boxplot.png"), width = 9)
+
 
 #### Eliminate empty droplets ####
 dim(sce)
