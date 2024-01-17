@@ -185,8 +185,17 @@ plotColData(sce, x = "Sample", y = "detected", colour_by = "low_detected") +
 
 dev.off()
 
-sce <- sce[, !colData(sce)$discard_auto]
+# just flag mediocre qc, don't remove
+#sce <- sce[, !colData(sce)$discard_auto]
 
-#save drops removed and qc removed sce
+# remove 961 genes with <=2 total counts
+extreme_low_expr <- which(rowSums(counts(sce)) <= 2)
+length(extreme_low_expr)
+# [1] 961
+sce <- sce[-extreme_low_expr, ]
+dim(sce)
+# [1]   33905 42764
+
+#save drops removed and qc flagged sce
 save(sce,file=here("processed-data", "snRNA-seq", "01_QC", "sce_qc.rda"))
 
