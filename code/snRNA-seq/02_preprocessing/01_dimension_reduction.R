@@ -56,6 +56,17 @@ pdf(here("plots", "snRNA-seq", "02_preprocessing", "sel_poisson_pearson_GLM_PCA_
 hex <- make_hexbin(res, nbins = 100, dimension_reduction = "pp-GLM-PCA", use_dims = c(1, 2))
 label_df <- make_hexbin_label(hex, col = "brain")
 plot_hexbin_meta(hex, col = "brain", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Brain") + theme(legend.position = "right")
+
+res$discard_auto <- as.logical(res$discard_auto)
+res$discard_auto <- as.factor(res$discard_auto)
+hex <- make_hexbin(res, nbins = 100, dimension_reduction = "pp-GLM-PCA", use_dims = c(1, 2))
+label_df <- make_hexbin_label(hex, col = "discard_auto")
+plot_hexbin_meta(hex, col = "discard_auto", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Low Quality") + theme(legend.position = "right")
+
+hex <- make_hexbin(res, nbins = 100, dimension_reduction = "pp-GLM-PCA", use_dims = c(1, 2))
+label_df <- make_hexbin_label(hex, col = "scDblFinder.class")
+plot_hexbin_meta(hex, col = "scDblFinder.class", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Doublet") + theme(legend.position = "right")
+
 dev.off()
 
 # make elbow plot to determine PCs to use
@@ -84,9 +95,43 @@ hex <- make_hexbin(sce, nbins = 100, dimension_reduction = "UMAP-GLM-PCA", use_d
 label_df <- make_hexbin_label(hex, col = "brain")
 plot_hexbin_meta(hex, col = "brain", action = "majority", xlab = "UMAP1", ylab = "UMAP2") + ggtitle("Brain") + theme(legend.position = "right")
 
-label_df <- make_hexbin_label(hex, col = "Sample")
-plot_hexbin_meta(hex, col = "Sample", action = "majority", xlab = "UMAP1", ylab = "UMAP2") + ggtitle("Capture area") + theme(legend.position = "right")
+sce$discard_auto <- as.logical(sce$discard_auto)
+sce$discard_auto <- as.factor(sce$discard_auto)
+hex <- make_hexbin(sce, nbins = 100, dimension_reduction = "UMAP-GLM-PCA", use_dims = c(1, 2))
+label_df <- make_hexbin_label(hex, col = "discard_auto")
+plot_hexbin_meta(hex, col = "discard_auto", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Low Quality") + theme(legend.position = "right")
+
+hex <- make_hexbin(sce, nbins = 100, dimension_reduction = "UMAP-GLM-PCA", use_dims = c(1, 2))
+label_df <- make_hexbin_label(hex, col = "scDblFinder.class")
+plot_hexbin_meta(hex, col = "scDblFinder.class", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Doublet") + theme(legend.position = "right")
 
 dev.off()
+
+## try UMAP with 25 nearest neighbors instead of 15 (default)
+message("Running runUMAP()")
+Sys.time()
+set.seed(11)
+sce <- runUMAP(sce, dimred = "pp-GLM-PCA", name="UMAP-GLM-PCA", n_neighbors = 25)
+Sys.time()
+
+#explore UMAP results
+pdf(file = here::here("plots", "snRNA-seq", "02_preprocessing", "sel_poisson_pearson_UMAP_nn25.pdf"))
+
+hex <- make_hexbin(sce, nbins = 100, dimension_reduction = "UMAP-GLM-PCA", use_dims = c(1, 2))
+label_df <- make_hexbin_label(hex, col = "brain")
+plot_hexbin_meta(hex, col = "brain", action = "majority", xlab = "UMAP1", ylab = "UMAP2") + ggtitle("Brain") + theme(legend.position = "right")
+
+sce$discard_auto <- as.logical(sce$discard_auto)
+sce$discard_auto <- as.factor(sce$discard_auto)
+hex <- make_hexbin(sce, nbins = 100, dimension_reduction = "UMAP-GLM-PCA", use_dims = c(1, 2))
+label_df <- make_hexbin_label(hex, col = "discard_auto")
+plot_hexbin_meta(hex, col = "discard_auto", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Low Quality") + theme(legend.position = "right")
+
+hex <- make_hexbin(sce, nbins = 100, dimension_reduction = "UMAP-GLM-PCA", use_dims = c(1, 2))
+label_df <- make_hexbin_label(hex, col = "scDblFinder.class")
+plot_hexbin_meta(hex, col = "scDblFinder.class", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Doublet") + theme(legend.position = "right")
+
+dev.off()
+
 
 save(sce, file = here::here("processed-data", "snRNA-seq", "02_preprocessing", "sce_dimred.Rdata"))
