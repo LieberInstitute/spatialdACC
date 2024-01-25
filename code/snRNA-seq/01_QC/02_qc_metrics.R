@@ -142,6 +142,8 @@ table(sce$Sample, sce$high_mito)
 #8c_dACC_SVB   3652  528
 #9c_dACC_SVB   4389  663
 
+sum(sce$subsets_Mito_percent > 0.38)
+# [1] 5648
 
 ## low library size
 sce$low_sum <- isOutlier(sce$sum, log = TRUE, nmads = 3, type = "lower", batch = sce$Sample)
@@ -149,11 +151,17 @@ table(sce$low_sum)
 # FALSE  TRUE
 # 42480   284
 
+sum(sce$sum < 540)
+# [1] 285
+
 ## low detected features
 sce$low_detected <- isOutlier(sce$detected, log = TRUE, nmads = 3, type = "lower", batch = sce$Sample)
 table(sce$low_detected)
 # FALSE  TRUE
 # 42408   356
+
+sum(sce$detected < 500)
+# [1] 368
 
 ## All low sum are also low detected
 table(sce$low_sum, sce$low_detected)
@@ -185,16 +193,21 @@ plotColData(sce, x = "Sample", y = "detected", colour_by = "low_detected") +
 
 dev.off()
 
-# just flag mediocre qc, don't remove
-#sce <- sce[, !colData(sce)$discard_auto]
-
-# remove 961 genes with <=2 total counts
-extreme_low_expr <- which(rowSums(counts(sce)) <= 2)
-length(extreme_low_expr)
-# [1] 961
-sce <- sce[-extreme_low_expr, ]
+# remove low library size nuclei
+sce <- sce[, !colData(sce)$low_sum]
+sce <- sce[, !colData(sce)$low_detected]
 dim(sce)
-# [1]   33905 42764
+# [1] 34866 42408
+
+# remove high mitochondrial percent nuclei (over 3%)
+sce$high_mito_3 <- sce$subsets_Mito_percent > 3
+table(sce$high_mito_3)
+# FALSE  TRUE
+# 42174   234
+
+sce <- sce[, !colData(sce)$high_mito_3]
+dim(sce)
+# [1] 34866 42174
 
 #save drops removed and qc flagged sce
 save(sce,file=here("processed-data", "snRNA-seq", "01_QC", "sce_qc.rda"))
