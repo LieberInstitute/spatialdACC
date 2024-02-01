@@ -193,22 +193,11 @@ plotColData(sce, x = "Sample", y = "detected", colour_by = "low_detected") +
 
 dev.off()
 
-# remove low library size nuclei
-sce <- sce[, !colData(sce)$low_sum]
-sce <- sce[, !colData(sce)$low_detected]
+# remove low quality nuclei
+sce <- sce[, !colData(sce)$discard_auto]
 dim(sce)
 # [1] 34866 42408
 
-# remove high mitochondrial percent nuclei (over 3%)
-sce$high_mito_3 <- sce$subsets_Mito_percent > 3
-table(sce$high_mito_3)
-# FALSE  TRUE
-# 42174   234
-
-sce <- sce[, !colData(sce)$high_mito_3]
-dim(sce)
-# [1] 34866 42174
-
-#save drops removed and qc flagged sce
+#save drops removed and qc removed sce
 save(sce,file=here("processed-data", "snRNA-seq", "01_QC", "sce_qc.rda"))
 
