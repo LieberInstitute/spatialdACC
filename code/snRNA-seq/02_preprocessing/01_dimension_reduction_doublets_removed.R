@@ -14,11 +14,12 @@ load(here("processed-data", "snRNA-seq", "01_QC", "sce_doublet.rda"))
 sce$brain <- as.factor(sce$brain)
 
 dim(sce)
-# 34866 42174
+# 34866 37032
 
 #remove doublets
-sce$high_doublet <- sce$scDblFinder.score > 0.99
-sce <- sce[, !colData(sce)$high_doublet]
+sce <- sce[, colData(sce)$scDblFinder.class == "singlet"]
+dim(sce)
+# [1] 34866 35161
 
 # poisson deviance feature selection, then GLM PCA
 set.seed(8)
@@ -63,17 +64,6 @@ pdf(here("plots", "snRNA-seq", "02_preprocessing", "sel_poisson_pearson_GLM_PCA_
 hex <- make_hexbin(res, nbins = 100, dimension_reduction = "pp-GLM-PCA", use_dims = c(1, 2))
 label_df <- make_hexbin_label(hex, col = "brain")
 plot_hexbin_meta(hex, col = "brain", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Brain") + theme(legend.position = "right")
-
-res$discard_auto <- as.logical(res$discard_auto)
-res$discard_auto <- as.factor(res$discard_auto)
-hex <- make_hexbin(res, nbins = 100, dimension_reduction = "pp-GLM-PCA", use_dims = c(1, 2))
-label_df <- make_hexbin_label(hex, col = "discard_auto")
-plot_hexbin_meta(hex, col = "discard_auto", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Low Quality") + theme(legend.position = "right")
-
-hex <- make_hexbin(res, nbins = 100, dimension_reduction = "pp-GLM-PCA", use_dims = c(1, 2))
-label_df <- make_hexbin_label(hex, col = "scDblFinder.class")
-plot_hexbin_meta(hex, col = "scDblFinder.class", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Doublet") + theme(legend.position = "right")
-
 dev.off()
 
 # make elbow plot to determine PCs to use
@@ -102,15 +92,9 @@ hex <- make_hexbin(sce, nbins = 100, dimension_reduction = "UMAP-GLM-PCA", use_d
 label_df <- make_hexbin_label(hex, col = "brain")
 plot_hexbin_meta(hex, col = "brain", action = "majority", xlab = "UMAP1", ylab = "UMAP2") + ggtitle("Brain") + theme(legend.position = "right")
 
-sce$discard_auto <- as.logical(sce$discard_auto)
-sce$discard_auto <- as.factor(sce$discard_auto)
-hex <- make_hexbin(sce, nbins = 100, dimension_reduction = "UMAP-GLM-PCA", use_dims = c(1, 2))
-label_df <- make_hexbin_label(hex, col = "discard_auto")
-plot_hexbin_meta(hex, col = "discard_auto", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Low Quality") + theme(legend.position = "right")
+plotReducedDim(sce, dimred="UMAP-GLM-PCA", colour_by="subsets_Mito_percent")
 
-hex <- make_hexbin(sce, nbins = 100, dimension_reduction = "UMAP-GLM-PCA", use_dims = c(1, 2))
-label_df <- make_hexbin_label(hex, col = "scDblFinder.class")
-plot_hexbin_meta(hex, col = "scDblFinder.class", action = "majority", xlab = "PC1", ylab = "PC2") + ggtitle("Doublet") + theme(legend.position = "right")
+plotReducedDim(sce, dimred="UMAP-GLM-PCA", colour_by="scDblFinder.score")
 
 dev.off()
 
