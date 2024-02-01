@@ -92,9 +92,9 @@ hex <- make_hexbin(sce, nbins = 100, dimension_reduction = "UMAP-GLM-PCA", use_d
 label_df <- make_hexbin_label(hex, col = "brain")
 plot_hexbin_meta(hex, col = "brain", action = "majority", xlab = "UMAP1", ylab = "UMAP2") + ggtitle("Brain") + theme(legend.position = "right")
 
-plotReducedDim(sce, dimred="UMAP-GLM-PCA", colour_by="subsets_Mito_percent")
+plotReducedDim(sce, dimred="UMAP-GLM-PCA", colour_by="subsets_Mito_percent", point_size = 0.5)
 
-plotReducedDim(sce, dimred="UMAP-GLM-PCA", colour_by="scDblFinder.score")
+plotReducedDim(sce, dimred="UMAP-GLM-PCA", colour_by="scDblFinder.score", point_size = 0.5)
 
 dev.off()
 
