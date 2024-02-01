@@ -1,10 +1,10 @@
 **** Job starts ****
-Wed Jan 17 03:40:19 PM EST 2024
+Thu Feb  1 11:09:22 AM EST 2024
 **** SLURM info ****
 User: kshah
-Job id: 1633348
+Job id: 1866324
 Job name: doublet
-Hostname: compute-153
+Hostname: compute-092
 Task id: 
 Loading conda_R/4.3.x
 
@@ -114,27 +114,26 @@ Loading required package: ggplot2
 ✖ lubridate::second<-() masks S4Vectors::second<-()
 ✖ dplyr::slice()        masks IRanges::slice()
 ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-Warning message:
-In .checkSCE(sce) :
-  Some cells in `sce` have an extremely low read counts; note that these could trigger errors and might best be filtered out
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-0.0002785 0.0006567 0.0010397 0.0644836 0.0031831 0.9997794 
+0.0000657 0.0010397 0.0012999 0.0568570 0.0030581 0.9999392 
+
+singlet doublet 
+  35161    1871 
               
                singlet doublet
-  10c_dACC_SVB    5312     257
-  1c_dACC_MRV     4206     229
-  2c_dACC_MRV     4406     225
-  3c_dACC_MRV     4068     260
-  4c_dACC_MRV     4035     345
-  5c_dACC_SVB     2606     159
-  6c_dACC_SVB     2836     160
-  7c_dACC_SVB     4218     210
-  8c_dACC_SVB     3941     239
-  9c_dACC_SVB     4658     394
-Error in vapply(X, FUN, FUN.VALUE = character(1), ..., USE.NAMES = USE.NAMES) : 
-  values must be type 'character',
- but FUN(X[[1]]) result is type 'list'
-Calls: ggsave ... transform -> make_link -> make_link_file -> vcapply -> vapply
-Execution halted
+  10c_dACC_SVB    4514     199
+  1c_dACC_MRV     3654     168
+  2c_dACC_MRV     3781     164
+  3c_dACC_MRV     3629     203
+  4c_dACC_MRV     3507     222
+  5c_dACC_SVB     2267     124
+  6c_dACC_SVB     2399     133
+  7c_dACC_SVB     3857     170
+  8c_dACC_SVB     3465     187
+  9c_dACC_SVB     4088     301
+[1] 1421
+       
+        singlet doublet
+  FALSE   35161    1871
 **** Job ends ****
-Wed Jan 17 03:44:16 PM EST 2024
+Thu Feb  1 11:15:15 AM EST 2024
