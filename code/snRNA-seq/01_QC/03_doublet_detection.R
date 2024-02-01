@@ -16,33 +16,32 @@ save(sce, file=here("processed-data", "snRNA-seq", "01_QC", "sce_doublet.rda"))
 
 summary(sce$scDblFinder.score)
 #      Min.   1st Qu.    Median      Mean   3rd Qu.      Max.
-# 0.0000381 0.0004016 0.0009069 0.0609606 0.0018350 0.9999698
+# 0.0000657 0.0010397 0.0012999 0.0568570 0.0030581 0.9999392
 
 table(sce$scDblFinder.class)
 # singlet doublet
-# 39849    2325
+# 35161    1871
 
 table(sce$Sample, sce$scDblFinder.class)
 #               singlet doublet
-#  10c_dACC_SVB    5109     246
-# 1c_dACC_MRV     4186     241
-# 2c_dACC_MRV     4329     238
-# 3c_dACC_MRV     4084     229
-# 4c_dACC_MRV     4022     269
-# 5c_dACC_SVB     2631     131
-# 6c_dACC_SVB     2680     158
-# 7c_dACC_SVB     4216     178
-# 8c_dACC_SVB     3946     232
-# 9c_dACC_SVB     4646     403
+# 10c_dACC_SVB    4514     199
+# 1c_dACC_MRV     3654     168
+# 2c_dACC_MRV     3781     164
+# 3c_dACC_MRV     3629     203
+# 4c_dACC_MRV     3507     222
+# 5c_dACC_SVB     2267     124
+# 6c_dACC_SVB     2399     133
+# 7c_dACC_SVB     3857     170
+# 8c_dACC_SVB     3465     187
+# 9c_dACC_SVB     4088     301
 
 sum(sce$scDblFinder.score > 0.99)
-# [1] 1666
+# [1] 1421
 
 # check if doublets are overlapping with low qc
 #most of the high mito are singlets
 table(sce$high_mito, sce$scDblFinder.class)
 #        singlet doublet
-# FALSE   34876    2156
-# TRUE     4973     169
+# FALSE   35161    1871
 
 #we just flagged doublet scores, did not remove from sce
