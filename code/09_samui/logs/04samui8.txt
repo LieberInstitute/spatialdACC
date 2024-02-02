@@ -1,7 +1,7 @@
-date: Tue Dec  5 12:00:00 PM EST 2023
+date: Wed Jan 10 09:54:21 AM EST 2024
 **** JHPCE info ****
 User: rmiller
-Job id: 993617
+Job id: 1508104
 Job name: 04samui
 Hostname: 
 Task id: 8
@@ -13,9 +13,30 @@ Loading LIBD SLURM module for samui/1.0.0-next.45
   warn(msg)
 /jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/anndata/_core/anndata.py:1830: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
   utils.warn_names_duplicates("obs")
-Traceback (most recent call last):
-  File "/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/09_samui/03_loopy-he.py", line 158, in <module>
-    assert default_gene in gene_df.columns, "Default gene not in AnnData"
-AssertionError: Default gene not in AnnData
+Using 36591 genes as features.
+[09:56:01] INFO     Transforming                                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/hande/V12J03-002_D1/V12J03-002_D1.tif to             
+                    COG.                                                        
+           INFO     'V12J03-002_D1' Executing queued functions      logger.py:27
+           INFO     V12J03-002_D1 Adding coords 'coords'            logger.py:27
+[09:56:06] INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/hande/V12J03-002_D1/V12J03-002_D1.tif                
+[09:56:22] INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/hande/V12J03-002_D1/V12J03-002_D1.tif                
+[09:56:57] INFO     V12J03-002_D1 Adding chunked feature 'Genes'    logger.py:27
+[10:09:14] INFO     V12J03-002_D1 Concatenating and compressing     logger.py:27
+                    chunks                                                      
+[10:09:15] INFO     Writing compressed chunks for Genes: 768411     logger.py:27
+                    bytes                                                       
+[10:09:18] INFO     'V12J03-002_D1' written to                      logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/code/09_samui/../../processed-data/10             
+                    _samui/hande/V12J03-002_D1                                  
 **** Job ends ****
-Tue Dec  5 12:01:02 PM EST 2023
+Wed Jan 10 10:09:24 AM EST 2024
