@@ -1,0 +1,225 @@
+**** Job starts ****
+Wed Feb 14 02:37:31 PM EST 2024
+**** SLURM info ****
+User: kshah
+Job id: 2025641
+Job name: spatial_reg
+Hostname: compute-098
+Task id: 10
+Loading conda_R/4.3.x
+
+Currently Loaded Modules:
+  1) JHPCE_ROCKY9_DEFAULT_ENV   3) conda/3-23.3.1
+  2) JHPCE_tools/3.0            4) conda_R/4.3.x
+
+ 
+
+here() starts at /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC
+Loading required package: SpatialExperiment
+Loading required package: SingleCellExperiment
+Loading required package: SummarizedExperiment
+Loading required package: MatrixGenerics
+Loading required package: matrixStats
+
+Attaching package: ‘MatrixGenerics’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+    colWeightedMeans, colWeightedMedians, colWeightedSds,
+    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+    rowWeightedSds, rowWeightedVars
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+    table, tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:utils’:
+
+    findMatches
+
+The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+Attaching package: ‘Biobase’
+
+The following object is masked from ‘package:MatrixGenerics’:
+
+    rowMedians
+
+The following objects are masked from ‘package:matrixStats’:
+
+    anyMissing, rowMedians
+
+                t_stat_clust1 t_stat_clust10 t_stat_clust2 t_stat_clust3
+ENSG00000197971    -6.7706192      0.1524641     -4.449199     7.8707304
+ENSG00000123560    -6.4574494      0.3443862     -4.406409     6.7069913
+ENSG00000198938     0.8424936      2.7128002      2.993371    -0.3496916
+ENSG00000198840     0.1781019      2.8451267      2.353663     1.2039159
+ENSG00000198899     0.2990049      2.8484768      2.504669     1.3755840
+                t_stat_clust4
+ENSG00000197971    -2.4305828
+ENSG00000123560    -2.5765969
+ENSG00000198938     1.9864188
+ENSG00000198840     0.8046828
+ENSG00000198899     1.0532194
+              
+               Astro Endo L2/3 IT L5 ET L5 IT L5/6 NP L6 CT L6 IT L6 IT Car3
+  10c_dACC_SVB   575    8     140    18    51      31    57    66          1
+  1c_dACC_MRV     99    7     466    19   269      51   136   129         27
+  2c_dACC_MRV    259   12     514    14   238      43   119   130         25
+  3c_dACC_MRV    205   11     372    10   225      42   111    97         24
+  4c_dACC_MRV    270   21     601    28   263      53   108   102          7
+  5c_dACC_SVB    207    4     223    11    90      14    45    48          7
+  6c_dACC_SVB    434    8     103    11    63      27    70    72          4
+  7c_dACC_SVB    425    3     307    20   150      29    62    83         14
+  8c_dACC_SVB    324    6     446    20   164      49   134   130         21
+  9c_dACC_SVB    211    9     661    13   144      48   189   103          8
+              
+                L6b Lamp5 Micro-PVM Oligo  OPC Pvalb Sncg  Sst Sst Chodl  Vip
+  10c_dACC_SVB   32    68       367  2553  327    27   23   60         2   96
+  1c_dACC_MRV    91   124       237  1292  213   197   42  137         5  102
+  2c_dACC_MRV    78   121       222  1199  290   180   55  117         4  142
+  3c_dACC_MRV    83   114       242  1518  170   151   38  108         4   88
+  4c_dACC_MRV    52   108       317   777  155   254   73  142         2  118
+  5c_dACC_SVB    36    52       164   952  163    92   18   65         2   65
+  6c_dACC_SVB    32    42       222   863  207    83   15   81         4   53
+  7c_dACC_SVB    48    91       300  1661  276   116   46  131         1   90
+  8c_dACC_SVB    77   107       168  1035  156   251   64  149         4  150
+  9c_dACC_SVB    48   122       377  1406  128   259   53  139         6  147
+              
+               VLMC
+  10c_dACC_SVB   12
+  1c_dACC_MRV    11
+  2c_dACC_MRV    19
+  3c_dACC_MRV    16
+  4c_dACC_MRV    56
+  5c_dACC_SVB     9
+  6c_dACC_SVB     5
+  7c_dACC_SVB     4
+  8c_dACC_SVB    10
+  9c_dACC_SVB    17
+2024-02-14 14:38:21.020998 make pseudobulk object
+2024-02-14 14:38:30.139353 dropping 25 pseudo-bulked samples that are below 'min_ncells'.
+2024-02-14 14:38:30.256246 drop lowly expressed genes
+2024-02-14 14:38:30.808977 normalize expression
+2024-02-14 14:38:38.137805 create model matrix
+2024-02-14 14:38:38.214938 run duplicateCorrelation()
+2024-02-14 14:39:52.44841 The estimated correlation is: 0.0767393394875409
+2024-02-14 14:39:52.457918 computing enrichment statistics
+2024-02-14 14:40:09.490148 extract and reformat enrichment results
+2024-02-14 14:40:09.716143 running the baseline pairwise model
+2024-02-14 14:40:11.22982 computing pairwise statistics
+2024-02-14 14:40:18.883888 computing F-statistics
+[1] 21527    19
+                    Astro       Endo    L2_3_IT    L5_6_NP     L5_ET
+ENSG00000185774 -4.933139 -2.3305355  3.9934496 -6.5094542  4.067793
+ENSG00000178568  2.794229 -1.3302400 -3.4221613 -4.2102018 -4.981345
+ENSG00000175497  3.291373 -3.5356587  0.1180981  1.5302333  2.312012
+ENSG00000185008 -5.035872 -2.6404233  1.3784312 -0.7523907  3.459945
+ENSG00000251562  2.871813  0.3477558  2.9243031 -2.7890434  4.091849
+                clust1     clust10      clust2      clust3        clust4
+Oligo      -0.66511326 -0.26477772 -0.71617280  0.75592170 -6.295279e-01
+Astro      -0.25909208  0.52017174 -0.18777033  0.31581236 -3.636530e-01
+VLMC       -0.24824302  0.38936696 -0.20531025  0.31517352 -3.077010e-01
+Endo       -0.29219361  0.28314669 -0.26447492  0.38615649 -3.676881e-01
+MicroPVM   -0.25521887  0.09095207 -0.24897473  0.38569127 -3.714880e-01
+OPC        -0.28148349  0.04415002 -0.28869554  0.34879019 -3.398467e-01
+L2_3_IT     0.70463316 -0.11566996  0.63782771 -0.47348200  1.865352e-01
+L5_IT       0.42907767 -0.27004957  0.48375076 -0.59325293  5.477654e-01
+L6_IT       0.47532368 -0.22263330  0.43170179 -0.49705113  3.568533e-01
+Vip         0.14520672  0.19717659  0.13256856 -0.06614617  1.155700e-03
+Lamp5       0.11206270  0.24945190  0.11664717 -0.05546077 -3.258495e-03
+Sncg        0.11379095  0.28167508  0.13106817 -0.08432518 -4.678073e-05
+L6_CT       0.07617953 -0.25513949  0.06397472 -0.32263350  3.873221e-01
+L6b         0.07544519 -0.25554612  0.06197853 -0.29584371  2.321987e-01
+L5_ET       0.24390868 -0.13561987  0.25585765 -0.38694426  5.744304e-01
+Pvalb       0.14075471 -0.03066321  0.16944267 -0.16655582  2.230068e-01
+Sst         0.18239164 -0.02868509  0.17812124 -0.17647444  2.062409e-01
+L5_6_NP     0.04375831 -0.15427564  0.05075941 -0.21501575  3.561836e-01
+L6_IT_Car3  0.22318838 -0.14265317  0.18788895 -0.25905769  2.411737e-01
+                 clust5      clust6       clust7     clust8      clust9
+Oligo       0.151223649 -0.57366346 -0.679658716  0.7628608  0.84882048
+Astro       0.037228248 -0.35936668 -0.361598960  0.1758559  0.23765906
+VLMC        0.043260887 -0.30151548 -0.303191989  0.1503045  0.22924565
+Endo        0.057523723 -0.35710237 -0.344092073  0.2457530  0.30325463
+MicroPVM   -0.028297924 -0.35388597 -0.313702129  0.2995513  0.33741590
+OPC         0.107279804 -0.27793077 -0.387551675  0.2742189  0.37617688
+L2_3_IT    -0.534425656  0.11150830  0.487163818 -0.2681010 -0.44327786
+L5_IT      -0.328086335  0.40488377  0.784823778 -0.3713638 -0.54296600
+L6_IT      -0.252299044  0.50425406  0.485657830 -0.3443164 -0.45810812
+Vip        -0.065281479 -0.06247795 -0.016638238 -0.1163418 -0.08062816
+Lamp5      -0.014004288 -0.05937650 -0.024611829 -0.1188293 -0.09585466
+Sncg       -0.038523754 -0.06529460  0.007034406 -0.1160659 -0.10579800
+L6_CT       0.340844012  0.61395898  0.285683845 -0.2826681 -0.33914421
+L6b         0.565699983  0.53191539  0.227389303 -0.2618589 -0.29631286
+L5_ET      -0.220377193  0.24594863  0.403894028 -0.2602879 -0.33387159
+Pvalb      -0.071450120  0.07113681  0.129236809 -0.1506408 -0.15419871
+Sst        -0.009425652  0.07230543  0.135866463 -0.1939588 -0.18232498
+L5_6_NP     0.116430788  0.32939773  0.222165472 -0.1992582 -0.22158642
+L6_IT_Car3 -0.136688296  0.41766139  0.232283219 -0.2048890 -0.25500335
+null device 
+          1 
+      cluster layer_confidence                        layer_label
+1       Oligo             good               clust9/clust8/clust3
+2       Astro             good                            clust10
+3        VLMC             good                     clust10/clust3
+4        Endo             good                             clust3
+5    MicroPVM             good               clust3/clust9/clust8
+6         OPC             good                      clust9/clust3
+7     L2_3_IT             good                      clust1/clust2
+8       L5_IT             good                             clust7
+9       L6_IT             good clust6/clust7/clust1/clust2/clust4
+10        Vip             poor                           clust10*
+11      Lamp5             poor                           clust10*
+12       Sncg             good                            clust10
+13      L6_CT             good                             clust6
+14        L6b             good                      clust5/clust6
+15      L5_ET             good                             clust4
+16      Pvalb             poor                            clust4*
+17        Sst             poor              clust4/clust1/clust2*
+18    L5_6_NP             good                      clust4/clust6
+19 L6_IT_Car3             good                             clust6
+**** Job ends ****
+Wed Feb 14 02:40:21 PM EST 2024
