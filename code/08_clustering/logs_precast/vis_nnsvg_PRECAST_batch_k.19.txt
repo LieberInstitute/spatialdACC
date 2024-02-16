@@ -1,10 +1,10 @@
 **** Job starts ****
-Fri Feb 16 10:28:53 AM EST 2024
+Fri Feb 16 05:13:25 PM EST 2024
 **** SLURM info ****
 User: kshah
-Job id: 2049945
+Job id: 2057526
 Job name: nnSVG_PRECAST
-Hostname: compute-063
+Hostname: compute-069
 Task id: 19
 Loading conda_R/4.3.x
 
@@ -16,9 +16,9 @@ Currently Loaded Modules:
 
 Using only PRECAST results to obtain the batch corrected gene expressions since species is unknown or the genelist in PRECASTObj has less than 5 overlapp with the housekeeping genes of given species.
 Start integration...
-2024-02-16 10:34:14.956103 : ***** Data integration finished!, 1.363 mins elapsed.
+2024-02-16 17:18:49.320887 : ***** Data integration finished!, 1.125 mins elapsed.
 Put the data into a new Seurat object...
-2024-02-16 10:34:31.072818 : ***** New Seurat object is generated!, 0.269 mins elapsed.
+2024-02-16 17:19:03.474275 : ***** New Seurat object is generated!, 0.236 mins elapsed.
 Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
 Warning message:
 In dir.create(outdir, recursive = TRUE) :
@@ -36,4 +36,4 @@ In dir.create(outdir, recursive = TRUE) :
 null device 
           1 
 **** Job ends ****
-Fri Feb 16 10:37:28 AM EST 2024
+Fri Feb 16 05:21:55 PM EST 2024
