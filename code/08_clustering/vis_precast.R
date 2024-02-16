@@ -16,7 +16,7 @@ suppressPackageStartupMessages({
 load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
 colnames(spe) <- spe$key
 
-K <- as.numeric(Sys.getenv("SGE_TASK_ID"))
+K <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
 load(file = here("processed-data", "08_clustering", "PRECAST", paste0("PRECASTObj_",K,".Rdata")))
 
 PRECASTObj <- SelectModel(PRECASTObj)
@@ -53,16 +53,16 @@ for (i in seq_along(brains)){
     print(length(samples))
 
     if (length(samples) == 1){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, point_size = 4, ... = paste0("_", brains[i]))
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 4, ... = paste0("_", brains[i]))
         grid.arrange(p1, nrow = 1)
     } else if (length(samples) == 2){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, point_size = 3, ... = paste0("_", brains[i]))
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "PRECAST_cluster", colors = cols, point_size = 3, ... = paste0("_", brains[i]))
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i]))
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i]))
         grid.arrange(p1, p2, nrow = 2)
     } else if (length(samples) == 3){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, point_size = 3, ... = paste0("_", brains[i]))
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "PRECAST_cluster", colors = cols, point_size = 3, ... = paste0("_", brains[i]))
-        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "PRECAST_cluster", colors = cols, point_size = 3, ... = paste0("_", brains[i]))
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i]))
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i]))
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i]))
         grid.arrange(p1, p2, p3, nrow = 2)
     }
 }
@@ -76,6 +76,7 @@ for (i in 1:nrow(samples)) {
         sampleid = samples$sample_id[i],
         clustervar = "PRECAST_cluster",
         colors = c("FALSE" = "yellow", "TRUE" = "blue"),
+	spatial = FALSE,
         point_size = 2,
         ... = paste0("_", samples$brnum[i])
     )
