@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=nnSVG_PRECAST
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=10G
+#SBATCH --mem-per-cpu=30G
 #SBATCH --output=logs_precast/vis_nnsvg_PRECAST_batch_k.%a.txt
 #SBATCH --error=logs_precast/vis_nnsvg_PRECAST_batch_k.%a.txt
-#SBATCH --array=17
+#SBATCH --array=5-20
 #SBATCH --mail-type=END
 #SBATCH --mail-user=kinnaryshahh@gmail.com
 echo "**** Job starts ****"
