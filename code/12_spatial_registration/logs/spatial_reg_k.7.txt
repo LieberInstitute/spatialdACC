@@ -1,10 +1,10 @@
 **** Job starts ****
-Wed Feb 14 02:37:31 PM EST 2024
+Tue Feb 20 04:41:07 PM EST 2024
 **** SLURM info ****
 User: kshah
-Job id: 2025642
+Job id: 2135544
 Job name: spatial_reg
-Hostname: compute-097
+Hostname: compute-057
 Task id: 7
 Loading conda_R/4.3.x
 
@@ -140,18 +140,18 @@ ENSG00000198899     0.2352318
   7c_dACC_SVB     4
   8c_dACC_SVB    10
   9c_dACC_SVB    17
-2024-02-14 14:38:19.753411 make pseudobulk object
-2024-02-14 14:38:28.699669 dropping 25 pseudo-bulked samples that are below 'min_ncells'.
-2024-02-14 14:38:28.809663 drop lowly expressed genes
-2024-02-14 14:38:29.334647 normalize expression
-2024-02-14 14:38:36.394112 create model matrix
-2024-02-14 14:38:36.470994 run duplicateCorrelation()
-2024-02-14 14:39:48.093608 The estimated correlation is: 0.0767393394875409
-2024-02-14 14:39:48.102393 computing enrichment statistics
-2024-02-14 14:40:06.266833 extract and reformat enrichment results
-2024-02-14 14:40:06.542301 running the baseline pairwise model
-2024-02-14 14:40:08.057071 computing pairwise statistics
-2024-02-14 14:40:15.671501 computing F-statistics
+2024-02-20 16:42:20.645061 make pseudobulk object
+2024-02-20 16:42:36.161471 dropping 25 pseudo-bulked samples that are below 'min_ncells'.
+2024-02-20 16:42:36.339594 drop lowly expressed genes
+2024-02-20 16:42:37.257221 normalize expression
+2024-02-20 16:42:47.25556 create model matrix
+2024-02-20 16:42:47.360342 run duplicateCorrelation()
+2024-02-20 16:44:39.651674 The estimated correlation is: 0.0767393394875409
+2024-02-20 16:44:39.681969 computing enrichment statistics
+2024-02-20 16:45:10.529087 extract and reformat enrichment results
+2024-02-20 16:45:11.081485 running the baseline pairwise model
+2024-02-20 16:45:13.339644 computing pairwise statistics
+2024-02-20 16:45:25.527817 computing F-statistics
 [1] 21527    19
                     Astro       Endo    L2_3_IT    L5_6_NP     L5_ET
 ENSG00000185774 -4.933139 -2.3305355  3.9934496 -6.5094542  4.067793
@@ -222,4 +222,4 @@ null device
 18   MicroPVM             good clust2/clust7/clust6
 19        OPC             good clust7/clust2/clust6
 **** Job ends ****
-Wed Feb 14 02:40:17 PM EST 2024
+Tue Feb 20 04:45:28 PM EST 2024

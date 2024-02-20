@@ -56,6 +56,7 @@ cor_layer <- layer_stat_cor(
 )
 
 cor_layer
+save(cor_layer, file = here("processed-data", "12_spatial_registration",paste0("azimuth",nnSVG_precast_name,".rds")))
 
 pdf(file = here::here("plots", "12_spatial_registration", "azimuth",
                       paste0("azimuth_",nnSVG_precast_name,"_heatmap.pdf")), width = 14, height = 14)

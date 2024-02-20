@@ -1,10 +1,10 @@
 **** Job starts ****
-Wed Feb 14 02:37:31 PM EST 2024
+Tue Feb 20 04:41:07 PM EST 2024
 **** SLURM info ****
 User: kshah
-Job id: 2025641
+Job id: 2135543
 Job name: spatial_reg
-Hostname: compute-098
+Hostname: compute-053
 Task id: 10
 Loading conda_R/4.3.x
 
@@ -140,18 +140,18 @@ ENSG00000198899     1.0532194
   7c_dACC_SVB     4
   8c_dACC_SVB    10
   9c_dACC_SVB    17
-2024-02-14 14:38:21.020998 make pseudobulk object
-2024-02-14 14:38:30.139353 dropping 25 pseudo-bulked samples that are below 'min_ncells'.
-2024-02-14 14:38:30.256246 drop lowly expressed genes
-2024-02-14 14:38:30.808977 normalize expression
-2024-02-14 14:38:38.137805 create model matrix
-2024-02-14 14:38:38.214938 run duplicateCorrelation()
-2024-02-14 14:39:52.44841 The estimated correlation is: 0.0767393394875409
-2024-02-14 14:39:52.457918 computing enrichment statistics
-2024-02-14 14:40:09.490148 extract and reformat enrichment results
-2024-02-14 14:40:09.716143 running the baseline pairwise model
-2024-02-14 14:40:11.22982 computing pairwise statistics
-2024-02-14 14:40:18.883888 computing F-statistics
+2024-02-20 16:42:25.198412 make pseudobulk object
+2024-02-20 16:42:37.66472 dropping 25 pseudo-bulked samples that are below 'min_ncells'.
+2024-02-20 16:42:37.813327 drop lowly expressed genes
+2024-02-20 16:42:38.517792 normalize expression
+2024-02-20 16:42:47.924821 create model matrix
+2024-02-20 16:42:48.030379 run duplicateCorrelation()
+2024-02-20 16:44:12.500765 The estimated correlation is: 0.0767393394875409
+2024-02-20 16:44:12.531276 computing enrichment statistics
+2024-02-20 16:44:35.945504 extract and reformat enrichment results
+2024-02-20 16:44:36.299896 running the baseline pairwise model
+2024-02-20 16:44:38.333532 computing pairwise statistics
+2024-02-20 16:44:47.324496 computing F-statistics
 [1] 21527    19
                     Astro       Endo    L2_3_IT    L5_6_NP     L5_ET
 ENSG00000185774 -4.933139 -2.3305355  3.9934496 -6.5094542  4.067793
@@ -222,4 +222,4 @@ null device
 18    L5_6_NP             good                      clust4/clust6
 19 L6_IT_Car3             good                             clust6
 **** Job ends ****
-Wed Feb 14 02:40:21 PM EST 2024
+Tue Feb 20 04:44:50 PM EST 2024

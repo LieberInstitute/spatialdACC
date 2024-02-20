@@ -1,10 +1,10 @@
 **** Job starts ****
-Wed Feb 14 02:37:31 PM EST 2024
+Tue Feb 20 04:41:07 PM EST 2024
 **** SLURM info ****
 User: kshah
-Job id: 2025644
+Job id: 2135546
 Job name: spatial_reg
-Hostname: compute-098
+Hostname: compute-053
 Task id: 9
 Loading conda_R/4.3.x
 
@@ -140,18 +140,18 @@ ENSG00000198899   -0.04087994
   7c_dACC_SVB     4
   8c_dACC_SVB    10
   9c_dACC_SVB    17
-2024-02-14 14:38:20.903311 make pseudobulk object
-2024-02-14 14:38:29.933824 dropping 25 pseudo-bulked samples that are below 'min_ncells'.
-2024-02-14 14:38:30.046738 drop lowly expressed genes
-2024-02-14 14:38:30.584591 normalize expression
-2024-02-14 14:38:37.986111 create model matrix
-2024-02-14 14:38:38.066433 run duplicateCorrelation()
-2024-02-14 14:39:53.44884 The estimated correlation is: 0.0767393394875409
-2024-02-14 14:39:53.456971 computing enrichment statistics
-2024-02-14 14:40:10.783729 extract and reformat enrichment results
-2024-02-14 14:40:11.02481 running the baseline pairwise model
-2024-02-14 14:40:12.618052 computing pairwise statistics
-2024-02-14 14:40:20.257954 computing F-statistics
+2024-02-20 16:42:40.64762 make pseudobulk object
+2024-02-20 16:42:52.723367 dropping 25 pseudo-bulked samples that are below 'min_ncells'.
+2024-02-20 16:42:52.859364 drop lowly expressed genes
+2024-02-20 16:42:53.528307 normalize expression
+2024-02-20 16:43:02.27184 create model matrix
+2024-02-20 16:43:02.378006 run duplicateCorrelation()
+2024-02-20 16:44:27.0445 The estimated correlation is: 0.0767393394875409
+2024-02-20 16:44:27.07573 computing enrichment statistics
+2024-02-20 16:44:50.74606 extract and reformat enrichment results
+2024-02-20 16:44:51.135368 running the baseline pairwise model
+2024-02-20 16:44:53.158247 computing pairwise statistics
+2024-02-20 16:45:02.311167 computing F-statistics
 [1] 21527    19
                     Astro       Endo    L2_3_IT    L5_6_NP     L5_ET
 ENSG00000185774 -4.933139 -2.3305355  3.9934496 -6.5094542  4.067793
@@ -222,4 +222,4 @@ null device
 18      Astro             good                      clust9
 19       VLMC             good               clust9/clust3
 **** Job ends ****
-Wed Feb 14 02:40:22 PM EST 2024
+Tue Feb 20 04:45:04 PM EST 2024
