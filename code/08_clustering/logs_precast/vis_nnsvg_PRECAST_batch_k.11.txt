@@ -1,8 +1,8 @@
 **** Job starts ****
-Fri Feb 16 05:13:25 PM EST 2024
+Tue Feb 20 04:08:27 PM EST 2024
 **** SLURM info ****
 User: kshah
-Job id: 2057518
+Job id: 2135344
 Job name: nnSVG_PRECAST
 Hostname: compute-124
 Task id: 11
@@ -16,9 +16,9 @@ Currently Loaded Modules:
 
 Using only PRECAST results to obtain the batch corrected gene expressions since species is unknown or the genelist in PRECASTObj has less than 5 overlapp with the housekeeping genes of given species.
 Start integration...
-2024-02-16 17:15:55.413449 : ***** Data integration finished!, 0.385 mins elapsed.
+2024-02-20 16:11:08.999599 : ***** Data integration finished!, 0.391 mins elapsed.
 Put the data into a new Seurat object...
-2024-02-16 17:16:00.325372 : ***** New Seurat object is generated!, 0.082 mins elapsed.
+2024-02-20 16:11:14.160596 : ***** New Seurat object is generated!, 0.086 mins elapsed.
 Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
 Warning message:
 In dir.create(outdir, recursive = TRUE) :
@@ -36,4 +36,4 @@ In dir.create(outdir, recursive = TRUE) :
 null device 
           1 
 **** Job ends ****
-Fri Feb 16 05:17:06 PM EST 2024
+Tue Feb 20 04:12:14 PM EST 2024
