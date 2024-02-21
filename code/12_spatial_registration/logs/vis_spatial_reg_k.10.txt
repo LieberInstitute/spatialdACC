@@ -1,0 +1,24 @@
+**** Job starts ****
+Wed Feb 21 10:01:31 AM EST 2024
+**** SLURM info ****
+User: kshah
+Job id: 2165507
+Job name: spatial_reg
+Hostname: compute-070
+Task id: 10
+Loading conda_R/4.3.x
+
+Currently Loaded Modules:
+  1) JHPCE_ROCKY9_DEFAULT_ENV   3) conda/3-23.3.1
+  2) JHPCE_tools/3.0            4) conda_R/4.3.x
+
+ 
+
+Using only PRECAST results to obtain the batch corrected gene expressions since species is unknown or the genelist in PRECASTObj has less than 5 overlapp with the housekeeping genes of given species.
+Start integration...
+2024-02-21 10:07:02.641735 : ***** Data integration finished!, 1.278 mins elapsed.
+Put the data into a new Seurat object...
+/var/spool/slurm/d/job2165507/slurm_script: line 26: 1643268 Killed                  Rscript vis_PRECAST.R
+**** Job ends ****
+Wed Feb 21 10:07:36 AM EST 2024
+slurmstepd: error: Detected 1 oom-kill event(s) in StepId=2165507.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.
