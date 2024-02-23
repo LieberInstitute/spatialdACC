@@ -13,6 +13,8 @@ suppressPackageStartupMessages({
     library("ggspavis")
     library("SingleCellExperiment")
     library("stringr")
+    library("ComplexHeatmap")
+    library("cowplot")
 })
 
 load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
@@ -44,7 +46,7 @@ load(here("processed-data", "12_spatial_registration",paste0("azimuth",precast_n
 samples <- unique(colData(spe)[, c("sample_id", "brnum")])
 rownames(samples) <- NULL
 
-pdf(file = here("plots","12_spatial_registration",paste0("azimuth_",precast_name,".pdf")))
+pdf(file = here("plots","12_spatial_registration","azimuth",paste0("azimuth_",precast_name,"_combined",".pdf")))
 
 for (i in 1:nrow(samples)) {
     p <- vis_clus(
@@ -57,8 +59,9 @@ for (i in 1:nrow(samples)) {
         ... = paste0("_", samples$brnum[i])
     )
 
-    p1 <- layer_stat_cor_plot(cor_layer, max = max(cor_layer)) 
-    grid.arrange(p, p1, nrow = 1)
+    #remove legend title from ComplexHeatmap
+    p1 <- grid.grabExpr(draw(Heatmap(cor_layer, heatmap_legend_param = list(title = ""))))
+    plot_grid(p, p1, labels = "AUTO", ncol = 2)
 }
 
 dev.off()
