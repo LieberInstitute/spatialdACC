@@ -1,0 +1,156 @@
+**** Job starts ****
+Fri Feb 23 09:00:25 AM EST 2024
+**** SLURM info ****
+User: kshah
+Job id: 2775548
+Job name: spatial_reg
+Hostname: compute-124
+Task id: 9
+Loading conda_R/4.3.x
+
+Currently Loaded Modules:
+  1) JHPCE_ROCKY9_DEFAULT_ENV   3) conda/3-23.3.1
+  2) JHPCE_tools/3.0            4) conda_R/4.3.x
+
+ 
+
+here() starts at /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC
+Loading required package: SpatialExperiment
+Loading required package: SingleCellExperiment
+Loading required package: SummarizedExperiment
+Loading required package: MatrixGenerics
+Loading required package: matrixStats
+
+Attaching package: ‘MatrixGenerics’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+    colWeightedMeans, colWeightedMedians, colWeightedSds,
+    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+    rowWeightedSds, rowWeightedVars
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+    table, tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:utils’:
+
+    findMatches
+
+The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+Attaching package: ‘Biobase’
+
+The following object is masked from ‘package:MatrixGenerics’:
+
+    rowMedians
+
+The following objects are masked from ‘package:matrixStats’:
+
+    anyMissing, rowMedians
+
+2024-02-23 09:00:50.506611 loading file /users/kshah/.cache/R/BiocFileCache/13d9e726918a4_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1
+        
+         Layer1 Layer2 Layer3 Layer4 Layer5 Layer6   WM
+  151507    817    305   1215    369    675    486  354
+  151508    866    295   1385    373    737    525  200
+  151509   1189    602   1884    369    363    215  166
+  151510   1180    650   1774    318    310    179  184
+  151669      0      0   2141    364    510    391  230
+  151670      0      0   2175    211    581    308  209
+  151671      0      0   1918    245    721    760  449
+  151672      0      0   1575    304    728    882  399
+  151673    273    253    989    218    673    692  513
+  151674    380    224    924    247    621    614  625
+  151675    328    275    771    275    732    533  652
+  151676    289    254    836    254    649    616  533
+2024-02-23 09:01:07.314663 make pseudobulk object
+2024-02-23 09:01:12.636115 dropping 0 pseudo-bulked samples that are below 'min_ncells'.
+2024-02-23 09:01:12.741029 drop lowly expressed genes
+2024-02-23 09:01:12.987291 normalize expression
+2024-02-23 09:01:14.840169 create model matrix
+2024-02-23 09:01:14.961354 run duplicateCorrelation()
+2024-02-23 09:01:29.167377 The estimated correlation is: 0.118126133185465
+2024-02-23 09:01:29.171683 computing enrichment statistics
+2024-02-23 09:01:30.295922 extract and reformat enrichment results
+2024-02-23 09:01:30.334973 running the baseline pairwise model
+2024-02-23 09:01:30.448089 computing pairwise statistics
+2024-02-23 09:01:30.911004 computing F-statistics
+[1] 12788     7
+                    Layer1     Layer2      Layer3     Layer4     Layer5
+ENSG00000237491 -0.7256283  2.0788871  0.61674511  0.4688421  0.5695093
+ENSG00000188976 -0.6572114 -0.7390849  0.19450868  1.6352331  0.9191109
+ENSG00000187961 -1.2921426 -0.6803113 -0.01417304  1.0924404 -0.2996404
+ENSG00000188290  4.7108424  1.9763637  1.96846028 -0.8773839 -0.6533878
+ENSG00000187608  3.2327678 -4.0550445 -0.57848471  1.1372756 -1.3428869
+           clust1     clust2      clust3      clust4     clust5     clust6
+WM     -0.8659342 -0.9180099  0.89612305 -0.82629353  0.2680923 -0.6413857
+Layer2  0.7799684  0.6191054 -0.52727096  0.24035800 -0.3456311  0.1548395
+Layer3  0.8265202  0.8306015 -0.67486517  0.51177253 -0.4961130  0.2580879
+Layer4  0.3910616  0.5559470 -0.49375138  0.62268822 -0.2882226  0.3324390
+Layer5  0.0607455  0.2388777 -0.37232698  0.64456976  0.1508930  0.4949394
+Layer1  0.1042231  0.0224053  0.10738445 -0.25656621 -0.2695757 -0.3585312
+Layer6 -0.2856235 -0.2669707  0.01420637  0.04961575  0.5684586  0.4822366
+            clust7      clust8     clust9
+WM      0.83279079  0.90711709 -0.3218378
+Layer2 -0.48568103 -0.52303427  0.3589579
+Layer3 -0.55815273 -0.64407473  0.2211315
+Layer4 -0.35263003 -0.45619685 -0.1133530
+Layer5 -0.26982644 -0.34433735 -0.2554219
+Layer1 -0.10212041 -0.01744772  0.8085856
+Layer6  0.01854098  0.03468106 -0.3732313
+null device 
+          1 
+  cluster layer_confidence          layer_label
+1      WM             good clust8/clust3/clust7
+2  Layer2             good               clust1
+3  Layer3             good        clust2/clust1
+4  Layer4             good        clust4/clust2
+5  Layer5             good               clust4
+6  Layer1             good               clust9
+7  Layer6             good        clust5/clust6
+**** Job ends ****
+Fri Feb 23 09:01:31 AM EST 2024
