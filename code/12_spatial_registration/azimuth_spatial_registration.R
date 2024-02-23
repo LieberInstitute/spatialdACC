@@ -11,8 +11,6 @@ nnSVG_precast_name <- paste0("nnSVG_PRECAST_captureArea_", k)
 load(file = here("processed-data", "11_differential_expression", "pseudobulk",
                  "nnSVG_precast_DE", paste0(nnSVG_precast_name,".Rdata")))
 
-modeling_results$enrichment[1:5, 1:5]
-
 # load cell type info from azimuth
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth.Rdata"))
 table(sce$Sample, sce$cellType_azimuth)
@@ -43,7 +41,6 @@ colnames(registration_t_stats) <- gsub("^t_stat_", "", colnames(registration_t_s
 
 ## cell types x gene
 dim(registration_t_stats)
-#> [1] 21527    19
 
 ## check out table
 registration_t_stats[1:5, 1:5]
