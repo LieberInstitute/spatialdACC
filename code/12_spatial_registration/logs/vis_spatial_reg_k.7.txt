@@ -1,10 +1,10 @@
 **** Job starts ****
-Wed Feb 21 09:44:59 AM EST 2024
+Fri Feb 23 03:48:59 PM EST 2024
 **** SLURM info ****
 User: kshah
-Job id: 2160342
+Job id: 2780213
 Job name: spatial_reg
-Hostname: compute-096
+Hostname: compute-053
 Task id: 7
 Loading conda_R/4.3.x
 
@@ -16,10 +16,10 @@ Currently Loaded Modules:
 
 Using only PRECAST results to obtain the batch corrected gene expressions since species is unknown or the genelist in PRECASTObj has less than 5 overlapp with the housekeeping genes of given species.
 Start integration...
-2024-02-21 09:49:18.737687 : ***** Data integration finished!, 0.69 mins elapsed.
+2024-02-23 15:55:26.420899 : ***** Data integration finished!, 0.916 mins elapsed.
 Put the data into a new Seurat object...
-2024-02-21 09:49:27.265918 : ***** New Seurat object is generated!, 0.142 mins elapsed.
+2024-02-23 16:01:45.039843 : ***** New Seurat object is generated!, 6.309 mins elapsed.
 null device 
           1 
 **** Job ends ****
-Wed Feb 21 09:50:13 AM EST 2024
+Fri Feb 23 04:03:37 PM EST 2024
