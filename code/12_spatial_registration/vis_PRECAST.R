@@ -50,19 +50,20 @@ p1 <- grid.grabExpr(draw(Heatmap(cor_layer, heatmap_legend_param = list(title = 
 
 pdf(file = here("plots","12_spatial_registration","azimuth",paste0("azimuth_",precast_name,"_combined",".pdf")))
 
-#for (i in 1:nrow(samples)) {
-for(i in 1:2){
-p <- vis_clus(
+for (i in 1:nrow(samples)) {
+	p <- vis_clus(
         spe = spe,
         sampleid = samples$sample_id[i],
         clustervar = "PRECAST_cluster",
         colors = c("FALSE" = "yellow", "TRUE" = "blue"),
 	spatial = FALSE,
-        point_size = 2,
+        point_size = 1,
         ... = paste0("_", samples$brnum[i])
-    )
+    )  + 
+    #reduce size of ggtitle
+    theme(plot.title = element_text(size = 12)) 
 
-    plot_grid(p, p1, labels = "AUTO", ncol = 2)
+    print(plot_grid(p, p1, labels = "AUTO", ncol = 2))
 }
 
 dev.off()
