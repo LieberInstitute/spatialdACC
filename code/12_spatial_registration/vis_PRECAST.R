@@ -46,21 +46,22 @@ load(here("processed-data", "12_spatial_registration",paste0("azimuth",precast_n
 samples <- unique(colData(spe)[, c("sample_id", "brnum")])
 rownames(samples) <- NULL
 
+p1 <- grid.grabExpr(draw(Heatmap(cor_layer, heatmap_legend_param = list(title = ""))))
+
 pdf(file = here("plots","12_spatial_registration","azimuth",paste0("azimuth_",precast_name,"_combined",".pdf")))
 
-for (i in 1:nrow(samples)) {
-    p <- vis_clus(
+#for (i in 1:nrow(samples)) {
+for(i in 1:2){
+p <- vis_clus(
         spe = spe,
         sampleid = samples$sample_id[i],
         clustervar = "PRECAST_cluster",
         colors = c("FALSE" = "yellow", "TRUE" = "blue"),
 	spatial = FALSE,
-        point_size = 3,
+        point_size = 2,
         ... = paste0("_", samples$brnum[i])
     )
 
-    #remove legend title from ComplexHeatmap
-    p1 <- grid.grabExpr(draw(Heatmap(cor_layer, heatmap_legend_param = list(title = ""))))
     plot_grid(p, p1, labels = "AUTO", ncol = 2)
 }
 
