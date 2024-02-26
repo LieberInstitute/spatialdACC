@@ -23,7 +23,7 @@ module load conda_R
 module list
 
 ## Edit with your job command
-Rscript vis_PRECAST.R
+Rscript vis_azimuth_PRECAST.R
 
 echo "**** Job ends ****"
 date
