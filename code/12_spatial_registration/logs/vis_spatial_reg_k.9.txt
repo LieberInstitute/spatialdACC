@@ -1,8 +1,8 @@
 **** Job starts ****
-Mon Feb 26 12:49:59 PM EST 2024
+Mon Feb 26 03:18:29 PM EST 2024
 **** SLURM info ****
 User: kshah
-Job id: 2808201
+Job id: 2809787
 Job name: spatial_reg
 Hostname: compute-153
 Task id: 9
@@ -16,10 +16,10 @@ Currently Loaded Modules:
 
 Using only PRECAST results to obtain the batch corrected gene expressions since species is unknown or the genelist in PRECASTObj has less than 5 overlapp with the housekeeping genes of given species.
 Start integration...
-2024-02-26 12:52:30.39817 : ***** Data integration finished!, 0.456 mins elapsed.
+2024-02-26 15:21:02.946609 : ***** Data integration finished!, 0.448 mins elapsed.
 Put the data into a new Seurat object...
-2024-02-26 12:52:35.709721 : ***** New Seurat object is generated!, 0.089 mins elapsed.
+2024-02-26 15:21:08.186325 : ***** New Seurat object is generated!, 0.087 mins elapsed.
 pdf 
   2 
 **** Job ends ****
-Mon Feb 26 12:53:04 PM EST 2024
+Mon Feb 26 03:21:37 PM EST 2024
