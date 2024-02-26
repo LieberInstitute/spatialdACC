@@ -4,7 +4,7 @@
 #SBATCH --mem-per-cpu=20G
 #SBATCH --output=logs/vis_spatial_reg_k.%a.txt
 #SBATCH --error=logs/vis_spatial_reg_k.%a.txt
-#SBATCH --array=9
+#SBATCH --array=7-10
 #SBATCH --mail-type=END
 #SBATCH --mail-user=kinnaryshahh@gmail.com
 
