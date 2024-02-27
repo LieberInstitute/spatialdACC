@@ -14,7 +14,7 @@ load(file = here("processed-data", "snRNA-seq", "03_batch_correction", "sce_harm
 # want to use logcounts for NMF
 sce <- logNormCounts(sce)
 
-options(RcppML.threads=8)
+options(RcppML.threads=4)
 x <- RcppML::nmf(assay(sce,'logcounts'),
                  k=120,
                  tol = 1e-06,

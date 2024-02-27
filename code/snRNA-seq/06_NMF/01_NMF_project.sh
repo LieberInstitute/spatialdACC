@@ -1,11 +1,12 @@
 #!/bin/bash
 #SBATCH --job-name=spatial_reg
-#SBATCH --cpus-per-task=8
-#SBATCH --mem-per-cpu=7G
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=10G
 #SBATCH --output=logs/project.txt
 #SBATCH --error=logs/project.txt
 #SBATCH --mail-type=END
 #SBATCH --mail-user=kinnaryshahh@gmail.com
+#SBATCH --time=2-00:00:00
 
 echo "**** Job starts ****"
 date
