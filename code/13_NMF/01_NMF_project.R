@@ -56,3 +56,40 @@ reducedDim(spe, "NMF_proj") <- proj
 
 # save spe
 save(spe, file = here("processed-data", "13_NMF", "spe_NMF.Rdata"))
+
+spe.temp <- spe
+
+# add each proj column to colData(spe)
+for (i in 1:120){
+    colData(spe.temp)[[paste0("NMF_",i)]] <- reducedDims(spe.temp)$NMF_proj[,i]
+}
+
+brains <- unique(spe.temp$brnum)
+
+for (i in 1:(dim(patterns)[2])){
+
+    pdf(file = here::here("plots", "13_NMF", "SpotPlots", paste0("NMF_", i, ".pdf")),
+        width = 21, height = 20)
+
+    for (j in seq_along(brains)){
+        speb <- spe.temp[, which(spe.temp$brnum == brains[j])]
+        samples <- unique(speb$sample_id)
+        print(length(samples))
+
+        if (length(samples) == 1){
+            p1 <- vis_gene(spe =  speb, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 9, )
+            grid.arrange(p1, nrow = 1)
+        } else if (length(samples) == 2){
+            p1 <- vis_gene(spe =  speb, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p2 <- vis_gene(spe =  speb, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            grid.arrange(p1, p2, nrow = 2)
+        } else if (length(samples) == 3){
+            p1 <- vis_gene(spe =  speb, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p2 <- vis_gene(spe =  speb, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p3 <- vis_gene(spe =  speb, sampleid = samples[3], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            grid.arrange(p1, p2, p3, nrow = 2)
+        }
+    }
+
+    dev.off()
+}
