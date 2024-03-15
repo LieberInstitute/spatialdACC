@@ -23,7 +23,7 @@ module load conda_R
 module list
 
 ## Edit with your job command
-Rscript 01_NMF_project.R
+Rscript 01_NMF_factor.R
 
 echo "**** Job ends ****"
 date
