@@ -16,7 +16,7 @@ sce <- logNormCounts(sce)
 
 options(RcppML.threads=4)
 x <- RcppML::nmf(assay(sce,'logcounts'),
-                 k=120,
+                 k=100,
                  tol = 1e-06,
                  maxit = 1000,
                  verbose = T,
