@@ -32,7 +32,7 @@ load(file = here("processed-data", "snRNA-seq", "03_batch_correction", "sce_harm
 
 # extract patterns
 patterns <- t(x$h)
-colnames(patterns) <- paste("NMF", 1:120, sep = "_")
+colnames(patterns) <- paste("NMF", 1:100, sep = "_")
 
 loadings <- x$w
 rownames(loadings) <- rownames(sce)
@@ -49,7 +49,7 @@ logcounts <- logcounts(spe)
 
 proj <- project(logcounts, loadings)
 proj <- t(proj)
-colnames(proj) <- paste("NMF", 1:120, sep = "_")
+colnames(proj) <- paste("NMF", 1:100, sep = "_")
 
 # add to reducedDims
 reducedDim(spe, "NMF_proj") <- proj
@@ -60,7 +60,7 @@ save(spe, file = here("processed-data", "13_NMF", "spe_NMF.Rdata"))
 spe.temp <- spe
 
 # add each proj column to colData(spe)
-for (i in 1:120){
+for (i in 1:100){
     colData(spe.temp)[[paste0("NMF_",i)]] <- reducedDims(spe.temp)$NMF_proj[,i]
 }
 
