@@ -19,6 +19,7 @@ library(patchwork)
 library(cowplot)
 library(projectR)
 library(spatialLIBD)
+library(gridExtra)
 
 # get NMF results from single nucleus data
 x <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "nmf_results.RDS"))
@@ -47,7 +48,7 @@ loadings <- loadings[rownames(loadings) %in% rowData(spe)$gene_name,]
 
 logcounts <- logcounts(spe)
 
-proj <- project(logcounts, loadings)
+proj <- project(loadings, as.matrix(logcounts))
 proj <- t(proj)
 colnames(proj) <- paste("NMF", 1:100, sep = "_")
 
@@ -66,7 +67,8 @@ for (i in 1:100){
 
 brains <- unique(spe.temp$brnum)
 
-for (i in 1:(dim(patterns)[2])){
+for (i in 1:100){
+    print(paste0("i=", i))
 
     pdf(file = here::here("plots", "13_NMF", "SpotPlots", paste0("NMF_", i, ".pdf")),
         width = 21, height = 20)
@@ -93,3 +95,13 @@ for (i in 1:(dim(patterns)[2])){
 
     dev.off()
 }
+
+# find the number of zeroes in each column in colData(spe.temp)
+zeroes <- sapply(colData(spe.temp)[, 1:100], function(x) sum(x == 0))
+
+# list out columns in colData(spe.temp) with more than 77533 zeroes
+names(zeroes[zeroes > 77533])
+#  [4] "NMF_1"                "NMF_2"                "NMF_9"
+# [7] "NMF_14"                "NMF_15"               "NMF_16"
+# [10] "NMF_17"               "NMF_21"               "NMF_30"
+# [13] "NMF_35"
