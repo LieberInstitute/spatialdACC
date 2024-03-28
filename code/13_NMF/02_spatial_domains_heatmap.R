@@ -33,3 +33,26 @@ pdf(here("plots", "13_NMF", "nmf_precast_correlation_heatmap.pdf"))
 pheatmap(cor(proj_no_zero,as.matrix(onehot_precast)), fontsize_row = 5)
 dev.off()
 
+# aggregate NMF patterns
+
+# create dataframe
+data <- data.frame(colData(spe), proj_no_zero)
+
+# aggregate NMF patterns across clusters. # grep "NMF" to get all NMF patterns
+agg_data <- aggregate(data[,grep("NMF", colnames(data))],
+                      by=list(data$PRECAST_cluster),
+                      FUN=mean)
+
+# move Group.1 to row names, then drop
+rownames(agg_data) <- agg_data$Group.1
+agg_data <- agg_data[,-1]
+
+pdf(here("plots", "13_NMF", "nmf_precast_correlation_aggregated_heatmap.pdf"))
+p1 <- pheatmap(agg_data,
+               color=colorRampPalette(c("blue","white","red"))(100),
+               cluster_cols=T,
+               cluster_rows=T,
+               scale="column",
+               fontsize_col = 5
+)
+dev.off()
