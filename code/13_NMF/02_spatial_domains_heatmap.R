@@ -12,6 +12,28 @@ proj <- reducedDim(spe, "NMF_proj")
 # load precast cluster data
 load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9.Rdata"))
 
+# relabel spe$PRECAST_cluster to the following:
+# 3- WM1
+# 8- WM2
+# 7- WM-CC
+# 5- L6b
+# 6- L6a
+# 4- L5
+# 2- L3
+# 1- L2
+# 9- L1
+
+spe$PRECAST_cluster <- unfactor(spe$PRECAST_cluster)
+spe$PRECAST_cluster[spe$PRECAST_cluster == 3] <- "WM1"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 8] <- "WM2"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 7] <- "WM-CC"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 5] <- "L6b"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 6] <- "L6a"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 4] <- "L5"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 2] <- "L3"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 1] <- "L2"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 9] <- "L1"
+
 ####onehot encode precast cluster
 data<-as.data.frame(spe$PRECAST_cluster)
 colnames(data)<-'precast'
