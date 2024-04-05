@@ -78,16 +78,16 @@ for (i in 1:100){
         print(length(samples))
 
         if (length(samples) == 1){
-            p1 <- vis_gene(spe_dACC =  spe_dACCb, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 9, )
+            p1 <- vis_gene(spe =  spe_dACCb, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 9, )
             grid.arrange(p1, nrow = 1)
         } else if (length(samples) == 2){
-            p1 <- vis_gene(spe_dACC =  spe_dACCb, sampld = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p2 <- vis_gene(spe_dACC =  spe_dACCb, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p1 <- vis_gene(spe =  spe_dACCb, sampld = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p2 <- vis_gene(spe =  spe_dACCb, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
             grid.arrange(p1, p2, nrow = 2)
         } else if (length(samples) == 3){
-            p1 <- vis_gene(spe_dACC =  spe_dACCb, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p2 <- vis_gene(spe_dACC =  spe_dACCb, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p3 <- vis_gene(spe_dACC =  spe_dACCb, sampleid = samples[3], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p1 <- vis_gene(spe =  spe_dACCb, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p2 <- vis_gene(spe =  spe_dACCb, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p3 <- vis_gene(spe =  spe_dACCb, sampleid = samples[3], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
             grid.arrange(p1, p2, p3, nrow = 2)
         }
     }
