@@ -69,7 +69,7 @@ brains <- unique(spe_dACC.temp$brnum)
 for (i in 1:100){
     print(paste0("i=", i))
 
-    pdf(file = here::here("plots", "13_NMF", "SpotPlots", paste0("NMF_", i, ".pdf")),
+    pdf(file = here::here("plots", "14_cross_region", "SpotPlots", paste0("NMF_", i, ".pdf")),
         width = 21, height = 20)
 
     for (j in seq_along(brains)){
