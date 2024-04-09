@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=nmf
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=15G
+#SBATCH --mem-per-cpu=55G
 #SBATCH --mail-type=END
 #SBATCH --mail-user=kinnaryshahh@gmail.com
 #SBATCH --time=2-00:00:00
