@@ -17,7 +17,7 @@ spe <- logNormCounts(spe)
 
 cvnmf <- cross_validate_nmf(
     logcounts(spe),
-    ranks=c(5,10,50,100,125,150,200),
+    ranks=c(15,25,35,45,55,75,100),
     n_replicates = 3,
     tol = 1e-03,
     maxit = 100,
