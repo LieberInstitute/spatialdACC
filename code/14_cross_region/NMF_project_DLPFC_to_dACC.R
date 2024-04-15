@@ -40,10 +40,10 @@ rownames(loadings) <- rownames(spe_DLPFC)
 
 # ====== project loadings to spatial data =======
 # drop any gene_names in spe_dACC not in speLPFC
-spe_dACC <- spe_dACC[rowData(spe_dACC)$gene_name %in% rownames(spe_DLPFC),]
+spe_dACC <- spe_dACC[rowData(spe_dACC)$gene_id %in% rownames(spe_DLPFC),]
 
 # drop rownames in loadings not in spe_dACC
-loadings <- loadings[rownames(loadings) %in% rowData(spe_dACC)$gene_name,]
+loadings <- loadings[rownames(loadings) %in% rowData(spe_dACC)$gene_id,]
 
 logcounts <- logcounts(spe_dACC)
 
