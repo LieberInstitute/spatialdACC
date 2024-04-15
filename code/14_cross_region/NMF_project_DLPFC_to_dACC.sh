@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=nmf
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=15G
+#SBATCH --mem-per-cpu=60G
 #SBATCH --output=logs/dACC_project.txt
 #SBATCH --error=logs/dACC_project.txt
 #SBATCH --mail-type=END
