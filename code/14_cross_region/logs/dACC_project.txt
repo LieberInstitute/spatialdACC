@@ -1,10 +1,10 @@
 **** Job starts ****
-Mon Apr  8 05:28:14 PM EDT 2024
+Mon Apr 15 10:47:22 AM EDT 2024
 **** SLURM info ****
 User: kshah
-Job id: 4126065
+Job id: 4560002
 Job name: nmf
-Hostname: compute-107
+Hostname: compute-127
 Task id: 
 Loading conda_R/4.3.x
 
@@ -153,7 +153,10 @@ The following object is masked from 'package:BiocGenerics':
 
     combine
 
-2024-04-08 17:31:06.308717 loading file /users/kshah/.cache/R/BiocFileCache/13d9e726918a4_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1
+2024-04-15 10:49:16.434891 loading file /users/kshah/.cache/R/BiocFileCache/13d9e726918a4_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1
+Warning message:
+In asMethod(object) :
+  sparse->dense coercion: allocating vector of size 15.4 GiB
 [1] "i=1"
 [1] 1
 [1] 1
@@ -1254,24 +1257,6 @@ The following object is masked from 'package:BiocGenerics':
 [1] 3
 [1] 3
 [1] 2
- [1] "extreme_low_sum"      "extreme_low_detected" "discard_extreme"     
- [4] "NMF_1"                "NMF_2"                "NMF_3"               
- [7] "NMF_4"                "NMF_5"                "NMF_6"               
-[10] "NMF_7"                "NMF_8"                "NMF_9"               
-[13] "NMF_10"               "NMF_11"               "NMF_12"              
-[16] "NMF_13"               "NMF_14"               "NMF_15"              
-[19] "NMF_16"               "NMF_17"               "NMF_18"              
-[22] "NMF_19"               "NMF_20"               "NMF_21"              
-[25] "NMF_22"               "NMF_23"               "NMF_24"              
-[28] "NMF_25"               "NMF_26"               "NMF_27"              
-[31] "NMF_28"               "NMF_29"               "NMF_30"              
-[34] "NMF_31"               "NMF_32"               "NMF_33"              
-[37] "NMF_34"               "NMF_35"               "NMF_36"              
-[40] "NMF_37"               "NMF_38"               "NMF_39"              
-[43] "NMF_40"               "NMF_41"               "NMF_42"              
-[46] "NMF_43"               "NMF_44"               "NMF_45"              
-[49] "NMF_46"               "NMF_47"               "NMF_48"              
-[52] "NMF_49"               "NMF_50"               "NMF_51"              
-[55] "NMF_52"              
+[1] "extreme_low_sum"      "extreme_low_detected" "discard_extreme"     
 **** Job ends ****
-Mon Apr  8 06:03:58 PM EDT 2024
+Mon Apr 15 11:31:31 AM EDT 2024
