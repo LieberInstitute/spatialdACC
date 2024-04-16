@@ -15,11 +15,12 @@ sum(is.na(spe_DLPFC$layer_guess_reordered))
 #[1] 352
 
 # remove NAs
-spe_DLPFC <- spe_DLPFC[,!is.na(spe_DLPFC$layer_guess_reordered)]
+indices <- colnames(spe_DLPFC)[!is.na(spe_DLPFC$layer_guess_reordered)]
+spe_DLPFC <- spe_DLPFC[,indices]
 
 # remove NAs from NMF results
 patterns <- x@h
-patterns <- patterns[,!is.na(spe_DLPFC$layer_guess_reordered)]
+patterns <- patterns[,indices]
 
 ####onehot encode layer
 data<-as.data.frame(spe_DLPFC$layer_guess_reordered)
