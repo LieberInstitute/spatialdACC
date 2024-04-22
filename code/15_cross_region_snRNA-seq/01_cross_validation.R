@@ -16,6 +16,8 @@ sce <- HDF5Array::loadHDF5SummarizedExperiment(
     file.path(tempdir(), "sce_DLPFC_annotated")
 )
 
+assay(sce, "logcounts") <- as(assay(sce, "logcounts"), "dgCMatrix")
+
 cvnmf <- cross_validate_nmf(
     logcounts(sce),
     ranks=c(15,25,35,45,55,75,100),

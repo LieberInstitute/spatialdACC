@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=cv
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=30G
+#SBATCH --mem-per-cpu=40G
 #SBATCH --output=logs/cv.txt
 #SBATCH --error=logs/cv.txt
 #SBATCH --mail-type=END
