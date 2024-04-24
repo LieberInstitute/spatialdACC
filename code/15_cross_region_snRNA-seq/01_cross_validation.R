@@ -20,8 +20,8 @@ assay(sce, "logcounts") <- as(assay(sce, "logcounts"), "dgCMatrix")
 
 cvnmf <- cross_validate_nmf(
     logcounts(sce),
-    ranks=c(15,25,35,45,55,75,100),
-    n_replicates = 3,
+    ranks=c(25,50,75,100,125),
+    n_replicates = 2,
     tol = 1e-03,
     maxit = 100,
     verbose = 3,

@@ -6,7 +6,7 @@
 #SBATCH --error=logs/cv.txt
 #SBATCH --mail-type=END
 #SBATCH --mail-user=kinnaryshahh@gmail.com
-#SBATCH --time=4-00:00:00
+#SBATCH --time=7-00:00:00
 
 echo "**** Job starts ****"
 date
