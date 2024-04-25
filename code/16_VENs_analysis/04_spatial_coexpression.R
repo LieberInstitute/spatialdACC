@@ -46,7 +46,11 @@ samples <- unique(colData(spe)$sample_id)
 pdf(here("plots", "16_VENs_analysis", "spatial_coexpression.pdf"))
 print(p)
 
+# create empty list to store results
+results <- list()
+
 for (sample in samples) {
+    print(sample)
     spe_sample <- spe[, colData(spe)$sample_id == sample]
     pos <- data.frame(
         x = spe_sample$array_row,
@@ -55,9 +59,14 @@ for (sample in samples) {
     rownames(pos) <- colnames(counts(spe_sample))
     weight <- getSpatialNeighbors(pos,filterDist = 3)
     plotNetwork(pos, weight, cex = 0.5, main = sample)
-    spatialCrossCorTest(normcounts(spe_sample)[VAT1L_index,], normcounts(spe_sample)[DRD5_index,], weight,
+    pval <- spatialCrossCorTest(normcounts(spe_sample)[VAT1L_index,], normcounts(spe_sample)[DRD5_index,], weight,
                         ncores = 3, plot=T)
+    print(pval)
+    results[[sample]] <- pval
 }
 
 dev.off()
+
+# save results as csv
+write.csv(results, here("processed-data", "16_VENs_analysis", "spatial_coexpression.csv"))
 
