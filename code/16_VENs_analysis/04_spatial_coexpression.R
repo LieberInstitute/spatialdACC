@@ -21,34 +21,43 @@ VAT1L_index <- which(rowData(spe)$gene_name == "VAT1L")
 DRD5_index <- which(rowData(spe)$gene_name == "DRD5")
 
 dat <- data.frame(
-    VAT1L = normcounts(spe)[VAT1L_index,],
-    DRD5 = normcounts(spe)[DRD5_index,]
+    VAT1L = logcounts(spe)[VAT1L_index,],
+    DRD5 = logcounts(spe)[DRD5_index,]
 )
+
+# compute general cross correlation
+general_cor <- cor.test(dat$VAT1L, dat$DRD5, method = "spearman")$estimate
 
 # create scatterplot of gene expression VAT1L vs DRD5
 p <- ggplot(dat, aes(x = VAT1L, y = DRD5)) +
     geom_point() +
     geom_smooth(method = "lm", se = FALSE) +
-    labs(title = "VAT1L vs DRD5 normcounts scale", x = "VAT1L", y = "DRD5")
-
-# compute general cross correlation
-cor.test(dat$VAT1L, dat$DRD5, method = "spearman")
+    # print value of "general_cor" in the plot
+    annotate("text", x = max(dat$VAT1L)-2, y = max(dat$DRD5), label = paste("correlation:", round(general_cor, 2))) +
+    labs(title = "VAT1L vs DRD5 logcounts scale", x = "VAT1L expression", y = "DRD5 expression") +
+    theme_bw()
 
 # 2. spatially aware coexpression
+# separately by sample due to memory constraints
 
-pos <- data.frame(
-    x = spe$array_row,
-    y = spe$array_col
-)
-
-weight <- getSpatialNeighbors(pos, filterDist = 1)
-spatialCrossCor(dat$VAT1L, dat$DRD5, weight)
+samples <- unique(colData(spe)$sample_id)
 
 # save plots
 pdf(here("plots", "16_VENs_analysis", "spatial_coexpression.pdf"))
 print(p)
-plotNetwork(pos, weight)
-spatialCrossCorTest(dat$VAT1L, dat$DRD5, weight,
-                    plot=TRUE)
+
+for (sample in samples) {
+    spe_sample <- spe[, colData(spe)$sample_id == sample]
+    pos <- data.frame(
+        x = spe_sample$array_row,
+        y = spe_sample$array_col
+    )
+    rownames(pos) <- colnames(counts(spe_sample))
+    weight <- getSpatialNeighbors(pos,filterDist = 3)
+    plotNetwork(pos, weight, cex = 0.5, main = sample)
+    spatialCrossCorTest(normcounts(spe_sample)[VAT1L_index,], normcounts(spe_sample)[DRD5_index,], weight,
+                        ncores = 3, plot=T)
+}
+
 dev.off()
 
