@@ -7,6 +7,7 @@ library(SingleCellExperiment)
 library(here)
 library(scuttle)
 library(Matrix)
+library(spatialLIBD)
 
 # Load data
 sce_path_zip <- fetch_data("spatialDLPFC_snRNAseq")
