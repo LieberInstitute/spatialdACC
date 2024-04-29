@@ -19,7 +19,7 @@ sce <- HDF5Array::loadHDF5SummarizedExperiment(
 assay(sce, "logcounts") <- as(assay(sce, "logcounts"), "dgCMatrix")
 
 options(RcppML.threads=4)
-x <- RcppML::nmf(assay(spe,'logcounts'),
+x <- RcppML::nmf(assay(sce,'logcounts'),
                  k=75,
                  tol = 1e-06,
                  maxit = 1000,
