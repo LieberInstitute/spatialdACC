@@ -40,11 +40,11 @@ patterns <- t(x$h)
 colnames(patterns) <- paste("NMF", 1:75, sep = "_")
 
 loadings <- x$w
-rownames(loadings) <- rownames(sce)
+rownames(loadings) <- rowData(sce)$gene_id
 
 # ====== project loadings to spatial data =======
 # drop any gene_names in spe_dACC not in speLPFC
-spe_dACC <- spe_dACC[rowData(spe_dACC)$gene_id %in% rownames(sce),]
+spe_dACC <- spe_dACC[rowData(spe_dACC)$gene_id %in% rowData(sce)$gene_id,]
 
 # drop rownames in loadings not in spe_dACC
 loadings <- loadings[rownames(loadings) %in% rowData(spe_dACC)$gene_id,]
