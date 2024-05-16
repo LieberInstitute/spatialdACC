@@ -10,12 +10,17 @@ library(scater)
 
 # create violin plots to show the distribution of DRD5 expression in each cluster
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth.Rdata"))
-sce$counts_DRD5 <- counts(sce)[which(rowData(sce)$gene_name=="DRD5"),]
 
+sce <- computeSumFactors(sce)
+sce <- logNormCounts(sce)
+
+sce$counts_DRD5 <- counts(sce)[which(rowData(sce)$gene_name=="DRD5"),]
+sce$logcounts_DRD5 <- logcounts(sce)[which(rowData(sce)$gene_name=="DRD5"),]
 
 # create violin plots to show the distribution of DRD5 expression in each spatial domain
 load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9.Rdata"))
 spe$counts_DRD5 <- counts(spe)[which(rowData(spe)$gene_name=="DRD5"),]
+spe$logcounts_DRD5 <- logcounts(spe)[which(rowData(spe)$gene_name=="DRD5"),]
 
 spe$PRECAST_cluster <- unfactor(spe$PRECAST_cluster)
 spe$PRECAST_cluster[spe$PRECAST_cluster == 3] <- "WM1"
@@ -37,6 +42,14 @@ plotColData(sce, x = "cellType_azimuth", y = "counts_DRD5") +
 
 plotColData(spe, x = "PRECAST_cluster", y = "counts_DRD5") +
     ggtitle("DRD5 Counts by PRECAST Cluster") +
+    facet_wrap(~ spe$PRECAST_cluster, scales = "free_x", nrow = 1)
+
+plotColData(sce, x = "cellType_azimuth", y = "logcounts_DRD5") +
+    ggtitle("DRD5 Logcounts by Azimuth Cluster") +
+    facet_wrap(~ sce$cellType_azimuth, scales = "free_x", nrow = 1)
+
+plotColData(spe, x = "PRECAST_cluster", y = "logcounts_DRD5") +
+    ggtitle("DRD5 Logcounts by PRECAST Cluster") +
     facet_wrap(~ spe$PRECAST_cluster, scales = "free_x", nrow = 1)
 
 dev.off()
