@@ -70,7 +70,7 @@ for (i in 1:75){
     colData(spe_DLPFC_12.temp)[[paste0("NMF_",i)]] <- reducedDims(spe_DLPFC_12.temp)$NMF_proj[,i]
 }
 
-brains <- unique(spe_DLPFC_12.temp$brnum)
+brains <- unique(spe_DLPFC_12.temp$subject)
 
 for (i in 1:75){
     print(paste0("i=", i))
@@ -79,7 +79,7 @@ for (i in 1:75){
         width = 21, height = 20)
 
     for (j in seq_along(brains)){
-        spe_DLPFC_12b <- spe_DLPFC_12.temp[, which(spe_DLPFC_12.temp$brnum == brains[j])]
+        spe_DLPFC_12b <- spe_DLPFC_12.temp[, which(spe_DLPFC_12.temp$subject == brains[j])]
         samples <- unique(spe_DLPFC_12b$sample_id)
         print(length(samples))
 
@@ -95,6 +95,13 @@ for (i in 1:75){
             p2 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
             p3 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[3], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
             grid.arrange(p1, p2, p3, nrow = 2)
+        }
+	else if (length(samples) == 4){
+            p1 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p2 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p3 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[3], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p4 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[4], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            grid.arrange(p1, p2, p3, p4, nrow = 2)
         }
     }
 
