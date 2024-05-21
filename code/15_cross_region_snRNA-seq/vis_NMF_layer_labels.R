@@ -141,8 +141,33 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
     return(list(p1, p2, p3))
 }
 
-# create a list of 3 plots for NMF factor 1
-plots_1 <- make_plots("NMF_1", "151507", "Br2743_ant", "V12N28-334_C1")
+# from unscaled heatmap
+plots_53 <- make_plots("NMF_53", "151509", "Br2720_ant", "V12N28-331_D1")
+
+# from rowscale
+plots_21 <- make_plots("NMF_21", "151509", "Br2720_ant", "V12N28-331_D1")
+plots_25 <- make_plots("NMF_25", "151510", "Br2720_ant", "V12N28-331_D1")
+
+# from columnscale
+plots_10 <- make_plots("NMF_10", "151673", "Br3942_post", "V12N28-334_C1")
+plots_7 <- make_plots("NMF_7", "151674", "Br2743_post", "V12N28-332_D1")
+plots_5 <- make_plots("NMF_5", "151675", "Br2743_mid", "V12N28-331_B1")
+
+# try to find other layer patterns that show up in dACC
+#65, 44,59
+#16, 30
+#52, 42, 46, 18, 72, 49
+#43, 75
+#13, 6, 24
+#54, 51, 55
+
+
 pdf(here::here("plots", "15_cross_region_snRNA-seq", "compare_NMF.pdf"), width = 10, height = 10)
-grid.arrange(grobs = plots_1, nrow = 1)
+grid.arrange(grobs = plots_53, nrow = 1)
+grid.arrange(grobs = plots_21, nrow = 1)
+grid.arrange(grobs = plots_25, nrow = 1)
+grid.arrange(grobs = plots_10, nrow = 1)
+grid.arrange(grobs = plots_7, nrow = 1)
+grid.arrange(grobs = plots_5, nrow = 1)
 dev.off()
+
