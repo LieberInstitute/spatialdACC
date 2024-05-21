@@ -74,3 +74,23 @@ p1 <- pheatmap(agg_data,
 )
 dev.off()
 
+
+pdf(here("plots", "15_cross_region_snRNA-seq", "nmf_DLPFC_layer_correlation_aggregated_unscaled_heatmap.pdf"))
+p1 <- pheatmap(agg_data,
+               color=colorRampPalette(c("blue","white","red"))(100),
+               cluster_cols=T,
+               cluster_rows=T,
+               scale="none",
+               fontsize_col = 5
+)
+dev.off()
+
+pdf(here("plots", "15_cross_region_snRNA-seq", "nmf_DLPFC_layer_correlation_aggregated_rowscale_heatmap.pdf"))
+p1 <- pheatmap(agg_data,
+               color=colorRampPalette(c("blue","white","red"))(100),
+               cluster_cols=T,
+               cluster_rows=T,
+               scale="row",
+               fontsize_col = 5
+)
+dev.off()
