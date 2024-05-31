@@ -2,8 +2,8 @@
 #SBATCH --job-name=nmf
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=60G
-#SBATCH --output=logs/dACC_project.txt
-#SBATCH --error=logs/dACC_project.txt
+#SBATCH --output=logs/DLPFC_project.txt
+#SBATCH --error=logs/DLPFC_project.txt
 #SBATCH --mail-type=END
 #SBATCH --mail-user=kinnaryshahh@gmail.com
 #SBATCH --time=2-00:00:00
@@ -23,7 +23,7 @@ module load conda_R/4.3.x
 module list
 
 ## Edit with your job command
-Rscript 03_project_into_dACC.R
+Rscript NMF_project_DLPFC_to_DLPFC.R
 
 echo "**** Job ends ****"
 date

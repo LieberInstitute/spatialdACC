@@ -43,6 +43,7 @@ spe_DLPFC_30 <- spe_DLPFC_30[rowData(spe_DLPFC_30)$gene_id %in% rownames(spe_DLP
 
 # drop rownames in loadings not in spe_DLPFC_30
 loadings <- loadings[rownames(loadings) %in% rowData(spe_DLPFC_30)$gene_id,]
+loadings <- loadings[match(rownames(spe_DLPFC_30), rownames(loadings)), ]
 
 logcounts <- logcounts(spe_DLPFC_30)
 

@@ -1,10 +1,10 @@
 **** Job starts ****
-Mon Apr 15 10:47:22 AM EDT 2024
+Fri May 31 02:03:54 PM EDT 2024
 **** SLURM info ****
 User: kshah
-Job id: 4560002
+Job id: 7129054
 Job name: nmf
-Hostname: compute-127
+Hostname: compute-152
 Task id: 
 Loading conda_R/4.3.x
 
@@ -153,7 +153,7 @@ The following object is masked from 'package:BiocGenerics':
 
     combine
 
-2024-04-15 10:49:16.434891 loading file /users/kshah/.cache/R/BiocFileCache/13d9e726918a4_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1
+2024-05-31 14:06:16.490483 loading file /users/kshah/.cache/R/BiocFileCache/13d9e726918a4_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1
 Warning message:
 In asMethod(object) :
   sparse->dense coercion: allocating vector of size 15.4 GiB
@@ -1259,4 +1259,4 @@ In asMethod(object) :
 [1] 2
 [1] "extreme_low_sum"      "extreme_low_detected" "discard_extreme"     
 **** Job ends ****
-Mon Apr 15 11:31:31 AM EDT 2024
+Fri May 31 02:49:42 PM EDT 2024

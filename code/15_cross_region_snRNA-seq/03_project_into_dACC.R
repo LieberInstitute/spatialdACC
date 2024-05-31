@@ -48,6 +48,7 @@ spe_dACC <- spe_dACC[rowData(spe_dACC)$gene_id %in% rowData(sce)$gene_id,]
 
 # drop rownames in loadings not in spe_dACC
 loadings <- loadings[rownames(loadings) %in% rowData(spe_dACC)$gene_id,]
+loadings <- loadings[match(rownames(spe_dACC), rownames(loadings)), ]
 
 logcounts <- logcounts(spe_dACC)
 
