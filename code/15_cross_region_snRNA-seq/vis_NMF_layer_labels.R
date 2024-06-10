@@ -161,13 +161,17 @@ plots_5 <- make_plots("NMF_5", "151675", "Br2743_mid", "V12N28-331_B1")
 #13, 6, 24
 #54, 51, 55
 
+plots_33 <- make_plots("NMF_33", "151669", "Br3942_post", "V12J03-002_A1")
 
 pdf(here::here("plots", "15_cross_region_snRNA-seq", "compare_NMF.pdf"), width = 10, height = 10)
+
+grid.arrange(grobs = plots_5, nrow = 1)
+grid.arrange(grobs = plots_33, nrow = 1)
 grid.arrange(grobs = plots_53, nrow = 1)
 grid.arrange(grobs = plots_21, nrow = 1)
 grid.arrange(grobs = plots_25, nrow = 1)
 grid.arrange(grobs = plots_10, nrow = 1)
 grid.arrange(grobs = plots_7, nrow = 1)
-grid.arrange(grobs = plots_5, nrow = 1)
+
 dev.off()
 
