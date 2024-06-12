@@ -5,6 +5,7 @@ dat <- read.table("ldsc_results.txt",as.is=T,header=T,sep="\t")
 
 traits <- c(
 "ADHD",
+"PTSD",
 "Alzheimer Disease3",
  "Anorexia",
  "Autism",
