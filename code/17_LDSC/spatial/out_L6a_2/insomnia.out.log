@@ -15,7 +15,7 @@ Call:
 --w-ld-chr /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC. \
 --print-coefficients  
 
-Beginning analysis at Thu May 23 15:01:03 2024
+Beginning analysis at Mon Jun 10 16:09:47 2024
 Reading summary statistics from /dcs04/lieber/shared/statsgen/LDSC/base/gwas_brain/insomnia.gz ...
 Read summary statistics for 1113944 SNPs.
 Dropped 6 SNPs with duplicated rs numbers.
@@ -35,5 +35,5 @@ Intercept: 1.0338 (0.0108)
 Ratio: 0.0921 (0.0294)
 Reading annot matrix from ./out_L6a/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (annot)
 Results printed to ./out_L6a_2/insomnia.out.results
-Analysis finished at Thu May 23 15:03:43 2024
-Total time elapsed: 2.0m:40.53s
+Analysis finished at Mon Jun 10 16:16:02 2024
+Total time elapsed: 6.0m:15.08s

@@ -15,7 +15,7 @@ Call:
 --w-ld-chr /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC. \
 --print-coefficients  
 
-Beginning analysis at Thu May 23 14:52:30 2024
+Beginning analysis at Mon Jun 10 15:53:10 2024
 Reading summary statistics from /dcs04/lieber/shared/statsgen/LDSC/base/gwas_brain/epilepsyFocal.gz ...
 Read summary statistics for 890792 SNPs.
 Reading reference panel LD Score from ./out_WM.CC/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (ldscore_fromlist)
@@ -34,5 +34,5 @@ Intercept: 1.1077 (0.0133)
 Ratio: 0.6314 (0.0779)
 Reading annot matrix from ./out_WM.CC/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (annot)
 Results printed to ./out_WM.CC_2/epilepsyFocal.out.results
-Analysis finished at Thu May 23 14:55:05 2024
-Total time elapsed: 2.0m:35.83s
+Analysis finished at Mon Jun 10 15:56:52 2024
+Total time elapsed: 3.0m:41.73s

@@ -15,7 +15,7 @@ Call:
 --annot ./out_WM.CC/chr.5.annot.gz \
 --l2  
 
-Beginning analysis at Thu May 23 12:52:02 2024
+Beginning analysis at Mon Jun 10 14:39:13 2024
 Read list of 633015 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.5.bim
 Read 1 annotations for 633015 SNPs from ./out_WM.CC/chr.5.annot.gz
 Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.5.fam
@@ -56,5 +56,5 @@ min           0.0000
 50%           0.0000
 75%           0.0000
 max           1.0000
-Analysis finished at Thu May 23 12:55:05 2024
-Total time elapsed: 3.0m:3.28s
+Analysis finished at Mon Jun 10 14:42:57 2024
+Total time elapsed: 3.0m:44.07s

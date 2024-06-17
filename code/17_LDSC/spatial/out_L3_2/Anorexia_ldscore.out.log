@@ -15,7 +15,7 @@ Call:
 --w-ld-chr /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC. \
 --print-coefficients  
 
-Beginning analysis at Thu May 23 14:56:47 2024
+Beginning analysis at Mon Jun 10 15:52:42 2024
 Reading summary statistics from /dcs04/lieber/shared/statsgen/LDSC/base/gwas_brain/Anorexia_ldscore.gz ...
 Read summary statistics for 1111223 SNPs.
 Dropped 12 SNPs with duplicated rs numbers.
@@ -35,5 +35,5 @@ Intercept: 1.0287 (0.0109)
 Ratio: 0.1023 (0.039)
 Reading annot matrix from ./out_L3/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (annot)
 Results printed to ./out_L3_2/Anorexia_ldscore.out.results
-Analysis finished at Thu May 23 14:58:37 2024
-Total time elapsed: 1.0m:50.0s
+Analysis finished at Mon Jun 10 15:55:13 2024
+Total time elapsed: 2.0m:30.99s
