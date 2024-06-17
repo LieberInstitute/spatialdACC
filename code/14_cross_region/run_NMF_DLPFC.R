@@ -5,10 +5,25 @@ library(RcppML)
 library(pheatmap)
 library(SingleCellExperiment)
 library(here)
-library(scuttle)
-library(Matrix)
 library(reshape2)
+library(SpatialExperiment)
+library(scater)
+library(RcppML)
+library(ggspavis)
+library(scRNAseq)
+library(Matrix)
+library(scran)
+library(scuttle)
+library(ggplot2)
+library(RColorBrewer)
+library(igraph)
+library(bluster)
+library(patchwork)
+library(cowplot)
+library(projectR)
 library(spatialLIBD)
+library(gridExtra)
+
 
 # Load data
 spe <- spatialLIBD::fetch_data(type = "spe")
@@ -70,3 +85,45 @@ p1 <- pheatmap(agg_data,
                fontsize_col = 5
 )
 dev.off()
+
+for (i in 1:100){
+    colData(spe)[[paste0("NMF_",i)]] <- x$h[i,]
+}
+
+brains <- unique(spe$subject)
+
+for (i in 1:100){
+    print(paste0("i=", i))
+
+    pdf(file = here::here("plots", "14_cross_region", "SpotPlots_DLPFC_12", paste0("NMF_", i, ".pdf")),
+        width = 21, height = 20)
+
+    for (j in seq_along(brains)){
+        spe_DLPFC_12b <- spe[, which(spe$subject == brains[j])]
+        samples <- unique(spe_DLPFC_12b$sample_id)
+        print(length(samples))
+
+        if (length(samples) == 1){
+            p1 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 9, )
+            grid.arrange(p1, nrow = 1)
+        } else if (length(samples) == 2){
+            p1 <- vis_gene(spe =  spe_DLPFC_12b, sampld = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p2 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            grid.arrange(p1, p2, nrow = 2)
+        }  else if (length(samples) == 3){
+            p1 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p2 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p3 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[3], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            grid.arrange(p1, p2, p3, nrow = 2)
+        }
+        else if (length(samples) == 4){
+            p1 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p2 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p3 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[3], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            p4 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[4], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            grid.arrange(p1, p2, p3, p4, nrow = 2)
+        }
+    }
+
+    dev.off()
+}
