@@ -8,5 +8,5 @@
 #SBATCH --mail-user=kinnaryshahh@gmail.com
 #SBATCH --time=3-00:00:00
 
-module load conda_R
+module load conda_R/4.3.x
 Rscript 06_spatial_coexpression_DLPFC_30.R
