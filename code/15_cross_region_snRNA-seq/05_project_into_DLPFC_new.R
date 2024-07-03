@@ -101,6 +101,46 @@ for (i in 1:75){
     dev.off()
 }
 
+# create spatial labels for DLPFC_30
+spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 3] <- "L2"
+spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 8] <- "L4"
+spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 7] <- "L6"
+spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 5] <- "L3"
+spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 6] <- "WM"
+spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 4] <- "L5"
+spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 2] <- "L1"
+spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 1] <- "meninges"
+spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 9] <- "WM"
+
+plot_list <- list()
+
+for (i in 1:75){
+    print(paste0("i=", i))
+
+    p <- plotColData(spe_DLPFC_30.temp, x = "BayesSpace_harmony_09", y = paste0("NMF_", i)) +
+        ggtitle(paste0("NMF ", i, " Layer Boxplots")) +
+        facet_wrap(~ spe_DLPFC_30.temp$BayesSpace_harmony_09, scales = "free_x", nrow = 1)
+
+    plot_list[[i]] <- p
+
+}
+
+for (i in seq(1, length(plot_list), by = 5)) {
+    print(i)
+
+    pdf(file = here::here("plots", "15_cross_region_snRNA-seq", paste0("NMF_boxplots_DLPFC_30_", i, "-", i+4, ".pdf")),
+        width = 21, height = 20)
+
+    grid.arrange(
+        grobs = plot_list[i:min(i+4, length(plot_list))],
+        ncol = 1,
+        nrow = 5
+    )
+
+    dev.off()
+
+}
+
 # find the number of zeroes in each column in colData(spe_DLPFC_30.temp)
 zeroes <- sapply(colData(spe_DLPFC_30.temp)[, 1:75], function(x) sum(x == 0))
 

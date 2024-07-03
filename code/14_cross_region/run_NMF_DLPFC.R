@@ -127,3 +127,42 @@ for (i in 1:100){
 
     dev.off()
 }
+
+spe_DLPFC_12 <- spe
+spe_DLPFC_12$layer_guess_reordered <- unfactor(spe_DLPFC_12$layer_guess_reordered)
+spe_DLPFC_12$layer_guess_reordered[spe_DLPFC_12$layer_guess_reordered == "Layer1"] <- "L1"
+spe_DLPFC_12$layer_guess_reordered[spe_DLPFC_12$layer_guess_reordered == "Layer2"] <- "L2"
+spe_DLPFC_12$layer_guess_reordered[spe_DLPFC_12$layer_guess_reordered == "Layer3"] <- "L3"
+spe_DLPFC_12$layer_guess_reordered[spe_DLPFC_12$layer_guess_reordered == "Layer4"] <- "L4"
+spe_DLPFC_12$layer_guess_reordered[spe_DLPFC_12$layer_guess_reordered == "Layer5"] <- "L5"
+spe_DLPFC_12$layer_guess_reordered[spe_DLPFC_12$layer_guess_reordered == "Layer6"] <- "L6"
+
+plot_list <- list()
+
+for (i in 1:100){
+    print(paste0("i=", i))
+
+    p <- plotColData(spe_DLPFC_12, x = "layer_guess_reordered", y = paste0("NMF_", i)) +
+        ggtitle(paste0("NMF ", i, " Layer Boxplots")) +
+        facet_wrap(~ spe_DLPFC_12$layer_guess_reordered, scales = "free_x", nrow = 1)
+
+    plot_list[[i]] <- p
+
+}
+
+for (i in seq(1, length(plot_list), by = 5)) {
+    print(i)
+
+    pdf(file = here::here("plots", "14_cross_region", paste0("NMF_boxplots_DLPFC_12_", i, "-", i+4, ".pdf")),
+        width = 21, height = 20)
+
+    grid.arrange(
+        grobs = plot_list[i:min(i+4, length(plot_list))],
+        ncol = 1,
+        nrow = 5
+    )
+
+    dev.off()
+
+}
+

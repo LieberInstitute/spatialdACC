@@ -96,6 +96,51 @@ for (i in 1:100){
     dev.off()
 }
 
+# add PRECAST clusters to spe
+load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9.Rdata"))
+
+spe$PRECAST_cluster <- unfactor(spe$PRECAST_cluster)
+spe$PRECAST_cluster[spe$PRECAST_cluster == 3] <- "WM1"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 8] <- "WM2"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 7] <- "WM-CC"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 5] <- "L6b"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 6] <- "L6a"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 4] <- "L5"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 2] <- "L3"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 1] <- "L2"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 9] <- "L1"
+
+spe_dACC.temp$PRECAST_cluster <- spe$PRECAST_cluster
+
+plot_list <- list()
+
+for (i in 1:100){
+    print(paste0("i=", i))
+
+    p <- plotColData(spe_dACC.temp, x = "PRECAST_cluster", y = paste0("NMF_", i)) +
+        ggtitle(paste0("NMF ", i, " Layer Boxplots")) +
+        facet_wrap(~ spe_dACC.temp$PRECAST_cluster, scales = "free_x", nrow = 1)
+
+    plot_list[[i]] <- p
+
+}
+
+for (i in seq(1, length(plot_list), by = 5)) {
+    print(i)
+
+    pdf(file = here::here("plots", "14_cross_region", paste0("NMF_boxplots_dACC_", i, "-", i+4, ".pdf")),
+        width = 21, height = 20)
+
+    grid.arrange(
+        grobs = plot_list[i:min(i+4, length(plot_list))],
+        ncol = 1,
+        nrow = 5
+    )
+
+    dev.off()
+
+}
+
 # find the number of zeroes in each column in colData(spe_dACC.temp)
 zeroes <- sapply(colData(spe_dACC.temp)[, 1:100], function(x) sum(x == 0))
 
