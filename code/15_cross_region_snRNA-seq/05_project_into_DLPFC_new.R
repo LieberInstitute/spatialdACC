@@ -111,6 +111,8 @@ spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 
 spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 2] <- "L1"
 spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 1] <- "meninges"
 spe_DLPFC_30.temp$BayesSpace_harmony_09[spe_DLPFC_30.temp$BayesSpace_harmony_09 == 9] <- "WM"
+# remove meninges
+spe_DLPFC_30.temp <- spe_DLPFC_30.temp[ , which(spe_DLPFC_30.temp$BayesSpace_harmony_09 != "meninges")]
 
 plot_list <- list()
 
@@ -119,7 +121,9 @@ for (i in 1:75){
 
     p <- plotColData(spe_DLPFC_30.temp, x = "BayesSpace_harmony_09", y = paste0("NMF_", i)) +
         ggtitle(paste0("NMF ", i, " Layer Boxplots")) +
-        facet_wrap(~ spe_DLPFC_30.temp$BayesSpace_harmony_09, scales = "free_x", nrow = 1)
+        facet_wrap(~ spe_DLPFC_30.temp$BayesSpace_harmony_09, scales = "free_x", nrow = 1) +
+        labs(x = "Layer", y = paste0("NMF_", i)) +
+        theme_bw()
 
     plot_list[[i]] <- p
 
