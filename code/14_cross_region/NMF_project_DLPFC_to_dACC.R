@@ -100,11 +100,11 @@ for (i in 1:100){
 load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9.Rdata"))
 
 spe$PRECAST_cluster <- unfactor(spe$PRECAST_cluster)
-spe$PRECAST_cluster[spe$PRECAST_cluster == 3] <- "WM1"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 8] <- "WM2"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 7] <- "WM-CC"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 5] <- "L6b"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 6] <- "L6a"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 3] <- "WM"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 8] <- "WM"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 7] <- "WM"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 5] <- "L6"
+spe$PRECAST_cluster[spe$PRECAST_cluster == 6] <- "L6"
 spe$PRECAST_cluster[spe$PRECAST_cluster == 4] <- "L5"
 spe$PRECAST_cluster[spe$PRECAST_cluster == 2] <- "L3"
 spe$PRECAST_cluster[spe$PRECAST_cluster == 1] <- "L2"
@@ -119,7 +119,9 @@ for (i in 1:100){
 
     p <- plotColData(spe_dACC.temp, x = "PRECAST_cluster", y = paste0("NMF_", i)) +
         ggtitle(paste0("NMF ", i, " Layer Boxplots")) +
-        facet_wrap(~ spe_dACC.temp$PRECAST_cluster, scales = "free_x", nrow = 1)
+        facet_wrap(~ spe_dACC.temp$PRECAST_cluster, scales = "free_x", nrow = 1) +
+        labs(x = "Layer", y = paste0("NMF_", i)) +
+        theme_bw()
 
     plot_list[[i]] <- p
 
