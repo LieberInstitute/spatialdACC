@@ -117,6 +117,8 @@ spe_DLPFC_12.temp$layer_guess_reordered[spe_DLPFC_12.temp$layer_guess_reordered 
 spe_DLPFC_12.temp$layer_guess_reordered[spe_DLPFC_12.temp$layer_guess_reordered == "Layer4"] <- "L4"
 spe_DLPFC_12.temp$layer_guess_reordered[spe_DLPFC_12.temp$layer_guess_reordered == "Layer5"] <- "L5"
 spe_DLPFC_12.temp$layer_guess_reordered[spe_DLPFC_12.temp$layer_guess_reordered == "Layer6"] <- "L6"
+# remove NA
+spe_DLPFC_12.temp <- spe_DLPFC_12.temp[,!is.na(spe_DLPFC_12.temp$layer_guess_reordered)]
 
 plot_list <- list()
 
@@ -125,7 +127,9 @@ for (i in 1:75){
 
     p <- plotColData(spe_DLPFC_12.temp, x = "layer_guess_reordered", y = paste0("NMF_", i)) +
         ggtitle(paste0("NMF ", i, " Layer Boxplots")) +
-        facet_wrap(~ spe_DLPFC_12.temp$layer_guess_reordered, scales = "free_x", nrow = 1)
+        facet_wrap(~ spe_DLPFC_12.temp$layer_guess_reordered, scales = "free_x", nrow = 1) +
+        labs(x = "Layer", y = paste0("NMF_", i)) +
+        theme_bw()
 
     plot_list[[i]] <- p
 
