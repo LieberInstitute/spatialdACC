@@ -75,6 +75,10 @@ pd <- colData(rse_gene) |>
     as.data.frame() |>
     select(Sample = RNum, Sex, Group)
 
+# create a new label for Group
+# make PTSD and MDD the same group called "PTSD or MDD"
+pd$Group <- ifelse(pd$Group %in% c("PTSD", "MDD"), "PTSD or MDD", pd$Group)
+
 ## make proportion estimates long so they are ggplot friendly
 prop_long <- est_prop$bulk.props |>
     as.data.frame() |>
