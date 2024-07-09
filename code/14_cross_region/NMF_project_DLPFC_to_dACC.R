@@ -149,3 +149,74 @@ zeroes <- sapply(colData(spe_dACC.temp)[, 1:100], function(x) sum(x == 0))
 # list out columns in colData(spe_dACC.temp) with more than 77533 zeroes
 names(zeroes[zeroes > 77533])
 
+# create a loop to run kruskal.test and rank_epsilon_squared for all NMFs
+library(effectsize)
+
+kruskal_res_list <- list()
+epsilon_squared_res_list <- list()
+
+for (i in 1:100){
+
+    NMF_i <- colData(spe_dACC.temp)[, paste0("NMF_", i)]
+    PRECAST_cluster <- spe_dACC.temp$PRECAST_cluster
+    dat <- data.frame(NMF_i, PRECAST_cluster)
+
+    # Check if all values of NMF_i are zero
+    if (all(NMF_i == 0)) {
+        kruskal_res_list[[i]] <- NA
+        epsilon_squared_res_list[[i]] <- NA
+        next  # Skip to the next iteration
+    }
+
+    kruskal_res <- kruskal.test(NMF_i ~ PRECAST_cluster, data = dat)
+    epsilon_squared_res <- rank_epsilon_squared(kruskal_res, data = dat)
+
+    kruskal_res_list[[i]] <- kruskal_res
+    epsilon_squared_res_list[[i]] <- epsilon_squared_res
+
+    if (epsilon_squared_res$rank_epsilon_squared > 0.16) {
+        print(paste0("NMF_", i))
+    }
+}
+
+# create csv with epsilon squared results and kruskal results
+
+#extract only epsilon_squared_res$rank_epsilon_squared from epsilon_squared_res_list
+epsilon_squared_values <- sapply(epsilon_squared_res_list, function(x) {
+    if (is.null(x) || all(is.na(x))) {
+        return(NA)
+    } else {
+        return(x$rank_epsilon_squared)
+    }
+})
+
+# extract only p.value and statistic from kruskal_res_list
+# Extract p.value and statistic from kruskal_res_list
+kruskal_p_values <- sapply(kruskal_res_list, function(x) {
+    if (is.null(x) || all(is.na(x))) {
+        return(NA)
+    } else {
+        return(x$p.value)
+    }
+})
+
+kruskal_statistics <- sapply(kruskal_res_list, function(x) {
+    if (is.null(x) || all(is.na(x))) {
+        return(NA)
+    } else {
+        return(x$statistic)
+    }
+})
+
+# Combine the extracted values into a data frame
+kruskal_results <- data.frame(
+    NMF = paste0("NMF_", 1:100),
+    p.value = kruskal_p_values,
+    statistic = kruskal_statistics,
+    epsilon_squared_values
+)
+
+write.csv(kruskal_results, here::here("processed-data", "14_cross_region", "kruskal_NMF_results_dACC.csv"))
+
+
+
