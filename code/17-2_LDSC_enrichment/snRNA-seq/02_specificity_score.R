@@ -8,9 +8,8 @@ is_top_10_percent <- function(column) {
     as.numeric(column >= top_10_percent_threshold)
 }
 
-dat <- read.table(here::here("processed-data", "17_LDSC", "visium_aggregated_cpm.tsv"),header=T)
+dat <- read.table(here::here("processed-data", "17-2_LDSC_enrichment", "snRNA-seq_aggregated_de.tsv"),header=T)
 
-dat.norm <- t(apply(dat, 1, function(x){x/sum(x)}))
-res <- apply(dat.norm, 2, is_top_10_percent)
-rownames(res) <- rownames(dat.norm)
-write.csv(res,here::here("processed-data", "17_LDSC", "visium_score.csv"))
+res <- apply(dat, 2, is_top_10_percent)
+rownames(res) <- rownames(dat)
+write.csv(res,here::here("processed-data", "17-2_LDSC_enrichment", "snRNA-seq_score.csv"))

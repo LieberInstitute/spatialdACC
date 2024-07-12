@@ -6,7 +6,7 @@ setwd('/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/')
 # Load libraries
 library(here)
 
-cell <- read.csv(here::here("processed-data", "17_LDSC", "visium_score.csv"))
+cell <- read.csv(here::here("processed-data", "17-2_LDSC_enrichment", "snRNA-seq_score.csv"))
 colnames(cell)[1] <- "geneName"
 modules <- colnames(cell)[-1]
 for(i in 1:length(modules)){
@@ -20,6 +20,6 @@ for(i in 1:length(modules)){
     idx <- bed[,1] !="chrX" & bed[,1] !="chrY" & bed[,1] !="chrMT"
     bed <- bed[idx,]
     filename <- paste0(modules[i],".bed")
-    outfile <- here::here("code", "17_LDSC", "spatial", "bedfiles", filename)
+    outfile <- here::here("code", "17-2_LDSC_enrichment", "snRNA-seq", "bedfiles", filename)
     write.table(bed,outfile,row.names=F,col.names=F,sep="\t",quote=F)
 }
