@@ -9,7 +9,7 @@
 
 echo "**** Job starts ****"
 date
-module load conda_R/4.0
+source activate ldsc
 perl job_batch.pl --jfile ldsc_h2_jobs.txt --nrun 20 --n $SLURM_ARRAY_TASK_ID
 echo "**** Job ends ****"
 date
