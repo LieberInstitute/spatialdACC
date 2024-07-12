@@ -52,6 +52,21 @@ enrichment_results <- enrichment_results[overlap,]
 DE_bulk_genes <- rownames(bulk[bulk$dACC_adjPVal_PTSD < 0.05 | bulk$dACC_adjPVal_MDD < 0.05,])
 nonDE_bulk_genes <- rownames(bulk[bulk$dACC_adjPVal_PTSD >= 0.05 & bulk$dACC_adjPVal_MDD >= 0.05,])
 
+# within PTSD, count how many DE genes
+DE_bulk_PTSD_genes <- rownames(bulk[bulk$dACC_adjPVal_PTSD < 0.05,])
+# how many of these 12 genes have logFC > 0
+sum(bulk[DE_bulk_PTSD_genes, "dACC_logFC_PTSD"] <0)
+
+# within MDD, count how many DE genes
+DE_bulk_MDD_genes <- rownames(bulk[bulk$dACC_adjPVal_MDD < 0.05,])
+# how many of these 52 genes have logFC > 0
+sum(bulk[DE_bulk_MDD_genes, "dACC_logFC_MDD"] <0)
+
+# which gene is overlapping between PTSD and MDD
+intersect(DE_bulk_PTSD_genes, DE_bulk_MDD_genes)
+# what are the fold changes for this gene ENSG00000249436
+bulk["ENSG00000249436", c("dACC_logFC_PTSD", "dACC_logFC_MDD")]
+
 # create a list to store the results
 results <- list()
 
