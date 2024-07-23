@@ -104,7 +104,7 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
     spe_1 <- spe_DLPFC_12[, which(spe_DLPFC_12$sample_id == DLPFC_12_id)]
     p1 <- make_escheR(spe_1) |>
         add_fill(var=factor, point_size = 1) |>
-        add_ground(var=DLPFC_12_layer, stroke=0.3, point_size = 1) +
+        add_ground(var=DLPFC_12_layer, stroke=0.15, point_size = 1) +
         scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", DLPFC_12_id)) +
         theme(
             legend.text = element_text(size = 5), # Smaller text size
@@ -116,7 +116,7 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
     spe_2 <- spe_DLPFC_30[, which(spe_DLPFC_30$sample_id == DLPFC_30_id)]
     p2 <- make_escheR(spe_2) |>
         add_fill(var=factor, point_size = 1) |>
-        add_ground(var=DLPFC_30_layer, stroke=0.3, point_size = 1) +
+        add_ground(var=DLPFC_30_layer, stroke=0.15, point_size = 1) +
         scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", DLPFC_30_id)) +
         labs(color = "layer") +
         theme(
@@ -130,7 +130,7 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
     spe_3 <- spe_dACC[, which(spe_dACC$sample_id == dACC_id)]
     p3 <- make_escheR(spe_3) |>
         add_fill(var=factor, point_size = 1) |>
-        add_ground(var=dACC_layer, stroke=0.3, point_size = 1) +
+        add_ground(var=dACC_layer, stroke=0.15, point_size = 1) +
         scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", dACC_id)) +
         labs(color = "layer") +
         theme(
@@ -144,40 +144,32 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
     return(list(p1, p2, p3))
 }
 
+#L1
+plots_23 <- make_plots("NMF_23", "151507", "Br6432_mid", "V12N28-332_A1")
+
 #L2
 plots_4 <- make_plots("NMF_4", "151509", "Br3942_ant", "V12Y31-080_C1")
 
-#L6/5
-plots_9 <- make_plots("NMF_9", "151671", "Br6522_mid", "V12N28-331_B1")
+#L5
 plots_8 <- make_plots("NMF_8", "151508", "Br3942_post", "V12N28-334_B1")
 
+#L6
+plots_9 <- make_plots("NMF_9", "151671", "Br6522_mid", "V12N28-331_B1")
+
+#WM
+plots_10 <- make_plots("NMF_10", "151676", "Br2720_post", "V12Y31-080_C1")
+
 # trying to find L4
-plots_6 <- make_plots("NMF_6", "151507", "Br8325_post", "V12N28-332_C1")
-
-#L1
-plots_12 <- make_plots("NMF_12", "151510", "Br6432_ant", "V12N28-334_C1")
-plots_7 <- make_plots("NMF_7", "151674", "Br2743_post", "V12N28-332_D1")
-plots_5 <- make_plots("NMF_5", "1516100", "Br2743_mid", "V12N28-331_B1")
-
-# try to find other layer patterns that show up in dACC
-#65, 44,59
-#16, 30
-#52, 42, 46, 18, 72, 49
-#43, 100
-#13, 6, 24
-#54, 51, 55
-
-plots_33 <- make_plots("NMF_33", "151669", "Br3942_post", "V12J03-002_A1")
+plots_6 <- make_plots("NMF_6", "151670", "Br8325_post", "V12N28-334_B1")
 
 pdf(here::here("plots", "14_cross_region", "compare_NMF.pdf"), width = 10, height = 10)
 
+grid.arrange(grobs = plots_23, nrow = 1)
 grid.arrange(grobs = plots_4, nrow = 1)
-grid.arrange(grobs = plots_9, nrow = 1)
 grid.arrange(grobs = plots_8, nrow = 1)
-grid.arrange(grobs = plots_6, nrow = 1)
-grid.arrange(grobs = plots_25, nrow = 1)
+grid.arrange(grobs = plots_9, nrow = 1)
 grid.arrange(grobs = plots_10, nrow = 1)
-grid.arrange(grobs = plots_7, nrow = 1)
+grid.arrange(grobs = plots_6, nrow = 1)
 
 dev.off()
 
