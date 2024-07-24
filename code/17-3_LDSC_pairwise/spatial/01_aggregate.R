@@ -81,5 +81,8 @@ for (c in cols) {
 aggregated <- as.data.frame(aggregated)
 rownames(aggregated) <- gene
 
+# replace colnames with layer names
+colnames(aggregated) <- c("L2", "L3", "WM1", "L5", "L6b", "L6a", "WM-CC", "WM2", "L1")
+
 write.table(aggregated, here::here("processed-data", "17-3_LDSC_pairwise", "visium_aggregated_de.tsv"), na = "NA", col.names = TRUE,
             row.names = TRUE, sep = "\t")

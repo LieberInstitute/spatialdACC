@@ -5,7 +5,7 @@ library(RColorBrewer)
 library(here)
 
 ###load LDSC results
-ldsc_results <- read.csv(file=here::here('code','17_LDSC',
+ldsc_results <- read.csv(file=here::here('code','17-3_LDSC_pairwise',
                          'spatial','ldsc_results.csv'))
 
 ##########dotplots#############
@@ -19,7 +19,7 @@ ldsc_results$log10fdr <- -log10(ldsc_results$FDR)
 #ldsc_results<-ldsc_results[ldsc_results$FDR<0.05,]
 
 ###plot
-pdf(here('plots','17_LDSC','spatial','ldsc_results.pdf'),width=10,height=10)
+pdf(here('plots','17-3_LDSC_pairwise','spatial','ldsc_results.pdf'),width=10,height=10)
 
 ggplot(ldsc_results, aes(x = cell, y = trait, size = log10fdr, color = Coefficient_z.score)) +
     geom_point() +
