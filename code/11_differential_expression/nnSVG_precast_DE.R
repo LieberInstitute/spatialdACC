@@ -155,6 +155,18 @@ for (i in c(1:k)) {
         sig = sig
     )
 
+    layer_label <- NULL
+
+    if(i==1) {layer_label = "L2"}
+    if(i==2) {layer_label = "L3"}
+    if(i==3) {layer_label = "WM1"}
+    if(i==4) {layer_label = "L5"}
+    if(i==5) {layer_label = "L6b"}
+    if(i==6) {layer_label = "L6a"}
+    if(i==7) {layer_label = "WM-CC"}
+    if(i==8) {layer_label = "WM2"}
+    if(i==9) {layer_label = "L1"}
+
     print(EnhancedVolcano(df_list[[i]],
                     lab = df_list[[i]]$gene_name,
                     x = 'logFC',
@@ -165,8 +177,8 @@ for (i in c(1:k)) {
                     legendLabels = c('Not sig.','Log (base 2) FC','FDR',
                                      'FDR & Log (base 2) FC'),
                     title = "nnSVG PRECAST dACC",
-                    subtitle = paste0("Cluster ", i, " vs. all others")
+                    subtitle = paste0("Cluster ", layer_label, " vs. all others")
     ))
 }
 
-
+dev.off()
