@@ -11,7 +11,12 @@ is_top_10_percent <- function(column) {
 }
 
 dat <- read.table(here::here("processed-data", "17-3_LDSC_pairwise", "snRNA-seq_aggregated_de.tsv"),header=T)
+# count NAs in each column
+na_count <- colSums(is.na(dat))
 
-res <- apply(dat, 2, is_top_10_percent)
-rownames(res) <- rownames(dat)
+dat.norm <- t(apply(dat, 1, function(x) {
+    x / sum(x, na.rm = TRUE)
+}))
+res <- apply(dat.norm, 2, is_top_10_percent)
+rownames(res) <- rownames(dat.norm)
 write.csv(res,here::here("processed-data", "17-3_LDSC_pairwise", "snRNA-seq_score.csv"))
