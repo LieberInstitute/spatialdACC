@@ -1,0 +1,1224 @@
+**** Job starts ****
+Mon Jul 29 11:57:11 AM EDT 2024
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.3.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.3 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.3 \
+--thin-annot  \
+--annot ./out_Oligo/chr.3.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 11:57:12 2024
+Read list of 706350 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.3.bim
+Read 1 annotations for 706350 SNPs from ./out_Oligo/chr.3.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.3.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.3.bed
+After filtering, 706350 SNPs remain
+Estimating LD Score.
+Reading list of 96664 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.3.snp
+After merging with --print-snps, LD Scores for 83286 SNPs will be printed.
+Writing LD Scores for 83286 SNPs to ./out_Oligo/chr.3.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.3.l2.ldscore.gz
+         MAF        L2
+mean  0.2395   21.7330
+std   0.1436   46.6629
+min   0.0051   -2.7826
+25%   0.1145    0.0000
+50%   0.2311    1.0971
+75%   0.3630   18.4678
+max   0.5000  538.2845
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0955
+L2   0.0955  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    124982
+
+Summary of Annotation Matrix Row Sums
+count    706350.0000
+mean          0.1769
+std           0.3816
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:00:27 2024
+Total time elapsed: 3.0m:14.15s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.4.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.4 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.4 \
+--thin-annot  \
+--annot ./out_Oligo/chr.4.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:00:27 2024
+Read list of 729645 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.4.bim
+Read 1 annotations for 729645 SNPs from ./out_Oligo/chr.4.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.4.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.4.bed
+After filtering, 729645 SNPs remain
+Estimating LD Score.
+Reading list of 85881 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.4.snp
+After merging with --print-snps, LD Scores for 74259 SNPs will be printed.
+Writing LD Scores for 74259 SNPs to ./out_Oligo/chr.4.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.4.l2.ldscore.gz
+         MAF        L2
+mean  0.2367   17.1652
+std   0.1431   45.2587
+min   0.0051   -3.1614
+25%   0.1115    0.0000
+50%   0.2301    0.0000
+75%   0.3579    5.9875
+max   0.5000  696.1261
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0308
+L2   0.0308  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    87862
+
+Summary of Annotation Matrix Row Sums
+count    729645.0000
+mean          0.1204
+std           0.3254
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:03:27 2024
+Total time elapsed: 2.0m:59.75s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.5.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.5 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.5 \
+--thin-annot  \
+--annot ./out_Oligo/chr.5.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:03:27 2024
+Read list of 633015 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.5.bim
+Read 1 annotations for 633015 SNPs from ./out_Oligo/chr.5.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.5.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.5.bed
+After filtering, 633015 SNPs remain
+Estimating LD Score.
+Reading list of 88059 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.5.snp
+After merging with --print-snps, LD Scores for 74950 SNPs will be printed.
+Writing LD Scores for 74950 SNPs to ./out_Oligo/chr.5.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.5.l2.ldscore.gz
+         MAF        L2
+mean  0.2353   17.5580
+std   0.1428   44.3615
+min   0.0051   -2.2742
+25%   0.1104    0.0000
+50%   0.2260    0.1406
+75%   0.3558    9.0659
+max   0.5000  561.2641
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0446
+L2   0.0446  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    87490
+
+Summary of Annotation Matrix Row Sums
+count    633015.0000
+mean          0.1382
+std           0.3451
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:06:16 2024
+Total time elapsed: 2.0m:48.45s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.6.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.6 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.6 \
+--thin-annot  \
+--annot ./out_Oligo/chr.6.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:06:16 2024
+Read list of 664016 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.6.bim
+Read 1 annotations for 664016 SNPs from ./out_Oligo/chr.6.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.6.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.6.bed
+After filtering, 664016 SNPs remain
+Estimating LD Score.
+Reading list of 91491 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.6.snp
+After merging with --print-snps, LD Scores for 80218 SNPs will be printed.
+Writing LD Scores for 80218 SNPs to ./out_Oligo/chr.6.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.6.l2.ldscore.gz
+         MAF        L2
+mean  0.2331   33.9728
+std   0.1441   94.4715
+min   0.0051   -2.4570
+25%   0.1074    0.0000
+50%   0.2219    0.1349
+75%   0.3558   12.0509
+max   0.5000  905.6707
+
+MAF/LD Score Correlation Matrix
+       MAF     L2
+MAF  1.000  0.018
+L2   0.018  1.000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    93927
+
+Summary of Annotation Matrix Row Sums
+count    664016.0000
+mean          0.1415
+std           0.3485
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:10:10 2024
+Total time elapsed: 3.0m:53.3s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.7.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.7 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.7 \
+--thin-annot  \
+--annot ./out_Oligo/chr.7.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:10:10 2024
+Read list of 589569 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.7.bim
+Read 1 annotations for 589569 SNPs from ./out_Oligo/chr.7.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.7.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.7.bed
+After filtering, 589569 SNPs remain
+Estimating LD Score.
+Reading list of 75316 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.7.snp
+After merging with --print-snps, LD Scores for 65848 SNPs will be printed.
+Writing LD Scores for 65848 SNPs to ./out_Oligo/chr.7.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.7.l2.ldscore.gz
+         MAF        L2
+mean  0.2376   14.6684
+std   0.1437   41.3531
+min   0.0051   -2.1889
+25%   0.1104    0.0000
+50%   0.2290    0.0000
+75%   0.3609    3.5576
+max   0.5000  554.9469
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0654
+L2   0.0654  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    69800
+
+Summary of Annotation Matrix Row Sums
+count    589569.0000
+mean          0.1184
+std           0.3231
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:12:32 2024
+Total time elapsed: 2.0m:21.48s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.8.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.8 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.8 \
+--thin-annot  \
+--annot ./out_Oligo/chr.8.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:12:32 2024
+Read list of 549971 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.8.bim
+Read 1 annotations for 549971 SNPs from ./out_Oligo/chr.8.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.8.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.8.bed
+After filtering, 549971 SNPs remain
+Estimating LD Score.
+Reading list of 75345 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.8.snp
+After merging with --print-snps, LD Scores for 65167 SNPs will be printed.
+Writing LD Scores for 65167 SNPs to ./out_Oligo/chr.8.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.8.l2.ldscore.gz
+         MAF        L2
+mean  0.2368   17.1472
+std   0.1438   42.3025
+min   0.0051   -2.4228
+25%   0.1094    0.0000
+50%   0.2270    0.4125
+75%   0.3599    7.8998
+max   0.5000  434.3220
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0772
+L2   0.0772  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    72692
+
+Summary of Annotation Matrix Row Sums
+count    549971.0000
+mean          0.1322
+std           0.3387
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:15:07 2024
+Total time elapsed: 2.0m:34.76s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.9.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.9 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.9 \
+--thin-annot  \
+--annot ./out_Oligo/chr.9.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:15:08 2024
+Read list of 438106 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.9.bim
+Read 1 annotations for 438106 SNPs from ./out_Oligo/chr.9.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.9.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.9.bed
+After filtering, 438106 SNPs remain
+Estimating LD Score.
+Reading list of 63706 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.9.snp
+After merging with --print-snps, LD Scores for 55885 SNPs will be printed.
+Writing LD Scores for 55885 SNPs to ./out_Oligo/chr.9.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.9.l2.ldscore.gz
+         MAF        L2
+mean  0.2343   14.1249
+std   0.1436   36.5588
+min   0.0051   -2.6702
+25%   0.1084    0.0000
+50%   0.2239    0.0000
+75%   0.3558    4.9445
+max   0.5000  369.9760
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0546
+L2   0.0546  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    54574
+
+Summary of Annotation Matrix Row Sums
+count    438106.0000
+mean          0.1246
+std           0.3302
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:16:42 2024
+Total time elapsed: 1.0m:34.65s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.10.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.10 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.10 \
+--thin-annot  \
+--annot ./out_Oligo/chr.10.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:16:43 2024
+Read list of 510501 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.10.bim
+Read 1 annotations for 510501 SNPs from ./out_Oligo/chr.10.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.10.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.10.bed
+After filtering, 510501 SNPs remain
+Estimating LD Score.
+Reading list of 73929 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.10.snp
+After merging with --print-snps, LD Scores for 64236 SNPs will be printed.
+Writing LD Scores for 64236 SNPs to ./out_Oligo/chr.10.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.10.l2.ldscore.gz
+         MAF        L2
+mean  0.2316   16.8405
+std   0.1438   42.6531
+min   0.0051   -2.3679
+25%   0.1053    0.0000
+50%   0.2188    0.1296
+75%   0.3538    9.5170
+max   0.5000  493.6712
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0283
+L2   0.0283  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    78127
+
+Summary of Annotation Matrix Row Sums
+count    510501.000
+mean          0.153
+std           0.360
+min           0.000
+25%           0.000
+50%           0.000
+75%           0.000
+max           1.000
+Analysis finished at Mon Jul 29 12:18:51 2024
+Total time elapsed: 2.0m:8.73s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.11.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.11 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.11 \
+--thin-annot  \
+--annot ./out_Oligo/chr.11.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:18:52 2024
+Read list of 493922 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.11.bim
+Read 1 annotations for 493922 SNPs from ./out_Oligo/chr.11.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.11.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.11.bed
+After filtering, 493922 SNPs remain
+Estimating LD Score.
+Reading list of 71092 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.11.snp
+After merging with --print-snps, LD Scores for 61027 SNPs will be printed.
+Writing LD Scores for 61027 SNPs to ./out_Oligo/chr.11.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.11.l2.ldscore.gz
+         MAF        L2
+mean  0.2389   19.6432
+std   0.1430   45.6462
+min   0.0051   -2.3550
+25%   0.1145    0.0000
+50%   0.2301    0.4645
+75%   0.3609   14.7785
+max   0.5000  428.8013
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0498
+L2   0.0498  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    74384
+
+Summary of Annotation Matrix Row Sums
+count    493922.0000
+mean          0.1506
+std           0.3577
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:21:36 2024
+Total time elapsed: 2.0m:43.82s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.12.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.12 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.12 \
+--thin-annot  \
+--annot ./out_Oligo/chr.12.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:21:36 2024
+Read list of 480110 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.12.bim
+Read 1 annotations for 480110 SNPs from ./out_Oligo/chr.12.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.12.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.12.bed
+After filtering, 480110 SNPs remain
+Estimating LD Score.
+Reading list of 68635 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.12.snp
+After merging with --print-snps, LD Scores for 58127 SNPs will be printed.
+Writing LD Scores for 58127 SNPs to ./out_Oligo/chr.12.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.12.l2.ldscore.gz
+         MAF        L2
+mean  0.2320   19.8116
+std   0.1438   42.9613
+min   0.0051   -1.6537
+25%   0.1063    0.0000
+50%   0.2198    0.7293
+75%   0.3548   16.6029
+max   0.5000  402.4673
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0502
+L2   0.0502  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    85927
+
+Summary of Annotation Matrix Row Sums
+count    480110.0000
+mean          0.1790
+std           0.3833
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:23:33 2024
+Total time elapsed: 1.0m:56.81s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.13.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.13 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.13 \
+--thin-annot  \
+--annot ./out_Oligo/chr.13.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:23:34 2024
+Read list of 366200 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.13.bim
+Read 1 annotations for 366200 SNPs from ./out_Oligo/chr.13.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.13.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.13.bed
+After filtering, 366200 SNPs remain
+Estimating LD Score.
+Reading list of 52010 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.13.snp
+After merging with --print-snps, LD Scores for 45136 SNPs will be printed.
+Writing LD Scores for 45136 SNPs to ./out_Oligo/chr.13.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.13.l2.ldscore.gz
+         MAF        L2
+mean  0.2329   10.2538
+std   0.1436   26.7480
+min   0.0051   -1.5567
+25%   0.1063    0.0000
+50%   0.2198    0.0000
+75%   0.3548    2.8121
+max   0.5000  243.7648
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0511
+L2   0.0511  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    37225
+
+Summary of Annotation Matrix Row Sums
+count    366200.0000
+mean          0.1017
+std           0.3022
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:24:51 2024
+Total time elapsed: 1.0m:17.45s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.14.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.14 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.14 \
+--thin-annot  \
+--annot ./out_Oligo/chr.14.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:24:52 2024
+Read list of 324698 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.14.bim
+Read 1 annotations for 324698 SNPs from ./out_Oligo/chr.14.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.14.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.14.bed
+After filtering, 324698 SNPs remain
+Estimating LD Score.
+Reading list of 45556 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.14.snp
+After merging with --print-snps, LD Scores for 39504 SNPs will be printed.
+Writing LD Scores for 39504 SNPs to ./out_Oligo/chr.14.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.14.l2.ldscore.gz
+         MAF        L2
+mean  0.2308   19.5763
+std   0.1432   45.8301
+min   0.0051   -2.4355
+25%   0.1053    0.0000
+50%   0.2188    0.0628
+75%   0.3497   10.4606
+max   0.5000  325.6309
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0425
+L2   0.0425  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    49246
+
+Summary of Annotation Matrix Row Sums
+count    324698.0000
+mean          0.1517
+std           0.3587
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:26:09 2024
+Total time elapsed: 1.0m:17.75s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.15.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.15 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.15 \
+--thin-annot  \
+--annot ./out_Oligo/chr.15.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:26:10 2024
+Read list of 287001 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.15.bim
+Read 1 annotations for 287001 SNPs from ./out_Oligo/chr.15.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.15.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.15.bed
+After filtering, 287001 SNPs remain
+Estimating LD Score.
+Reading list of 42410 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.15.snp
+After merging with --print-snps, LD Scores for 36291 SNPs will be printed.
+Writing LD Scores for 36291 SNPs to ./out_Oligo/chr.15.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.15.l2.ldscore.gz
+         MAF        L2
+mean  0.2363   12.5426
+std   0.1452   33.0792
+min   0.0051   -1.6289
+25%   0.1084    0.0000
+50%   0.2260    0.0000
+75%   0.3630    2.6734
+max   0.5000  253.3044
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0118
+L2   0.0118  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    31795
+
+Summary of Annotation Matrix Row Sums
+count    287001.0000
+mean          0.1108
+std           0.3139
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:27:09 2024
+Total time elapsed: 58.92s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.16.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.16 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.16 \
+--thin-annot  \
+--annot ./out_Oligo/chr.16.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:27:09 2024
+Read list of 316981 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.16.bim
+Read 1 annotations for 316981 SNPs from ./out_Oligo/chr.16.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.16.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.16.bed
+After filtering, 316981 SNPs remain
+Estimating LD Score.
+Reading list of 44710 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.16.snp
+After merging with --print-snps, LD Scores for 37656 SNPs will be printed.
+Writing LD Scores for 37656 SNPs to ./out_Oligo/chr.16.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.16.l2.ldscore.gz
+         MAF        L2
+mean  0.2370   18.5497
+std   0.1437   44.4676
+min   0.0051   -2.3738
+25%   0.1115    0.0000
+50%   0.2290    0.0000
+75%   0.3589    7.6780
+max   0.5000  375.7538
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0027
+L2   0.0027  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    54090
+
+Summary of Annotation Matrix Row Sums
+count    316981.0000
+mean          0.1706
+std           0.3762
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:28:23 2024
+Total time elapsed: 1.0m:13.47s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.17.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.17 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.17 \
+--thin-annot  \
+--annot ./out_Oligo/chr.17.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:28:23 2024
+Read list of 269222 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.17.bim
+Read 1 annotations for 269222 SNPs from ./out_Oligo/chr.17.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.17.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.17.bed
+After filtering, 269222 SNPs remain
+Estimating LD Score.
+Reading list of 38396 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.17.snp
+After merging with --print-snps, LD Scores for 32315 SNPs will be printed.
+Writing LD Scores for 32315 SNPs to ./out_Oligo/chr.17.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.17.l2.ldscore.gz
+         MAF         L2
+mean  0.2414    34.6817
+std   0.1449   111.8428
+min   0.0051    -3.7703
+25%   0.1135     0.0000
+50%   0.2352     2.1465
+75%   0.3671    29.9688
+max   0.5000  1370.1963
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0796
+L2   0.0796  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    70339
+
+Summary of Annotation Matrix Row Sums
+count    269222.0000
+mean          0.2613
+std           0.4393
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           1.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:29:28 2024
+Total time elapsed: 1.0m:4.67s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.18.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.18 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.18 \
+--thin-annot  \
+--annot ./out_Oligo/chr.18.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:29:29 2024
+Read list of 285156 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.18.bim
+Read 1 annotations for 285156 SNPs from ./out_Oligo/chr.18.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.18.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.18.bed
+After filtering, 285156 SNPs remain
+Estimating LD Score.
+Reading list of 40891 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.18.snp
+After merging with --print-snps, LD Scores for 35326 SNPs will be printed.
+Writing LD Scores for 35326 SNPs to ./out_Oligo/chr.18.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.18.l2.ldscore.gz
+         MAF        L2
+mean  0.2356   13.0250
+std   0.1434   36.1579
+min   0.0051   -1.7479
+25%   0.1094    0.0000
+50%   0.2249    0.0437
+75%   0.3569    4.7659
+max   0.5000  368.4761
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0537
+L2   0.0537  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    36524
+
+Summary of Annotation Matrix Row Sums
+count    285156.0000
+mean          0.1281
+std           0.3342
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:30:25 2024
+Total time elapsed: 56.2s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.19.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.19 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.19 \
+--thin-annot  \
+--annot ./out_Oligo/chr.19.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:30:25 2024
+Read list of 232363 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.19.bim
+Read 1 annotations for 232363 SNPs from ./out_Oligo/chr.19.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.19.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.19.bed
+After filtering, 232363 SNPs remain
+Estimating LD Score.
+Reading list of 26259 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.19.snp
+After merging with --print-snps, LD Scores for 21991 SNPs will be printed.
+Writing LD Scores for 21991 SNPs to ./out_Oligo/chr.19.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.19.l2.ldscore.gz
+         MAF        L2
+mean  0.2369   21.5004
+std   0.1428   38.4659
+min   0.0051   -1.6010
+25%   0.1125    0.2699
+50%   0.2331    3.1911
+75%   0.3569   27.6026
+max   0.5000  360.5055
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0635
+L2   0.0635  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    59104
+
+Summary of Annotation Matrix Row Sums
+count    232363.0000
+mean          0.2544
+std           0.4355
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           1.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:31:27 2024
+Total time elapsed: 1.0m:1.88s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.20.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.20 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.20 \
+--thin-annot  \
+--annot ./out_Oligo/chr.20.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:31:28 2024
+Read list of 221626 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.20.bim
+Read 1 annotations for 221626 SNPs from ./out_Oligo/chr.20.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.20.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.20.bed
+After filtering, 221626 SNPs remain
+Estimating LD Score.
+Reading list of 36301 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.20.snp
+After merging with --print-snps, LD Scores for 31359 SNPs will be printed.
+Writing LD Scores for 31359 SNPs to ./out_Oligo/chr.20.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.20.l2.ldscore.gz
+         MAF        L2
+mean  0.2336   11.0222
+std   0.1437   36.0155
+min   0.0051   -1.7927
+25%   0.1063    0.0000
+50%   0.2219    0.0000
+75%   0.3569    1.0307
+max   0.5000  337.5208
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0429
+L2   0.0429  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    21989
+
+Summary of Annotation Matrix Row Sums
+count    221626.0000
+mean          0.0992
+std           0.2990
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:32:09 2024
+Total time elapsed: 40.88s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.21.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.21 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.21 \
+--thin-annot  \
+--annot ./out_Oligo/chr.21.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:32:09 2024
+Read list of 138712 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.21.bim
+Read 1 annotations for 138712 SNPs from ./out_Oligo/chr.21.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.21.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.21.bed
+After filtering, 138712 SNPs remain
+Estimating LD Score.
+Reading list of 19331 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.21.snp
+After merging with --print-snps, LD Scores for 16993 SNPs will be printed.
+Writing LD Scores for 16993 SNPs to ./out_Oligo/chr.21.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.21.l2.ldscore.gz
+         MAF        L2
+mean  0.2398   11.0835
+std   0.1429   28.1303
+min   0.0051   -1.2816
+25%   0.1155    0.0000
+50%   0.2290    0.0000
+75%   0.3640    2.6598
+max   0.5000  221.3419
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0622
+L2   0.0622  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    14985
+
+Summary of Annotation Matrix Row Sums
+count    138712.0000
+mean          0.1080
+std           0.3104
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:32:34 2024
+Total time elapsed: 24.54s
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--print-snps /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.22.snp \
+--ld-wind-cm 1.0 \
+--out ./out_Oligo/chr.22 \
+--bfile /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.22 \
+--thin-annot  \
+--annot ./out_Oligo/chr.22.annot.gz \
+--l2  
+
+Beginning analysis at Mon Jul 29 12:32:34 2024
+Read list of 141123 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.22.bim
+Read 1 annotations for 141123 SNPs from ./out_Oligo/chr.22.annot.gz
+Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.22.fam
+Reading genotypes from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.22.bed
+After filtering, 141123 SNPs remain
+Estimating LD Score.
+Reading list of 20106 SNPs for which to print LD Scores from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/hapmap3_snps/hm.22.snp
+After merging with --print-snps, LD Scores for 17261 SNPs will be printed.
+Writing LD Scores for 17261 SNPs to ./out_Oligo/chr.22.l2.ldscore.gz
+
+Summary of LD Scores in ./out_Oligo/chr.22.l2.ldscore.gz
+         MAF        L2
+mean  0.2359   23.3889
+std   0.1442   56.0893
+min   0.0051   -2.3792
+25%   0.1084    0.0000
+50%   0.2280    0.6104
+75%   0.3579   18.0194
+max   0.5000  445.8780
+
+MAF/LD Score Correlation Matrix
+        MAF      L2
+MAF  1.0000  0.0568
+L2   0.0568  1.0000
+
+Annotation Correlation Matrix
+       ANNOT
+ANNOT    1.0
+
+Annotation Matrix Column Sums
+ANNOT    30809
+
+Summary of Annotation Matrix Row Sums
+count    141123.0000
+mean          0.2183
+std           0.4131
+min           0.0000
+25%           0.0000
+50%           0.0000
+75%           0.0000
+max           1.0000
+Analysis finished at Mon Jul 29 12:33:03 2024
+Total time elapsed: 28.57s
+**** Job ends ****
+Mon Jul 29 12:33:03 PM EDT 2024

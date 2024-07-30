@@ -15,7 +15,7 @@ Call:
 --w-ld-chr /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC. \
 --print-coefficients  
 
-Beginning analysis at Thu Jul 11 17:01:29 2024
+Beginning analysis at Tue Jul 30 10:24:21 2024
 Reading summary statistics from /dcs04/lieber/shared/statsgen/LDSC/base/gwas_brain/smoking_ldscore.gz ...
 Read summary statistics for 1161927 SNPs.
 Reading reference panel LD Score from ./out_L2/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (ldscore_fromlist)
@@ -34,5 +34,5 @@ Intercept: 0.959 (0.0111)
 Ratio < 0 (usually indicates GC correction).
 Reading annot matrix from ./out_L2/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (annot)
 Results printed to ./out_L2_2/smoking_ldscore.out.results
-Analysis finished at Thu Jul 11 17:03:57 2024
-Total time elapsed: 2.0m:27.7s
+Analysis finished at Tue Jul 30 10:26:45 2024
+Total time elapsed: 2.0m:24.37s
