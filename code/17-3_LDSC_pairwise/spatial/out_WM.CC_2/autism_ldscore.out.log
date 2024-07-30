@@ -15,7 +15,7 @@ Call:
 --w-ld-chr /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC. \
 --print-coefficients  
 
-Beginning analysis at Tue Jul 23 16:07:13 2024
+Beginning analysis at Tue Jul 30 09:55:12 2024
 Reading summary statistics from /dcs04/lieber/shared/statsgen/LDSC/base/gwas_brain/autism_ldscore.gz ...
 Read summary statistics for 1112926 SNPs.
 Dropped 13 SNPs with duplicated rs numbers.
@@ -32,8 +32,8 @@ Categories: L2_0 baseL2_1 Coding_UCSCL2_1 Coding_UCSC.flanking.500L2_1 Conserved
 Lambda GC: 1.1644
 Mean Chi^2: 1.191
 Intercept: 1.0149 (0.0142)
-Ratio: 0.078 (0.0742)
+Ratio: 0.0781 (0.0743)
 Reading annot matrix from ./out_WM.CC/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (annot)
 Results printed to ./out_WM.CC_2/autism_ldscore.out.results
-Analysis finished at Tue Jul 23 16:12:58 2024
-Total time elapsed: 5.0m:44.21s
+Analysis finished at Tue Jul 30 09:57:30 2024
+Total time elapsed: 2.0m:17.83s

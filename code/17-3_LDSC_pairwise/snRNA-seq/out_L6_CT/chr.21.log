@@ -15,7 +15,7 @@ Call:
 --annot ./out_L6_CT/chr.21.annot.gz \
 --l2  
 
-Beginning analysis at Tue Jul 23 09:53:14 2024
+Beginning analysis at Mon Jul 29 13:18:23 2024
 Read list of 138712 SNPs from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.21.bim
 Read 1 annotations for 138712 SNPs from ./out_L6_CT/chr.21.annot.gz
 Read list of 489 individuals from /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_EUR_Phase3_plink/1000G.EUR.QC.21.fam
@@ -27,34 +27,34 @@ Writing LD Scores for 16993 SNPs to ./out_L6_CT/chr.21.l2.ldscore.gz
 
 Summary of LD Scores in ./out_L6_CT/chr.21.l2.ldscore.gz
          MAF        L2
-mean  0.2398   16.1472
-std   0.1429   36.5135
-min   0.0051   -2.0904
+mean  0.2398    8.3062
+std   0.1429   32.7490
+min   0.0051   -2.7304
 25%   0.1155    0.0000
 50%   0.2290    0.0000
-75%   0.3640    8.8412
-max   0.5000  298.1009
+75%   0.3640    0.0000
+max   0.5000  359.0160
 
 MAF/LD Score Correlation Matrix
         MAF      L2
-MAF  1.0000  0.0633
-L2   0.0633  1.0000
+MAF  1.0000  0.0264
+L2   0.0264  1.0000
 
 Annotation Correlation Matrix
        ANNOT
 ANNOT    1.0
 
 Annotation Matrix Column Sums
-ANNOT    24958
+ANNOT    11114
 
 Summary of Annotation Matrix Row Sums
 count    138712.0000
-mean          0.1799
-std           0.3841
+mean          0.0801
+std           0.2715
 min           0.0000
 25%           0.0000
 50%           0.0000
 75%           0.0000
 max           1.0000
-Analysis finished at Tue Jul 23 09:53:32 2024
-Total time elapsed: 18.0s
+Analysis finished at Mon Jul 29 13:18:44 2024
+Total time elapsed: 21.32s
