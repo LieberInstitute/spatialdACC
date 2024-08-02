@@ -32,23 +32,22 @@ load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
 load(file = here("processed-data", "snRNA-seq", "03_batch_correction", "sce_harmony.Rdata"))
 
 # extract patterns
-patterns <- t(x$h)
+patterns <- t(x@h)
 colnames(patterns) <- paste("NMF", 1:100, sep = "_")
 
-loadings <- x$w
+loadings <- x@w
 rownames(loadings) <- rownames(sce)
 
 # ====== project loadings to spatial data =======
-# drop any gene_names in spe not in sce
-# there were 168 genes in spe not in sce
-spe <- spe[rowData(spe)$gene_name %in% rownames(sce),]
-
-# drop 5314 rownames in loadings not in spe
-loadings <- loadings[rownames(loadings) %in% rowData(spe)$gene_name,]
+i <- intersect(rowData(spe)$gene_name,rownames(loadings))
+loadings <- loadings[rownames(loadings) %in% i,]
+spe <- spe[rowData(spe)$gene_name %in% i,]
+loadings <- loadings[match(rowData(spe)$gene_name,rownames(loadings)),]
 
 logcounts <- logcounts(spe)
+#loadings <- as(loadings, "dgCMatrix")
 
-proj <- project(loadings, as.matrix(logcounts))
+proj <- project(w=loadings, data=logcounts)
 proj <- t(proj)
 colnames(proj) <- paste("NMF", 1:100, sep = "_")
 
@@ -140,13 +139,3 @@ for (i in seq(1, length(plot_list), by = 5)) {
     dev.off()
 
 }
-
-# find the number of zeroes in each column in colData(spe.temp)
-zeroes <- sapply(colData(spe.temp)[, 1:100], function(x) sum(x == 0))
-
-# list out columns in colData(spe.temp) with more than 77533 zeroes
-names(zeroes[zeroes > 77533])
-#  [4] "NMF_1"                "NMF_2"                "NMF_9"
-# [7] "NMF_14"                "NMF_15"               "NMF_16"
-# [10] "NMF_17"               "NMF_21"               "NMF_30"
-# [13] "NMF_35"
