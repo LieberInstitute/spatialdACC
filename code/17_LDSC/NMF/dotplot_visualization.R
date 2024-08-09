@@ -6,7 +6,7 @@ library(here)
 
 ###load LDSC results
 ldsc_results <- read.csv(file=here::here('code','17_LDSC',
-                         'spatial','ldsc_results.csv'))
+                         'NMF','ldsc_results.csv'))
 
 ##########dotplots#############
 ###make -log10FDR column
@@ -19,7 +19,7 @@ ldsc_results$log10fdr <- -log10(ldsc_results$FDR)
 #ldsc_results<-ldsc_results[ldsc_results$FDR<0.05,]
 
 ###plot
-pdf(here('plots','17_LDSC','spatial','ldsc_results.pdf'),width=10,height=10)
+pdf(here('plots','17_LDSC','NMF','ldsc_results.pdf'),width=10,height=10)
 
 ggplot(ldsc_results, aes(x = cell, y = trait, size = log10fdr, color = Coefficient_z.score)) +
     geom_point() +
@@ -27,7 +27,7 @@ ggplot(ldsc_results, aes(x = cell, y = trait, size = log10fdr, color = Coefficie
     scale_color_gradient2(low = 'blue', high = 'red', midpoint = 0,
                           name = "Coefficient\n(z-score)") +
     theme_minimal() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     labs(size = "-log10(FDR)",x='group')
 
 ggplot(ldsc_results, aes(x = cell, y = trait, size = ifelse(FDR > 0.05, NA, log10fdr), color = Coefficient_z.score)) +
@@ -36,8 +36,52 @@ ggplot(ldsc_results, aes(x = cell, y = trait, size = ifelse(FDR > 0.05, NA, log1
     scale_color_gradient2(low = 'blue', high = 'red', midpoint = 0,
                           name = "Coefficient\n(z-score)") +
     theme_bw() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     labs(size = "-log10(FDR)",x='group',
          caption = "removed FDR > 0.05")
+
+dev.off()
+
+
+
+
+setwd('/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/')
+
+library(ggplot2)
+library(RColorBrewer)
+library(here)
+
+### Load LDSC results
+ldsc_results <- read.csv(file = here::here('code','17_LDSC','NMF','ldsc_results.csv'))
+
+### Make -log10FDR column
+ldsc_results$log10fdr <- -log10(ldsc_results$FDR)
+
+### Filter out rows with FDR > 0.05
+filtered_ldsc_results <- ldsc_results[ldsc_results$FDR <= 0.05, ]
+
+### Remove cells with no points remaining after filtering
+filtered_ldsc_results <- filtered_ldsc_results[filtered_ldsc_results$cell %in% unique(filtered_ldsc_results$cell), ]
+
+### Plot
+pdf(here('plots','17_LDSC','NMF','ldsc_results.pdf'), width = 10, height = 10)
+
+# First plot (no filtering)
+ggplot(ldsc_results, aes(x = cell, y = trait, size = log10fdr, color = Coefficient_z.score)) +
+    geom_point() +
+    scale_size_continuous(range = c(0, 10)) + # Set minimum size to zero for the size scale
+    scale_color_gradient2(low = 'blue', high = 'red', midpoint = 0, name = "Coefficient\n(z-score)") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    labs(size = "-log10(FDR)", x = 'group')
+
+# Second plot (filtered data)
+ggplot(filtered_ldsc_results, aes(x = cell, y = trait, size = log10fdr, color = Coefficient_z.score)) +
+    geom_point() +
+    scale_size_continuous(range = c(0, 10)) + # Set minimum size to zero for the size scale
+    scale_color_gradient2(low = 'blue', high = 'red', midpoint = 0, name = "Coefficient\n(z-score)") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    labs(size = "-log10(FDR)", x = 'group', caption = "Removed FDR > 0.05")
 
 dev.off()
