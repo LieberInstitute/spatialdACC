@@ -102,6 +102,14 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
     p1 <- make_escheR(spe_1) |>
         add_fill(var=factor, point_size = 1) |>
         add_ground(var=DLPFC_12_layer, stroke=0.15, point_size = 1) +
+        scale_color_manual(values = c(
+            "L2" = "#E41A1C",   # Bright red
+            "L3" = "#377EB8",   # Strong blue
+            "L5" = "#4DAF4A",   # Vivid green
+            "L4" = "#984EA3",  # Purple
+            "L6" = "#FF7F00",  # Orange
+            "L1" = "#00CED1"    # Dark turquoise
+        )) +
         scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", DLPFC_12_id)) +
         theme(
             legend.text = element_text(size = 5), # Smaller text size
@@ -114,6 +122,15 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
     p2 <- make_escheR(spe_2) |>
         add_fill(var=factor, point_size = 1) |>
         add_ground(var=DLPFC_30_layer, stroke=0.15, point_size = 1) +
+        scale_color_manual(values = c(
+            "L2" = "#E41A1C",   # Bright red
+            "L3" = "#377EB8",   # Strong blue
+            "L5" = "#4DAF4A",   # Vivid green
+            "L4" = "#984EA3",  # Purple
+            "L6" = "#FF7F00",  # Orange
+            "WM" = "#FFFF99",  # Light yellow
+            "L1" = "#00CED1"    # Dark turquoise
+        )) +
         scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", DLPFC_30_id)) +
         labs(color = "layer") +
         theme(
@@ -128,6 +145,14 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
     p3 <- make_escheR(spe_3) |>
         add_fill(var=factor, point_size = 1) |>
         add_ground(var=dACC_layer, stroke=0.15, point_size = 1) +
+        scale_color_manual(values = c(
+            "L2" = "#E41A1C",   # Bright red
+            "L3" = "#377EB8",   # Strong blue
+            "L5" = "#4DAF4A",   # Vivid green
+            "L6" = "#FF7F00",  # Orange
+            "WM" = "#FFFF99",  # Light yellow
+            "L1" = "#00CED1"    # Dark turquoise
+        )) +
         scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", dACC_id)) +
         labs(color = "layer") +
         theme(
@@ -144,13 +169,27 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
 #L1
 plots_23 <- make_plots("NMF_23", "151508", "Br6471_mid", "V12J03-002_A1")
 
-#nonL1/WM
-plots_5 <- make_plots("NMF_5", "151675", "Br8667_ant", "V12N28-331_B1")
+#L2
+plots_11 <- make_plots("NMF_11", "151507", "Br6522_ant", "V12J03-002_C1")
+
+# L4/L5
+plots_5 <- make_plots("NMF_5", "151673", "Br2743_mid", "V12J03-002_A1")
+plots_31 <- make_plots("NMF_31", "151673", "Br2720_post", "V12Y31-080_C1")
+
+#L5
+plots_33 <- make_plots("NMF_33", "151675", "Br3942_post", "V12N28-331_D1")
+
+#WM
+plots_39 <- make_plots("NMF_39", "151676", "Br2720_mid", "V12N28-334_D1")
 
 pdf(here::here("plots", "15_cross_region_snRNA-seq", "compare_NMF.pdf"), width = 10, height = 10)
 
 grid.arrange(grobs = plots_23, nrow = 1)
+grid.arrange(grobs = plots_11, nrow = 1)
+grid.arrange(grobs = plots_33, nrow = 1)
+grid.arrange(grobs = plots_39, nrow = 1)
 grid.arrange(grobs = plots_5, nrow = 1)
+grid.arrange(grobs = plots_31, nrow = 1)
 
 dev.off()
 

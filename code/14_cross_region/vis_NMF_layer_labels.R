@@ -105,6 +105,14 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
     p1 <- make_escheR(spe_1) |>
         add_fill(var=factor, point_size = 1) |>
         add_ground(var=DLPFC_12_layer, stroke=0.15, point_size = 1) +
+        scale_color_manual(values = c(
+            "L2" = "#E41A1C",   # Bright red
+            "L3" = "#377EB8",   # Strong blue
+            "L5" = "#4DAF4A",   # Vivid green
+            "L4" = "#984EA3",  # Purple
+            "L6" = "#FF7F00",  # Orange
+            "L1" = "#00CED1"    # Dark turquoise
+        )) +
         scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", DLPFC_12_id)) +
         theme(
             legend.text = element_text(size = 5), # Smaller text size
@@ -117,6 +125,15 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
     p2 <- make_escheR(spe_2) |>
         add_fill(var=factor, point_size = 1) |>
         add_ground(var=DLPFC_30_layer, stroke=0.15, point_size = 1) +
+        scale_color_manual(values = c(
+            "L2" = "#E41A1C",   # Bright red
+            "L3" = "#377EB8",   # Strong blue
+            "L5" = "#4DAF4A",   # Vivid green
+            "L4" = "#984EA3",  # Purple
+            "L6" = "#FF7F00",  # Orange
+            "WM" = "#FFFF99",  # Light yellow
+            "L1" = "#00CED1"    # Dark turquoise
+        )) +
         scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", DLPFC_30_id)) +
         labs(color = "layer") +
         theme(
@@ -131,6 +148,14 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
     p3 <- make_escheR(spe_3) |>
         add_fill(var=factor, point_size = 1) |>
         add_ground(var=dACC_layer, stroke=0.15, point_size = 1) +
+        scale_color_manual(values = c(
+            "L2" = "#E41A1C",   # Bright red
+            "L3" = "#377EB8",   # Strong blue
+            "L5" = "#4DAF4A",   # Vivid green
+            "L6" = "#FF7F00",  # Orange
+            "WM" = "#FFFF99",  # Light yellow
+            "L1" = "#00CED1"    # Dark turquoise
+        )) +
         scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", dACC_id)) +
         labs(color = "layer") +
         theme(
