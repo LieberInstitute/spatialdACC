@@ -51,5 +51,8 @@ logcounts7 <- logcounts7[overlaps, ]
 # combine the logcounts matrices
 logcounts_combined <- cbind(logcounts1, logcounts2, logcounts3, logcounts4, logcounts5, logcounts6, logcounts7)
 
+# create a SingleCellExperiment object
+sce <- SingleCellExperiment(assays = list(logcounts = logcounts_combined))
+
 # save
-saveRDS(logcounts_combined, file = here("processed-data", "18_PsychENCODE_NMF", "pseudobulk", "pseudobulk_combined.rds"))
+saveRDS(sce, file = here("processed-data", "18_PsychENCODE_NMF", "pseudobulk", "pseudobulk_combined.rds"))
