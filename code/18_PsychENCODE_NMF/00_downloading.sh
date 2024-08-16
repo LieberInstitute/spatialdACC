@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH --job-name=downloading
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=100G
+#SBATCH --mem-per-cpu=150G
 #SBATCH --output=logs/downloading.txt
 #SBATCH --error=logs/downloading.txt
 #SBATCH --mail-type=END
 #SBATCH --mail-user=kinnaryshahh@gmail.com
-#SBATCH --time=2-00:00:00
+#SBATCH --time=4-00:00:00
 
 echo "**** Job starts ****"
 date
