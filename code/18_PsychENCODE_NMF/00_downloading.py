@@ -31,7 +31,7 @@ data_list = [
 ]
 
 # Directory where CSV files will be saved
-output_dir = '/processed-data/18_PsychENCODE'
+output_dir = '/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/processed-data/18_PsychENCODE'
 
 # Run the function for each dataset
 for dataset in data_list:
