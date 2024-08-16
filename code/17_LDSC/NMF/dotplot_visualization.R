@@ -96,6 +96,24 @@ filtered_ldsc_results <- filtered_ldsc_results[filtered_ldsc_results$cell %in% u
 
 filtered_ldsc_results$cell <- factor(filtered_ldsc_results$cell, levels = c('nmf10', 'nmf13', 'nmf14', 'nmf20', 'nmf22', 'nmf28', 'nmf32', 'nmf33', 'nmf34', 'nmf35', 'nmf36', 'nmf38', 'nmf41', 'nmf43', 'nmf47', 'nmf50', 'nmf52', 'nmf56', 'nmf57', 'nmf59', 'nmf62', 'nmf69', 'nmf70', 'nmf71', 'nmf73', 'nmf76', 'nmf81', 'nmf97'), labels = c('nmf10 - L2/3 IT', 'nmf13 - L5 IT', 'nmf14 - NA', 'nmf20 - L2/3 IT', 'nmf22 - L5 & L6 IT', 'nmf28 - Pvalb', 'nmf32 - L2/3 IT', 'nmf33 - NA', 'nmf34 - Pvalb', 'nmf35 - NA', 'nmf36 - L5 IT', 'nmf38 - OPC', 'nmf41 - Oligo', 'nmf43 - Oligo', 'nmf47 - Lamp5', 'nmf50 - Pvalb', 'nmf52 - L5 IT', 'nmf56 - Micro-PVM', 'nmf57 - Sst', 'nmf59 - Sst', 'nmf62 - Sst', 'nmf69 - NA', 'nmf70 - Lamp5', 'nmf71 - Micro-PVM', 'nmf73 - Micro-PVM', 'nmf76 - Vip', 'nmf81 - L6 IT Car3', 'nmf97 - NA'))
 
+# remove Smoking Cessation from trait
+filtered_ldsc_results <- filtered_ldsc_results[filtered_ldsc_results$trait != 'Smoking cessation', ]
+
+# re order the y-axis (opposite of this)
+# Education Years
+# Intelligence
+# Neuroticism
+# Epilepsy
+# Schizophrenia
+# Bipolar
+# Depression
+# Alzheimer Disease
+# Drinks per week
+# Height
+# BMI
+
+filtered_ldsc_results$trait <- factor(filtered_ldsc_results$trait, levels = c('BMI', 'Height', 'Drinks per week', 'Alzheimer Disease', 'Depression', 'Bipolar', 'Schizophrenia', 'Epilepsy', 'Neuroticism', 'Intelligence', 'Education Years'), labels = c('BMI', 'Height', 'Drinks per week', 'Alzheimer Disease', 'Depression', 'Bipolar', 'Schizophrenia', 'Epilepsy', 'Neuroticism', 'Intelligence', 'Education Years'))
+
 ### Plot
 pdf(here('plots','17_LDSC','NMF','ldsc_results.pdf'), width = 10, height = 10)
 
