@@ -17,13 +17,13 @@ echo "Job name: ${SLURM_JOB_NAME}"
 echo "Hostname: ${HOSTNAME}"
 echo "Task id: ${SLURM_ARRAY_TASK_ID}"
 
-module load conda_R/4.3.x
+module load conda_R/4.4.x
 
 ## List current modules for reproducibility
 module list
 
 ## Edit with your job command
-python 01_pseudobulking.R
+Rscript 01_pseudobulking.R
 
 echo "**** Job ends ****"
 date
