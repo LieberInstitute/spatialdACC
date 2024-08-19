@@ -47,7 +47,36 @@ for (dataset_file in data_list) {
     assays(sce)$counts <- counts
 
     # Subset data
-    data_sub <- data[data$Cohort == dataset & data$Disorder == "control", c("Individual_ID", "Cohort", "Disorder")]
+    # the Cohort variable does not exactly match the dataset name
+    
+    # [1] "CMC"                 "DevBrain"            "Girgenti-snMultiome"
+    # [4] "IsoHuB"              "LIBD"                "Ma_et_al"           
+    # [7] "MultiomeBrain"       "PTSDBrainomics"      "ROSMAP"             
+    # [10] "SZBDMulti-Seq"       "UCLA-ASD"            "Velmeshev_et_al"
+    
+    if (dataset == "CMC") {
+        cohort <- "CMC"
+    }
+    if(dataset == "DevBrain-snRNAseq") {
+        cohort <- "DevBrain"
+    }
+    if(dataset == "IsoHuB") {
+        cohort <- "IsoHuB"
+    }
+    if(dataset == "MultiomeBrain-DLPFC") {
+        cohort <- "MultiomeBrain"
+    }
+    if(dataset == "PTSDBrainomics") {
+        cohort <- "PTSDBrainomics"
+    }
+    if(dataset == "SZBDMulti-Seq") {
+        cohort <- "SZBDMulti-Seq"
+    }
+    if(dataset == "UCLA-ASD") {
+        cohort <- "UCLA-ASD"
+    }
+    
+    data_sub <- data[data$Cohort == cohort & data$Disorder == "control", c("Individual_ID", "Cohort", "Disorder")]
 
     # Filter SCE based on Individual_ID
     sce <- sce[, colData(sce)$individualID %in% data_sub$Individual_ID]
