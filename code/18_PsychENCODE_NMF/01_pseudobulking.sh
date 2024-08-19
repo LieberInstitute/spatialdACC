@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=pseudo
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=170G
+#SBATCH --mem-per-cpu=750G
 #SBATCH --output=logs/pseudo.txt
 #SBATCH --error=logs/pseudo.txt
 #SBATCH --mail-type=END
