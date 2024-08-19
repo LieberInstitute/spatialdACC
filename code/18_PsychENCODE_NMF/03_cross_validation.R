@@ -8,26 +8,44 @@ library(Matrix)
 library(singlet)
 
 # want to use logcounts for NMF
-sce <- readRDS(file = here("processed-data", "18_PsychENCODE_NMF", "pseudobulk", "pseudobulk_combined.rds"))
+sce <- readRDS(file = here("processed-data", "18_PsychENCODE_NMF", "pseudobulk_combined.rds"))
 
-set.seed(1234)
-res <- RunNMF(
-    sce,
-    k=c(25,50,75,100,125,150),
-    assay = "logcounts",
-    reps = 3,
+set.seed(12)
+cvnmf <- cross_validate_nmf(
+    logcounts(sce),
+    ranks=c(25,50,75,100),
+    n_replicates = 1,
     tol = 1e-03,
     maxit = 100,
     verbose = 3,
     L1 = 0.1,
     L2 = 0,
     threads = 0,
-    test.set.density = 0.2
+    test_density = 0.2
 )
 
-saveRDS(res, file = here("processed-data", "18_PsychENCODE_NMF", "nmf_cv_results.rds"))
-
 pdf(here("plots", "18_PsychENCODE_NMF", "nmf_cv_results.pdf"))
-RankPlot(res)
+plot(cvnmf)
 dev.off()
 
+saveRDS(cvnmf, file = here("processed-data", "18_PsychENCODE_NMF", "nmf_cv_results.rds"))
+
+set.seed(12)
+cvnmf <- cross_validate_nmf(
+    logcounts(sce),
+    ranks=c(20, 30, 40, 50, 60),
+    n_replicates = 1,
+    tol = 1e-03,
+    maxit = 100,
+    verbose = 3,
+    L1 = 0.1,
+    L2 = 0,
+    threads = 0,
+    test_density = 0.2
+)
+
+pdf(here("plots", "18_PsychENCODE_NMF", "nmf_cv_results_lower_k.pdf"))
+plot(cvnmf)
+dev.off()
+
+saveRDS(cvnmf, file = here("processed-data", "18_PsychENCODE_NMF", "nmf_cv_results_lower_k.rds"))
