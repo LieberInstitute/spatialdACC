@@ -48,6 +48,14 @@ logcounts5 <- logcounts5[overlaps, ]
 logcounts6 <- logcounts6[overlaps, ]
 logcounts7 <- logcounts7[overlaps, ]
 
+# check rownames in the same order
+all(match(rownames(logcounts1), rownames(logcounts2)) == 1:nrow(logcounts1))
+all(match(rownames(logcounts1), rownames(logcounts3)) == 1:nrow(logcounts1))
+all(match(rownames(logcounts1), rownames(logcounts4)) == 1:nrow(logcounts1))
+all(match(rownames(logcounts1), rownames(logcounts5)) == 1:nrow(logcounts1))
+all(match(rownames(logcounts1), rownames(logcounts6)) == 1:nrow(logcounts1))
+all(match(rownames(logcounts1), rownames(logcounts7)) == 1:nrow(logcounts1))
+
 # combine the logcounts matrices
 logcounts_combined <- cbind(logcounts1, logcounts2, logcounts3, logcounts4, logcounts5, logcounts6, logcounts7)
 
