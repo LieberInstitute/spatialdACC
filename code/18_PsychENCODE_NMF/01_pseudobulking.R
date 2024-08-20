@@ -33,9 +33,6 @@ for (dataset_file in data_list) {
     colData(sce)$cellType <- as.factor(make.names(colData(sce)$subclass))
     table(sce$cellType)
 
-    rowData(sce)$gene_name <- rownames(sce)  # Save gene name as column of rowData
-    rownames(sce) <- rowData(sce)$featureid  # Use featureid as row names
-
     # Load raw counts matrix
     raw_csv_path <- here("processed-data", "18_PsychENCODE_NMF", paste0("raw_", dataset, ".csv"))
     counts <- read.csv(raw_csv_path)
@@ -45,6 +42,13 @@ for (dataset_file in data_list) {
     colnames(counts) <- colnames(assay(sce, "X"))
 
     assays(sce)$counts <- counts
+
+    saveRDS(sce,
+            file = here(
+                "processed-data", "18_PsychENCODE_NMF", "raw",
+                paste0(dataset, ".rds")
+            )
+    )
 
     # Subset data
     # the Cohort variable does not exactly match the dataset name
