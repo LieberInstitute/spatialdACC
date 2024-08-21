@@ -26,30 +26,6 @@ library(gridExtra)
 
 x <- readRDS(file = here("processed-data", "18_PsychENCODE_NMF", "nmf_results.rds"))
 sce <- readRDS(file = here("processed-data", "18_PsychENCODE_NMF", "pseudobulk_combined.rds"))
-
-# add in col level info to the sce object for plotting
-# subject
-# cell type
-rownames_data <- rownames(colData(sce))
-split_data <- do.call(rbind, strsplit(rownames_data, "_(?!.*_)", perl = TRUE))
-
-colData(sce)$Subject <- split_data[, 1]
-colData(sce)$Cell_Type <- split_data[, 2]
-
-# from subject - infer study as well
-
-# Read in meta data
-url <- "https://brainscope.gersteinlab.org/data/sample_metadata/PEC2_sample_metadata.txt"
-data <- read.delim(url, header = TRUE)
-
-# make a dictionary of the Cohort to the Individual_ID in the metadata
-cohort_dict <- setNames(data$Cohort, data$Individual_ID)
-
-colData(sce)$Study <- cohort_dict[colData(sce)$Subject]
-
-saveRDS(sce, file = here("processed-data", "18_PsychENCODE_NMF", "pseudobulk_combined_metadata.rds"))
-
-
 # technical vars heatmaps
 
 ####onehot encode Study
