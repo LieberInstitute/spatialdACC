@@ -124,9 +124,6 @@ all(match(rownames(logcounts1), rownames(logcounts7)) == 1:nrow(logcounts1))
 #combine the counts matrices
 counts_combined <- cbind(counts1, counts2, counts3, counts4, counts5, counts6, counts7)
 
-# combine the logcounts matrices
-logcounts_combined <- cbind(logcounts1, logcounts2, logcounts3, logcounts4, logcounts5, logcounts6, logcounts7)
-
 # create a SingleCellExperiment object
 sce <- SingleCellExperiment(assays = list(counts = counts_combined))
 
