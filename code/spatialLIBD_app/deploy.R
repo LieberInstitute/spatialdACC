@@ -20,9 +20,9 @@ rsconnect::deployApp(
     appDir = app_dir,
     appFiles = c(
         "app.R",
-        "spe_raw_if.Rdata"
+        "spe_nnSVG_PRECAST_9_labels.Rdata"
     ),
-    appName = "spatialdACC_Visium_IF",
+    appName = "spatialdACC_Visium",
     account = "libd",
     server = "shinyapps.io"
 )
