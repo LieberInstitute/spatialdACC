@@ -1,11 +1,11 @@
 library("rsconnect")
 
-# source("token.R")
+source("token.R")
 
 options(repos = BiocManager::repositories())
 rsconnect::deployApp(
-    appFiles = c("app.R", "sce_for_iSEE_LS.rda", "initial.R"),
-    appName = "snRNAseq_lateral_septum",
+    appFiles = c("app.R", "sce.Rdata", "initial.R"),
+    appName = "snRNAseq_dACC",
     account = "libd",
     server = "shinyapps.io"
 )
