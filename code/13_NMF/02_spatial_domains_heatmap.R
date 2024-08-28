@@ -78,3 +78,45 @@ p1 <- pheatmap(agg_data,
                fontsize_col = 5
 )
 dev.off()
+
+####onehot encode sample_id
+data<-as.data.frame(spe$sample_id)
+colnames(data)<-'sample_id'
+onehot_sample_id <-  dcast(data = data, rownames(data) ~ sample_id, length)
+rownames(onehot_sample_id)<-onehot_sample_id[,1]
+onehot_sample_id[,1]<-as.numeric(onehot_sample_id[,1])
+onehot_sample_id<-onehot_sample_id[order(onehot_sample_id[,1],decreasing=F),]
+onehot_sample_id[,1]<-NULL
+
+####onehot encode slide
+data<-as.data.frame(spe$slide)
+colnames(data)<-'slide'
+onehot_slide <-  dcast(data = data, rownames(data) ~ slide, length)
+rownames(onehot_slide)<-onehot_slide[,1]
+onehot_slide[,1]<-as.numeric(onehot_slide[,1])
+onehot_slide<-onehot_slide[order(onehot_slide[,1],decreasing=F),]
+onehot_slide[,1]<-NULL
+
+####onehot encode brnum
+data<-as.data.frame(spe$brnum)
+colnames(data)<-'brnum'
+onehot_brnum <-  dcast(data = data, rownames(data) ~ brnum, length)
+rownames(onehot_brnum)<-onehot_brnum[,1]
+onehot_brnum[,1]<-as.numeric(onehot_brnum[,1])
+onehot_brnum<-onehot_brnum[order(onehot_brnum[,1],decreasing=F),]
+onehot_brnum[,1]<-NULL
+
+# fix error In cor(proj, onehot_sample_id) : the standard deviation is zero
+# check if any of the columns in proj are all 0
+sum(colSums(proj) == 0)
+
+# remove columns in proj that are all 0
+proj_no_zero <- proj[, colSums(proj) != 0]
+
+###correlate with nmf patterns
+pdf(here("plots", "13_NMF", "nmf_sample_correlation_heatmap.pdf"))
+pheatmap(cor(proj_no_zero,as.matrix(onehot_sample_id)), fontsize_row = 5)
+pheatmap(cor(proj_no_zero,as.matrix(onehot_slide)), fontsize_row = 5)
+pheatmap(cor(proj_no_zero,as.matrix(onehot_brnum)), fontsize_row = 5)
+dev.off()
+
