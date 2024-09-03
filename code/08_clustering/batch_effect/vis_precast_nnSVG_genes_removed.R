@@ -17,7 +17,7 @@ load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
 colnames(spe) <- spe$key
 
 K <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
-load(PRECASTObj, file = here("processed-data", "08_clustering", "batch_effect", paste0("nnSVG_PRECASTObj_biased_genes_removed",K,".Rdata")))
+load(file = here("processed-data", "08_clustering", "batch_effect", paste0("nnSVG_PRECASTObj_biased_genes_removed",K,".Rdata")))
 
 PRECASTObj <- SelectModel(PRECASTObj)
 seuInt <- IntegrateSpaData(PRECASTObj, species = "Human")
