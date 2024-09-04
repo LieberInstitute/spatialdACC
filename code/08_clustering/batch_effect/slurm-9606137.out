@@ -1,0 +1,202 @@
+**** Job starts ****
+Tue Sep  3 01:30:48 PM EDT 2024
+**** SLURM info ****
+User: kshah
+Job id: 9606137
+Job name: nnSVG
+Hostname: compute-168
+Task id: 
+Loading conda_R/4.3.x
+
+Currently Loaded Modules:
+  1) JHPCE_ROCKY9_DEFAULT_ENV   3) conda/3-23.3.1
+  2) JHPCE_tools/3.0            4) conda_R/4.3.x
+
+ 
+
+Loading required package: SingleCellExperiment
+Loading required package: SummarizedExperiment
+Loading required package: MatrixGenerics
+Loading required package: matrixStats
+
+Attaching package: ‘MatrixGenerics’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+    colWeightedMeans, colWeightedMedians, colWeightedSds,
+    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+    rowWeightedSds, rowWeightedVars
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+    table, tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:utils’:
+
+    findMatches
+
+The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+Attaching package: ‘Biobase’
+
+The following object is masked from ‘package:MatrixGenerics’:
+
+    rowMedians
+
+The following objects are masked from ‘package:matrixStats’:
+
+    anyMissing, rowMedians
+
+here() starts at /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC
+
+Attaching package: ‘dplyr’
+
+The following object is masked from ‘package:Biobase’:
+
+    combine
+
+The following objects are masked from ‘package:GenomicRanges’:
+
+    intersect, setdiff, union
+
+The following object is masked from ‘package:GenomeInfoDb’:
+
+    intersect
+
+The following objects are masked from ‘package:IRanges’:
+
+    collapse, desc, intersect, setdiff, slice, union
+
+The following objects are masked from ‘package:S4Vectors’:
+
+    first, intersect, rename, setdiff, setequal, union
+
+The following objects are masked from ‘package:BiocGenerics’:
+
+    combine, intersect, setdiff, union
+
+The following object is masked from ‘package:matrixStats’:
+
+    count
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: scuttle
+Loading required package: ggplot2
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 25) of spatial locations
+removed 26850 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 24) of spatial locations
+removed 27323 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 23) of spatial locations
+removed 27161 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 25) of spatial locations
+removed 26441 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 24) of spatial locations
+removed 27028 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 23) of spatial locations
+removed 26146 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 25) of spatial locations
+removed 26792 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 23) of spatial locations
+removed 23542 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 25) of spatial locations
+removed 24276 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 23) of spatial locations
+removed 27099 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 21) of spatial locations
+removed 26977 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 24) of spatial locations
+removed 27357 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 23) of spatial locations
+removed 27506 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 20) of spatial locations
+removed 23265 out of 29720 genes due to low expression
+Gene filtering: retaining genes with at least 3 counts in at least 0.5% (n = 18) of spatial locations
+removed 24597 out of 29720 genes due to low expression
+V12J03-002_A1 V12J03-002_B1 V12J03-002_C1 V12N28-331_A1 V12N28-331_B1 
+         2870          2397          2559          3279          2692 
+V12N28-331_C1 V12N28-331_D1 V12N28-332_C1 V12N28-332_D1 V12N28-334_A1 
+         3574          2928          6178          5444          2621 
+V12N28-334_B1 V12N28-334_C1 V12N28-334_D1 V12Y31-080_B1 V12Y31-080_C1 
+         2743          2363          2214          6455          5123 
+[1] 6750   15
+                        gene_id gene_name      gene_type overall_rank
+ENSG00000197971 ENSG00000197971       MBP protein_coding            1
+ENSG00000123560 ENSG00000123560      PLP1 protein_coding            2
+ENSG00000132639 ENSG00000132639    SNAP25 protein_coding            3
+ENSG00000131095 ENSG00000131095      GFAP protein_coding            4
+ENSG00000168314 ENSG00000168314      MOBP protein_coding            5
+ENSG00000163032 ENSG00000163032     VSNL1 protein_coding            6
+                average_rank n_withinTop1000
+ENSG00000197971     1.000000              15
+ENSG00000123560     2.000000              15
+ENSG00000132639     7.666667              15
+ENSG00000131095     8.866667              15
+ENSG00000168314     9.533333              15
+ENSG00000163032    11.333333              15
+[1] 1421    6
+                        gene_id gene_name      gene_type overall_rank
+ENSG00000197971 ENSG00000197971       MBP protein_coding            1
+ENSG00000123560 ENSG00000123560      PLP1 protein_coding            2
+ENSG00000132639 ENSG00000132639    SNAP25 protein_coding            3
+ENSG00000131095 ENSG00000131095      GFAP protein_coding            4
+ENSG00000168314 ENSG00000168314      MOBP protein_coding            5
+ENSG00000163032 ENSG00000163032     VSNL1 protein_coding            6
+                average_rank n_withinTop1000
+ENSG00000197971     1.000000              15
+ENSG00000123560     2.000000              15
+ENSG00000132639     7.666667              15
+ENSG00000131095     8.866667              15
+ENSG00000168314     9.533333              15
+ENSG00000163032    11.333333              15
+**** Job ends ****
+Tue Sep  3 03:25:21 PM EDT 2024

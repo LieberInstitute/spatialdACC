@@ -14,10 +14,18 @@ suppressPackageStartupMessages({
 })
 
 load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
+
+#remove samples with batch effect suspected
+# "V12N28−332_A1" and "V12N28−332_B1"
+suspected_batch_samples <- c("V12N28-332_A1", "V12N28-332_B1")
+spe <- spe[, !colData(spe)$sample_id %in% suspected_batch_samples]
+
+
 colnames(spe) <- spe$key
 
+
 K <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
-load(file = here("processed-data", "08_clustering", "batch_effect", paste0("nnSVG_PRECASTObj_biased_genes_removed",K,".Rdata")))
+load(file = here("processed-data", "08_clustering", "batch_effect", paste0("nnSVG_PRECASTObj_samples_genes_removed",K,".Rdata")))
 
 PRECASTObj <- SelectModel(PRECASTObj)
 seuInt <- IntegrateSpaData(PRECASTObj, species = "Human")
@@ -35,7 +43,7 @@ col_data_df <- colData(spe) |>
 rownames(col_data_df) <- colnames(spe)
 colData(spe)$PRECAST_cluster <- col_data_df$PRECAST_cluster
 
-precast_name <- paste0("nnSVG_PRECAST_genes_removed_captureArea_", K)
+precast_name <- paste0("nnSVG_PRECAST_samples_removed_captureArea_", K)
 
 cluster_export(
     spe,
@@ -57,10 +65,10 @@ for (i in seq_along(brains)){
         grid.arrange(p1, nrow = 1)
     } else if (length(samples) == 2){
         p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 4, ... = paste0("_", brains[i]))
-        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 4, ... = paste0("_", brains[i])) 
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 4, ... = paste0("_", brains[i]))
         grid.arrange(p1, p2, nrow = 2)
     } else if (length(samples) == 3){
-        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i]))
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i])) 
         p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i])) 
         p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "PRECAST_cluster", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i])) 
         grid.arrange(p1, p2, p3, nrow = 2)
