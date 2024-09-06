@@ -17,7 +17,7 @@ load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
 
 #remove samples with batch effect suspected
 # "V12N28−332_A1" and "V12N28−332_B1"
-suspected_batch_samples <- c("V12N28-332_A1", "V12N28-332_B1")
+suspected_batch_samples <- c("V12N28-332_A1", "V12N28-332_B1", "V12N28-332_C1", "V12N28-332_D1")
 spe <- spe[, !colData(spe)$sample_id %in% suspected_batch_samples]
 
 

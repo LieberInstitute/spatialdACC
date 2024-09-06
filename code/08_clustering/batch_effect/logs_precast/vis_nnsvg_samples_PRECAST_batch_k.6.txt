@@ -2,10 +2,10 @@
 Thu Sep  5 08:32:30 PM EDT 2024
 **** SLURM info ****
 User: kshah
-Job id: 9627112
+Job id: 9627113
 Job name: vis_PRECAST
 Hostname: compute-169
-Task id: 9
+Task id: 6
 Loading conda_R/4.3.x
 
 Currently Loaded Modules:
@@ -16,13 +16,10 @@ Currently Loaded Modules:
 
 Using only PRECAST results to obtain the batch corrected gene expressions since species is unknown or the genelist in PRECASTObj has less than 5 overlapp with the housekeeping genes of given species.
 Start integration...
-2024-09-05 20:34:14.306466 : ***** Data integration finished!, 0.181 mins elapsed.
+2024-09-05 20:34:13.819274 : ***** Data integration finished!, 0.181 mins elapsed.
 Put the data into a new Seurat object...
-2024-09-05 20:34:17.441081 : ***** New Seurat object is generated!, 0.052 mins elapsed.
+2024-09-05 20:34:17.036148 : ***** New Seurat object is generated!, 0.054 mins elapsed.
 Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.
-Warning message:
-In dir.create(outdir, recursive = TRUE) :
-  '/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/processed-data/08_clustering/batch_effect/nnSVG_PRECAST_samples_removed_captureArea_9/PRECAST_cluster' already exists
 [1] 1
 [1] 1
 [1] 1
@@ -36,4 +33,4 @@ In dir.create(outdir, recursive = TRUE) :
 null device 
           1 
 **** Job ends ****
-Thu Sep  5 08:34:54 PM EDT 2024
+Thu Sep  5 08:34:53 PM EDT 2024
