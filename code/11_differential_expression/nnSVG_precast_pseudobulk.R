@@ -92,6 +92,12 @@ save(
     file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_pseudobulk", paste0(nnSVG_precast_name,".Rdata"))
 )
 
+
+# there is one WM spot that is very high in PC2 (PC2 > 300) and is an outlier
+# we will remove it from the analysis
+idx <- which(reducedDims(spe_pseudo)$PCA[,'PC02'] > 300)
+spe_pseudo <- spe_pseudo[, -idx]
+
 ## Plot PCs
 col_data_df <- as.data.frame(colData(spe_pseudo))
 col_data_df <- left_join(col_data_df, detected_by_sample, by = "sample_id")
@@ -99,7 +105,10 @@ col_data_df <- left_join(col_data_df, sum_by_sample, by = "sample_id")
 
 colData(spe_pseudo) <- DataFrame(col_data_df)
 
-pdf(file = here("plots", "11_differential_expression", "pseudobulk", "nnSVG_precast_pseudobulk", paste0("pseudobulk_PC_",nnSVG_precast_name,".pdf")), width = 10, height = 10)
+pdf(file = here("plots", "11_differential_expression",
+                "pseudobulk", "nnSVG_precast_pseudobulk",
+                paste0("pseudobulk_PC_",nnSVG_precast_name,".pdf")),
+    width = 10, height = 10)
 
 plotPCA(
         spe_pseudo,
