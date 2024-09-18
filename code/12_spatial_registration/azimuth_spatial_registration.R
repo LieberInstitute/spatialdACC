@@ -15,18 +15,6 @@ load(file = here("processed-data", "11_differential_expression", "pseudobulk",
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth.Rdata"))
 table(sce$Sample, sce$cellType_azimuth)
 
-# replace "-" with nothing
-colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "Micro-PVM", "MicroPVM")
-
-# replace spaces with underscores
-colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "L2/3 IT", "L2_3_IT")
-colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "L5 ET", "L5_ET")
-colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "L5 IT", "L5_IT")
-colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "L5/6 NP", "L5_6_NP")
-colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "L6 CT", "L6_CT")
-colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "L6 IT", "L6_IT")
-colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "L6 IT Car3", "L6_IT_Car3")
-
 sce_modeling_results <- registration_wrapper(
     sce = sce,
     var_registration = "cellType_azimuth",
@@ -39,7 +27,6 @@ sce_modeling_results <- registration_wrapper(
 registration_t_stats <- sce_modeling_results$enrichment[, grep("^t_stat", colnames(sce_modeling_results$enrichment))]
 colnames(registration_t_stats) <- gsub("^t_stat_", "", colnames(registration_t_stats))
 
-## cell types x gene
 dim(registration_t_stats)
 
 ## check out table
