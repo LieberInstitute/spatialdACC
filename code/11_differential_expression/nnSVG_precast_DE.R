@@ -9,52 +9,61 @@ suppressPackageStartupMessages({
     library('EnhancedVolcano')
 })
 
-read_barcoded_csv <- function(x) {
-    df <- read.csv(x)
-    colnames(df) <- tolower(colnames(df))
+# read_barcoded_csv <- function(x) {
+#     df <- read.csv(x)
+#     colnames(df) <- tolower(colnames(df))
+#
+#     if (colnames(df)[2] == "cluster") {
+#         colnames(df)[2] <-
+#             gsub("gene_expression_", "", basename(dirname(x)))
+#     }
+#     return(df)
+# }
+#
+# nnSVG_PRECAST_import <- function(spe, cluster_dir = file.path(tempdir(), "exported_clusters")) {
+#     clustering_files <-
+#         list.files(
+#             here::here("processed-data", "08_clustering", "PRECAST", nnSVG_precast_name),
+#             pattern = "clusters.csv",
+#             all.files = TRUE,
+#             full.names = TRUE,
+#             recursive = TRUE
+#         )
+#     clusters_list <- lapply(clustering_files, read_barcoded_csv)
+#     clusters <- Reduce(function(...) merge(..., by = "key", all = TRUE), clusters_list)
+#     cluster_cols <- which(colnames(clusters) != "key")
+#     colnames(clusters)[cluster_cols] <- paste0("", colnames(clusters)[cluster_cols])
+#
+#     colData(spe)[,nnSVG_precast_name] <- clusters[,2]
+#     return(spe)
+# }
+#
+# load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
+#
+# k <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
+#
+# #import precast nnSVG clusters
+# #i re wrote the key when using PRECAST, just add the cluster columns manually
+# nnSVG_precast_name <- paste0("nnSVG_PRECAST_captureArea_", k)
+# spe <- nnSVG_PRECAST_import(
+#     spe,
+#     cluster_dir = here::here("processed-data", "08_clustering", "PRECAST", nnSVG_precast_name)
+# )
 
-    if (colnames(df)[2] == "cluster") {
-        colnames(df)[2] <-
-            gsub("gene_expression_", "", basename(dirname(x)))
-    }
-    return(df)
-}
 
-nnSVG_PRECAST_import <- function(spe, cluster_dir = file.path(tempdir(), "exported_clusters")) {
-    clustering_files <-
-        list.files(
-            here::here("processed-data", "08_clustering", "PRECAST", nnSVG_precast_name),
-            pattern = "clusters.csv",
-            all.files = TRUE,
-            full.names = TRUE,
-            recursive = TRUE
-        )
-    clusters_list <- lapply(clustering_files, read_barcoded_csv)
-    clusters <- Reduce(function(...) merge(..., by = "key", all = TRUE), clusters_list)
-    cluster_cols <- which(colnames(clusters) != "key")
-    colnames(clusters)[cluster_cols] <- paste0("", colnames(clusters)[cluster_cols])
-
-    colData(spe)[,nnSVG_precast_name] <- clusters[,2]
-    return(spe)
-}
-
-load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
-
-k <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
-
-#import precast nnSVG clusters
-#i re wrote the key when using PRECAST, just add the cluster columns manually
-nnSVG_precast_name <- paste0("nnSVG_PRECAST_captureArea_", k)
-spe <- nnSVG_PRECAST_import(
-    spe,
-    cluster_dir = here::here("processed-data", "08_clustering", "PRECAST", nnSVG_precast_name)
+# load spe for k=9 without WM-CC
+load(
+    file = here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9_labels.Rdata")
 )
+
+nnSVG_precast_name <- paste0("nnSVG_PRECAST_captureArea_", 9)
+colData(spe)[,nnSVG_precast_name] <- colData(spe)$layer
 
 ## Convert from character to a factor
 colData(spe)[nnSVG_precast_name] <- as.factor(colData(spe)[,nnSVG_precast_name])
 
-#avoid limma make contrasts syntax error
-colData(spe)[nnSVG_precast_name] <- paste0("clust", colData(spe)[,nnSVG_precast_name])
+#avoid limma make contrasts syntax error if using 1-9 labels
+#colData(spe)[nnSVG_precast_name] <- paste0("clust", colData(spe)[,nnSVG_precast_name])
 
 spe_pseudo <-
      registration_pseudobulk(spe,
@@ -85,6 +94,9 @@ sig_genes <- sig_genes_extract(
     model_type = "enrichment",
     sce_layer = spe_pseudo
 )
+
+write.csv(sig_genes, file = here::here("processed-data", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
+                                       paste0(nnSVG_precast_name, "_sig_genes.csv")), row.names = FALSE)
 
 indices <- c()
 
@@ -134,12 +146,11 @@ pdf(file = here::here("plots", "11_differential_expression","pseudobulk", "nnSVG
                       paste0("volcano_", nnSVG_precast_name, ".pdf")),
     width = 8.5, height = 8)
 
-
-for (i in c(1:k)) {
-
+for (i in unique(colData(spe_pseudo)[[nnSVG_precast_name]])) {
     print(i)
-    fdrs <- modeling_results[["enrichment"]][,paste0("fdr_clust", i)]
-    logfc <- modeling_results[["enrichment"]][,paste0("logFC_clust", i)]
+
+    fdrs <- modeling_results[["enrichment"]][,paste0("fdr_", i)]
+    logfc <- modeling_results[["enrichment"]][,paste0("logFC_", i)]
 
     # Identify significant genes (low FDR and high logFC)
     sig <- (fdrs < thresh_fdr) & (abs(logfc) > thresh_logfc)
@@ -155,18 +166,6 @@ for (i in c(1:k)) {
         sig = sig
     )
 
-    layer_label <- NULL
-
-    if(i==1) {layer_label = "L2"}
-    if(i==2) {layer_label = "L3"}
-    if(i==3) {layer_label = "WM1"}
-    if(i==4) {layer_label = "L5"}
-    if(i==5) {layer_label = "L6b"}
-    if(i==6) {layer_label = "L6a"}
-    if(i==7) {layer_label = "WM-CC"}
-    if(i==8) {layer_label = "WM2"}
-    if(i==9) {layer_label = "L1"}
-
     print(EnhancedVolcano(df_list[[i]],
                     lab = df_list[[i]]$gene_name,
                     x = 'logFC',
@@ -177,7 +176,7 @@ for (i in c(1:k)) {
                     legendLabels = c('Not sig.','Log (base 2) FC','FDR',
                                      'FDR & Log (base 2) FC'),
                     title = "nnSVG PRECAST dACC",
-                    subtitle = paste0("Cluster ", layer_label, " vs. all others")
+                    subtitle = paste0(i, " vs. all others")
     ))
 }
 

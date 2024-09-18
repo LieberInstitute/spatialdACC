@@ -42,7 +42,8 @@ load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
 sum_by_sample <- setNames(aggregate(sum ~ sample_id, colData(spe), sum), c("sample_id", "sum_sample"))
 detected_by_sample <- setNames(aggregate(detected ~ sample_id, colData(spe), sum), c("sample_id", "detected_sample"))
 
-k <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
+#k <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
+k=9
 
 #import precast nnSVG clusters
 #i re wrote the key when using PRECAST, just add the cluster columns manually
@@ -55,12 +56,28 @@ spe <- nnSVG_PRECAST_import(
 ## Convert from character to a factor
 colData(spe)[nnSVG_precast_name] <- as.factor(colData(spe)[,nnSVG_precast_name])
 
+layer_mapping <- c("L2", "L3", "WM1", "L5", "L6b", "L6a", "WM-CC", "WM2", "L1")
+colData(spe)$layer <- layer_mapping[colData(spe)[, nnSVG_precast_name]]
+
+# remove WM-CC
+spe <- spe[, colData(spe)$layer != "WM-CC"]
+
+# combine WM1 and WM2 into WM
+colData(spe)$layer <- ifelse(colData(spe)$layer %in% c("WM1", "WM2"), "WM", colData(spe)$layer)
+
+# save this spe
+save(
+    spe,
+    file = here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9_labels.Rdata")
+)
+
 spe_pseudo <-
     registration_pseudobulk(spe,
-                            var_registration = nnSVG_precast_name,
+                            var_registration = "layer",
                             var_sample_id = "sample_id",
                             min_ncells = 10
     )
+
 dim(spe_pseudo)
 
 pca <- prcomp(t(assays(spe_pseudo)$logcounts))
@@ -82,9 +99,7 @@ col_data_df <- left_join(col_data_df, sum_by_sample, by = "sample_id")
 
 colData(spe_pseudo) <- DataFrame(col_data_df)
 
-colData(spe_pseudo)["layer"] <- colData(spe_pseudo)[,nnSVG_precast_name]
-
-pdf(file = here("plots", "11_differential_expression", "pseudobulk", "nnSVG_precast_pseudobulk", paste0("pseudobulk_PC_",nnSVG_precast_name,".pdf")), width = 14, height = 14)
+pdf(file = here("plots", "11_differential_expression", "pseudobulk", "nnSVG_precast_pseudobulk", paste0("pseudobulk_PC_",nnSVG_precast_name,".pdf")), width = 10, height = 10)
 
 plotPCA(
         spe_pseudo,
