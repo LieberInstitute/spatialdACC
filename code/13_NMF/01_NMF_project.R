@@ -20,12 +20,13 @@ library(cowplot)
 library(projectR)
 library(spatialLIBD)
 library(gridExtra)
+library(escheR)
 
 # get NMF results from single nucleus data
 x <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "nmf_results.RDS"))
 
-# load uncorrected and lognormalized spatial data
-load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
+# load spatial data
+load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9_labels.Rdata"))
 
 # load Single Nucleus object
 # this file says "harmony", but that is only in the reduced dims, the counts/logcounts are not batch corrected
@@ -33,7 +34,7 @@ load(file = here("processed-data", "snRNA-seq", "03_batch_correction", "sce_harm
 
 # extract patterns
 patterns <- t(x@h)
-colnames(patterns) <- paste("NMF", 1:100, sep = "_")
+colnames(patterns) <- paste("NMF", 1:75, sep = "_")
 
 loadings <- x@w
 rownames(loadings) <- rownames(sce)
@@ -49,7 +50,7 @@ logcounts <- logcounts(spe)
 
 proj <- project(w=loadings, data=logcounts)
 proj <- t(proj)
-colnames(proj) <- paste("NMF", 1:100, sep = "_")
+colnames(proj) <- paste("NMF", 1:75, sep = "_")
 
 # add to reducedDims
 reducedDim(spe, "NMF_proj") <- proj
@@ -60,14 +61,15 @@ save(spe, file = here("processed-data", "13_NMF", "spe_NMF.Rdata"))
 spe.temp <- spe
 
 # add each proj column to colData(spe)
-for (i in 1:100){
+for (i in 1:75){
     colData(spe.temp)[[paste0("NMF_",i)]] <- reducedDims(spe.temp)$NMF_proj[,i]
 }
 
 brains <- unique(spe.temp$brnum)
 
-for (i in 1:100){
+for (i in 1:75){
     print(paste0("i=", i))
+    factor <- paste0("NMF_", i)
 
     pdf(file = here::here("plots", "13_NMF", "SpotPlots", paste0("NMF_", i, ".pdf")),
         width = 21, height = 20)
@@ -78,16 +80,94 @@ for (i in 1:100){
         print(length(samples))
 
         if (length(samples) == 1){
-            p1 <- vis_gene(spe =  speb, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 9, )
+            spe_1 <- speb[, which(speb$sample_id == samples[1])]
+            p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 9) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 9) +
+                scale_color_manual(values = c(
+                    "L2" = "#E41A1C",   # Bright red
+                    "L3" = "#377EB8",   # Strong blue
+                    "L5" = "#4DAF4A",   # Vivid green
+                    "L6a" = "#984EA3",  # Purple
+                    "L6b" = "#FF7F00",  # Orange
+                    "WM" = "#F781BF",# Pink
+                    "L1" = "#00CED1"    # Dark turquoise
+                )) +
+                labs(color = "layer") +
+                scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
+
             grid.arrange(p1, nrow = 1)
         } else if (length(samples) == 2){
-            p1 <- vis_gene(spe =  speb, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p2 <- vis_gene(spe =  speb, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            spe_1 <- speb[, which(speb$sample_id == samples[1])]
+            p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 4) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 4) +
+                scale_color_manual(values = c(
+                    "L2" = "#E41A1C",   # Bright red
+                    "L3" = "#377EB8",   # Strong blue
+                    "L5" = "#4DAF4A",   # Vivid green
+                    "L6a" = "#984EA3",  # Purple
+                    "L6b" = "#FF7F00",  # Orange
+                    "WM" = "#F781BF",# Pink
+                    "L1" = "#00CED1"    # Dark turquoise
+                )) +
+                labs(color = "layer") +
+                scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
+
+            spe_2 <- speb[, which(speb$sample_id == samples[2])]
+            p2 <- make_escheR(spe_2) |> add_fill(var=factor, point_size = 4) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 4) +
+                scale_color_manual(values = c(
+                    "L2" = "#E41A1C",   # Bright red
+                    "L3" = "#377EB8",   # Strong blue
+                    "L5" = "#4DAF4A",   # Vivid green
+                    "L6a" = "#984EA3",  # Purple
+                    "L6b" = "#FF7F00",  # Orange
+                    "WM" = "#F781BF",# Pink
+                    "L1" = "#00CED1"    # Dark turquoise
+                )) +
+                labs(color = "layer") +
+                scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
+
             grid.arrange(p1, p2, nrow = 2)
         } else if (length(samples) == 3){
-            p1 <- vis_gene(spe =  speb, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p2 <- vis_gene(spe =  speb, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p3 <- vis_gene(spe =  speb, sampleid = samples[3], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
+            spe_1 <- speb[, which(speb$sample_id == samples[1])]
+            p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 4) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 4) +
+                scale_color_manual(values = c(
+                    "L2" = "#E41A1C",   # Bright red
+                    "L3" = "#377EB8",   # Strong blue
+                    "L5" = "#4DAF4A",   # Vivid green
+                    "L6a" = "#984EA3",  # Purple
+                    "L6b" = "#FF7F00",  # Orange
+                    "WM" = "#F781BF",# Pink
+                    "L1" = "#00CED1"    # Dark turquoise
+                )) +
+                labs(color = "layer") +
+                scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
+
+            spe_2 <- speb[, which(speb$sample_id == samples[2])]
+            p2 <- make_escheR(spe_2) |> add_fill(var=factor, point_size = 4) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 4) +
+                scale_color_manual(values = c(
+                    "L2" = "#E41A1C",   # Bright red
+                    "L3" = "#377EB8",   # Strong blue
+                    "L5" = "#4DAF4A",   # Vivid green
+                    "L6a" = "#984EA3",  # Purple
+                    "L6b" = "#FF7F00",  # Orange
+                    "WM" = "#F781BF",# Pink
+                    "L1" = "#00CED1"    # Dark turquoise
+                )) +
+                labs(color = "layer") +
+                scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
+
+            spe_3 <- speb[, which(speb$sample_id == samples[3])]
+            p3 <- make_escheR(spe_3) |> add_fill(var=factor, point_size = 4) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 4) +
+                scale_color_manual(values = c(
+                    "L2" = "#E41A1C",   # Bright red
+                    "L3" = "#377EB8",   # Strong blue
+                    "L5" = "#4DAF4A",   # Vivid green
+                    "L6a" = "#984EA3",  # Purple
+                    "L6b" = "#FF7F00",  # Orange
+                    "WM" = "#F781BF",# Pink
+                    "L1" = "#00CED1"    # Dark turquoise
+                )) +
+                labs(color = "layer") +
+                scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[3]))
+
             grid.arrange(p1, p2, p3, nrow = 2)
         }
     }
@@ -95,25 +175,11 @@ for (i in 1:100){
     dev.off()
 }
 
-# add PRECAST clusters to spe
-load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9.Rdata"))
-
-spe$PRECAST_cluster <- unfactor(spe$PRECAST_cluster)
-spe$PRECAST_cluster[spe$PRECAST_cluster == 3] <- "WM1"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 8] <- "WM2"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 7] <- "WM-CC"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 5] <- "L6b"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 6] <- "L6a"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 4] <- "L5"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 2] <- "L3"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 1] <- "L2"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 9] <- "L1"
-
-spe.temp$PRECAST_cluster <- spe$PRECAST_cluster
+spe.temp$PRECAST_cluster <- spe$layer
 
 plot_list <- list()
 
-for (i in 1:100){
+for (i in 1:75){
     print(paste0("i=", i))
 
     p <- plotColData(spe.temp, x = "PRECAST_cluster", y = paste0("NMF_", i)) +
@@ -146,7 +212,7 @@ library(effectsize)
 kruskal_res_list <- list()
 epsilon_squared_res_list <- list()
 
-for (i in 1:100){
+for (i in 1:75){
 
     NMF_i <- colData(spe.temp)[, paste0("NMF_", i)]
     PRECAST_cluster <- colData(spe.temp)$PRECAST_cluster
@@ -201,7 +267,7 @@ kruskal_statistics <- sapply(kruskal_res_list, function(x) {
 
 # Combine the extracted values into a data frame
 kruskal_results <- data.frame(
-    NMF = paste0("NMF_", 1:100),
+    NMF = paste0("NMF_", 1:75),
     p.value = kruskal_p_values,
     statistic = kruskal_statistics,
     epsilon_squared_values

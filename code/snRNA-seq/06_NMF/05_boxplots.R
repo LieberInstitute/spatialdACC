@@ -17,13 +17,13 @@ x <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "nmf_results.R
 sce.temp <- sce
 
 # add each proj column to colData(sce)
-for (i in 1:100){
+for (i in 1:75){
     colData(sce.temp)[[paste0("NMF_",i)]] <- x@h[i,]
 }
 
 plot_list <- list()
 
-for (i in 1:100){
+for (i in 1:75){
     print(paste0("i=", i))
 
     p <- plotColData(sce.temp, x = "cellType_azimuth", y = paste0("NMF_", i)) +
