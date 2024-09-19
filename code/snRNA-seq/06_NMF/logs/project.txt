@@ -1,11 +1,12 @@
 **** Job starts ****
-Fri Mar 15 11:04:40 AM EDT 2024
+Thu Sep 19 11:23:04 AM EDT 2024
 **** SLURM info ****
 User: kshah
-Job id: 3235479
-Job name: spatial_reg
-Hostname: compute-099
+Job id: 9704602
+Job name: nmf_factor
+Hostname: compute-113
 Task id: 
+Unloading conda_R/4.3.x
 Loading conda_R/4.3.x
 
 Currently Loaded Modules:
@@ -103,4 +104,4 @@ The following object is masked from ‘package:S4Vectors’:
     expand
 
 **** Job ends ****
-Fri Mar 15 12:38:30 PM EDT 2024
+Thu Sep 19 12:34:23 PM EDT 2024

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=spatial_reg
+#SBATCH --job-name=nmf_factor
 #SBATCH --cpus-per-task=4
 #SBATCH --mem-per-cpu=10G
 #SBATCH --output=logs/project.txt
@@ -17,7 +17,7 @@ echo "Job name: ${SLURM_JOB_NAME}"
 echo "Hostname: ${HOSTNAME}"
 echo "Task id: ${SLURM_ARRAY_TASK_ID}"
 
-module load conda_R
+module load conda_R/4.3.x
 
 ## List current modules for reproducibility
 module list
