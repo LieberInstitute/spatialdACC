@@ -86,17 +86,17 @@ pca_pseudo <- pca$x[, seq_len(20)]
 colnames(pca_pseudo) <- paste0("PC", sprintf("%02d", seq_len(ncol(pca_pseudo))))
 reducedDims(spe_pseudo) <- list(PCA = pca_pseudo)
 
+# there is one WM spot that is very high in PC2 (PC2 > 300) and is an outlier
+# we will remove it from the analysis
+idx <- which(reducedDims(spe_pseudo)$PCA[,'PC02'] > 300)
+spe_pseudo <- spe_pseudo[, -idx]
+
 ## save pseudobulked spe file
 save(
     spe_pseudo,
     file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_pseudobulk", paste0(nnSVG_precast_name,".Rdata"))
 )
 
-
-# there is one WM spot that is very high in PC2 (PC2 > 300) and is an outlier
-# we will remove it from the analysis
-idx <- which(reducedDims(spe_pseudo)$PCA[,'PC02'] > 300)
-spe_pseudo <- spe_pseudo[, -idx]
 
 ## Plot PCs
 col_data_df <- as.data.frame(colData(spe_pseudo))

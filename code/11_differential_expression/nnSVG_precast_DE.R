@@ -65,19 +65,27 @@ colData(spe)[nnSVG_precast_name] <- as.factor(colData(spe)[,nnSVG_precast_name])
 #avoid limma make contrasts syntax error if using 1-9 labels
 #colData(spe)[nnSVG_precast_name] <- paste0("clust", colData(spe)[,nnSVG_precast_name])
 
-spe_pseudo <-
-     registration_pseudobulk(spe,
-                             var_registration = nnSVG_precast_name,
-                             var_sample_id = "sample_id",
-                             min_ncells = 10
-     )
+load(
+    file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_pseudobulk", paste0(nnSVG_precast_name,".Rdata"))
+)
 
-modeling_results <- registration_wrapper(
-    spe,
-    var_registration = nnSVG_precast_name,
-    var_sample_id = "sample_id",
-    gene_ensembl = 'gene_id',
-    gene_name = 'gene_name'
+registration_mod <-
+    registration_model(spe_pseudo, covars = NULL)
+
+block_cor <-
+    registration_block_cor(spe_pseudo, registration_model = registration_mod)
+
+results_enrichment <-
+    registration_stats_enrichment(
+        spe_pseudo,
+        block_cor = block_cor,
+        covars = NULL,
+        gene_ensembl = "gene_id",
+        gene_name = "gene_name"
+    )
+
+modeling_results <- list(
+    "enrichment" = results_enrichment
 )
 
 ###save modeling results list
@@ -127,7 +135,7 @@ for (i in indices) {
         col_high_box = "skyblue",
         col_high_point = "dodgerblue4",
         cex = 2,
-        group_var = nnSVG_precast_name,
+        group_var = "layer",
         assayname = "logcounts"
     )
 }
@@ -146,7 +154,7 @@ pdf(file = here::here("plots", "11_differential_expression","pseudobulk", "nnSVG
                       paste0("volcano_", nnSVG_precast_name, ".pdf")),
     width = 8.5, height = 8)
 
-for (i in unique(colData(spe_pseudo)[[nnSVG_precast_name]])) {
+for (i in unique(colData(spe_pseudo)[["layer"]])) {
     print(i)
 
     fdrs <- modeling_results[["enrichment"]][,paste0("fdr_", i)]
