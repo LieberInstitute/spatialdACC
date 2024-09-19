@@ -10,29 +10,9 @@ load(file = here("processed-data", "13_NMF", "spe_NMF.Rdata"))
 proj <- reducedDim(spe, "NMF_proj")
 
 # load precast cluster data
-load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9.Rdata"))
+load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9_labels.Rdata"))
 
-# relabel spe$PRECAST_cluster to the following:
-# 3- WM1
-# 8- WM2
-# 7- WM-CC
-# 5- L6b
-# 6- L6a
-# 4- L5
-# 2- L3
-# 1- L2
-# 9- L1
-
-spe$PRECAST_cluster <- unfactor(spe$PRECAST_cluster)
-spe$PRECAST_cluster[spe$PRECAST_cluster == 3] <- "WM1"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 8] <- "WM2"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 7] <- "WM-CC"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 5] <- "L6b"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 6] <- "L6a"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 4] <- "L5"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 2] <- "L3"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 1] <- "L2"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 9] <- "L1"
+spe$PRECAST_cluster <- spe$layer
 
 ####onehot encode precast cluster
 data<-as.data.frame(spe$PRECAST_cluster)
@@ -105,13 +85,6 @@ rownames(onehot_brnum)<-onehot_brnum[,1]
 onehot_brnum[,1]<-as.numeric(onehot_brnum[,1])
 onehot_brnum<-onehot_brnum[order(onehot_brnum[,1],decreasing=F),]
 onehot_brnum[,1]<-NULL
-
-# fix error In cor(proj, onehot_sample_id) : the standard deviation is zero
-# check if any of the columns in proj are all 0
-sum(colSums(proj) == 0)
-
-# remove columns in proj that are all 0
-proj_no_zero <- proj[, colSums(proj) != 0]
 
 ###correlate with nmf patterns
 pdf(here("plots", "13_NMF", "nmf_sample_correlation_heatmap.pdf"))
