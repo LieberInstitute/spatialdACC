@@ -225,8 +225,8 @@ epsilon_squared_res_list <- list()
 for (i in 1:75){
 
     if (!(paste0("nmf",i) %in% colnames(colData(spe.temp)))) {
-        print(i)
-    }}
+        next
+    }
 
     NMF_i <- colData(spe.temp)[, paste0("nmf", i)]
     PRECAST_cluster <- colData(spe.temp)$PRECAST_cluster
