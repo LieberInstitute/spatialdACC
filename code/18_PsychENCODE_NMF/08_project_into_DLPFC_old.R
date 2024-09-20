@@ -51,60 +51,17 @@ loadings <- loadings[match(rowData(spe_DLPFC_12)$gene_name,rownames(loadings)),]
 logcounts <- logcounts(spe_DLPFC_12)
 
 proj <- project(loadings, as.matrix(logcounts))
-proj <- t(proj)
-colnames(proj) <- paste("NMF", 1:50, sep = "_")
+# remove rowSums == 0
+proj <- proj[rowSums(proj) != 0,]
 
-# add to reducedDims
-reducedDim(spe_DLPFC_12, "NMF_proj") <- proj
+proj <- apply(proj,1,function(x){x/sum(x)})
+
+colData(spe_DLPFC_12) <- cbind(colData(spe_DLPFC_12),proj)
 
 # save spe_DLPFC_12
 save(spe_DLPFC_12, file = here("processed-data", "18_PsychENCODE_NMF", "spe_DLPFC_12_NMF.Rdata"))
 
 spe_DLPFC_12.temp <- spe_DLPFC_12
-
-# add each proj column to colData(spe_DLPFC_12.temp)
-for (i in 1:50){
-    colData(spe_DLPFC_12.temp)[[paste0("NMF_",i)]] <- reducedDims(spe_DLPFC_12.temp)$NMF_proj[,i]
-}
-
-brains <- unique(spe_DLPFC_12.temp$subject)
-
-for (i in 1:50){
-    print(paste0("i=", i))
-
-    pdf(file = here::here("plots", "18_PsychENCODE_NMF", "SpotPlots_DLPFC_12", paste0("NMF_", i, ".pdf")),
-        width = 21, height = 20)
-
-    for (j in seq_along(brains)){
-        spe_DLPFC_12b <- spe_DLPFC_12.temp[, which(spe_DLPFC_12.temp$subject == brains[j])]
-        samples <- unique(spe_DLPFC_12b$sample_id)
-        print(length(samples))
-
-        if (length(samples) == 1){
-            p1 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 9, )
-            grid.arrange(p1, nrow = 1)
-        } else if (length(samples) == 2){
-            p1 <- vis_gene(spe =  spe_DLPFC_12b, sampld = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p2 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            grid.arrange(p1, p2, nrow = 2)
-        } else if (length(samples) == 3){
-            p1 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p2 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p3 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[3], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            grid.arrange(p1, p2, p3, nrow = 2)
-        }
-	else if (length(samples) == 4){
-            p1 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[1], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p2 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[2], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p3 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[3], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            p4 <- vis_gene(spe =  spe_DLPFC_12b, sampleid = samples[4], geneid= paste0("NMF_", i), spatial = FALSE, point_size = 4, )
-            grid.arrange(p1, p2, p3, p4, nrow = 2)
-        }
-    }
-
-    dev.off()
-}
-
 spe_DLPFC_12.temp$layer_guess_reordered <- unfactor(spe_DLPFC_12.temp$layer_guess_reordered)
 spe_DLPFC_12.temp$layer_guess_reordered[spe_DLPFC_12.temp$layer_guess_reordered == "Layer1"] <- "L1"
 spe_DLPFC_12.temp$layer_guess_reordered[spe_DLPFC_12.temp$layer_guess_reordered == "Layer2"] <- "L2"
@@ -115,19 +72,112 @@ spe_DLPFC_12.temp$layer_guess_reordered[spe_DLPFC_12.temp$layer_guess_reordered 
 # remove NA
 spe_DLPFC_12.temp <- spe_DLPFC_12.temp[,!is.na(spe_DLPFC_12.temp$layer_guess_reordered)]
 
-plot_list <- list()
+
+brains <- unique(spe_DLPFC_12.temp$subject)
 
 for (i in 1:50){
     print(paste0("i=", i))
 
-    p <- plotColData(spe_DLPFC_12.temp, x = "layer_guess_reordered", y = paste0("NMF_", i)) +
-        ggtitle(paste0("NMF ", i, " Layer Boxplots")) +
-        facet_wrap(~ spe_DLPFC_12.temp$layer_guess_reordered, scales = "free_x", nrow = 1) +
-        labs(x = "Layer", y = paste0("NMF_", i)) +
-        theme_bw()
+    factor <- paste0("nmf", i)
+
+    if (!(factor %in% colnames(colData(spe_DLPFC_12.temp)))) {
+        next
+    }
+
+    pdf(file = here::here("plots", "18_PsychENCODE_NMF", "SpotPlots_DLPFC_12", paste0("NMF_", i, ".pdf")),
+        width = 21, height = 20)
+
+    for (j in seq_along(brains)){
+        spe_DLPFC_12b <- spe_DLPFC_12.temp[, which(spe_DLPFC_12.temp$subject == brains[j])]
+        samples <- unique(spe_DLPFC_12b$sample_id)
+        print(length(samples))
+
+
+	if (length(samples) == 4){
+	    spe_1 <- spe_DLPFC_12b[, which(spe_DLPFC_12b$sample_id == samples[1])]
+	    p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer_guess_reordered", stroke=0.5, point_size = 4) +
+	        scale_color_manual(values = c(
+	            "L2" = "#E41A1C",   # Bright red
+	            "L3" = "#377EB8",   # Strong blue
+	            "L5" = "#4DAF4A",   # Vivid green
+	            "L4" = "#E6D200",   # Yellow
+	            "L6" = "#984EA3",  # Purple
+	            "WM" = "#F781BF",# Pink
+	            "L1" = "#00CED1"    # Dark turquoise
+	        )) +
+	        labs(color = "layer") +
+	        scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
+
+	    spe_2 <- spe_DLPFC_12b[, which(spe_DLPFC_12b$sample_id == samples[2])]
+	    p2 <- make_escheR(spe_2) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer_guess_reordered", stroke=0.5, point_size = 4) +
+	        scale_color_manual(values = c(
+	            "L2" = "#E41A1C",   # Bright red
+	            "L3" = "#377EB8",   # Strong blue
+	            "L5" = "#4DAF4A",   # Vivid green
+	            "L4" = "#E6D200",   # Yellow
+	            "L6" = "#984EA3",  # Purple
+	            "WM" = "#F781BF",# Pink
+	            "L1" = "#00CED1"    # Dark turquoise
+	        )) +
+	        labs(color = "layer") +
+	        scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
+
+	    spe_3 <- spe_DLPFC_12b[, which(spe_DLPFC_12b$sample_id == samples[3])]
+	    p3 <- make_escheR(spe_3) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer_guess_reordered", stroke=0.5, point_size = 4) +
+	        scale_color_manual(values = c(
+	            "L2" = "#E41A1C",   # Bright red
+	            "L3" = "#377EB8",   # Strong blue
+	            "L5" = "#4DAF4A",   # Vivid green
+	            "L4" = "#E6D200",   # Yellow
+	            "L6" = "#984EA3",  # Purple
+	            "WM" = "#F781BF",# Pink
+	            "L1" = "#00CED1"    # Dark turquoise
+	        )) +
+	        labs(color = "layer") +
+	        scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[3]))
+
+	    spe_4 <- spe_DLPFC_12b[, which(spe_DLPFC_12b$sample_id == samples[4])]
+	    p4 <- make_escheR(spe_4) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer_guess_reordered", stroke=0.5, point_size = 4) +
+	        scale_color_manual(values = c(
+	            "L2" = "#E41A1C",   # Bright red
+	            "L3" = "#377EB8",   # Strong blue
+	            "L5" = "#4DAF4A",   # Vivid green
+	            "L4" = "#E6D200",   # Yellow
+	            "L6" = "#984EA3",  # Purple
+	            "WM" = "#F781BF",# Pink
+	            "L1" = "#00CED1"    # Dark turquoise
+	        )) +
+	        labs(color = "layer") +
+	        scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[4]))
+
+	    grid.arrange(p1, p2, p3, p4, nrow = 2)
+        }
+    }
+
+    dev.off()
+}
+
+plot_list <- list()
+
+for (i in 1:50) {
+    print(paste0("i = ", i))
+
+    nmf_col <- paste0("nmf", i)
+
+    # Check if the column exists in colData(spe.temp)
+    if (nmf_col %in% colnames(colData(spe_DLPFC_12.temp))) {
+        # Create the plot if the column exists
+        p <- plotColData(spe_DLPFC_12.temp, x = "layer_guess_reordered", y = nmf_col) +
+            ggtitle(paste0("NMF ", i, " Layer Boxplots")) +
+            facet_wrap(~ spe_DLPFC_12.temp$layer_guess_reordered, scales = "free_x", nrow = 1)
+    } else {
+        # Create a blank plot if the column doesn't exist
+        p <- ggplot() +
+            theme_void() +
+            ggtitle(paste0("NMF ", i, " not available"))
+    }
 
     plot_list[[i]] <- p
-
 }
 
 for (i in seq(1, length(plot_list), by = 5)) {
@@ -154,7 +204,11 @@ epsilon_squared_res_list <- list()
 
 for (i in 1:50){
 
-    NMF_i <- colData(spe_DLPFC_12.temp)[, paste0("NMF_", i)]
+    if (!(paste0("nmf",i) %in% colnames(colData(spe_DLPFC_12.temp)))) {
+        next
+    }
+
+    NMF_i <- colData(spe_DLPFC_12.temp)[, paste0("nmf", i)]
     layer_guess_reordered <- spe_DLPFC_12.temp$layer_guess_reordered
     dat <- data.frame(NMF_i, layer_guess_reordered)
 
@@ -203,6 +257,11 @@ kruskal_statistics <- sapply(kruskal_res_list, function(x) {
         return(x$statistic)
     }
 })
+
+# add 2 NA entries for NMF49 and NMF50
+kruskal_p_values <- c(kruskal_p_values, rep(NA, 2))
+kruskal_statistics <- c(kruskal_statistics, rep(NA, 2))
+epsilon_squared_values <- c(epsilon_squared_values, rep(NA, 2))
 
 # Combine the extracted values into a data frame
 kruskal_results <- data.frame(
