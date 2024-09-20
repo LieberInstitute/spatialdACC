@@ -7,7 +7,9 @@ library(pheatmap)
 library(reshape2)
 
 load(file = here("processed-data", "13_NMF", "spe_NMF.Rdata"))
-proj <- reducedDim(spe, "NMF_proj")
+
+# proj is the columns in colData(spe) that start with "nmf"
+proj <- as.matrix(colData(spe)[,grep("nmf", colnames(colData(spe)))])
 
 # load precast cluster data
 load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9_labels.Rdata"))
@@ -41,7 +43,7 @@ dev.off()
 data <- data.frame(colData(spe), proj_no_zero)
 
 # aggregate NMF patterns across clusters. # grep "NMF" to get all NMF patterns
-agg_data <- aggregate(data[,grep("NMF", colnames(data))],
+agg_data <- aggregate(data[,grep("nmf", colnames(data))],
                       by=list(data$PRECAST_cluster),
                       FUN=mean)
 

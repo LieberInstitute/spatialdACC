@@ -49,27 +49,27 @@ logcounts <- logcounts(spe)
 #loadings <- as(loadings, "dgCMatrix")
 
 proj <- project(w=loadings, data=logcounts)
-proj <- t(proj)
-colnames(proj) <- paste("NMF", 1:75, sep = "_")
 
-# add to reducedDims
-reducedDim(spe, "NMF_proj") <- proj
+# remove rowSums == 0
+proj <- proj[rowSums(proj) != 0,]
+
+proj <- apply(proj,1,function(x){x/sum(x)})
+
+colData(spe) <- cbind(colData(spe),proj)
 
 # save spe
 save(spe, file = here("processed-data", "13_NMF", "spe_NMF.Rdata"))
 
 spe.temp <- spe
-
-# add each proj column to colData(spe)
-for (i in 1:75){
-    colData(spe.temp)[[paste0("NMF_",i)]] <- reducedDims(spe.temp)$NMF_proj[,i]
-}
-
 brains <- unique(spe.temp$brnum)
 
 for (i in 1:75){
     print(paste0("i=", i))
-    factor <- paste0("NMF_", i)
+    factor <- paste0("nmf", i)
+
+    if (!(factor %in% colnames(colData(spe.temp)))) {
+        next
+    }
 
     pdf(file = here::here("plots", "13_NMF", "SpotPlots", paste0("NMF_", i, ".pdf")),
         width = 21, height = 20)
@@ -179,15 +179,25 @@ spe.temp$PRECAST_cluster <- spe$layer
 
 plot_list <- list()
 
-for (i in 1:75){
-    print(paste0("i=", i))
+for (i in 1:75) {
+    print(paste0("i = ", i))
 
-    p <- plotColData(spe.temp, x = "PRECAST_cluster", y = paste0("NMF_", i)) +
-        ggtitle(paste0("NMF ", i, " Layer Boxplots")) +
-        facet_wrap(~ spe.temp$PRECAST_cluster, scales = "free_x", nrow = 1)
+    nmf_col <- paste0("nmf", i)
+
+    # Check if the column exists in colData(spe.temp)
+    if (nmf_col %in% colnames(colData(spe.temp))) {
+        # Create the plot if the column exists
+        p <- plotColData(spe.temp, x = "PRECAST_cluster", y = nmf_col) +
+            ggtitle(paste0("NMF ", i, " Layer Boxplots")) +
+            facet_wrap(~ spe.temp$PRECAST_cluster, scales = "free_x", nrow = 1)
+    } else {
+        # Create a blank plot if the column doesn't exist
+        p <- ggplot() +
+            theme_void() +
+            ggtitle(paste0("NMF ", i, " not available"))
+    }
 
     plot_list[[i]] <- p
-
 }
 
 for (i in seq(1, length(plot_list), by = 5)) {
@@ -214,7 +224,11 @@ epsilon_squared_res_list <- list()
 
 for (i in 1:75){
 
-    NMF_i <- colData(spe.temp)[, paste0("NMF_", i)]
+    if (!(paste0("nmf",i) %in% colnames(colData(spe.temp)))) {
+        print(i)
+    }}
+
+    NMF_i <- colData(spe.temp)[, paste0("nmf", i)]
     PRECAST_cluster <- colData(spe.temp)$PRECAST_cluster
     dat <- data.frame(NMF_i, PRECAST_cluster)
 
