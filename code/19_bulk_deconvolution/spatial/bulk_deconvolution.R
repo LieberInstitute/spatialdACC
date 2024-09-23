@@ -11,25 +11,16 @@ library("tidyr")
 library("tibble")
 library("here")
 library("scran")
+library("ggplot2")
 
 # Load the bulk data
 load(here("processed-data", "PTSD_bulk", "rse_gene_PTSD_VA_LIBD_qcAndAnnotated_n1285.Rdata"))
 rownames(rse_gene) <- rowData(rse_gene)$ensemblID
 
 # load the spe object
-load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9.Rdata"))
-spe$PRECAST_cluster <- unfactor(spe$PRECAST_cluster)
-spe$PRECAST_cluster[spe$PRECAST_cluster == 3] <- "WM1"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 8] <- "WM2"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 7] <- "WM-CC"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 5] <- "L6b"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 6] <- "L6a"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 4] <- "L5"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 2] <- "L3"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 1] <- "L2"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 9] <- "L1"
+load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9_labels.Rdata"))
 
-marker_stats <- get_mean_ratio2(spe, cellType_col = "PRECAST_cluster")
+marker_stats <- get_mean_ratio2(spe, cellType_col = "layer")
 
 marker_genes <- marker_stats |>
     filter(rank_ratio <= 25, gene %in% rownames(rse_gene)) |>
@@ -38,7 +29,7 @@ marker_genes <- marker_stats |>
 marker_genes <- unique(marker_genes)
 
 length(marker_genes)
-# 187
+# 174
 
 exp_set_bulk <- Biobase::ExpressionSet(
     assayData = assays(rse_gene[marker_genes, ])$counts,
@@ -50,7 +41,7 @@ exp_set_bulk <- Biobase::ExpressionSet(
 exp_set_spe <- Biobase::ExpressionSet(
     assayData = as.matrix(assays(spe[marker_genes, ])$counts),
     phenoData = AnnotatedDataFrame(
-        as.data.frame(colData(spe))[, c("PRECAST_cluster", "brnum")]
+        as.data.frame(colData(spe))[, c("layer", "brnum")]
     )
 )
 
@@ -64,7 +55,7 @@ exp_set_spe <- exp_set_spe[, zero_cell_filter]
 est_prop <- ReferenceBasedDecomposition(
     bulk.eset = exp_set_bulk,
     sc.eset = exp_set_spe,
-    cell.types = "PRECAST_cluster",
+    cell.types = "layer",
     subject.names = "brnum",
     use.overlap = FALSE
 )
@@ -88,5 +79,7 @@ prop_long <- est_prop$bulk.props |>
 
 pdf(here("plots", "19_bulk_deconvolution", "spatial_bulk_deconvolution_bisque.pdf"))
 plot_composition_bar(prop_long = prop_long, sample_col = "Sample", x_col = "Group", min_prop_text = 0.025)
-plot_composition_bar(prop_long = prop_long, sample_col = "Sample", x_col = "Sample", add_text = FALSE)
+plot_composition_bar(prop_long = prop_long, sample_col = "Sample", x_col = "Sample", add_text = FALSE) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
 dev.off()

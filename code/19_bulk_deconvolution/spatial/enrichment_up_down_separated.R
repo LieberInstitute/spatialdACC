@@ -69,17 +69,17 @@ results_PTSD_down <- list()
 results_MDD_up <- list()
 results_MDD_down <- list()
 
-for (i in 1:9) {
+for (i in c("L1","L2","L3","L5","L6a","L6b","WM")) {
     # Identify upregulated and downregulated DE genes in the spatial domain
     DE_clust_genes_up <- rownames(enrichment_results[
-        enrichment_results[[paste0("fdr_clust", i)]] < 0.05 & enrichment_results[[paste0("logFC_clust", i)]] > 0, ])
+        enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] > 0, ])
     DE_clust_genes_down <- rownames(enrichment_results[
-        enrichment_results[[paste0("fdr_clust", i)]] < 0.05 & enrichment_results[[paste0("logFC_clust", i)]] < 0, ])
+        enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] < 0, ])
 
     nonDE_clust_genes_up <- rownames(enrichment_results[
-        enrichment_results[[paste0("fdr_clust", i)]] >= 0.05 | enrichment_results[[paste0("logFC_clust", i)]] <= 0, ])
+        enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] <= 0, ])
     nonDE_clust_genes_down <- rownames(enrichment_results[
-        enrichment_results[[paste0("fdr_clust", i)]] >= 0.05 | enrichment_results[[paste0("logFC_clust", i)]] >= 0, ])
+        enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] >= 0, ])
 
     # PTSD upregulated
     DE_clust_DE_bulk_PTSD_up <- length(intersect(DE_clust_genes_up, DE_bulk_PTSD_up))
@@ -155,13 +155,6 @@ combined_pvalues <- cbind(
     MDD_Upregulated = pvalues_MDD_up,
     MDD_Downregulated = pvalues_MDD_down
 )
-
-# Assign row names for spatial domains and column names for regulation types
-rownames(combined_pvalues) <- paste0("Cluster_", 1:9)
-colnames(combined_pvalues) <- c("PTSD_Upregulated", "PTSD_Downregulated", "MDD_Upregulated", "MDD_Downregulated")
-
-# Rename rownames according to spatial domain names
-rownames(combined_pvalues) <- c("L2", "L3", "WM1", "L5", "L6b", "L6a", "WM-CC", "WM2", "L1")
 
 # Reorder the matrix for the heatmap based on average p-values
 row_means <- rowMeans(-log10(combined_pvalues), na.rm = TRUE)

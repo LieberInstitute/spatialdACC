@@ -63,16 +63,16 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
     results_up <- list()
     results_down <- list()
 
-    for (i in 1:9) {
+    for (i in c("L1","L2","L3","L5","L6a","L6b","WM")) {
         DE_clust_genes_up <- rownames(enrichment_results[
-            enrichment_results[[paste0("fdr_clust", i)]] < 0.05 & enrichment_results[[paste0("logFC_clust", i)]] > 0, ])
+            enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] > 0, ])
         DE_clust_genes_down <- rownames(enrichment_results[
-            enrichment_results[[paste0("fdr_clust", i)]] < 0.05 & enrichment_results[[paste0("logFC_clust", i)]] < 0, ])
+            enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] < 0, ])
 
         nonDE_clust_genes_up <- rownames(enrichment_results[
-            enrichment_results[[paste0("fdr_clust", i)]] >= 0.05 | enrichment_results[[paste0("logFC_clust", i)]] <= 0, ])
+            enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] <= 0, ])
         nonDE_clust_genes_down <- rownames(enrichment_results[
-            enrichment_results[[paste0("fdr_clust", i)]] >= 0.05 | enrichment_results[[paste0("logFC_clust", i)]] >= 0, ])
+            enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] >= 0, ])
 
         DE_clust_DE_bulk_up <- length(intersect(DE_clust_genes_up, DE_bulk_up))
         DE_clust_nonDE_bulk_up <- length(intersect(DE_clust_genes_up, nonDE_bulk_up))
@@ -110,8 +110,6 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
         Upregulated = pvalues_up,
         Downregulated = pvalues_down
     )
-
-    rownames(combined_pvalues) <- c("L2", "L3", "WM1", "L5", "L6b", "L6a", "WM-CC", "WM2", "L1")
 
     row_means <- rowMeans(-log10(combined_pvalues), na.rm = TRUE)
     col_means <- colMeans(-log10(combined_pvalues), na.rm = TRUE)
