@@ -165,11 +165,17 @@ ordered_cols <- order(col_means, decreasing = TRUE)
 
 combined_pvalues_ordered <- combined_pvalues[ordered_rows, ordered_cols]
 
-# Create heatmap for the combined p-values
+# Define custom color function for -log10 transformed values
+col_fun <- colorRamp2(
+    c(1.3, max(-log10(combined_pvalues_ordered))),
+    c("white", "blue") # White for -log10(p) >= 1.3 (p >= 0.05), blue for more significant p-values
+)
+
+# Adjust heatmap
 heatmap_combined <- Heatmap(
     -log10(combined_pvalues_ordered),
     name = "-log10(Fisher's p-value)",
-    col = colorRampPalette(c("white", "blue", "red"))(50),
+    col = col_fun,
     cluster_rows = FALSE,
     cluster_columns = FALSE,
     show_column_names = TRUE,
@@ -185,8 +191,8 @@ heatmap_combined <- Heatmap(
     column_names_side = "bottom",
     border = TRUE,
     border_gp = gpar(col = "black", lwd = 2)
-
 )
+
 
 # Display the heatmap
 pdf(here("plots", "19_bulk_deconvolution", "spatial_heatmap_up_down_pval_0.1_separated.pdf"))
