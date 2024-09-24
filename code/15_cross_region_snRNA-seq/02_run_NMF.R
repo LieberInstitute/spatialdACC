@@ -94,3 +94,31 @@ p1 <- pheatmap(agg_data,
                fontsize_col = 5
 )
 dev.off()
+
+nmf_df <- as.data.frame(t(x$h)) # the patterns have the correct dims, but in the comment it says loadings
+
+# normalize loadings
+col_sums <- colSums(nmf_df) # these are all = 1?
+
+# Normalize each column by its sum
+normalized_df <- sweep(nmf_df, 2, col_sums, FUN="/")
+normalized_df$group <- sce$layer_annotation
+normalized_df <- normalized_df[!is.na(normalized_df) != 0,] # this makes the dims get large
+
+summarized <- summarizeAssayByGroup(t(normalized_df),
+                                    ids=DataFrame(group="group"),
+                                    #subset.row=subset_patterns,
+                                    statistics=c("sum", "prop.detected"), threshold=0) # this does not work
+
+sum <- assay(summarized, "sum")
+num <- assay(summarized, "prop.detected")
+group.names <- summarized$group
+
+evals_long <- data.frame(
+    Feature=rep(colnames(normalized_df), ncol(num)),
+    Group=rep(group.names, each=nrow(num)),
+    NumDetected=as.numeric(num),
+    Sum=as.numeric(sum)
+)
+
+
