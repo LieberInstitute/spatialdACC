@@ -9,58 +9,47 @@ library(here)
 library(gridExtra)
 
 # load data
-load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9.Rdata"))
+load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9_labels.Rdata"))
 
 spe$counts_VAT1L <- counts(spe)[which(rowData(spe)$gene_name=="VAT1L"),]
 
-spe$cluster <- unfactor(spe$cluster)
-spe$cluster[spe$cluster == 3] <- "WM1"
-spe$cluster[spe$cluster == 8] <- "WM2"
-spe$cluster[spe$cluster == 7] <- "WM-CC"
-spe$cluster[spe$cluster == 5] <- "L6b"
-spe$cluster[spe$cluster == 6] <- "L6a"
-spe$cluster[spe$cluster == 4] <- "L5"
-spe$cluster[spe$cluster == 2] <- "L3"
-spe$cluster[spe$cluster == 1] <- "L2"
-spe$cluster[spe$cluster == 9] <- "L1"
-
 spe.temp <- spe
-brains <- unique(spe.temp$subject)
+brains <- unique(spe.temp$brnum)
 
 pdf(file = here::here("plots", "16_VENs_analysis", "VAT1L_spot_plots_clusters.pdf"),
     width = 21, height = 20)
 
 for (j in seq_along(brains)){
-    speb <- spe.temp[, which(spe.temp$subject == brains[j])]
+    speb <- spe.temp[, which(spe.temp$brnum == brains[j])]
     samples <- unique(speb$sample_id)
     print(length(samples))
 
     if (length(samples) == 1){
         spe_1 <- speb[, which(speb$sample_id == samples[1])]
-        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 9) |> add_ground(var="cluster", stroke=0.5, point_size = 9) +
+        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 9) |> add_ground(var="layer", stroke=0.5, point_size = 9) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
 
         grid.arrange(p1, nrow = 1)
     } else if (length(samples) == 2){
         spe_1 <- speb[, which(speb$sample_id == samples[1])]
-        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="cluster", stroke=0.5, point_size = 4) +
+        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
 
         spe_2 <- speb[, which(speb$sample_id == samples[2])]
-        p2 <- make_escheR(spe_2) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="cluster", stroke=0.5, point_size = 4) +
+        p2 <- make_escheR(spe_2) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
         grid.arrange(p1, p2, nrow = 2)
     } else if (length(samples) == 3){
         spe_1 <- speb[, which(speb$sample_id == samples[1])]
-        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="cluster", stroke=0.5, point_size = 4) +
+        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
 
         spe_2 <- speb[, which(speb$sample_id == samples[2])]
-        p2 <- make_escheR(spe_2) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="cluster", stroke=0.5, point_size = 4) +
+        p2 <- make_escheR(spe_2) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
 
         spe_3 <- speb[, which(speb$sample_id == samples[3])]
-        p3 <- make_escheR(spe_3) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="cluster", stroke=0.5, point_size = 4) +
+        p3 <- make_escheR(spe_3) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[3]))
         grid.arrange(p1, p2, p3, nrow = 2)
     }
@@ -88,7 +77,7 @@ spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 9] <- "
 # remove meninges
 spe_DLPFC_30 <- spe_DLPFC_30[,which(spe_DLPFC_30$BayesSpace_harmony_09 != "meninges")]
 
-spe_DLPFC_30$cluster <- spe_DLPFC_30$BayesSpace_harmony_09
+spe_DLPFC_30$layer <- spe_DLPFC_30$BayesSpace_harmony_09
 
 spe.temp <- spe_DLPFC_30
 brains <- unique(spe.temp$subject)
@@ -103,30 +92,30 @@ for (j in seq_along(brains)){
 
     if (length(samples) == 1){
         spe_1 <- speb[, which(speb$sample_id == samples[1])]
-        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 9) |> add_ground(var="cluster", stroke=0.5, point_size = 9) +
+        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 9) |> add_ground(var="layer", stroke=0.5, point_size = 9) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
 
         grid.arrange(p1, nrow = 1)
     } else if (length(samples) == 2){
         spe_1 <- speb[, which(speb$sample_id == samples[1])]
-        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="cluster", stroke=0.5, point_size = 4) +
+        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
 
         spe_2 <- speb[, which(speb$sample_id == samples[2])]
-        p2 <- make_escheR(spe_2) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="cluster", stroke=0.5, point_size = 4) +
+        p2 <- make_escheR(spe_2) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
         grid.arrange(p1, p2, nrow = 2)
     } else if (length(samples) == 3){
         spe_1 <- speb[, which(speb$sample_id == samples[1])]
-        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="cluster", stroke=0.5, point_size = 4) +
+        p1 <- make_escheR(spe_1) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
 
         spe_2 <- speb[, which(speb$sample_id == samples[2])]
-        p2 <- make_escheR(spe_2) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="cluster", stroke=0.5, point_size = 4) +
+        p2 <- make_escheR(spe_2) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
 
         spe_3 <- speb[, which(speb$sample_id == samples[3])]
-        p3 <- make_escheR(spe_3) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="cluster", stroke=0.5, point_size = 4) +
+        p3 <- make_escheR(spe_3) |> add_fill(var="counts_VAT1L", point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
             scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[3]))
         grid.arrange(p1, p2, p3, nrow = 2)
     }

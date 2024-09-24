@@ -9,7 +9,7 @@ library(MERINGUE)
 library(scuttle)
 
 # load data
-load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9.Rdata"))
+load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9_labels.Rdata"))
 
 # compute normcounts
 spe <- logNormCounts(spe, transform = "none")
