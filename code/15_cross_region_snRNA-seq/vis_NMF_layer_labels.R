@@ -40,37 +40,6 @@ spe_DLPFC_12 <- spe_DLPFC_12[,!is.na(spe_DLPFC_12$layer_guess_reordered)]
 # rename to "layer"
 colData(spe_DLPFC_12)$layer <- colData(spe_DLPFC_12)$layer_guess_reordered
 
-# load layer data
-load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9.Rdata"))
-
-spe$PRECAST_cluster <- unfactor(spe$PRECAST_cluster)
-spe$PRECAST_cluster[spe$PRECAST_cluster == 3] <- "WM"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 8] <- "WM"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 7] <- "WM"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 5] <- "L6"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 6] <- "L6"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 4] <- "L5"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 2] <- "L3"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 1] <- "L2"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 9] <- "L1"
-
-spe_dACC$PRECAST_cluster <- spe$PRECAST_cluster
-
-# add each proj column to colData(spe_DLPFC_30)
-for (i in 1:75){
-    colData(spe_DLPFC_30)[[paste0("NMF_",i)]] <- reducedDims(spe_DLPFC_30)$NMF_proj[,i]
-}
-
-# add each proj column to colData(spe_DLPFC_12)
-for (i in 1:75){
-    colData(spe_DLPFC_12)[[paste0("NMF_",i)]] <- reducedDims(spe_DLPFC_12)$NMF_proj[,i]
-}
-
-# add each proj column to colData(spe_dACC)
-for (i in 1:75){
-    colData(spe_dACC)[[paste0("NMF_",i)]] <- reducedDims(spe_dACC)$NMF_proj[,i]
-}
-
 # create spatial labels for DLPFC_30
 spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 3] <- "L2"
 spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 8] <- "L4"
@@ -87,7 +56,8 @@ spe_DLPFC_30 <- spe_DLPFC_30[,spe_DLPFC_30$BayesSpace_harmony_09 != "meninges"]
 
 DLPFC_30_layer <- "BayesSpace_harmony_09"
 DLPFC_12_layer <- "layer"
-dACC_layer <- "PRECAST_cluster"
+dACC_layer <- "layer"
+
 
 # create a function to make a list of 3 plots
 # the input is NMF factor, sample id for DLPFC_12, sample id for DLPFC 30, and sample id for dACC
@@ -95,6 +65,7 @@ dACC_layer <- "PRECAST_cluster"
 # the second plot is escher plot for DLPFC_30 with add_ground(var = DLPFC_30_layer)
 # the third plot is escher plot for dACC with add_ground(var = dACC_layer)
 # the fill for the escher plots is the NMF factor
+
 
 make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
 
@@ -108,6 +79,7 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
             "L5" = "#4DAF4A",   # Vivid green
             "L4" = "#984EA3",  # Purple
             "L6" = "#FF7F00",  # Orange
+            "WM" = "#FFFF99",  # Light yellow
             "L1" = "#00CED1"    # Dark turquoise
         )) +
         scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", DLPFC_12_id)) +
@@ -149,7 +121,8 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
             "L2" = "#E41A1C",   # Bright red
             "L3" = "#377EB8",   # Strong blue
             "L5" = "#4DAF4A",   # Vivid green
-            "L6" = "#FF7F00",  # Orange
+            "L6a" = "#E37100",  # Orange
+            "L6b" = "#FFAE00",  # Orange
             "WM" = "#FFFF99",  # Light yellow
             "L1" = "#00CED1"    # Dark turquoise
         )) +
@@ -167,29 +140,49 @@ make_plots <- function(factor, DLPFC_12_id, DLPFC_30_id, dACC_id){
 }
 
 #L1
-plots_23 <- make_plots("NMF_23", "151508", "Br6471_mid", "V12J03-002_A1")
+plots_23 <- make_plots("nmf23", "151508", "Br6471_mid", "V12J03-002_A1")
+plots_52 <- make_plots("nmf52", "151674", "Br6432_post", "V12N28-334_A1")
 
 #L2
-plots_11 <- make_plots("NMF_11", "151507", "Br6522_ant", "V12J03-002_C1")
+plots_9 <- make_plots("nmf9", "151675", "Br8667_mid", "V12N28-334_A1")
+plots_11 <- make_plots("nmf11", "151507", "Br6522_ant", "V12J03-002_C1")
+
+#L2/L3
+plots_8 <- make_plots("nmf8", "151675", "Br6522_mid", "V12J03-002_A1")
 
 # L4/L5
-plots_5 <- make_plots("NMF_5", "151673", "Br2743_mid", "V12J03-002_A1")
-plots_31 <- make_plots("NMF_31", "151673", "Br2720_post", "V12Y31-080_C1")
+plots_5 <- make_plots("nmf5", "151673", "Br2743_mid", "V12J03-002_A1")
+plots_31 <- make_plots("nmf31", "151673", "Br2720_post", "V12Y31-080_C1")
 
 #L5
-plots_33 <- make_plots("NMF_33", "151675", "Br3942_post", "V12N28-331_D1")
+plots_26 <- make_plots("nmf26", "151673", "Br3942_ant", "V12N28-332_B1")
+plots_33 <- make_plots("nmf33", "151675", "Br3942_post", "V12N28-331_D1")
+
+#L6
+plots_28 <- make_plots("nmf28", "151670", "Br3942_ant", "V12N28-332_C1")
+plots_44 <- make_plots("nmf44", "151671", "Br8325_mid", "V12Y31-080_B1")
+plots_65 <- make_plots("nmf65", "151670", "Br6522_mid", "V12J03-002_A1")
 
 #WM
-plots_39 <- make_plots("NMF_39", "151676", "Br2720_mid", "V12N28-334_D1")
+plots_37 <- make_plots("nmf37", "151510", "Br6522_ant", "V12N28-334_B1")
+plots_39 <- make_plots("nmf39", "151676", "Br2720_mid", "V12N28-334_D1")
 
 pdf(here::here("plots", "15_cross_region_snRNA-seq", "compare_NMF.pdf"), width = 10, height = 10)
 
-grid.arrange(grobs = plots_23, nrow = 1)
-grid.arrange(grobs = plots_11, nrow = 1)
-grid.arrange(grobs = plots_33, nrow = 1)
-grid.arrange(grobs = plots_39, nrow = 1)
-grid.arrange(grobs = plots_5, nrow = 1)
-grid.arrange(grobs = plots_31, nrow = 1)
+grid.arrange(grobs = plots_23, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_52, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_9, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_11, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_8, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_5, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_31, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_26, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_33, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_28, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_44, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_65, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_37, nrow = 1, top = "single nucleus DLPFC NMF")
+grid.arrange(grobs = plots_39, nrow = 1, top = "single nucleus DLPFC NMF")
 
 dev.off()
 
