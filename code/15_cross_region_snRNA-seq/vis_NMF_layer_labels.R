@@ -151,8 +151,8 @@ plots_11 <- make_plots("nmf11", "151507", "Br6522_ant", "V12J03-002_C1")
 plots_8 <- make_plots("nmf8", "151675", "Br6522_mid", "V12J03-002_A1")
 
 # L4/L5
-plots_5 <- make_plots("nmf5", "151673", "Br2743_mid", "V12J03-002_A1")
-plots_31 <- make_plots("nmf31", "151673", "Br2720_post", "V12Y31-080_C1")
+plots_5 <- make_plots("nmf5", "151507", "Br2743_mid", "V12J03-002_A1")
+plots_31 <- make_plots("nmf31", "151675", "Br8667_mid", "V12N28-331_A1")
 
 #L5
 plots_26 <- make_plots("nmf26", "151673", "Br3942_ant", "V12N28-332_B1")
