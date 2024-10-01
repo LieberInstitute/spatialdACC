@@ -24,7 +24,7 @@ load(
 spe_source <- spe
 dim(spe)
 
-layer_labs <- "nnSVG_PRECAST_captureArea_9"
+layer_labs <- "layer"
 
 res <- transfer_labels(targets=spe_target,
                        source=spe_source,
