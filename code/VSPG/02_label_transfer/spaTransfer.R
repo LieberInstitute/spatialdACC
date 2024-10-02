@@ -5,6 +5,7 @@ suppressPackageStartupMessages(library("gridExtra"))
 suppressPackageStartupMessages(library("here"))
 library("nmfLabelTransfer")
 library("scran")
+library(escheR)
 
 load(here("processed-data", "VSPG", "01_QC", "spe_QC.Rdata"), verbose = TRUE)
 
@@ -42,3 +43,34 @@ table(target_with_preds$nmf_preds)
 
 # save the results
 save(res, file = here("processed-data", "VSPG", "02_label_transfer", "spaTransfer_target_with_preds.rds"))
+
+target_with_preds <- res$targets
+
+brains <- unique(target_with_preds$brnum)
+plot_list <- c()
+# use this code but make a separate plot for each brain
+for (i in seq_along(brains)){
+
+    speb <- target_with_preds[, which(target_with_preds$brnum == brains[i])]
+    samples <- unique(speb$sample_id)
+    print(length(samples))
+
+    p <- make_escheR(speb, y_reverse=FALSE) %>%
+        add_fill("nmf_preds", point_size = 1)+
+        scale_fill_manual(values = c(
+            "L2" = "#E41A1C",   # Bright red
+            "L3" = "#377EB8",   # Strong blue
+            "L5" = "#4DAF4A",   # Vivid green
+            "L6a" = "#984EA3",  # Purple
+            "L6b" = "#FF7F00",  # Orange
+            "WM" = "#F781BF",# Pink
+            "L1" = "#00CED1"    # Dark turquoise
+        ))
+
+    plot_list[[i]] <- p
+}
+
+pdf(here("plots", "VSPG", "02_label_transfer", "spaTransfer_target_with_preds.pdf"))
+do.call(gridExtra::grid.arrange, c(plot_list, ncol=2))
+dev.off()
+
