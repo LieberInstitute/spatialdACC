@@ -74,6 +74,7 @@ spe_anno$anno_label[spe_anno$anno_label == "L6KRT17"] <- "L6"
 save(spe_anno, file = here("processed-data", "20_WM_comparisons", "spe_anno.Rdata"))
 
 # vis spe_anno
+# need updated spatialLIBD package in R/4.4.x to avoid labeling bug
 vis_grid_clus(spe_anno, clustervar = 'anno_label',
               pdf_file = here("plots","20_WM_comparisons","vis_manual_annotations.pdf"),
               spatial= F, ncol = 4)
