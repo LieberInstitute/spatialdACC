@@ -70,6 +70,12 @@ spe_anno$anno_label[spe_anno$anno_label == "L45PCP4"] <- "L4/5"
 spe_anno$anno_label[spe_anno$anno_label == "L5PCP4"] <- "L5"
 spe_anno$anno_label[spe_anno$anno_label == "L6KRT17"] <- "L6"
 
+# drop NA spots
+spe_anno <- spe_anno[,!is.na(spe_anno$anno_label)]
+
+dim(spe_anno)
+# [1] 36601 44212
+
 # save spe_anno
 save(spe_anno, file = here("processed-data", "20_WM_comparisons", "spe_anno.Rdata"))
 
