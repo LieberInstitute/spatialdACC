@@ -7,6 +7,7 @@ library("tidyverse")
 library("escheR")
 library("gridExtra")
 library('EnhancedVolcano')
+library("scater")
 
 load(file = here("processed-data", "20_WM_comparisons", "spe_anno.Rdata"))
 spe <- spe_anno
@@ -66,7 +67,7 @@ spe_anno <- spe_anno[, !spe_anno$sample_id %in% c("V12Y31-080_B1", "V12N28-334_C
 spe_anno <- spe_anno[,!spe_anno$sample_id %in% c("V12N28-334_A1")]
 
 dim(spe_anno)
-#[1] 36601 31679
+#[1] 36601 27146
 
 # relabel some clusters
 # L2/3 = L2_3
@@ -74,6 +75,61 @@ dim(spe_anno)
 
 spe_anno$anno_label <- gsub("L2/3", "L2_3", spe_anno$anno_label)
 spe_anno$anno_label <- gsub("L4/5", "L4_5", spe_anno$anno_label)
+
+
+spe_pseudo <-
+    registration_pseudobulk(spe_anno,
+                            var_registration = "anno_label",
+                            var_sample_id = "sample_id",
+                            min_ncells = 10
+    )
+
+dim(spe_pseudo)
+#  15474    36
+
+pca <- prcomp(t(assays(spe_pseudo)$logcounts))
+metadata(spe_pseudo) <- list("PCA_var_explained" = jaffelab::getPcaVars(pca)[seq_len(20)])
+pca_pseudo <- pca$x[, seq_len(20)]
+colnames(pca_pseudo) <- paste0("PC", sprintf("%02d", seq_len(ncol(pca_pseudo))))
+reducedDims(spe_pseudo) <- list(PCA = pca_pseudo)
+
+## save pseudobulked spe file
+save(
+    spe_pseudo,
+    file = here("processed-data", "20_WM_comparisons", "pseudobulk_manual_anno.RData")
+)
+
+
+## Plot PCs
+
+pdf(file = here("plots", "20_WM_comparisons", "pseudobulk_anno.pdf"),
+    width = 10, height = 10)
+
+plotPCA(
+    spe_pseudo,
+    colour_by = "anno_label",
+    ncomponents = 2,
+    point_size = 2,
+    percentVar = metadata(spe_pseudo)$PCA_var_explained
+)
+
+plotPCA(
+    spe_pseudo,
+    colour_by = "sample_id",
+    ncomponents = 2,
+    point_size = 2,
+    percentVar = metadata(spe_pseudo)$PCA_var_explained
+)
+
+
+vars <- getVarianceExplained(spe_pseudo,
+                             variables = c("anno_label","sample_id")
+)
+
+
+plotExplanatoryVariables(vars)
+
+dev.off()
 
 modeling_results <- registration_wrapper(
     spe_anno,
