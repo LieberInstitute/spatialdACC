@@ -7,6 +7,7 @@ library(here)
 library(tidyr)
 library(forcats)
 library(ggplot2)
+library(dplyr)
 
 ##load the data
 mch<-readH5AD(file=here::here('processed-data','snRNA-seq',
@@ -18,8 +19,8 @@ symb <- getBM(attributes = c("ensembl_gene_id","mgi_symbol"),
               filters = "ensembl_gene_id", values = rownames(mch),
               mart = mart)
 symbs <- symb$mgi_symbol[match(rownames(mch), symb$ensembl_gene_id, nomatch = NA)]
-count(is.na(symbs))
-#[1] 165
+sum(is.na(symbs))
+#[1] 524
 
 rowData(mch)$gene_name<-symbs
 rowData(mch)$start<-NULL
@@ -38,23 +39,23 @@ names <- names[match(rownames(mch), names$Column3),]
 
 setdiff(names$Column3, rownames(mch))
 
-count(is.na(names$Column1))
-# [1] 12677
+sum(is.na(names$Column1))
+# [1] 12406
 
 rownames(mch) <- names$Column1
 dim(mch)
-# [1] 32043  3265
+# [1] 31684  3265
 
 # remove rownames that are NA
 mch <- mch[!is.na(rownames(mch)),]
 dim(mch)
-# [1] 19366  3265
+# [1] 19278  3265
 
 # there are some repeated rownames in mch
 duplicated_rows <- duplicated(rownames(mch))
 mch <- mch[!duplicated_rows, ]
 dim(mch)
-# [1] 17490  3265
+# [1] 17473  3265
 
 ##load nmf patterns
 x <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "nmf_results.RDS"))
@@ -68,7 +69,7 @@ dim(loadings)
 set.seed(101)
 i<-intersect(rownames(mch),rownames(loadings))
 length(i)
-# [1] 13354
+# [1] 13343
 
 loadings<-loadings[rownames(loadings) %in% i,]
 mch<-mch[rownames(mch) %in% i,]
@@ -136,15 +137,58 @@ data<-as.data.frame(colData(mch))
 nmf_cols <- grep("^nmf", colnames(data), value = TRUE)
 data <- data[, c("Subclass", "Target",nmf_cols)]
 
-pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_subclass_dotplot.pdf'),h=10,w=45)
-create_custom_dot_plot(data, "Subclass", nmf_cols, "", "NMF pattern",
+# subset to only some nmf columns in the data df
+# keep subclass and target columns
+# we also want to rename the patterns to be more informative, such as "Astro-NMF32"
+# Oligo: 26, 23, 27, 13, 43, 40, 36, 28, 9, 33, 39
+# L5_6_NP: 46
+# L6_b: 35
+# L5_ET: 61
+# L6_CT: 15
+# L6_IT_Car3: 68
+# L2_3_IT: 3, 11
+# L5_IT: 38
+# L6_IT: 32
+# Pvalb: 10, 63
+# SST: 52, 56
+# SST Chodl: 51
+# LAMP5: 37, 60
+# Sncg: 55, 58
+# Vip: 44, 47
+# Endo: 75, 49
+# Astro: 14, 21, 53, 65
+# OPC: 17, 24
+# VLMC: 59, 17
+# microPVM: 19, 54, 57
+# misc: 59, 64, 61, 15
+
+# first subset the data to only the columns we want
+nmf_cols <- c("nmf26", "nmf23", "nmf27", "nmf13", "nmf43", "nmf40", "nmf36", "nmf28", "nmf9", "nmf33", "nmf39",
+              "nmf46", "nmf35", "nmf61", "nmf15", "nmf68", "nmf3", "nmf11", "nmf38", "nmf32", "nmf10", "nmf63",
+              "nmf52", "nmf56", "nmf51", "nmf37", "nmf60", "nmf55", "nmf58", "nmf44", "nmf47", "nmf75", "nmf49",
+              "nmf14", "nmf21", "nmf53", "nmf65", "nmf17", "nmf24", "nmf59", "nmf17", "nmf19", "nmf54", "nmf57",
+              "nmf59", "nmf64", "nmf61", "nmf15")
+
+data <- data[, c("Subclass", "Target", nmf_cols)]
+
+# rename the columns
+colnames(data) <- c("Subclass", "Target",
+                    "Oligo-NMF26", "Oligo-NMF23", "Oligo-NMF27", "Oligo-NMF13", "Oligo-NMF43", "Oligo-NMF40", "Oligo-NMF36", "Oligo-NMF28", "Oligo-NMF9", "Oligo-NMF33", "Oligo-NMF39",
+                    "L5_6_NP-NMF46", "L6_b-NMF35", "L5_ET-NMF61", "L6_CT-NMF15", "L6_IT_Car3-NMF68", "L2_3_IT-NMF3", "L2_3_IT-NMF11", "L5_IT-NMF38", "L6_IT-NMF32", "Pvalb-NMF10", "Pvalb-NMF63",
+                    "SST-NMF52", "SST-NMF56", "SST Chodl-NMF51", "LAMP5-NMF37", "LAMP5-NMF60", "Sncg-NMF55", "Sncg-NMF58", "Vip-NMF44", "Vip-NMF47", "Endo-NMF75", "Endo-NMF49",
+                    "Astro-NMF14", "Astro-NMF21", "Astro-NMF53", "Astro-NMF65", "OPC-NMF17", "OPC-NMF24", "VLMC-NMF59", "VLMC-NMF17", "microPVM-NMF19", "microPVM-NMF54", "microPVM-NMF57",
+                    "misc-NMF59", "misc-NMF64", "misc-NMF61", "misc-NMF15")
+
+
+pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_subclass_dotplot.pdf'),h=15,w=45)
+create_custom_dot_plot(data, "Subclass", colnames(data)[-c(1,2)], "", "NMF pattern",
                        "Allen subclass", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
     theme(axis.text=element_text(size=32,color='black'),text=element_text(size=32,color='black'))
 dev.off()
 
-pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_target_dotplot.pdf'),h=10,w=40)
-create_custom_dot_plot(data, "Target", nmf_cols, "", "NMF pattern",
+pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_target_dotplot.pdf'),h=15,w=40)
+create_custom_dot_plot(data, "Target", colnames(data)[-c(1,2)], "", "NMF pattern",
                        "Target", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
     theme(axis.text=element_text(size=32,color='black'),text=element_text(size=32,color='black'))
