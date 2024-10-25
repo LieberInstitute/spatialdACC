@@ -97,14 +97,14 @@ save(
 colData(spe)$spatialLIBD <- colData(spe)$registration_variable
 
 sig_genes <- sig_genes_extract(
-    n = 20,
+    n = 50,
     modeling_results = modeling_results,
     model_type = "enrichment",
     sce_layer = spe_pseudo
 )
 
 write.csv(sig_genes, file = here::here("processed-data", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
-                                       paste0(nnSVG_precast_name, "_sig_genes.csv")), row.names = FALSE)
+                                       paste0(nnSVG_precast_name, "_sig_genes_50.csv")), row.names = FALSE)
 
 indices <- c()
 
