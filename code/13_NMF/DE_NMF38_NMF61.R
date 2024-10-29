@@ -83,5 +83,15 @@ sig_genes <- sig_genes_extract(
     sce_layer = spe_pseudo
 )
 
+sig_genes_reverse <- sig_genes_extract(
+    n = 50,
+    modeling_results = modeling_results,
+    model_type = "pairwise",
+    reverse = TRUE,
+    sce_layer = spe_pseudo
+)
+
 write.csv(sig_genes, file = here::here("processed-data", "13_NMF",
                                         "NMF38_NMF61_sig_genes_50.csv"), row.names = FALSE)
+write.csv(sig_genes_reverse, file = here::here("processed-data", "13_NMF",
+                                               "NMF38_NMF61_sig_genes_reverse_50.csv"), row.names = FALSE)
