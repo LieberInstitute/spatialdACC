@@ -21,6 +21,7 @@ library(projectR)
 library(spatialLIBD)
 library(gridExtra)
 library(escheR)
+library(EnhancedVolcano)
 
 # load spe with NMF results
 load(file = here("processed-data", "13_NMF", "spe_NMF.Rdata"))
@@ -95,3 +96,68 @@ write.csv(sig_genes, file = here::here("processed-data", "13_NMF",
                                         "NMF38_NMF61_sig_genes_50.csv"), row.names = FALSE)
 write.csv(sig_genes_reverse, file = here::here("processed-data", "13_NMF",
                                                "NMF38_NMF61_sig_genes_reverse_50.csv"), row.names = FALSE)
+
+# create violin plots of DRD5 expression in NMF_38 and NMF_61
+# each spot is a data point
+
+spe$counts_DRD5 <- counts(spe)[which(rowData(spe)$gene_name=="DRD5"),]
+spe$logcounts_DRD5 <- logcounts(spe)[which(rowData(spe)$gene_name=="DRD5"),]
+
+pdf(file = here::here("plots", "13_NMF", "DRD5_violin_plots_NMF_factors.pdf"),
+    width = 10, height = 10)
+
+plotColData(spe, x = "classification", y = "counts_DRD5") +
+    ggtitle("DRD5 Counts by Factor") +
+    facet_wrap(~ spe$classification, scales = "free_x", nrow = 1)
+
+plotColData(spe, x = "classification", y = "logcounts_DRD5") +
+    ggtitle("DRD5 Logcounts by Factor") +
+    facet_wrap(~ spe$classification, scales = "free_x", nrow = 1)
+
+dev.off()
+
+# create volcano plot of pairwise comparison of NMF_38 and NMF_61
+#volcano plots
+thresh_fdr <- 0.05
+thresh_logfc <- log2(1.5)
+fdrs_gene_ids <- rowData(spe_pseudo)$gene_id
+fdrs_gene_names <- rowData(spe_pseudo)$gene_name
+
+fdrs <- modeling_results[["pairwise"]][,paste0("fdr_", "NMF_38-NMF_61")]
+logfc <- modeling_results[["pairwise"]][,paste0("logFC_", "NMF_38-NMF_61")]
+
+sig <- (fdrs < thresh_fdr) & (abs(logfc) > thresh_logfc)
+print(table(sig))
+
+df_list <- data.frame(
+    gene_name = modeling_results[["pairwise"]]$gene,
+    logFC = logfc,
+    FDR = fdrs,
+    sig = sig
+    )
+
+pdf(file = here::here("plots", "13_NMF", "volcano_plots_NMF38_NMF61.pdf"),
+    width = 8.5, height = 8)
+
+print(EnhancedVolcano(df_list,
+                      lab = df_list$gene_name,
+                      x = 'logFC',
+                      y = 'FDR',
+                      selectLab = c("VAT1L", "POU3F1", "SULF2", "HAPLN4", "LYPD1", "FEZF2", "GABRQ"),
+                      FCcutoff = 1.5,
+                      pCutoff = 0.05,
+                      ylab = "-log10 FDR",
+                      legendLabels = c('Not sig.','Log (base 2) FC','FDR',
+                                       'FDR & Log (base 2) FC'),
+                      title = "nnSVG PRECAST dACC",
+                      subtitle = "NMF_38 minus NMF_61",
+                      )
+      )
+
+dev.off()
+
+
+
+
+
+
