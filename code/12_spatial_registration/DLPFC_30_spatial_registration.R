@@ -38,6 +38,8 @@ spe_modeling_results <- registration_wrapper(
     gene_name = "gene_name"
 )
 
+save(spe_modeling_results, file = here("processed-data", "12_spatial_registration",paste0("DLPFC_30_DE",".Rdata")))
+
 ## extract t-statics and rename
 registration_t_stats <- spe_modeling_results$enrichment[, grep("^t_stat", colnames(spe_modeling_results$enrichment))]
 colnames(registration_t_stats) <- gsub("^t_stat_", "", colnames(registration_t_stats))
