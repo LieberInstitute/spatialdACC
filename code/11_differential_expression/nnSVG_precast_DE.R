@@ -97,17 +97,27 @@ save(
 colData(spe)$spatialLIBD <- colData(spe)$registration_variable
 
 sig_genes <- sig_genes_extract(
-    n = 50,
+    n = 30,
     modeling_results = modeling_results,
     model_type = "enrichment",
     sce_layer = spe_pseudo
 )
 
 write.csv(sig_genes, file = here::here("processed-data", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
-                                       paste0(nnSVG_precast_name, "_sig_genes_50.csv")), row.names = FALSE)
+                                       paste0(nnSVG_precast_name, "_sig_genes_30.csv")), row.names = FALSE)
+
+# remove the "WM" rows in the "test" column
+sig_genes <- sig_genes[sig_genes$test != "WM",]
+
+# find genes that are repeated in the "gene" column
+repeated_genes <- sig_genes[duplicated(sig_genes$gene),]
+# GRIA4 in L2 and L3 & KRT17 in L6a and L6b
+which(sig_genes$gene == "GRIA4")
+which(sig_genes$gene == "KRT17")
 
 indices <- c()
 
+indices <- append(indices, which(sig_genes$gene == "GRIA4")) #new marker for L2 and L3
 indices <- append(indices, which(sig_genes$gene == "PVALB")) #DLPFC nat neuro previous marker for L4
 indices <- append(indices, which(sig_genes$gene == "FABP7")) #DLPFC nat neuro previous marker for L1
 indices <- append(indices, which(sig_genes$gene == "CCK")) #DLPFC nat neuro previous marker for L6
