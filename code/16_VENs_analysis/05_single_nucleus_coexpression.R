@@ -17,8 +17,22 @@ sce <- computeSumFactors(sce)
 sce <- logNormCounts(sce)
 
 correlatePairs(sce, subset.row=cbind("VAT1L", "DRD5"))
+#0.12
 
 pdf(file = here::here("plots", "16_VENs_analysis", "single_nucleus_coexpression.pdf"),
     width = 21, height = 20)
 plotExpression(sce, features="VAT1L", x="DRD5")
 dev.off()
+
+
+correlatePairs(sce, subset.row=cbind("VAT1L", "GABRQ"))
+#0.14
+pdf(file = here::here("plots", "16_VENs_analysis", "single_nucleus_coexpression_VAT1L_GABRQ.pdf"),
+    width = 21, height = 20)
+plotExpression(sce, features="VAT1L", x="GABRQ")
+dev.off()
+
+correlatePairs(sce, subset.row=cbind("VAT1L", "POU3F1"))
+#0.11
+correlatePairs(sce, subset.row=cbind("VAT1L", "ADRA1A"))
+#0.23
