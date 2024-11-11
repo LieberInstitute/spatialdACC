@@ -30,6 +30,12 @@ spe <- spe[ , which(spe$BayesSpace_harmony_09 != "meninges")]
 
 table(spe$sample_id, spe$BayesSpace_harmony_09)
 
+spe_pseudo <-
+    registration_pseudobulk(spe,
+                            var_registration = "BayesSpace_harmony_09",
+                            var_sample_id = "sample_id"
+    )
+
 spe_modeling_results <- registration_wrapper(
     spe,
     var_registration = "BayesSpace_harmony_09",
@@ -39,6 +45,17 @@ spe_modeling_results <- registration_wrapper(
 )
 
 save(spe_modeling_results, file = here("processed-data", "12_spatial_registration",paste0("DLPFC_30_DE",".Rdata")))
+
+sig_genes <- sig_genes_extract(
+    n = 30,
+    modeling_results = spe_modeling_results,
+    model_type = "enrichment",
+    sce_layer = spe_pseudo
+)
+
+write.csv(sig_genes, file = here::here("processed-data", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
+                                       paste0("DLPFC_30", "_sig_genes_30.csv")), row.names = FALSE)
+
 
 ## extract t-statics and rename
 registration_t_stats <- spe_modeling_results$enrichment[, grep("^t_stat", colnames(spe_modeling_results$enrichment))]

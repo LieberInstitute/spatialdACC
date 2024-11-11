@@ -28,6 +28,12 @@ spe <- spe[,!is.na(spe$layer_guess_reordered)]
 
 table(spe$sample_id, spe$layer_guess_reordered)
 
+spe_pseudo <-
+    registration_pseudobulk(spe,
+                            var_registration = "layer_guess_reordered",
+                            var_sample_id = "sample_id"
+    )
+
 spe_modeling_results <- registration_wrapper(
     spe,
     var_registration = "layer_guess_reordered",
@@ -35,6 +41,17 @@ spe_modeling_results <- registration_wrapper(
     gene_ensembl = "gene_id",
     gene_name = "gene_name"
 )
+
+sig_genes <- sig_genes_extract(
+    n = 30,
+    modeling_results = spe_modeling_results,
+    model_type = "enrichment",
+    sce_layer = spe_pseudo
+)
+
+write.csv(sig_genes, file = here::here("processed-data", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
+                                       paste0("DLPFC_12", "_sig_genes_30.csv")), row.names = FALSE)
+
 
 ## extract t-statics and rename
 registration_t_stats <- spe_modeling_results$enrichment[, grep("^t_stat", colnames(spe_modeling_results$enrichment))]
