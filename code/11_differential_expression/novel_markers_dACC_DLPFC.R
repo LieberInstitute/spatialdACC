@@ -42,13 +42,21 @@ for (layer in layers) {
         DLPFC_logFC = DLPFC_logFC
     )
 
+    df_layer$color <- with(df_layer, ifelse(
+        dACC_logFC > 1.25 & DLPFC_logFC > 1.25, "DLPFC & dACC enriched",
+        ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched", "Neither")
+    ))
+
     # plot
     p <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
-        geom_point(color = "grey") +
+        geom_point(aes(color = color), size=0.7) +
+        scale_color_manual(values = c("DLPFC & dACC enriched" = "blue", "dACC enriched" = "red", "Neither" = "grey")) +
         geom_text_repel(aes(label = gene), size = 3) +
         geom_smooth(method = "lm", se = FALSE, color = "blue") +
-        geom_vline(xintercept = 0, color = "black", linetype = "dashed") +
-        geom_hline(yintercept = 0, color = "black", linetype = "dashed") +
+        geom_vline(xintercept = 1.25, color = "black", linetype = "dashed") +
+        geom_hline(yintercept = 1.25, color = "black", linetype = "dashed") +
+        geom_vline(xintercept = -1.25, color = "black", linetype = "dashed") +
+        geom_hline(yintercept = -1.25, color = "black", linetype = "dashed") +
         xlim(-5, 5) +
         ylim(-5, 5) +
         labs(
@@ -74,13 +82,21 @@ for (layer in layers) {
         DLPFC_logFC = DLPFC_logFC
     )
 
+    df_layer$color <- with(df_layer, ifelse(
+        dACC_logFC > 1.25 & DLPFC_logFC > 1.25, "DLPFC & dACC enriched",
+        ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched", "Neither")
+    ))
+
     # plot
     p <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
-        geom_point(color = "grey") +
+        geom_point(aes(color = color), size=0.7) +
+        scale_color_manual(values = c("DLPFC & dACC enriched" = "blue", "dACC enriched" = "red", "Neither" = "grey")) +
         geom_text_repel(aes(label = gene), size = 3) +
         geom_smooth(method = "lm", se = FALSE, color = "blue") +
-        geom_vline(xintercept = 0, color = "black", linetype = "dashed") +
-        geom_hline(yintercept = 0, color = "black", linetype = "dashed") +
+        geom_vline(xintercept = 1.25, color = "black", linetype = "dashed") +
+        geom_hline(yintercept = 1.25, color = "black", linetype = "dashed") +
+        geom_vline(xintercept = -1.25, color = "black", linetype = "dashed") +
+        geom_hline(yintercept = -1.25, color = "black", linetype = "dashed") +
         xlim(-5, 5) +
         ylim(-5, 5) +
         labs(
