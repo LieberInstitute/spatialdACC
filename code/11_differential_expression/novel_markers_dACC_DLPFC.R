@@ -47,6 +47,11 @@ for (layer in layers) {
         ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched", "Neither")
     ))
 
+    # write to csv file
+    # genes that are either "DLPFC & dACC enriched" or "dACC enriched"
+    write.csv(df_layer[df_layer$color != "Neither",],
+              here("processed-data", "11_differential_expression", "novel_markers", paste0("dACC_DLPFC_", layer, ".csv")))
+
     # plot
     p <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
         geom_point(aes(color = color), size=0.7) +
@@ -86,6 +91,11 @@ for (layer in layers) {
         dACC_logFC > 1.25 & DLPFC_logFC > 1.25, "DLPFC & dACC enriched",
         ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched", "Neither")
     ))
+
+    # genes that are either "DLPFC & dACC enriched" or "dACC enriched"
+    write.csv(df_layer[df_layer$color != "Neither",],
+              here("processed-data", "11_differential_expression", "novel_markers", paste0("dACC_DLPFC_", layer, ".csv")))
+
 
     # plot
     p <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
