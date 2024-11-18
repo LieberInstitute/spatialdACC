@@ -53,3 +53,55 @@ upset(upset_data,
       order.by = "freq",
       keep.order = TRUE)
 dev.off()
+
+
+upset_data_table <- data.frame(gene = character(), layer = character(), stringsAsFactors = FALSE)
+
+add_combination_to_table <- function(gene_sets, genes, layers) {
+    upset_data_table <<- rbind(upset_data_table, data.frame(gene = genes, layer = layers, stringsAsFactors = FALSE))
+}
+
+all_combinations <- combn(names(gene_sets), 2, simplify = FALSE)  # pairwise combinations
+
+for (comb in all_combinations) {
+    intersection_genes <- Reduce(intersect, gene_sets[comb])
+    if (length(intersection_genes) > 0) {
+        add_combination_to_table(gene_sets, intersection_genes, paste(comb, collapse = " & "))
+    }
+}
+
+for (k in 3:length(gene_sets)) {
+    all_combinations_k <- combn(names(gene_sets), k, simplify = FALSE)
+
+    for (comb in all_combinations_k) {
+        intersection_genes <- Reduce(intersect, gene_sets[comb])
+        if (length(intersection_genes) > 0) {
+            add_combination_to_table(gene_sets, intersection_genes, paste(comb, collapse = " & "))
+        }
+    }
+}
+
+added_genes <- unique(upset_data_table$gene)  # track genes already added
+
+# add  non-overlapping genes for each layer
+for (layer in names(gene_sets)) {
+    non_overlap_genes <- setdiff(gene_sets[[layer]], added_genes)
+    if (length(non_overlap_genes) > 0) {
+        add_combination_to_table(gene_sets, non_overlap_genes, layer)
+        added_genes <- c(added_genes, non_overlap_genes)
+    }
+}
+
+indices_GRIA4 <- which(upset_data_table$gene == "GRIA4")
+# remove all except last occurrence of GRIA4
+upset_data_table <- upset_data_table[-c(indices_GRIA4[-length(indices_GRIA4)]),]
+
+indices_KRT17 <- which(upset_data_table$gene == "KRT17")
+# remove all except last occurrence of KRT17
+upset_data_table <- upset_data_table[-c(indices_KRT17[-length(indices_KRT17)]),]
+
+duplicates <- upset_data_table[duplicated(upset_data_table$gene), ]
+# none left
+
+write.csv(upset_data_table, here("processed-data", "11_differential_expression", "UpSet_table_DLPFC_12.csv"), row.names = FALSE)
+
