@@ -11,10 +11,10 @@ suppressPackageStartupMessages({
 
 nnSVG_precast_name <- paste0("nnSVG_PRECAST_captureArea_", 9)
 sig_genes_dACC <- read.csv(file = here::here("processed-data", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
-                                             paste0(nnSVG_precast_name, "_sig_genes_30.csv")))
+                                             paste0(nnSVG_precast_name, "_sig_genes_50.csv")))
 
 sig_genes_DLPFC <- read.csv(file = here::here("processed-data", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
-                                              paste0("DLPFC_30", "_sig_genes_30.csv")))
+                                              paste0("DLPFC_30", "_sig_genes_50.csv")))
 
 # remove WM genes from both lists
 sig_genes_dACC <- sig_genes_dACC[sig_genes_dACC$test != "WM",]
@@ -45,7 +45,7 @@ for (layer in intersect(layers_dACC, layers_DLPFC)) {
 
 upset_data <- fromList(gene_sets)
 
-pdf(file = here::here("plots", "11_differential_expression", "upset_dACC_DLPFC_30.pdf"), width = 10, height = 10)
+pdf(file = here::here("plots", "11_differential_expression", "upset_50_DEGs_dACC_DLPFC_30.pdf"), width = 10, height = 10)
 upset(upset_data,
       sets = names(gene_sets),
       main.bar.color = "blue",
@@ -91,16 +91,17 @@ for (layer in names(gene_sets)) {
     }
 }
 
-indices_RASGRF2 <- which(upset_data_table$gene == "RASGRF2")
-# remove all except last occurrence of RASGRF2
-upset_data_table <- upset_data_table[-c(indices_RASGRF2[-length(indices_RASGRF2)]),]
-
-indices_KRT17 <- which(upset_data_table$gene == "KRT17")
-# remove all except last occurrence of KRT17
-upset_data_table <- upset_data_table[-c(indices_KRT17[-length(indices_KRT17)]),]
+duplicates <- upset_data_table[duplicated(upset_data_table$gene), ]
+for (gene in unique(duplicates$gene)) {
+    print(gene)
+    indices_gene <- which(upset_data_table$gene == gene)
+    if (length(indices_gene) > 1) {
+        upset_data_table <- upset_data_table[-c(indices_gene[-length(indices_gene)]),]
+    }
+}
 
 duplicates <- upset_data_table[duplicated(upset_data_table$gene), ]
 # none left
 
 
-write.csv(upset_data_table, here("processed-data", "11_differential_expression", "UpSet_table_DLPFC_30.csv"), row.names = FALSE)
+write.csv(upset_data_table, here("processed-data", "11_differential_expression", "UpSet_table_50_DEGs_DLPFC_30.csv"), row.names = FALSE)
