@@ -159,3 +159,72 @@ heatmap_data %>%
 #5 L3                      21902
 #6 L2                      21516
 #7 L6                      20710
+
+# make volcano plot for L2_dACC_L2_DLPFC
+comparison <- "L2_dACC_L2_DLPFC"
+results <- results_list[[comparison]]
+
+# add gene_name column by matching rownames of rowData(spe_pseudo_dACC) and adding the gene_name column
+results$gene_name <- rowData(spe_pseudo_dACC)[rownames(results),]$gene_name
+
+pdf(here("plots", "11_differential_expression", "dream_volcano_L2_dACC_L2_DLPFC.pdf"), width = 8, height = 6)
+
+ggplot(results, aes(x = logFC, y = -log10(P.Value))) +
+    geom_point(aes(color = ifelse(abs(z.std) > 1.645, "red", "black")), alpha = 0.5) +
+    scale_color_identity() +
+    geom_vline(xintercept = c(-log2(1.5), log2(1.5)), linetype = "dashed") +
+    geom_hline(yintercept = -log10(0.05), linetype = "dashed") +
+    labs(title = "Volcano Plot for L2_dACC_L2_DLPFC",
+         x = "log2 Fold Change",
+         y = "-log10 P-value",
+         caption = "using dream") +
+    theme_bw() +
+    # add gene labels
+    geom_text_repel(data = results %>% filter(abs(z.std) > 1.645 & abs(logFC) > log2(1.5)),
+                    aes(label = gene_name),
+                    box.padding = 0.5,
+                    point.padding = 0.5,
+                    segment.color = "grey50",
+                    segment.size = 0.5,
+                    segment.alpha = 0.5,
+                    size = 2)
+
+dev.off()
+
+# make volcano plot for L2_dACC_L1_DLPFC
+comparison <- "L2_dACC_L1_DLPFC"
+results <- results_list[[comparison]]
+
+# add gene_name column by matching rownames of rowData(spe_pseudo_dACC) and adding the gene_name column
+results$gene_name <- rowData(spe_pseudo_dACC)[rownames(results),]$gene_name
+
+pdf(here("plots", "11_differential_expression", "dream_volcano_L2_dACC_L1_DLPFC.pdf"), width = 8, height = 6)
+
+ggplot(results, aes(x = logFC, y = -log10(P.Value))) +
+    geom_point(aes(color = ifelse(abs(z.std) > 1.645, "red", "black")), alpha = 0.5) +
+    scale_color_identity() +
+    geom_vline(xintercept = c(-log2(1.5), log2(1.5)), linetype = "dashed") +
+    geom_hline(yintercept = -log10(0.05), linetype = "dashed") +
+    labs(title = "Volcano Plot for L2_dACC_L1_DLPFC",
+         x = "log2 Fold Change",
+         y = "-log10 P-value",
+         caption = "using dream") +
+    theme_bw() +
+    # add gene labels
+    geom_text_repel(data = results %>% filter(abs(z.std) > 1.645 & abs(logFC) > log2(1.5)),
+                    aes(label = gene_name),
+                    box.padding = 0.5,
+                    point.padding = 0.5,
+                    segment.color = "grey50",
+                    segment.size = 0.5,
+                    segment.alpha = 0.5,
+                    size = 2)
+
+dev.off()
+
+#subset columns of spe_pseudo_dACC and spe_pseudo_DLPFC to only include columns that have "L2" in the name
+spe_pseudo_dACC_L2 <- spe_pseudo_dACC[,grep("L2", colnames(spe_pseudo_dACC))]
+
+rowMeans(logcounts(spe_pseudo_DLPFC)[,grep("L2", colnames(spe_pseudo_DLPFC))])["ENSG00000004776"]
+rowMeans(logcounts(spe_pseudo_dACC)[,grep("L2", colnames(spe_pseudo_dACC))])["ENSG00000004776"]
+
