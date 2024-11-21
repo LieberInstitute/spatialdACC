@@ -119,7 +119,7 @@ for (dACC_layer in dACC_layers) {
         results <- results_list[[comparison]]
 
         if (!is.null(results)) {
-            heatmap_matrix[dACC_layer, DLPFC_layer] <- sum(results$adj.P.Val < 0.05)
+            heatmap_matrix[dACC_layer, DLPFC_layer] <- sum(abs(results$z.std) > 1.645)
         } else {
             heatmap_matrix[dACC_layer, DLPFC_layer] <- 0
         }
@@ -132,7 +132,7 @@ pdf(here("plots", "11_differential_expression", "dream_heatmap.pdf"), width = 8,
 
 ggplot(heatmap_data, aes(x = Var2, y = Var1, fill = value)) +
     geom_tile() +
-    scale_fill_gradient(low = "blue", high = "red") +
+    scale_fill_gradient(low = "grey", high = "red") +
     labs(title = "Number of Significant Genes by Layer Comparison",
          x = "DLPFC Layer",
          y = "dACC Layer") +
@@ -141,3 +141,17 @@ ggplot(heatmap_data, aes(x = Var2, y = Var1, fill = value)) +
           axis.text.y = element_text())
 
 dev.off()
+
+# add up total number of significant genes for each Var2 (DLPFC layer)
+heatmap_data %>%
+    group_by(Var2) %>%
+    summarise(total_significant_genes = sum(value)) %>%
+    arrange(desc(total_significant_genes))
+
+#1 L4                      63648
+#2 L5                      62717
+#3 L3                      61350
+#4 L6                      60460
+#5 L2                      60482
+#6 WM                      60240
+#7 L1                      55750
