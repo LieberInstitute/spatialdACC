@@ -119,7 +119,9 @@ for (dACC_layer in dACC_layers) {
         results <- results_list[[comparison]]
 
         if (!is.null(results)) {
-            heatmap_matrix[dACC_layer, DLPFC_layer] <- sum(results$adj.P.Val < 0.05)
+            df <- results %>%
+                filter(abs(z.std) > 1.645 & abs(logFC) > log2(1.5))
+            heatmap_matrix[dACC_layer, DLPFC_layer] <- dim(df)[1]
         } else {
             heatmap_matrix[dACC_layer, DLPFC_layer] <- 0
         }
@@ -128,16 +130,164 @@ for (dACC_layer in dACC_layers) {
 
 heatmap_data <- melt(heatmap_matrix)
 
-pdf(here("plots", "11_differential_expression", "dream_heatmap.pdf"), width = 8, height = 6)
+# remove rows that have "WM"
+heatmap_data <- heatmap_data[!grepl("WM", heatmap_data$Var1),]
+heatmap_data <- heatmap_data[!grepl("WM", heatmap_data$Var2),]
+
+pdf(here("plots", "11_differential_expression", "dream_heatmap_noWM.pdf"), width = 8, height = 6)
 
 ggplot(heatmap_data, aes(x = Var2, y = Var1, fill = value)) +
     geom_tile() +
-    scale_fill_gradient(low = "blue", high = "red") +
+    geom_text(aes(label=value), color="black", size=2) +
+    scale_fill_gradient(low = "grey", high = "red") +
     labs(title = "Number of Significant Genes by Layer Comparison",
          x = "DLPFC Layer",
-         y = "dACC Layer") +
+         y = "dACC Layer",
+         caption = "using logFC threshold of 1.5 with dream") +
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1),
           axis.text.y = element_text())
 
 dev.off()
+
+# add up total number of significant genes for each Var2 (DLPFC layer)
+heatmap_data %>%
+    group_by(Var2) %>%
+    summarise(total_significant_genes = sum(value)) %>%
+    arrange(desc(total_significant_genes))
+
+#1 L1                      25102
+#2 L4                      24593
+#3 WM                      23989
+#4 L5                      22753
+#5 L3                      21902
+#6 L2                      21516
+#7 L6                      20710
+
+# standardize the heatmap data by dividing by the total number of significant genes for each DLPFC layer
+heatmap_data_DLPFC <- heatmap_data %>%
+    group_by(Var2) %>%
+    mutate(value = value / sum(value))
+
+# round to two decimal places
+heatmap_data_DLPFC$value <- round(heatmap_data_DLPFC$value, 2)
+
+pdf(here("plots", "11_differential_expression", "dream_heatmap_DLPFC_stand.pdf"), width = 8, height = 6)
+
+ggplot(heatmap_data_DLPFC, aes(x = Var2, y = Var1, fill = value)) +
+    geom_tile() +
+    geom_text(aes(label=value), color="black", size=2) +
+    scale_fill_gradient(low = "grey", high = "red") +
+    labs(title = "Number of Significant Genes by Layer Comparison",
+         x = "DLPFC Layer",
+         y = "dACC Layer",
+         caption = "standardized by total DLPFC sig genes, removing WM") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1),
+          axis.text.y = element_text())
+
+dev.off()
+
+heatmap_data %>%
+    group_by(Var1) %>%
+    summarise(total_significant_genes = sum(value)) %>%
+    arrange(desc(total_significant_genes))
+#1 L1                      21562
+#2 L6b                     21019
+#3 L2                      13583
+#4 L5                      11917
+#5 L6a                     11561
+#6 L3                      11472
+
+# standardize the heatmap data by dividing by the total number of significant genes for each dACC layer
+heatmap_data_dACC <- heatmap_data %>%
+    group_by(Var1) %>%
+    mutate(value = value / sum(value))
+
+# round to two decimal places
+heatmap_data_dACC$value <- round(heatmap_data_dACC$value, 2)
+
+pdf(here("plots", "11_differential_expression", "dream_heatmap_dACC_stand.pdf"), width = 8, height = 6)
+
+ggplot(heatmap_data_dACC, aes(x = Var2, y = Var1, fill = value)) +
+    geom_tile() +
+    geom_text(aes(label=value), color="black", size=2) +
+    scale_fill_gradient(low = "grey", high = "red") +
+    labs(title = "Number of Significant Genes by Layer Comparison",
+         x = "DLPFC Layer",
+         y = "dACC Layer",
+         caption = "standardized by total dACC sig genes, removing WM") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1),
+          axis.text.y = element_text())
+
+dev.off()
+
+# make volcano plot for L2_dACC_L2_DLPFC
+comparison <- "L2_dACC_L2_DLPFC"
+results <- results_list[[comparison]]
+
+# add gene_name column by matching rownames of rowData(spe_pseudo_dACC) and adding the gene_name column
+results$gene_name <- rowData(spe_pseudo_dACC)[rownames(results),]$gene_name
+
+pdf(here("plots", "11_differential_expression", "dream_volcano_L2_dACC_L2_DLPFC.pdf"), width = 8, height = 6)
+
+ggplot(results, aes(x = logFC, y = -log10(P.Value))) +
+    geom_point(aes(color = ifelse(abs(z.std) > 1.645, "red", "black")), alpha = 0.5) +
+    scale_color_identity() +
+    geom_vline(xintercept = c(-log2(1.5), log2(1.5)), linetype = "dashed") +
+    geom_hline(yintercept = -log10(0.05), linetype = "dashed") +
+    labs(title = "Volcano Plot for L2_dACC_L2_DLPFC",
+         x = "log2 Fold Change",
+         y = "-log10 P-value",
+         caption = "using dream") +
+    theme_bw() +
+    # add gene labels
+    geom_text_repel(data = results %>% filter(abs(z.std) > 1.645 & abs(logFC) > log2(1.5)),
+                    aes(label = gene_name),
+                    box.padding = 0.5,
+                    point.padding = 0.5,
+                    segment.color = "grey50",
+                    segment.size = 0.5,
+                    segment.alpha = 0.5,
+                    size = 2)
+
+dev.off()
+
+# make volcano plot for L2_dACC_L1_DLPFC
+comparison <- "L2_dACC_L1_DLPFC"
+results <- results_list[[comparison]]
+
+# add gene_name column by matching rownames of rowData(spe_pseudo_dACC) and adding the gene_name column
+results$gene_name <- rowData(spe_pseudo_dACC)[rownames(results),]$gene_name
+
+pdf(here("plots", "11_differential_expression", "dream_volcano_L2_dACC_L1_DLPFC.pdf"), width = 8, height = 6)
+
+ggplot(results, aes(x = logFC, y = -log10(P.Value))) +
+    geom_point(aes(color = ifelse(abs(z.std) > 1.645, "red", "black")), alpha = 0.5) +
+    scale_color_identity() +
+    geom_vline(xintercept = c(-log2(1.5), log2(1.5)), linetype = "dashed") +
+    geom_hline(yintercept = -log10(0.05), linetype = "dashed") +
+    labs(title = "Volcano Plot for L2_dACC_L1_DLPFC",
+         x = "log2 Fold Change",
+         y = "-log10 P-value",
+         caption = "using dream") +
+    theme_bw() +
+    # add gene labels
+    geom_text_repel(data = results %>% filter(abs(z.std) > 1.645 & abs(logFC) > log2(1.5)),
+                    aes(label = gene_name),
+                    box.padding = 0.5,
+                    point.padding = 0.5,
+                    segment.color = "grey50",
+                    segment.size = 0.5,
+                    segment.alpha = 0.5,
+                    size = 2)
+
+dev.off()
+
+#subset columns of spe_pseudo_dACC and spe_pseudo_DLPFC to only include columns that have "L2" in the name
+spe_pseudo_dACC_L2 <- spe_pseudo_dACC[,grep("L2", colnames(spe_pseudo_dACC))]
+
+rowMeans(logcounts(spe_pseudo_DLPFC)[,grep("L2", colnames(spe_pseudo_DLPFC))])["ENSG00000004776"]
+rowMeans(logcounts(spe_pseudo_dACC)[,grep("L2", colnames(spe_pseudo_dACC))])["ENSG00000004776"]
+
