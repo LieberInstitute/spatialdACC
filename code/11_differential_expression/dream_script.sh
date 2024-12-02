@@ -21,7 +21,7 @@ module load conda_R/4.3.x
 module list
 
 ## Edit with your job command
-Rscript dream_script.R
+Rscript dream_script_consistent_logFC.R
 
 echo "**** Job ends ****"
 date
