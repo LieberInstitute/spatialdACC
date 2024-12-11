@@ -63,6 +63,7 @@ setwd('/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/')
 # Load libraries
 library(RcppML)
 library(here)
+library(tidyverse)
 
 loads <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "nmf_patterns_subset.RDS"))
 no_expr <- which(rowSums(loads) == 0)
@@ -106,7 +107,6 @@ dev.off()
 # stacked barplots showing the percentages of y/n as the number of overlaps increases
 cell_types <- sub("\\.NMF\\d+$", "", colnames(topN.mat))
 
-library(tidyverse)
 result <- topN.mat %>%
     as.data.frame() %>%
     mutate(Gene = rownames(.)) %>%
@@ -118,13 +118,15 @@ result <- topN.mat %>%
 
 result <- result %>%
     mutate(TotalOverlaps = rowSums(across(-Gene)),
-           CategoryCount = rowSums(select(., -Gene) > 0),
-           Classification = ifelse(CategoryCount == 1, "Single Category", "Multiple Categories"))
+           CategoryCount = rowSums(select(., -Gene) > 0))
 
-filtered_data <- result %>%
+result <- result %>%
     filter(TotalOverlaps > 1)
 
-plot_data <- filtered_data %>%
+result <- result %>%
+    mutate(Classification = ifelse(CategoryCount == 1, "Single Category", "Multiple Categories"))
+
+plot_data <- result %>%
     group_by(TotalOverlaps, Classification) %>%
     summarize(NumGenes = n(), .groups = "drop")
 
@@ -142,3 +144,4 @@ p <- ggplot(plot_data, aes(x = factor(TotalOverlaps), y = NumGenes, fill = Class
 pdf(here("plots", "snRNA-seq", "06_NMF","nmf_categories_top928.pdf"), height=15,width=15)
 print(p)
 dev.off()
+
