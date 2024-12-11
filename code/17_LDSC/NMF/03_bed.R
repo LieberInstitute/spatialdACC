@@ -6,7 +6,7 @@ setwd('/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/')
 # Load libraries
 library(here)
 
-cell <- read.csv(here::here("processed-data", "17_LDSC", "NMF_score.csv"))
+cell <- read.csv(here::here("processed-data", "17_LDSC", "NMF_score_928.csv"))
 colnames(cell)[1] <- "geneName"
 modules <- colnames(cell)[-1]
 for(i in 1:length(modules)){

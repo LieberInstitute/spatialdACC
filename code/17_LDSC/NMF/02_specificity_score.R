@@ -3,13 +3,32 @@ setwd('/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/')
 # Load libraries
 library(here)
 
-is_top_10_percent <- function(column) {
-    top_10_percent_threshold <- quantile(column, 0.9)
-    as.numeric(column >= top_10_percent_threshold)
-}
+topN.mat <- readRDS(here("processed-data", "17_LDSC", "top928_intermediate_mat.rds"))
+cell_types <- sub("\\.NMF\\d+$", "", colnames(topN.mat))
 
-dat <- read.table(here::here("processed-data", "17_LDSC", "NMF_aggregated_cpm.tsv"),header=T)
+result <- topN.mat %>%
+    as.data.frame() %>%
+    mutate(Gene = rownames(.)) %>%
+    pivot_longer(-Gene, names_to = "Pattern", values_to = "Count") %>%
+    mutate(CellType = sub("\\.NMF\\d+$", "", Pattern)) %>%
+    group_by(Gene, CellType) %>%
+    summarize(Sum = sum(Count), .groups = "drop") %>%
+    pivot_wider(names_from = CellType, values_from = Sum, values_fill = 0)
 
-res <- apply(dat, 2, is_top_10_percent)
-rownames(res) <- rownames(dat)
-write.csv(res,here::here("processed-data", "17_LDSC", "NMF_score.csv"))
+result <- result %>%
+    mutate(TotalOverlaps = rowSums(across(-Gene)),
+           CategoryCount = rowSums(select(., -Gene) > 0))
+
+result <- result %>%
+    filter(TotalOverlaps > 1)
+
+result <- result %>%
+    mutate(Classification = ifelse(CategoryCount == 1, "Single Category", "Multiple Categories"))
+
+
+dim(topN.mat)
+remove_list <- which(result$Classification=="Multiple Categories")
+topN.mat <- topN.mat[-remove_list,]
+dim(topN.mat)
+
+write.csv(res,here::here("processed-data", "17_LDSC", "NMF_score_928.csv"))

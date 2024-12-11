@@ -5,24 +5,36 @@ library(SpatialExperiment)
 library(ggplot2)
 library(spatialLIBD)
 library(here)
-library(scuttle)
-library(edgeR)
+library(tidyverse)
 
-x <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "nmf_results.RDS"))
+loads <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "nmf_patterns_subset.RDS"))
 
-patterns <- x@w
+no_expr <- which(rowSums(loads) == 0)
+loads <- loads[-no_expr, ]
 
-# remove NMF factors related to batch or technical vars
-# 66, 1, 23, 8, 21
-patterns <- patterns[, -c(66, 1, 23, 8, 21)]
+ldsc.score <- as.matrix(read.csv(here::here("processed-data", "17_LDSC", "NMF_score.csv"),
+                                 row.names = 1))
 
-# remove 16,134 genes that have all 0s
-all_zeros <- which(rowSums(patterns)==0)
-patterns <- patterns[-all_zeros,]
+# make the last underscore - in colnames(ldsc.score) to .
+colnames(loads) <- gsub("-", ".", colnames(loads))
 
-# calculate z-scores for each gene
-scaled <- t(scale(t(patterns)))
+colnames(ldsc.score)[25] <- "SST_Chodl.NMF51"
 
-write.table(scaled, here::here("processed-data", "17_LDSC", "NMF_aggregated_cpm.tsv"), na = "NA", col.names = TRUE,
-            row.names = TRUE, sep = "\t")
+#### new nmf_score_top-rank.csv
+identical(rownames(loads), rownames(ldsc.score))
+identical(colnames(loads), colnames(ldsc.score))
+topN.mat = matrix(0, nrow=nrow(ldsc.score), ncol=ncol(ldsc.score))
 
+
+rownames(topN.mat) <- rownames(ldsc.score)
+colnames(topN.mat) <- colnames(ldsc.score)
+
+for(i in colnames(ldsc.score)) {
+    tmp = loads[,i]
+    rank1 = (1+length(tmp))-rank(tmp)
+    tmp.bin = ifelse(rank1<=928, 1, 0)
+    stopifnot(identical(names(tmp.bin), rownames(topN.mat)))
+    topN.mat[,i] = tmp.bin
+}
+
+saveRDS(topN.mat, here("processed-data", "17_LDSC", "top928_intermediate_mat.rds"))
