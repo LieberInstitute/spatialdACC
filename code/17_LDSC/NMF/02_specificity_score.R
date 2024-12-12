@@ -31,4 +31,4 @@ remove_list <- which(result$Classification=="Multiple Categories")
 topN.mat <- topN.mat[-remove_list,]
 dim(topN.mat)
 
-write.csv(res,here::here("processed-data", "17_LDSC", "NMF_score_928.csv"))
+write.csv(topN.mat,here::here("processed-data", "17_LDSC", "NMF_score_928.csv"))
