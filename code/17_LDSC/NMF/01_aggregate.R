@@ -20,6 +20,12 @@ colnames(loads) <- gsub("-", ".", colnames(loads))
 
 colnames(ldsc.score)[25] <- "SST_Chodl.NMF51"
 
+# remove repeated patterns
+ldsc.score <- ldsc.score[, !(colnames(ldsc.score) == "misc.NMF15")]
+ldsc.score <- ldsc.score[, !(colnames(ldsc.score) == "misc.NMF59")]
+ldsc.score <- ldsc.score[, !(colnames(ldsc.score) == "misc.NMF61")]
+ldsc.score <- ldsc.score[, !(colnames(ldsc.score) == "VLMC.NMF17")]
+
 #### new nmf_score_top-rank.csv
 identical(rownames(loads), rownames(ldsc.score))
 identical(colnames(loads), colnames(ldsc.score))

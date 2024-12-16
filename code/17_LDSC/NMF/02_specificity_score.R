@@ -23,11 +23,11 @@ result <- result %>%
     filter(TotalOverlaps > 1)
 
 result <- result %>%
-    mutate(Classification = ifelse(CategoryCount == 1, "Single Category", "Multiple Categories"))
+    mutate(Classification = ifelse(CategoryCount == 1, "Single Cell Type", "Multiple Cell Types"))
 
 
 dim(topN.mat)
-remove_list <- which(result$Classification=="Multiple Categories")
+remove_list <- which(result$Classification=="Multiple Cell Types")
 topN.mat <- topN.mat[-remove_list,]
 dim(topN.mat)
 
