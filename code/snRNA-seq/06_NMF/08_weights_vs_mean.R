@@ -25,25 +25,6 @@ plist1 <- lapply(colnames(loads), function(x) {
     tmp = df1[,c(x,"avg.expr")]
     colnames(tmp) = c("nmf","avg.expr")
     tmp$rank = (1+nrow(loads))-rank(tmp$nmf)
-    tmp$top186 = tmp$rank<=186
-    ggplot(tmp, aes(x=avg.expr, y=nmf, color=top186))+
-        geom_point(size=.1)+theme_bw()+
-        geom_point(data=filter(tmp, top186==T), size=.3)+
-        scale_color_manual(values=c("black","red"))+
-        labs(title=x, y="gene weights", x="avg. expr")+
-        theme(text=element_text(size=8), #axis.title.y=element_blank()),
-              axis.text=element_blank(), legend.position="none")
-})
-
-ggsave(filename=here("plots", "snRNA-seq", "06_NMF","nmf-weight_gene-expr_scatter_top186-red-enlarge.png"),
-       plot=do.call(gridExtra::grid.arrange, c(plist1, ncol=10)),
-       width=14, height=14, units="in", bg="white")
-
-
-plist1 <- lapply(colnames(loads), function(x) {
-    tmp = df1[,c(x,"avg.expr")]
-    colnames(tmp) = c("nmf","avg.expr")
-    tmp$rank = (1+nrow(loads))-rank(tmp$nmf)
     tmp$top928 = tmp$rank<=928
     ggplot(tmp, aes(x=avg.expr, y=nmf, color=top928))+
         geom_point(size=.1)+theme_bw()+
@@ -57,6 +38,30 @@ plist1 <- lapply(colnames(loads), function(x) {
 ggsave(filename=here("plots", "snRNA-seq", "06_NMF","nmf-weight_gene-expr_scatter_top928-red-enlarge.png"),
        plot=do.call(gridExtra::grid.arrange, c(plist1, ncol=10)),
        width=14, height=14, units="in", bg="white")
+
+subset_patterns <- c(26, 23, 27, 13, 43, 40, 36, 28, 9, 33, 39, 46, 35, 61, 15, 68, 3, 11, 38, 32, 10, 63, 52, 56, 51, 37, 60, 55, 58, 44, 47, 75, 49, 14, 21, 53, 65, 24, 59, 17, 19, 54, 57, 64)
+subset_patterns <- sort(subset_patterns)
+
+df2 <- cbind.data.frame(loads[,subset_patterns], avg.expr)
+
+plist1 <- lapply(colnames(loads[,subset_patterns]), function(x) {
+    tmp = df1[,c(x,"avg.expr")]
+    colnames(tmp) = c("nmf","avg.expr")
+    tmp$rank = (1+nrow(loads))-rank(tmp$nmf)
+    tmp$top928 = tmp$rank<=928
+    ggplot(tmp, aes(x=avg.expr, y=nmf, color=top928))+
+        geom_point(size=.1)+theme_bw()+
+        geom_point(data=filter(tmp, top928==T), size=.3)+
+        scale_color_manual(values=c("black","red"))+
+        labs(title=x, y="gene weights", x="avg. expr")+
+        theme(text=element_text(size=8), #axis.title.y=element_blank()),
+              axis.text=element_blank(), legend.position="none")
+})
+
+ggsave(filename=here("plots", "snRNA-seq", "06_NMF","nmf-weight_gene-expr_scatter_top928_subset-red-enlarge.png"),
+       plot=do.call(gridExtra::grid.arrange, c(plist1, ncol=10)),
+       width=14, height=12, units="in", bg="white")
+
 
 setwd('/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/')
 
@@ -77,11 +82,16 @@ colnames(loads) <- gsub("-", ".", colnames(loads))
 
 colnames(ldsc.score)[25] <- "SST_Chodl.NMF51"
 
+# remove repeated patterns
+ldsc.score <- ldsc.score[, !(colnames(ldsc.score) == "misc.NMF15")]
+ldsc.score <- ldsc.score[, !(colnames(ldsc.score) == "misc.NMF59")]
+ldsc.score <- ldsc.score[, !(colnames(ldsc.score) == "misc.NMF61")]
+ldsc.score <- ldsc.score[, !(colnames(ldsc.score) == "VLMC.NMF17")]
+
 #### new nmf_score_top-rank.csv
 identical(rownames(loads), rownames(ldsc.score))
 identical(colnames(loads), colnames(ldsc.score))
 topN.mat = matrix(0, nrow=nrow(ldsc.score), ncol=ncol(ldsc.score))
-
 
 rownames(topN.mat) <- rownames(ldsc.score)
 colnames(topN.mat) <- colnames(ldsc.score)
