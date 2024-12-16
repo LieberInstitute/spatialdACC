@@ -158,16 +158,16 @@ data <- data[, c("Subclass", "Target",nmf_cols)]
 # Endo: 75, 49
 # Astro: 14, 21, 53, 65
 # OPC: 17, 24
-# VLMC: 59, 17
+# VLMC: 59
 # microPVM: 19, 54, 57
-# misc: 59, 64, 61, 15
+# misc: 64
 
 # first subset the data to only the columns we want
 nmf_cols <- c("nmf26", "nmf23", "nmf27", "nmf13", "nmf43", "nmf40", "nmf36", "nmf28", "nmf9", "nmf33", "nmf39",
               "nmf46", "nmf35", "nmf61", "nmf15", "nmf68", "nmf3", "nmf11", "nmf38", "nmf32", "nmf10", "nmf63",
               "nmf52", "nmf56", "nmf51", "nmf37", "nmf60", "nmf55", "nmf58", "nmf44", "nmf47", "nmf75", "nmf49",
-              "nmf14", "nmf21", "nmf53", "nmf65", "nmf17", "nmf24", "nmf59", "nmf17", "nmf19", "nmf54", "nmf57",
-              "nmf59", "nmf64", "nmf61", "nmf15")
+              "nmf14", "nmf21", "nmf53", "nmf65", "nmf17", "nmf24", "nmf59", "nmf19", "nmf54", "nmf57",
+              "nmf64")
 
 data <- data[, c("Subclass", "Target", nmf_cols)]
 
@@ -176,8 +176,8 @@ colnames(data) <- c("Subclass", "Target",
                     "Oligo-NMF26", "Oligo-NMF23", "Oligo-NMF27", "Oligo-NMF13", "Oligo-NMF43", "Oligo-NMF40", "Oligo-NMF36", "Oligo-NMF28", "Oligo-NMF9", "Oligo-NMF33", "Oligo-NMF39",
                     "L5_6_NP-NMF46", "L6_b-NMF35", "L5_ET-NMF61", "L6_CT-NMF15", "L6_IT_Car3-NMF68", "L2_3_IT-NMF3", "L2_3_IT-NMF11", "L5_IT-NMF38", "L6_IT-NMF32", "Pvalb-NMF10", "Pvalb-NMF63",
                     "SST-NMF52", "SST-NMF56", "SST Chodl-NMF51", "LAMP5-NMF37", "LAMP5-NMF60", "Sncg-NMF55", "Sncg-NMF58", "Vip-NMF44", "Vip-NMF47", "Endo-NMF75", "Endo-NMF49",
-                    "Astro-NMF14", "Astro-NMF21", "Astro-NMF53", "Astro-NMF65", "OPC-NMF17", "OPC-NMF24", "VLMC-NMF59", "VLMC-NMF17", "microPVM-NMF19", "microPVM-NMF54", "microPVM-NMF57",
-                    "misc-NMF59", "misc-NMF64", "misc-NMF61", "misc-NMF15")
+                    "Astro-NMF14", "Astro-NMF21", "Astro-NMF53", "Astro-NMF65", "OPC-NMF17", "OPC-NMF24", "VLMC-NMF59", "microPVM-NMF19", "microPVM-NMF54", "microPVM-NMF57",
+                    "misc-NMF64")
 
 
 pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_subclass_dotplot.pdf'),h=15,w=45)
