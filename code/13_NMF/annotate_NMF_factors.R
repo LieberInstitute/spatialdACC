@@ -40,25 +40,24 @@ factors <- x@h
 # Endo: 75, 49
 # Astro: 14, 21, 53, 65
 # OPC: 17, 24
-# VLMC: 59, 17
+# VLMC: 59
 # microPVM: 19, 54, 57
-# misc: 59, 64, 61, 15
+# misc: 64
 
 # subset the patterns
-patterns <- patterns[, c(26, 23, 27, 13, 43, 40, 36, 28, 9, 33, 39, 46, 35, 61, 15, 68, 3, 11, 38, 32, 10, 63, 52, 56, 51, 37, 60, 55, 58, 44, 47, 75, 49, 14, 21, 53, 65, 17, 24, 59, 17, 19, 54, 57, 59, 64, 61, 15)]
+patterns <- patterns[, c(26, 23, 27, 13, 43, 40, 36, 28, 9, 33, 39, 46, 35, 61, 15, 68, 3, 11, 38, 32, 10, 63, 52, 56, 51, 37, 60, 55, 58, 44, 47, 75, 49, 14, 21, 53, 65, 24, 59, 17, 19, 54, 57, 64)]
 
 # rename the patterns
-colnames(patterns) <- c("Oligo-NMF26", "Oligo-NMF23", "Oligo-NMF27", "Oligo-NMF13", "Oligo-NMF43", "Oligo-NMF40", "Oligo-NMF36", "Oligo-NMF28", "Oligo-NMF9", "Oligo-NMF33", "Oligo-NMF39", "L5_6_NP-NMF46", "L6_b-NMF35", "L5_ET-NMF61", "L6_CT-NMF15", "L6_IT_Car3-NMF68", "L2_3_IT-NMF3", "L2_3_IT-NMF11", "L5_IT-NMF38", "L6_IT-NMF32", "Pvalb-NMF10", "Pvalb-NMF63", "SST-NMF52", "SST-NMF56", "SST_Chodl-NMF51", "LAMP5-NMF37", "LAMP5-NMF60", "Sncg-NMF55", "Sncg-NMF58", "Vip-NMF44", "Vip-NMF47", "Endo-NMF75", "Endo-NMF49", "Astro-NMF14", "Astro-NMF21", "Astro-NMF53", "Astro-NMF65", "OPC-NMF17", "OPC-NMF24", "VLMC-NMF59", "VLMC-NMF17", "microPVM-NMF19", "microPVM-NMF54", "microPVM-NMF57", "misc-NMF59", "misc-NMF64", "misc-NMF61", "misc-NMF15")
+colnames(patterns) <- c("Oligo-NMF26", "Oligo-NMF23", "Oligo-NMF27", "Oligo-NMF13", "Oligo-NMF43", "Oligo-NMF40", "Oligo-NMF36", "Oligo-NMF28", "Oligo-NMF9", "Oligo-NMF33", "Oligo-NMF39", "L5_6_NP-NMF46", "L6_b-NMF35", "L5_ET-NMF61", "L6_CT-NMF15", "L6_IT_Car3-NMF68", "L2_3_IT-NMF3", "L2_3_IT-NMF11", "L5_IT-NMF38", "L6_IT-NMF32", "Pvalb-NMF10", "Pvalb-NMF63", "SST-NMF52", "SST-NMF56", "SST_Chodl-NMF51", "LAMP5-NMF37", "LAMP5-NMF60", "Sncg-NMF55", "Sncg-NMF58", "Vip-NMF44", "Vip-NMF47", "Endo-NMF75", "Endo-NMF49", "Astro-NMF14", "Astro-NMF21", "Astro-NMF53", "Astro-NMF65", "OPC-NMF17", "OPC-NMF24", "VLMC-NMF59", "microPVM-NMF19", "microPVM-NMF54", "microPVM-NMF57", "misc-NMF64")
 
 # save the patterns
 saveRDS(patterns, file = here("processed-data", "snRNA-seq", "06_NMF", "nmf_patterns_subset.RDS"))
 
 # subset the factors
-factors <- factors[c(26, 23, 27, 13, 43, 40, 36, 28, 9, 33, 39, 46, 35, 61, 15, 68, 3, 11, 38, 32, 10, 63, 52, 56, 51, 37, 60, 55, 58, 44, 47, 75, 49, 14, 21, 53, 65, 17, 24, 59, 17, 19, 54, 57, 59, 64, 61, 15), ]
+factors <- factors[c(26, 23, 27, 13, 43, 40, 36, 28, 9, 33, 39, 46, 35, 61, 15, 68, 3, 11, 38, 32, 10, 63, 52, 56, 51, 37, 60, 55, 58, 44, 47, 75, 49, 14, 21, 53, 65, 17, 24, 59, 19, 54, 57, 64), ]
 
 # rename the factors
-rownames(factors) <- c("Oligo-NMF26", "Oligo-NMF23", "Oligo-NMF27", "Oligo-NMF13", "Oligo-NMF43", "Oligo-NMF40", "Oligo-NMF36", "Oligo-NMF28", "Oligo-NMF9", "Oligo-NMF33", "Oligo-NMF39", "L5_6_NP-NMF46", "L6_b-NMF35", "L5_ET-NMF61", "L6_CT-NMF15", "L6_IT_Car3-NMF68", "L2_3_IT-NMF3", "L2_3_IT-NMF11", "L5_IT-NMF38", "L6_IT-NMF32", "Pvalb-NMF10", "Pvalb-NMF63", "SST-NMF52", "SST-NMF56", "SST_Chodl-NMF51", "LAMP5-NMF37", "LAMP5-NMF60", "Sncg-NMF55", "Sncg-NMF58", "Vip-NMF44", "Vip-NMF47", "Endo-NMF75", "Endo-NMF49", "Astro-NMF14", "Astro-NMF21", "Astro-NMF53", "Astro-NMF65", "OPC-NMF17", "OPC-NMF24", "VLMC-NMF59", "VLMC-NMF17", "microPVM-NMF19", "microPVM-NMF54", "microPVM-NMF57", "misc-NMF59", "misc-NMF64", "misc-NMF61", "misc-NMF15")
-
+rownames(factors) <- c("Oligo-NMF26", "Oligo-NMF23", "Oligo-NMF27", "Oligo-NMF13", "Oligo-NMF43", "Oligo-NMF40", "Oligo-NMF36", "Oligo-NMF28", "Oligo-NMF9", "Oligo-NMF33", "Oligo-NMF39", "L5_6_NP-NMF46", "L6_b-NMF35", "L5_ET-NMF61", "L6_CT-NMF15", "L6_IT_Car3-NMF68", "L2_3_IT-NMF3", "L2_3_IT-NMF11", "L5_IT-NMF38", "L6_IT-NMF32", "Pvalb-NMF10", "Pvalb-NMF63", "SST-NMF52", "SST-NMF56", "SST_Chodl-NMF51", "LAMP5-NMF37", "LAMP5-NMF60", "Sncg-NMF55", "Sncg-NMF58", "Vip-NMF44", "Vip-NMF47", "Endo-NMF75", "Endo-NMF49", "Astro-NMF14", "Astro-NMF21", "Astro-NMF53", "Astro-NMF65", "OPC-NMF17", "OPC-NMF24", "VLMC-NMF59", "microPVM-NMF19", "microPVM-NMF54", "microPVM-NMF57", "misc-NMF64")
 create_custom_dot_plot <- function(data, category_col, features_cols,
                                    plot_title, x_axis_title, y_axis_title,
                                    legend_size_title, legend_color_title) {
@@ -111,8 +110,8 @@ df <- cbind(df, t(factors))
 
 indices <- rownames(factors)
 
-pdf(file=here::here('plots','snRNA-seq','06_NMF','snRNAseq_NMF_dotplot.pdf'),h=10,w=16)
-create_custom_dot_plot(data, "cellType_azimuth", indices, "snRNA-seq", "NMF pattern",
+pdf(file=here::here('plots','snRNA-seq','06_NMF','snRNAseq_NMF_dotplot.pdf'),h=15,w=30)
+create_custom_dot_plot(df, "cellType_azimuth", indices, "snRNA-seq", "NMF pattern",
                        "cell type", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
     theme(axis.text=element_text(size=32,color='black'),text=element_text(size=32,color='black'))
