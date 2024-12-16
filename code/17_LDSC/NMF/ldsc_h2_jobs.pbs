@@ -3,8 +3,8 @@
 #SBATCH --output=./ldsc_h2_jobs.txt_err_out/jobs_%A_%a.out
 #SBATCH --error=./ldsc_h2_jobs.txt_err_out/jobs_%A_%a.err
 #SBATCH --partition=shared
-#SBATCH --mem-per-cpu=20G --cpus-per-task=1
-#SBATCH --array=1-87%87
+#SBATCH --mem-per-cpu=15G --cpus-per-task=1
+#SBATCH --array=1-80%80
 
 
 echo "**** Job starts ****"
