@@ -12,6 +12,13 @@ ldsc_results <- read.csv(file=here::here('code','17_LDSC',
 ###make -log10FDR column
 ldsc_results$log10fdr <- -log10(ldsc_results$FDR)
 
+# remove repeating NMF patterns 15, 17, 59, 61
+ldsc_results <- ldsc_results[-which(ldsc_results$cell == "misc.NMF15"),]
+ldsc_results <- ldsc_results[-which(ldsc_results$cell == "VLMC.NMF17"),]
+ldsc_results <- ldsc_results[-which(ldsc_results$cell == "misc.NMF59"),]
+ldsc_results <- ldsc_results[-which(ldsc_results$cell == "misc.NMF61"),]
+
+
 ####to make nmf only###
 #ldsc_results <- ldsc_results[ldsc_results$cell %in% paste0('nmf',c(1:100)),]
 
