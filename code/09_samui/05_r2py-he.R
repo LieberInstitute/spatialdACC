@@ -6,7 +6,7 @@ suppressPackageStartupMessages(library("sessioninfo"))
 suppressPackageStartupMessages(library("here"))
 
 spe_IF_in <- here(
-    'processed-data', '02_build_spe', 'spe_raw_he.Rdata'
+    'processed-data', '08_clustering', 'PRECAST', 'spe_nnSVG_PRECAST_9_labels.Rdata'
 )
 
 spe_out <- here(
