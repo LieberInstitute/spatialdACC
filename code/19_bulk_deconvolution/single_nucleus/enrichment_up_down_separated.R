@@ -22,7 +22,7 @@ colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(
 colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "L6 IT", "L6_IT")
 colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "L6 IT Car3", "L6_IT_Car3")
 colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "Sst Chodl", "Sst_Chodl")
-colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "Micro-PVM", "Micro_PVM")
+colData(sce)$cellType_azimuth <- replace(colData(sce)$cellType_azimuth, colData(sce)$cellType_azimuth == "MicroPVM", "Micro_PVM")
 
 # Subset modeling results
 enrichment_results <- modeling_results[["enrichment"]]
@@ -31,8 +31,22 @@ enrichment_results <- modeling_results[["enrichment"]]
 file = here("processed-data", "PTSD_bulk", "appi.ajp.21020162.ds003.csv")
 bulk <- read.csv(file, row.names = 1)
 
-# Extract base gene IDs (remove version numbers)
-base_gene_ids <- sub("\\..*", "", rownames(bulk))
+# Step 1: Extract base gene IDs (remove version numbers)
+gene_ids <- rownames(bulk)
+base_gene_ids <- sub("\\..*", "", gene_ids)
+
+# Step 2: Check for duplicates
+duplicated_genes <- base_gene_ids[duplicated(base_gene_ids)]
+
+# Print duplicated genes (if any)
+if (length(duplicated_genes) > 0) {
+    print("Duplicated genes found (without version numbers):")
+    print(duplicated_genes)
+} else {
+    print("No duplicated genes found (without version numbers).")
+}
+
+# Remove .xx from gene names
 rownames(bulk) <- base_gene_ids
 
 # List columns of interest from bulk data
@@ -72,6 +86,7 @@ for (i in k) {
     # Identify upregulated and downregulated DE genes in the spatial domain
     DE_clust_genes_up <- rownames(enrichment_results[
         enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] > 0, ])
+    print(length(DE_clust_genes_up))
     DE_clust_genes_down <- rownames(enrichment_results[
         enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] < 0, ])
 
@@ -143,11 +158,19 @@ ordered_cols <- order(col_means, decreasing = TRUE)
 # Reorder the heatmap matrix
 combined_pvalues_ordered <- combined_pvalues[ordered_rows, ordered_cols]
 
+# move up VLMC and Endo to be after Oligo
+combined_pvalues_ordered <- combined_pvalues_ordered[c(1,2,5,8,3,4,10,7,6,9,11,12,13,14,15,16,17,18,19),]
+
+col_fun <- colorRamp2(
+    c(1.3, max(-log10(combined_pvalues_ordered))),
+    c("white", "blue") # White for -log10(p) >= 1.3 (p >= 0.05), blue for more significant p-values
+)
+
 # Create heatmap for the combined p-values
 heatmap_combined <- Heatmap(
     -log10(combined_pvalues_ordered),
     name = "-log10(Fisher's p-value)",
-    col = colorRampPalette(c("white", "blue", "red"))(50),
+    col = col_fun,
     cluster_rows = FALSE,
     cluster_columns = FALSE,
     show_column_names = TRUE,

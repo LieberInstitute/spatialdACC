@@ -165,6 +165,9 @@ ordered_cols <- order(col_means, decreasing = TRUE)
 
 combined_pvalues_ordered <- combined_pvalues[ordered_rows, ordered_cols]
 
+combined_pvalues_ordered <- combined_pvalues_ordered[c(1,2,3,6,5,4,7),]
+
+
 # Define custom color function for -log10 transformed values
 col_fun <- colorRamp2(
     c(1.3, max(-log10(combined_pvalues_ordered))),
