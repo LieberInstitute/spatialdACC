@@ -1,7 +1,7 @@
-date: Mon Nov 27 09:16:15 AM EST 2023
+date: Wed Jan  8 02:05:41 PM EST 2025
 **** JHPCE info ****
 User: rmiller
-Job id: 888794
+Job id: 11850378
 Job name: 02samui
 Hostname: 
 Task id: 1
@@ -14,22 +14,22 @@ Loading LIBD SLURM module for samui/1.0.0-next.45
 /jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/anndata/_core/anndata.py:1830: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
   utils.warn_names_duplicates("obs")
 Using 6241 genes as features.
-[09:17:49] INFO     Transforming                                    logger.py:27
+[14:06:13] INFO     Transforming                                    logger.py:27
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/IF/V12N28-333_A1/V12N28-333_A1.tif to                
                     COG.                                                        
            INFO     'V12N28-333_A1' Executing queued functions      logger.py:27
            INFO     V12N28-333_A1 Adding coords 'coords'            logger.py:27
-           INFO     Writing uncompressed GeoTIFF                    logger.py:27
+[14:06:14] INFO     Writing uncompressed GeoTIFF                    logger.py:27
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/IF/V12N28-333_A1/V12N28-333_A1_1.tif                 
-[09:18:01] INFO     Writing uncompressed GeoTIFF                    logger.py:27
+[14:06:48] INFO     Writing uncompressed GeoTIFF                    logger.py:27
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/IF/V12N28-333_A1/V12N28-333_A1_2.tif                 
-[09:18:10] INFO     Writing COG                                     logger.py:27
+[14:07:04] INFO     Writing COG                                     logger.py:27
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/IF/V12N28-333_A1/V12N28-333_A1_1.tif                 
@@ -37,14 +37,14 @@ Using 6241 genes as features.
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/IF/V12N28-333_A1/V12N28-333_A1_2.tif                 
-[09:18:27] INFO     V12N28-333_A1 Adding chunked feature 'Genes'    logger.py:27
-[09:21:07] INFO     V12N28-333_A1 Concatenating and compressing     logger.py:27
+[14:07:36] INFO     V12N28-333_A1 Adding chunked feature 'Genes'    logger.py:27
+[14:14:01] INFO     V12N28-333_A1 Concatenating and compressing     logger.py:27
                     chunks                                                      
-[09:22:02] INFO     Writing compressed chunks for Genes: 8411870    logger.py:27
+[14:15:07] INFO     Writing compressed chunks for Genes: 8411870    logger.py:27
                     bytes                                                       
            INFO     'V12N28-333_A1' written to                      logger.py:27
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/IF/V12N28-333_A1                                     
 **** Job ends ****
-Mon Nov 27 09:22:02 AM EST 2023
+Wed Jan  8 02:15:08 PM EST 2025

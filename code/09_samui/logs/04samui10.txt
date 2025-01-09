@@ -1,7 +1,7 @@
-date: Wed Jan 10 09:56:50 AM EST 2024
+date: Wed Jan  8 02:42:32 PM EST 2025
 **** JHPCE info ****
 User: rmiller
-Job id: 1508124
+Job id: 11853831
 Job name: 04samui
 Hostname: 
 Task id: 10
@@ -11,10 +11,8 @@ Loading LIBD SLURM module for samui/1.0.0-next.45
   warnings.warn(message, UserWarning)
 /jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/openpyxl/worksheet/_reader.py:329: UserWarning: Unknown extension is not supported and will be removed
   warn(msg)
-/jhpce/shared/libd/core/samui/1.0.0-next.45/samui_env/lib/python3.10/site-packages/anndata/_core/anndata.py:1830: UserWarning: Observation names are not unique. To make them unique, call `.obs_names_make_unique`.
-  utils.warn_names_duplicates("obs")
-Using 36591 genes as features.
-[09:57:42] INFO     Transforming                                    logger.py:27
+Using 29712 genes as features.
+[14:43:24] INFO     Transforming                                    logger.py:27
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/hande/V12N28-332_B1/V12N28-332_B1.tif to             
@@ -25,21 +23,18 @@ Using 36591 genes as features.
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/hande/V12N28-332_B1/V12N28-332_B1.tif                
-[09:57:59] INFO     Writing COG                                     logger.py:27
+[14:45:04] INFO     Writing COG                                     logger.py:27
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/hande/V12N28-332_B1/V12N28-332_B1.tif                
-[09:58:16] INFO     V12N28-332_B1 Adding chunked feature 'Genes'    logger.py:27
-[10:05:04] INFO     V12N28-332_B1 Concatenating and compressing     logger.py:27
+[14:46:46] INFO     V12N28-332_B1 Adding chunked feature 'Genes'    logger.py:27
+[15:17:18] INFO     V12N28-332_B1 Concatenating and compressing     logger.py:27
                     chunks                                                      
-[10:05:34] INFO     Writing compressed chunks for Genes: 9841844    logger.py:27
+[15:18:11] INFO     Writing compressed chunks for Genes: 8042606    logger.py:27
                     bytes                                                       
            INFO     'V12N28-332_B1' written to                      logger.py:27
                     /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
                     atialdACC/code/09_samui/../../processed-data/10             
                     _samui/hande/V12N28-332_B1                                  
 **** Job ends ****
-Wed Jan 10 10:05:35 AM EST 2024
-slurmstepd: error: get_addr_info: getaddrinfo() failed: Name or service not known
-slurmstepd: error: slurm_set_addr: Unable to resolve "usher05"
-slurmstepd: error: Unable to establish control machine address
+Wed Jan  8 03:18:12 PM EST 2025
