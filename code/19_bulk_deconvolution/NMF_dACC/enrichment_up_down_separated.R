@@ -17,8 +17,8 @@ top_genes <- function(W, n=10){
     return(top_genes)
 }
 
-# get top 1000 genes
-top1000 <- top_genes(x$w, 1000)
+# get top 500 genes
+top500 <- top_genes(x$w, 500)
 
 # Load bulk data
 file = here("processed-data", "PTSD_bulk", "appi.ajp.21020162.ds003.csv")
@@ -77,16 +77,16 @@ k <- c("nmf38","nmf61")
 for (i in k) {
     print(i)
 
-    top1000_i <- top1000[,i]
+    top500_i <- top500[,i]
 
     # match gene names to gene ids from sce
-    top1000_i_id <- rowData(sce)$gene_id[match(top1000_i, rowData(sce)$gene_name)]
+    top500_i_id <- rowData(sce)$gene_id[match(top500_i, rowData(sce)$gene_name)]
 
     # make sure top genes are in the intersection
-    top1000_i_id <- intersect(top1000_i_id,overlap)
+    top500_i_id <- intersect(top500_i_id,overlap)
 
     #background genes
-    bg_genes_i_id <- setdiff(bg_genes_id,top1000_i_id)
+    bg_genes_i_id <- setdiff(bg_genes_id,top500_i_id)
 
     # PTSD results
     PTSD_results <- function(DE_bulk, nonDE_bulk, DE_clust_genes, nonDE_clust_genes) {
@@ -107,8 +107,8 @@ for (i in k) {
         list(contingency_table = contingency_table, fisher_test = fisher_test)
     }
 
-    results_PTSD_up[[i]] <- PTSD_results(DE_bulk_PTSD_up, nonDE_bulk_PTSD_up, top1000_i_id, bg_genes_i_id)
-    results_PTSD_down[[i]] <- PTSD_results(DE_bulk_PTSD_down, nonDE_bulk_PTSD_down, top1000_i_id, bg_genes_i_id)
-    results_MDD_up[[i]] <- PTSD_results(DE_bulk_MDD_up, nonDE_bulk_MDD_up, top1000_i_id, bg_genes_i_id)
-    results_MDD_down[[i]] <- PTSD_results(DE_bulk_MDD_down, nonDE_bulk_MDD_down, top1000_i_id, bg_genes_i_id)
+    results_PTSD_up[[i]] <- PTSD_results(DE_bulk_PTSD_up, nonDE_bulk_PTSD_up, top500_i_id, bg_genes_i_id)
+    results_PTSD_down[[i]] <- PTSD_results(DE_bulk_PTSD_down, nonDE_bulk_PTSD_down, top500_i_id, bg_genes_i_id)
+    results_MDD_up[[i]] <- PTSD_results(DE_bulk_MDD_up, nonDE_bulk_MDD_up, top500_i_id, bg_genes_i_id)
+    results_MDD_down[[i]] <- PTSD_results(DE_bulk_MDD_down, nonDE_bulk_MDD_down, top500_i_id, bg_genes_i_id)
 }

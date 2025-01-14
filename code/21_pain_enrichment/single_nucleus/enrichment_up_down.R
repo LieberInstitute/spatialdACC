@@ -41,17 +41,22 @@ dim(bulk)
 # better formatting
 bulk$logFC <- bulk$Log2.FC..ctrl.vs.stim.
 bulk$adj_p <- bulk$Adjusted.p.value..ctrl.vs.stim.
+bulk$p <- bulk$P.value..ctrl.vs.stim.
 
-bulk <- bulk[!(is.na(bulk$adj_p) | bulk$adj_p==""), ]
+bulk <- bulk[!(is.na(bulk$adj_p) | bulk$adj_p=="" | bulk$p==""), ]
 
 bulk$logFC <- str_replace(bulk$logFC, ",", ".")
 bulk$adj_p <- str_replace(bulk$adj_p, ",", ".")
+bulk$p <- str_replace(bulk$p, ",", ".")
 
 # List columns of interest from bulk data
-vars <- c("Gene.name", "logFC", "adj_p")
+vars <- c("Gene.name", "logFC", "adj_p", "p")
 
 # Create smaller df with these vars
 bulk <- bulk[, vars]
+
+bulk$p <- formatC(bulk$p, format = "f", digits = 20)
+bulk$p <- as.numeric(bulk$p)
 
 orthology<-read.csv(file=here::here('raw-data','Retro-seq',
                                     'human_mouse_orthologs.csv'))
@@ -86,13 +91,22 @@ overlap <- intersect(bulk$Human.gene.name, enrichment_results$gene)
 bulk <- bulk[bulk$Human.gene.name %in% overlap, ]
 enrichment_results <- enrichment_results[enrichment_results$gene %in% overlap, ]
 
-adj_pval_threshold <- 0.05
+adj_pval_threshold <- 0.1
 
 DE_bulk_up <- bulk[bulk$adj_p < adj_pval_threshold & bulk$logFC > 0, ]$Human.gene.name
 DE_bulk_down <- bulk[bulk$adj_p < adj_pval_threshold & bulk$logFC < 0, ]$Human.gene.name
 
 nonDE_bulk_up <- setdiff(bulk$Human.gene.name, DE_bulk_up)
 nonDE_bulk_down <- setdiff(bulk$Human.gene.name, DE_bulk_down)
+
+#pval_threshold <- 0.05
+
+#DE_bulk_up <- bulk[bulk$p < pval_threshold & bulk$logFC > 0, ]$Human.gene.name
+#DE_bulk_down <- bulk[bulk$p < pval_threshold & bulk$logFC < 0, ]$Human.gene.name
+
+#nonDE_bulk_up <- setdiff(bulk$Human.gene.name, DE_bulk_up)
+#nonDE_bulk_down <- setdiff(bulk$Human.gene.name, DE_bulk_down)
+
 
 # Create a list to store the results
 results_up <- list()
@@ -101,18 +115,19 @@ results_down <- list()
 k <- unique(sce$cellType_azimuth)
 k <- k[k != "Sst_Chodl"]
 
+top_n <- 500
+
 for (i in k) {
     print(i)
     # Identify upregulated and downregulated DE genes in the spatial domain
-    DE_clust_genes_up <- enrichment_results[
-        enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] > 0, ]$gene
-    DE_clust_genes_down <- enrichment_results[
-        enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] < 0, ]$gene
 
-    nonDE_clust_genes_up <- enrichment_results[
-        enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] <= 0, ]$gene
-    nonDE_clust_genes_down <- enrichment_results[
-        enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] >= 0, ]$gene
+    t_stat_threshold <- sort(enrichment_results[[paste0("t_stat_", i)]], decreasing = T)[top_n]
+
+    DE_clust_genes_up <- enrichment_results[enrichment_results[[paste0("t_stat_", i)]] >= t_stat_threshold, ]$gene
+    DE_clust_genes_down <- DE_clust_genes_up
+
+    nonDE_clust_genes_up <- enrichment_results[enrichment_results[[paste0("t_stat_", i)]] < t_stat_threshold, ]$gene
+    nonDE_clust_genes_down <- nonDE_clust_genes_up
 
     # Count overlaps for upregulated genes
     DE_clust_DE_bulk_up <- length(intersect(DE_clust_genes_up, DE_bulk_up))
@@ -231,9 +246,9 @@ heatmap_combined <- Heatmap(
 )
 
 # Display the heatmap
-pdf(here("plots", "21_pain_enrichment", "single_nucleus_heatmap_up_down_pval_0.05.pdf"))
+pdf(here("plots", "21_pain_enrichment", "single_nucleus_heatmap_up_down_adjpval_0.1.pdf"))
 draw(heatmap_combined, merge_legend = F, annotation_legend_side = "bottom")
-grid.text("bulk cutoff changed to pval < 0.1",
+grid.text("bulk cutoff changed to adj pval < 0.1",
           x = unit(0.5, "npc"), y = unit(0.02, "npc"),
           just = "center", gp = gpar(fontsize = 10, col = "black"))
 dev.off()

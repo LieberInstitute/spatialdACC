@@ -69,17 +69,18 @@ results_PTSD_down <- list()
 results_MDD_up <- list()
 results_MDD_down <- list()
 
-for (i in c("L1","L2","L3","L5","L6a","L6b","WM")) {
-    # Identify upregulated and downregulated DE genes in the spatial domain
-    DE_clust_genes_up <- rownames(enrichment_results[
-        enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] > 0, ])
-    DE_clust_genes_down <- rownames(enrichment_results[
-        enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] < 0, ])
+top_n <- 500
 
-    nonDE_clust_genes_up <- rownames(enrichment_results[
-        enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] <= 0, ])
-    nonDE_clust_genes_down <- rownames(enrichment_results[
-        enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] >= 0, ])
+for (i in c("L1","L2","L3","L5","L6a","L6b","WM")) {
+    # Identify upregulated DE genes in the spatial domain
+    # choose the top n by t statistics
+    t_stat_threshold <- sort(enrichment_results[[paste0("t_stat_", i)]], decreasing = T)[top_n]
+    DE_clust_genes_up <- rownames(enrichment_results[enrichment_results[[paste0("t_stat_", i)]] >= t_stat_threshold, ])
+
+    DE_clust_genes_down <- DE_clust_genes_up
+
+    nonDE_clust_genes_up <- rownames(enrichment_results[enrichment_results[[paste0("t_stat_", i)]] < t_stat_threshold, ])
+    nonDE_clust_genes_down <- nonDE_clust_genes_up
 
     # PTSD upregulated
     DE_clust_DE_bulk_PTSD_up <- length(intersect(DE_clust_genes_up, DE_bulk_PTSD_up))
@@ -165,9 +166,6 @@ ordered_cols <- order(col_means, decreasing = TRUE)
 
 combined_pvalues_ordered <- combined_pvalues[ordered_rows, ordered_cols]
 
-combined_pvalues_ordered <- combined_pvalues_ordered[c(1,2,3,6,5,4,7),]
-
-
 # Define custom color function for -log10 transformed values
 col_fun <- colorRamp2(
     c(1.3, max(-log10(combined_pvalues_ordered))),
@@ -200,7 +198,7 @@ heatmap_combined <- Heatmap(
 # Display the heatmap
 pdf(here("plots", "19_bulk_deconvolution", "spatial_heatmap_up_down_pval_0.1_separated.pdf"))
 draw(heatmap_combined)
-grid.text("bulk cutoff changed to pval < 0.1",
+grid.text("bulk cutoff changed to pval < 0.1, top 500 markers",
           x = unit(0.5, "npc"), y = unit(0.02, "npc"),
           just = "center", gp = gpar(fontsize = 10, col = "black"))
 dev.off()
