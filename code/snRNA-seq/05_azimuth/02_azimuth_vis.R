@@ -24,3 +24,26 @@ p <- plotReducedDim(sce, dimred="UMAP-HARMONY", colour_by="cellType_azimuth", po
 
 ggsave(p, file = here::here("plots", "snRNA-seq", "05_azimuth", "HARMONY_azimuth_UMAP.pdf"), useDingbats = FALSE)
 
+p1 <- plotReducedDim(sce, dimred="TSNE-HARMONY", colour_by="cellType_azimuth", point_size = 0.5) +
+    xlab("t-SNE 1") +
+    ylab("t-SNE 2") +
+    labs(color = "Cell Type")
+p2 <- plotReducedDim(sce, dimred="TSNE5-HARMONY", colour_by="cellType_azimuth", point_size = 0.5) +
+    xlab("t-SNE 1") +
+    ylab("t-SNE 2") +
+    labs(color = "Cell Type")
+p3 <- plotReducedDim(sce, dimred="TSNE20-HARMONY", colour_by="cellType_azimuth", point_size = 0.5) +
+    xlab("t-SNE 1") +
+    ylab("t-SNE 2") +
+    labs(color = "Cell Type")
+p4 <- plotReducedDim(sce, dimred="TSNE80-HARMONY", colour_by="cellType_azimuth", point_size = 0.5) +
+    xlab("t-SNE 1") +
+    ylab("t-SNE 2") +
+    labs(color = "Cell Type")
+
+pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "HARMONY_azimuth_TSNE.pdf"))
+print(p1)
+print(p2)
+print(p3)
+print(p4)
+dev.off()
