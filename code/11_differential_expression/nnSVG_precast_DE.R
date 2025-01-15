@@ -75,6 +75,15 @@ registration_mod <-
 block_cor <-
     registration_block_cor(spe_pseudo, registration_model = registration_mod)
 
+results_pairwise <-
+    registration_stats_pairwise(
+        spe_pseudo,
+        registration_model = registration_mod,
+        block_cor = block_cor,
+        gene_ensembl = "gene_id",
+        gene_name = "gene_name"
+    )
+
 results_enrichment <-
     registration_stats_enrichment(
         spe_pseudo,
@@ -85,6 +94,7 @@ results_enrichment <-
     )
 
 modeling_results <- list(
+    "pairwise" = results_pairwise,
     "enrichment" = results_enrichment
 )
 
@@ -199,3 +209,44 @@ for (i in unique(colData(spe_pseudo)[["layer"]])) {
 }
 
 dev.off()
+
+# create volcano plot of pairwise comparison of L6a and L6b
+#volcano plots
+thresh_fdr <- 0.05
+thresh_logfc <- log2(1.5)
+fdrs_gene_ids <- rowData(spe_pseudo)$gene_id
+fdrs_gene_names <- rowData(spe_pseudo)$gene_name
+
+fdrs <- modeling_results[["pairwise"]][,paste0("fdr_", "L6a-L6b")]
+logfc <- modeling_results[["pairwise"]][,paste0("logFC_", "L6a-L6b")]
+
+sig <- (fdrs < thresh_fdr) & (abs(logfc) > thresh_logfc)
+print(table(sig))
+
+df_list <- data.frame(
+    gene_name = modeling_results[["pairwise"]]$gene,
+    logFC = logfc,
+    FDR = fdrs,
+    sig = sig
+)
+
+pdf(file = here::here("plots", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
+                      paste0("volcano_", "L6a-L6b", ".pdf")),
+    width = 8.5, height = 8)
+
+print(EnhancedVolcano(df_list,
+                      lab = df_list$gene_name,
+                      x = 'logFC',
+                      y = 'FDR',
+                      FCcutoff = 1.5,
+                      pCutoff = 0.05,
+                      ylab = "-log10 FDR",
+                      legendLabels = c('Not sig.','Log (base 2) FC','FDR',
+                                       'FDR & Log (base 2) FC'),
+                      title = "nnSVG PRECAST dACC",
+                      subtitle = "L6a minus L6b",
+)
+)
+
+dev.off()
+
