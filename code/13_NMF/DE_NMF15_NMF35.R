@@ -101,7 +101,7 @@ write.csv(sig_genes_reverse, file = here::here("processed-data", "13_NMF",
 # create volcano plot of pairwise comparison of NMF_35 and NMF_15
 #volcano plots
 thresh_fdr <- 0.05
-thresh_logfc <- log2(1.5)
+thresh_logfc <- log2(1)
 fdrs_gene_ids <- rowData(spe_pseudo)$gene_id
 fdrs_gene_names <- rowData(spe_pseudo)$gene_name
 
@@ -125,7 +125,7 @@ print(EnhancedVolcano(df_list,
                       lab = df_list$gene_name,
                       x = 'logFC',
                       y = 'FDR',
-                      FCcutoff = 1.5,
+                      FCcutoff = 1,
                       pCutoff = 0.05,
                       ylab = "-log10 FDR",
                       legendLabels = c('Not sig.','Log (base 2) FC','FDR',
