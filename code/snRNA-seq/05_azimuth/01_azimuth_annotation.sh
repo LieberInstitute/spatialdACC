@@ -16,7 +16,7 @@ echo "Job name: ${SLURM_JOB_NAME}"
 echo "Hostname: ${HOSTNAME}"
 echo "Task id: ${SLURM_ARRAY_TASK_ID}"
 
-module load conda_R
+module load conda_R/4.3.x
 
 ## List current modules for reproducibility
 module list
