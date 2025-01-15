@@ -219,7 +219,7 @@ pdf(here("plots", "11_differential_expression", "dream_heatmap_dACC_stand.pdf"),
 ggplot(heatmap_data_dACC, aes(x = Var2, y = Var1, fill = value)) +
     geom_tile() +
     geom_text(aes(label=value), color="black", size=2) +
-    scale_fill_gradient(low = "grey", high = "red") +
+    scale_fill_gradient(low = "blue", high = "white") +
     labs(title = "Number of Significant Genes by Layer Comparison",
          x = "DLPFC Layer",
          y = "dACC Layer",
