@@ -131,7 +131,7 @@ print(table(sig))
 
 df_list <- data.frame(
     gene_name = modeling_results[["pairwise"]]$gene,
-    logFC = logfc,
+    logFC = -logfc,
     FDR = fdrs,
     sig = sig
     )
@@ -150,7 +150,7 @@ print(EnhancedVolcano(df_list,
                       legendLabels = c('Not sig.','Log (base 2) FC','FDR',
                                        'FDR & Log (base 2) FC'),
                       title = "nnSVG PRECAST dACC",
-                      subtitle = "NMF_38 minus NMF_61",
+                      subtitle = "NMF61 minus NMF38",
                       )
       )
 
