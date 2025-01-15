@@ -179,15 +179,24 @@ colnames(data) <- c("Subclass", "Target",
                     "Astro-NMF14", "Astro-NMF21", "Astro-NMF53", "Astro-NMF65", "OPC-NMF17", "OPC-NMF24", "VLMC-NMF59", "microPVM-NMF19", "microPVM-NMF54", "microPVM-NMF57",
                     "misc-NMF64")
 
+# remove columns that are not excitatory
+data[,c("Oligo-NMF26", "Oligo-NMF23", "Oligo-NMF27", "Oligo-NMF13", "Oligo-NMF43", "Oligo-NMF40", "Oligo-NMF36", "Oligo-NMF28", "Oligo-NMF9", "Oligo-NMF33", "Oligo-NMF39",
+        "Pvalb-NMF10", "Pvalb-NMF63",
+        "SST-NMF52", "SST-NMF56", "SST Chodl-NMF51", "LAMP5-NMF37", "LAMP5-NMF60", "Sncg-NMF55", "Sncg-NMF58", "Vip-NMF44", "Vip-NMF47", "Endo-NMF75", "Endo-NMF49",
+        "Astro-NMF14", "Astro-NMF21", "Astro-NMF53", "Astro-NMF65", "OPC-NMF17", "OPC-NMF24", "VLMC-NMF59", "microPVM-NMF19", "microPVM-NMF54", "microPVM-NMF57",
+        "misc-NMF64")] <- NULL
 
-pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_subclass_dotplot.pdf'),h=15,w=45)
-create_custom_dot_plot(data, "Subclass", colnames(data)[-c(1,2)], "", "NMF pattern",
+# remove columns that are not excitatory
+data_subclass <- data[-which(data$Subclass %in% c("Lamp5 Gaba","Pvalb Gaba","Sst Gaba","Vip Gaba")),]
+
+pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_subclass_dotplot.pdf'),h=10,w=20)
+create_custom_dot_plot(data_subclass, "Subclass", colnames(data)[-c(1,2)], "", "NMF pattern",
                        "Allen subclass", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
     theme(axis.text=element_text(size=32,color='black'),text=element_text(size=32,color='black'))
 dev.off()
 
-pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_target_dotplot.pdf'),h=15,w=40)
+pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_target_dotplot.pdf'),h=11,w=20)
 create_custom_dot_plot(data, "Target", colnames(data)[-c(1,2)], "", "NMF pattern",
                        "Target", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
