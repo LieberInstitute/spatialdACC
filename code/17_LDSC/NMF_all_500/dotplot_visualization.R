@@ -6,18 +6,11 @@ library(here)
 
 ###load LDSC results
 ldsc_results <- read.csv(file=here::here('code','17_LDSC',
-                         'NMF_all_928','ldsc_results.csv'))
+                         'NMF_all_500','ldsc_results.csv'))
 
 ##########dotplots#############
 ###make -log10FDR column
 ldsc_results$log10fdr <- -log10(ldsc_results$FDR)
-
-# remove repeating NMF patterns 15, 17, 59, 61
-ldsc_results <- ldsc_results[-which(ldsc_results$cell == "misc.NMF15"),]
-ldsc_results <- ldsc_results[-which(ldsc_results$cell == "VLMC.NMF17"),]
-ldsc_results <- ldsc_results[-which(ldsc_results$cell == "misc.NMF59"),]
-ldsc_results <- ldsc_results[-which(ldsc_results$cell == "misc.NMF61"),]
-
 
 ####to make nmf only###
 #ldsc_results <- ldsc_results[ldsc_results$cell %in% paste0('nmf',c(1:100)),]
@@ -26,7 +19,7 @@ ldsc_results <- ldsc_results[-which(ldsc_results$cell == "misc.NMF61"),]
 #ldsc_results<-ldsc_results[ldsc_results$FDR<0.05,]
 
 ###plot
-pdf(here('plots','17_LDSC','NMF','ldsc_results_all_928.pdf'),width=10,height=10)
+pdf(here('plots','17_LDSC','NMF','ldsc_results_all_500.pdf'),width=10,height=10)
 
 ggplot(ldsc_results, aes(x = cell, y = trait, size = log10fdr, color = Coefficient_z.score)) +
     geom_point() +
