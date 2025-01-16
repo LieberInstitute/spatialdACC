@@ -3,6 +3,7 @@ library(here)
 library(ComplexHeatmap)
 library(circlize)
 library(stringr)
+library(EnhancedVolcano)
 
 # Load DEG data
 load(
@@ -43,7 +44,9 @@ vars <- c("Gene.name", "logFC", "adj_p", "p")
 bulk <- bulk[, vars]
 
 bulk$p <- formatC(bulk$p, format = "f", digits = 20)
-bulk$p <- as.numeric(bulk$p)
+bulk$p <- as.numeric(as.character(bulk$p))
+bulk$adj_p <- as.numeric(as.character(bulk$adj_p))
+bulk$logFC <- as.numeric(as.character(bulk$logFC))
 
 orthology<-read.csv(file=here::here('raw-data','Retro-seq',
                                     'human_mouse_orthologs.csv'))
@@ -82,6 +85,44 @@ enrichment_results <- enrichment_results[enrichment_results$gene %in% overlap, ]
 
 sum(bulk$adj_p<0.05) # 144
 
+# make a volcano plot of the pain dataset to figure out a good threshold
+# create volcano plot of pairwise comparison of L6a and L6b
+#volcano plots
+thresh_fdr <- 0.1
+thresh_logfc <- log2(1.25)
+
+fdrs <- bulk$adj_p
+logfc <- bulk$logFC
+
+sig <- (fdrs < thresh_fdr) & (abs(logfc) > thresh_logfc)
+print(table(sig))
+
+df_list <- data.frame(
+    gene_name = bulk$Human.gene.name,
+    logFC = logfc,
+    FDR = fdrs,
+    sig = sig
+)
+
+pdf(file = here::here("plots", "21_pain_enrichment", "pain_volcano.pdf"),
+    width = 8.5, height = 8)
+
+print(EnhancedVolcano(df_list,
+                      lab = df_list$gene_name,
+                      x = 'logFC',
+                      y = 'FDR',
+                      FCcutoff = 0.25,
+                      pCutoff = 0.1,
+                      ylab = "-log10 FDR",
+                      legendLabels = c('Not sig.','Log (base 2) FC','FDR',
+                                       'FDR & Log (base 2) FC'),
+                      title = "pain dataset",
+                      subtitle = "after ortho matching and conversion to human gene names",
+)
+)
+
+dev.off()
+
 generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
 
     # Define upregulated and downregulated DEGs in bulk
@@ -91,7 +132,7 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
     nonDE_bulk_up <- setdiff(bulk$Human.gene.name, DE_bulk_up)
     nonDE_bulk_down <- setdiff(bulk$Human.gene.name, DE_bulk_down)
 
-    p_val_threshold <- 0.05
+    #p_val_threshold <- 0.05
 
     #DE_bulk_up <- bulk[bulk$p < p_val_threshold & bulk$logFC > 0, ]$Human.gene.name
     #DE_bulk_down <- bulk[bulk$p < p_val_threshold & bulk$logFC < 0, ]$Human.gene.name
@@ -103,7 +144,7 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
     results_down <- list()
 
     for (i in c("L1","L2","L3","L5","L6a","L6b","WM")) {
-        top_n <- 500
+        top_n <- 100
 
         t_stat_threshold <- sort(enrichment_results[[paste0("t_stat_", i)]], decreasing = T)[top_n]
 
