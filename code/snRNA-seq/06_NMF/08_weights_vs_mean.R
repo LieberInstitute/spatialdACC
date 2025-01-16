@@ -39,6 +39,26 @@ ggsave(filename=here("plots", "snRNA-seq", "06_NMF","nmf-weight_gene-expr_scatte
        plot=do.call(gridExtra::grid.arrange, c(plist1, ncol=10)),
        width=14, height=14, units="in", bg="white")
 
+plist1 <- lapply(colnames(loads), function(x) {
+    tmp = df1[,c(x,"avg.expr")]
+    colnames(tmp) = c("nmf","avg.expr")
+    tmp$rank = (1+nrow(loads))-rank(tmp$nmf)
+    tmp$top500 = tmp$rank<=500
+    ggplot(tmp, aes(x=avg.expr, y=nmf, color=top500))+
+        geom_point(size=.1)+theme_bw()+
+        geom_point(data=filter(tmp, top500==T), size=.3)+
+        scale_color_manual(values=c("black","red"))+
+        labs(title=x, y="gene weights", x="avg. expr")+
+        theme(text=element_text(size=8), #axis.title.y=element_blank()),
+              axis.text=element_blank(), legend.position="none")
+})
+
+ggsave(filename=here("plots", "snRNA-seq", "06_NMF","nmf-weight_gene-expr_scatter_top500-red-enlarge.png"),
+       plot=do.call(gridExtra::grid.arrange, c(plist1, ncol=10)),
+       width=14, height=14, units="in", bg="white")
+
+
+
 subset_patterns <- c(26, 23, 27, 13, 43, 40, 36, 28, 9, 33, 39, 46, 35, 61, 15, 68, 3, 11, 38, 32, 10, 63, 52, 56, 51, 37, 60, 55, 58, 44, 47, 75, 49, 14, 21, 53, 65, 24, 59, 17, 19, 54, 57, 64)
 subset_patterns <- sort(subset_patterns)
 
@@ -62,6 +82,23 @@ ggsave(filename=here("plots", "snRNA-seq", "06_NMF","nmf-weight_gene-expr_scatte
        plot=do.call(gridExtra::grid.arrange, c(plist1, ncol=10)),
        width=14, height=12, units="in", bg="white")
 
+plist1 <- lapply(colnames(loads[,subset_patterns]), function(x) {
+    tmp = df1[,c(x,"avg.expr")]
+    colnames(tmp) = c("nmf","avg.expr")
+    tmp$rank = (1+nrow(loads))-rank(tmp$nmf)
+    tmp$top500 = tmp$rank<=500
+    ggplot(tmp, aes(x=avg.expr, y=nmf, color=top500))+
+        geom_point(size=.1)+theme_bw()+
+        geom_point(data=filter(tmp, top500==T), size=.3)+
+        scale_color_manual(values=c("black","red"))+
+        labs(title=x, y="gene weights", x="avg. expr")+
+        theme(text=element_text(size=8), #axis.title.y=element_blank()),
+              axis.text=element_blank(), legend.position="none")
+})
+
+ggsave(filename=here("plots", "snRNA-seq", "06_NMF","nmf-weight_gene-expr_scatter_top500_subset-red-enlarge.png"),
+       plot=do.call(gridExtra::grid.arrange, c(plist1, ncol=10)),
+       width=14, height=12, units="in", bg="white")
 
 setwd('/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/')
 
@@ -99,7 +136,7 @@ colnames(topN.mat) <- colnames(ldsc.score)
 for(i in colnames(ldsc.score)) {
     tmp = loads[,i]
     rank1 = (1+length(tmp))-rank(tmp)
-    tmp.bin = ifelse(rank1<=928, 1, 0)
+    tmp.bin = ifelse(rank1<=500, 1, 0)
     stopifnot(identical(names(tmp.bin), rownames(topN.mat)))
     topN.mat[,i] = tmp.bin
 }
@@ -151,7 +188,7 @@ p <- ggplot(plot_data, aes(x = factor(TotalOverlaps), y = NumGenes, fill = Class
     ) +
     theme_minimal()
 
-pdf(here("plots", "snRNA-seq", "06_NMF","nmf_categories_top928.pdf"), height=15,width=15)
+pdf(here("plots", "snRNA-seq", "06_NMF","nmf_categories_top500.pdf"), height=15,width=15)
 print(p)
 dev.off()
 
