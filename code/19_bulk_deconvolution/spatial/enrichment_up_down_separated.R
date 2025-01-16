@@ -2,6 +2,7 @@ setwd('/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/')
 library(here)
 library(ComplexHeatmap)
 library(circlize)
+library(EnhancedVolcano)
 
 # Load DEG data
 load(
@@ -50,6 +51,75 @@ bulk <- bulk[overlap, ]
 # Subset the modeling results
 enrichment_results <- enrichment_results[overlap, ]
 
+# add the gene names to the bulk dataset because they are already in the same order
+bulk$gene_name <- enrichment_results$gene
+
+# make a volcano plot of the MDD and PTSD dataset to figure out a good threshold
+#volcano plots
+thresh_fdr <- 0.1
+thresh_logfc <- log2(1.5)
+
+fdrs <- bulk$dACC_adjPVal_MDD
+logfc <- bulk$dACC_logFC_MDD
+
+sig <- (fdrs < thresh_fdr) & (abs(logfc) > thresh_logfc)
+print(table(sig))
+
+df_list_MDD <- data.frame(
+    gene_name = bulk$gene_name,
+    logFC = logfc,
+    FDR = fdrs,
+    sig = sig
+)
+
+
+fdrs <- bulk$dACC_adjPVal_PTSD
+logfc <- bulk$dACC_logFC_PTSD
+
+sig <- (fdrs < thresh_fdr) & (abs(logfc) > thresh_logfc)
+print(table(sig))
+
+df_list_PTSD <- data.frame(
+    gene_name = bulk$gene_name,
+    logFC = logfc,
+    FDR = fdrs,
+    sig = sig
+)
+
+
+pdf(file = here::here("plots", "19_bulk_deconvolution", "MDD_PTSD_volcano.pdf"),
+    width = 8.5, height = 8)
+
+print(EnhancedVolcano(df_list_MDD,
+                      lab = df_list_MDD$gene_name,
+                      x = 'logFC',
+                      y = 'FDR',
+                      FCcutoff = 0.1,
+                      pCutoff = 0.1,
+                      ylab = "-log10 FDR",
+                      legendLabels = c('Not sig.','Log (base 2) FC','FDR',
+                                       'FDR & Log (base 2) FC'),
+                      title = "MDD dataset",
+)
+)
+
+print(EnhancedVolcano(df_list_PTSD,
+                      lab = df_list_PTSD$gene_name,
+                      x = 'logFC',
+                      y = 'FDR',
+                      FCcutoff = 0.1,
+                      pCutoff = 0.1,
+                      ylab = "-log10 FDR",
+                      legendLabels = c('Not sig.','Log (base 2) FC','FDR',
+                                       'FDR & Log (base 2) FC'),
+                      title = "PTSD dataset",
+)
+)
+
+dev.off()
+
+
+
 # Define upregulated and downregulated DEGs in bulk
 DE_bulk_PTSD_up <- rownames(bulk[bulk$dACC_adjPVal_PTSD < 0.1 & bulk$dACC_logFC_PTSD > 0, ])
 DE_bulk_PTSD_down <- rownames(bulk[bulk$dACC_adjPVal_PTSD < 0.1 & bulk$dACC_logFC_PTSD < 0, ])
@@ -69,17 +139,25 @@ results_PTSD_down <- list()
 results_MDD_up <- list()
 results_MDD_down <- list()
 
-top_n <- 500
+#top_n <- 100
 
 for (i in c("L1","L2","L3","L5","L6a","L6b","WM")) {
     # Identify upregulated DE genes in the spatial domain
     # choose the top n by t statistics
-    t_stat_threshold <- sort(enrichment_results[[paste0("t_stat_", i)]], decreasing = T)[top_n]
-    DE_clust_genes_up <- rownames(enrichment_results[enrichment_results[[paste0("t_stat_", i)]] >= t_stat_threshold, ])
+    #t_stat_threshold <- sort(enrichment_results[[paste0("t_stat_", i)]], decreasing = T)[top_n]
+    #DE_clust_genes_up <- rownames(enrichment_results[enrichment_results[[paste0("t_stat_", i)]] >= t_stat_threshold, ])
 
+    #DE_clust_genes_down <- DE_clust_genes_up
+
+    #nonDE_clust_genes_up <- rownames(enrichment_results[enrichment_results[[paste0("t_stat_", i)]] < t_stat_threshold, ])
+    #nonDE_clust_genes_down <- nonDE_clust_genes_up
+
+    DE_clust_genes_up <- rownames(enrichment_results[
+        enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] > 1, ])
     DE_clust_genes_down <- DE_clust_genes_up
 
-    nonDE_clust_genes_up <- rownames(enrichment_results[enrichment_results[[paste0("t_stat_", i)]] < t_stat_threshold, ])
+    nonDE_clust_genes_up <- rownames(enrichment_results[
+        enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] <= 1, ])
     nonDE_clust_genes_down <- nonDE_clust_genes_up
 
     # PTSD upregulated

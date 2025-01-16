@@ -115,18 +115,28 @@ results_down <- list()
 k <- unique(sce$cellType_azimuth)
 k <- k[k != "Sst_Chodl"]
 
-top_n <- 500
+#top_n <- 100
 
 for (i in k) {
     print(i)
     # Identify upregulated and downregulated DE genes in the spatial domain
 
-    t_stat_threshold <- sort(enrichment_results[[paste0("t_stat_", i)]], decreasing = T)[top_n]
+    #t_stat_threshold <- sort(enrichment_results[[paste0("t_stat_", i)]], decreasing = T)[top_n]
 
-    DE_clust_genes_up <- enrichment_results[enrichment_results[[paste0("t_stat_", i)]] >= t_stat_threshold, ]$gene
+    #DE_clust_genes_up <- enrichment_results[enrichment_results[[paste0("t_stat_", i)]] >= t_stat_threshold, ]$gene
+    #DE_clust_genes_down <- DE_clust_genes_up
+
+    #nonDE_clust_genes_up <- enrichment_results[enrichment_results[[paste0("t_stat_", i)]] < t_stat_threshold, ]$gene
+    #nonDE_clust_genes_down <- nonDE_clust_genes_up
+
+    DE_clust_genes_up <- enrichment_results[
+        enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] > 1, ]$gene
     DE_clust_genes_down <- DE_clust_genes_up
 
-    nonDE_clust_genes_up <- enrichment_results[enrichment_results[[paste0("t_stat_", i)]] < t_stat_threshold, ]$gene
+    print(length(DE_clust_genes_up))
+
+    nonDE_clust_genes_up <- enrichment_results[
+        enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] <= 1, ]$gene
     nonDE_clust_genes_down <- nonDE_clust_genes_up
 
     # Count overlaps for upregulated genes

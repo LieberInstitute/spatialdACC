@@ -80,19 +80,28 @@ results_MDD_down <- list()
 k <- unique(sce$cellType_azimuth)
 k <- k[k != "Sst_Chodl"]
 
-top_n <- 500
+#top_n <- 100
 
 # Loop through each cell type to perform tests
 for (i in k) {
     print(i)
     # Identify upregulated and downregulated DE genes in the spatial domain
 
-    t_stat_threshold <- sort(enrichment_results[[paste0("t_stat_", i)]], decreasing = T)[top_n]
-    DE_clust_genes_up <- rownames(enrichment_results[enrichment_results[[paste0("t_stat_", i)]] >= t_stat_threshold, ])
+    #t_stat_threshold <- sort(enrichment_results[[paste0("t_stat_", i)]], decreasing = T)[top_n]
+    #DE_clust_genes_up <- rownames(enrichment_results[enrichment_results[[paste0("t_stat_", i)]] >= t_stat_threshold, ])
 
+    #DE_clust_genes_down <- DE_clust_genes_up
+
+    #nonDE_clust_genes_up <- rownames(enrichment_results[enrichment_results[[paste0("t_stat_", i)]] < t_stat_threshold, ])
+    #nonDE_clust_genes_down <- nonDE_clust_genes_up
+
+    DE_clust_genes_up <- rownames(enrichment_results[
+        enrichment_results[[paste0("fdr_", i)]] < 0.05 & enrichment_results[[paste0("logFC_", i)]] > 1, ])
+    print(length(DE_clust_genes_up))
     DE_clust_genes_down <- DE_clust_genes_up
 
-    nonDE_clust_genes_up <- rownames(enrichment_results[enrichment_results[[paste0("t_stat_", i)]] < t_stat_threshold, ])
+    nonDE_clust_genes_up <- rownames(enrichment_results[
+        enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] <= 1, ])
     nonDE_clust_genes_down <- nonDE_clust_genes_up
 
     # PTSD results
