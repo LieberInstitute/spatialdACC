@@ -9,20 +9,6 @@ library(scuttle)
 library(edgeR)
 library(dplyr)
 
-load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9.Rdata"))
-
-spe$PRECAST_cluster <- unfactor(spe$PRECAST_cluster)
-spe$PRECAST_cluster[spe$PRECAST_cluster == 3] <- "WM1"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 8] <- "WM2"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 7] <- "WM-CC"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 5] <- "L6b"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 6] <- "L6a"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 4] <- "L5"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 2] <- "L3"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 1] <- "L2"
-spe$PRECAST_cluster[spe$PRECAST_cluster == 9] <- "L1"
-
-
 # load DEG data
 load(
     file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_DE", "nnSVG_PRECAST_captureArea_9.Rdata")
@@ -43,14 +29,13 @@ for (gene in duplicated_genes) {
 
 gene <- pairwise_results$gene
 
-# keep columns 1-36
-pairwise_results <- pairwise_results[,1:36]
+# keep columns 1-21
+pairwise_results <- pairwise_results[,1:21]
 colnames(pairwise_results) <- gsub("t_stat_", "", colnames(pairwise_results))
 
 # initialize a matrix to store aggregated results (rows = genes, columns = clusters 1-9)
-aggregated <- matrix(NA, nrow = nrow(pairwise_results), ncol = 9)
-# make col names "clust1" to "clust9"
-colnames(aggregated) <- paste0("clust", 1:9)
+aggregated <- matrix(NA, nrow = nrow(pairwise_results), ncol = 7)
+colnames(aggregated) <- c("L1","L2","L3","L5","L6a","L6b","WM")
 
 # loop through each COLUMN in pairwise_results
 cols <- colnames(pairwise_results)
@@ -80,9 +65,6 @@ for (c in cols) {
 
 aggregated <- as.data.frame(aggregated)
 rownames(aggregated) <- gene
-
-# replace colnames with layer names
-colnames(aggregated) <- c("L2", "L3", "WM1", "L5", "L6b", "L6a", "WM-CC", "WM2", "L1")
 
 write.table(aggregated, here::here("processed-data", "17-3_LDSC_pairwise", "visium_aggregated_de.tsv"), na = "NA", col.names = TRUE,
             row.names = TRUE, sep = "\t")
