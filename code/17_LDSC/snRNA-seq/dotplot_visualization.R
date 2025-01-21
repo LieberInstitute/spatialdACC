@@ -30,7 +30,7 @@ ggplot(ldsc_results, aes(x = cell, y = trait, size = log10fdr, color = Coefficie
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     labs(size = "-log10(FDR)",x='group')
 
-ggplot(ldsc_results, aes(x = cell, y = trait, size = ifelse(FDR > 0.05, NA, log10fdr), color = Coefficient_z.score)) +
+ggplot(ldsc_results, aes(x = cell, y = trait, size = ifelse(FDR > 0.1, NA, log10fdr), color = Coefficient_z.score)) +
     geom_point() +
     scale_size_continuous(range = c(0, 10)) + # Set minimum size to zero for the size scale
     scale_color_gradient2(low = 'blue', high = 'red', midpoint = 0,
@@ -38,6 +38,6 @@ ggplot(ldsc_results, aes(x = cell, y = trait, size = ifelse(FDR > 0.05, NA, log1
     theme_bw() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     labs(size = "-log10(FDR)",x='group',
-         caption = "removed FDR > 0.05")
+         caption = "removed FDR > 0.1")
 
 dev.off()
