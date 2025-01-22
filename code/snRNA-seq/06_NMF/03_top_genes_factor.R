@@ -39,3 +39,40 @@ for(i in 1:length(venn_cols)){
         }
     }
 }
+
+
+# heatmap of top gene for each excitatory NMF pattern
+loads<-x@w
+no_expr <- which(rowSums(loads) == 0)
+loads <- loads[-no_expr, ]
+
+# create heatmap of selected genes
+select.nmfs = c("nmf46","nmf35","nmf61","nmf15","nmf68","nmf3","nmf11","nmf38","nmf32")
+nmf.genes = c("ASIC2", "RBFOX1", "ZNF385D",
+              "ROBO2", "DPP10", "KIAA1217",
+              "KCNIP4", "ROBO2", "MALAT1",
+              "ROBO2", "DPP10", "LRP1B",
+              "KCNIP4", "LSAMP", "CSMD1",
+              "KCNIP4", "EPHA6", "LRRTM4",
+              "ROBO2", "KCNIP4", "AC117453.1",
+              "AC109466.1", "KCNIP4", "IL1RAPL2",
+              "ROBO2", "CDH13", "LRP1B",
+              "VAT1L")
+
+
+nmf.genes = c("ASIC2",
+              "KCNIP4",
+              "VAT1L",
+              "ROBO2",
+              "AC109466.1")
+
+nmf.genes <- unique(nmf.genes)
+
+m1 = loads[nmf.genes,select.nmfs]
+pdf(here("plots", "snRNA-seq", "06_NMF", "NMF_top_genes_heatmap.pdf"))
+pheatmap::pheatmap(m1, scale="row", cluster_rows = F, cluster_cols = F,
+                   angle_col=0)
+dev.off()
+
+
+
