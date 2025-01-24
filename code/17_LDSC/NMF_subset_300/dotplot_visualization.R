@@ -6,7 +6,7 @@ library(here)
 
 ###load LDSC results
 ldsc_results <- read.csv(file=here::here('code','17_LDSC',
-                         'NMF','ldsc_results.csv'))
+                         'NMF_subset_300','ldsc_results.csv'))
 
 ##########dotplots#############
 ###make -log10FDR column
@@ -19,7 +19,7 @@ ldsc_results$log10fdr <- -log10(ldsc_results$FDR)
 #ldsc_results<-ldsc_results[ldsc_results$FDR<0.05,]
 
 ###plot
-pdf(here('plots','17_LDSC','NMF','ldsc_results_928.pdf'),width=10,height=10)
+pdf(here('plots','17_LDSC','NMF','ldsc_results_subset_300.pdf'),width=10,height=10)
 
 ggplot(ldsc_results, aes(x = cell, y = trait, size = log10fdr, color = Coefficient_z.score)) +
     geom_point() +
