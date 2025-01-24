@@ -161,7 +161,7 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
         print(length(DE_clust_genes_up))
 
         nonDE_clust_genes_up <- enrichment_results[
-            enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] <= 1.5, ]$gene
+            enrichment_results[[paste0("fdr_", i)]] >= 0.05 | enrichment_results[[paste0("logFC_", i)]] <= 1, ]$gene
         nonDE_clust_genes_down <- nonDE_clust_genes_up
 
         DE_clust_DE_bulk_up <- length(intersect(DE_clust_genes_up, DE_bulk_up))
@@ -197,8 +197,8 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
     pvalues_down <- sapply(results_down, function(x) x$fisher_test$p.value)
 
     combined_pvalues <- cbind(
-        Upregulated = pvalues_up,
-        Downregulated = pvalues_down
+        Upreg. = pvalues_up,
+        Downreg. = pvalues_down
     )
 
     row_means <- rowMeans(-log10(combined_pvalues), na.rm = TRUE)
@@ -218,16 +218,16 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
 
     heatmap_combined <- Heatmap(
         -log10(combined_pvalues_ordered),
-        name = "-log10(Fisher's p-value)",
+        name = "-log(p)",
         col = col_fun,
         cluster_rows = FALSE,
         cluster_columns = FALSE,
         show_column_names = TRUE,
         show_row_names = TRUE,
         row_names_side = "left",
-        column_title = "Spatial Domains DEG Enrichment",
+        column_title = "Spatial Pain DEG Enrichment",
         heatmap_legend_param = list(
-            title = "-log10(p-value)",
+            title = "-log(p)",
             title_position = "topcenter",
             title_gp = gpar(fontsize = 10),
             labels_gp = gpar(fontsize = 8)
@@ -244,9 +244,10 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
 }
 
 # Display the heatmap
-pdf(here("plots", "21_pain_enrichment", "spatial_heatmap_up_down_adjpval_0.1.pdf"))
+pdf(here("plots", "21_pain_enrichment", "spatial_heatmap_up_down_adjpval_0.1.pdf"),
+    height = 4, width = 4)
 generate_spatial_heatmap()
-grid.text("bulk cutoff changed to adj pval < 0.1",
+grid.text("",
           x = unit(0.5, "npc"), y = unit(0.02, "npc"),
           just = "center", gp = gpar(fontsize = 10, col = "black"))
 dev.off()

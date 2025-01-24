@@ -229,10 +229,10 @@ pvalues_MDD_down <- sapply(results_MDD_down, function(x) x$fisher_test$p.value)
 
 # Combine all p-value matrices
 combined_pvalues <- cbind(
-    PTSD_Upregulated = pvalues_PTSD_up,
-    PTSD_Downregulated = pvalues_PTSD_down,
-    MDD_Upregulated = pvalues_MDD_up,
-    MDD_Downregulated = pvalues_MDD_down
+    "PTSD Upreg." = pvalues_PTSD_up,
+    "PTSD Downreg." = pvalues_PTSD_down,
+    "MDD Upreg." = pvalues_MDD_up,
+    "MDD Downreg." = pvalues_MDD_down
 )
 
 # Reorder the matrix for the heatmap based on average p-values
@@ -243,6 +243,7 @@ ordered_rows <- order(row_means, decreasing = TRUE)
 ordered_cols <- order(col_means, decreasing = TRUE)
 
 combined_pvalues_ordered <- combined_pvalues[ordered_rows, ordered_cols]
+combined_pvalues_ordered <- combined_pvalues_ordered[,c(1,2,4,3)]
 
 # Define custom color function for -log10 transformed values
 col_fun <- colorRamp2(
@@ -253,16 +254,16 @@ col_fun <- colorRamp2(
 # Adjust heatmap
 heatmap_combined <- Heatmap(
     -log10(combined_pvalues_ordered),
-    name = "-log10(Fisher's p-value)",
+    name = "-log(p)",
     col = col_fun,
     cluster_rows = FALSE,
     cluster_columns = FALSE,
     show_column_names = TRUE,
     show_row_names = TRUE,
     row_names_side = "left",
-    column_title = "Spatial Domains DEG Enrichment",
+    column_title = "Spatial Pysch. DEG Enrichment",
     heatmap_legend_param = list(
-        title = "-log10(p-value)",
+        title = "-log(p)",
         title_position = "topcenter",
         title_gp = gpar(fontsize = 10),
         labels_gp = gpar(fontsize = 8)
@@ -274,9 +275,9 @@ heatmap_combined <- Heatmap(
 
 
 # Display the heatmap
-pdf(here("plots", "19_bulk_deconvolution", "spatial_heatmap_up_down_pval_0.1_separated.pdf"))
+pdf(here("plots", "19_bulk_deconvolution", "spatial_heatmap_up_down_pval_0.1_separated.pdf"), height = 4, width = 4)
 draw(heatmap_combined)
-grid.text("bulk cutoff changed to pval < 0.1, top 500 markers",
+grid.text("",
           x = unit(0.5, "npc"), y = unit(0.02, "npc"),
           just = "center", gp = gpar(fontsize = 10, col = "black"))
 dev.off()

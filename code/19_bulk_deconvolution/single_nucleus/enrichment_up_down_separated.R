@@ -146,15 +146,15 @@ for (i in 1:length(k)) {
 
 # Combine matrices into one matrix for the heatmap
 combined_pvalues <- cbind(
-    PTSD_Up = pvalues_PTSD_up,
-    PTSD_Down = pvalues_PTSD_down,
-    MDD_Up = pvalues_MDD_up,
-    MDD_Down = pvalues_MDD_down
+    "PTSD Up" = pvalues_PTSD_up,
+    "PTSD Down" = pvalues_PTSD_down,
+    "MDD Up" = pvalues_MDD_up,
+    "MDD Down" = pvalues_MDD_down
 )
 
 # Assign row names for spatial domains and column names for regulation types
 rownames(combined_pvalues) <- k
-colnames(combined_pvalues) <- c("PTSD_Up", "PTSD_Down", "MDD_Up", "MDD_Down")
+colnames(combined_pvalues) <- c("PTSD Up", "PTSD Down", "MDD Up", "MDD Down")
 
 # Compute average values for reordering
 row_means <- rowMeans(-log10(combined_pvalues), na.rm = TRUE)
@@ -175,16 +175,16 @@ col_fun <- colorRamp2(
 # Create heatmap for the combined p-values
 heatmap_combined <- Heatmap(
     -log10(combined_pvalues_ordered),
-    name = "-log10(Fisher's p-value)",
+    name = "-log(p)",
     col = col_fun,
     cluster_rows = FALSE,
     cluster_columns = FALSE,
     show_column_names = TRUE,
     show_row_names = TRUE,
     row_names_side = "left",
-    column_title = "Cell Types DEG Enrichment",
+    column_title = "snRNA-seq Psych. Enrichment",
     heatmap_legend_param = list(
-        title = "-log10(p-value)",
+        title = "-log(p)",
         title_position = "topcenter",
         title_gp = gpar(fontsize = 10),
         labels_gp = gpar(fontsize = 8)
@@ -196,9 +196,9 @@ heatmap_combined <- Heatmap(
 
 
 # Display the heatmap
-pdf(here("plots", "19_bulk_deconvolution", "single_nucleus_heatmap_up_down_pval_0.1_separated.pdf"))
+pdf(here("plots", "19_bulk_deconvolution", "single_nucleus_heatmap_up_down_pval_0.1_separated.pdf"), height = 4, width = 4)
 draw(heatmap_combined, merge_legend = F, annotation_legend_side = "bottom")
-grid.text("bulk cutoff changed to pval < 0.1, top 500 markers",
+grid.text("",
           x = unit(0.5, "npc"), y = unit(0.02, "npc"),
           just = "center", gp = gpar(fontsize = 10, col = "black"))
 dev.off()

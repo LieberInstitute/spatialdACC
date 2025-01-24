@@ -209,13 +209,13 @@ for (i in 1:length(k)) {
 
 # Combine matrices into one matrix for the heatmap
 combined_pvalues <- cbind(
-    Upregulated = pvalues_up,
-    Downregulated = pvalues_down
+    Upreg. = pvalues_up,
+    Downreg. = pvalues_down
 )
 
 # Assign row names for spatial domains and column names for regulation types
 rownames(combined_pvalues) <- k
-colnames(combined_pvalues) <- c("Upregulated", "Downregulated")
+colnames(combined_pvalues) <- c("Upreg.", "Downreg.")
 
 # Compute average values for reordering
 row_means <- rowMeans(-log10(combined_pvalues), na.rm = TRUE)
@@ -236,16 +236,16 @@ col_fun <- colorRamp2(
 # Create heatmap for the combined p-values
 heatmap_combined <- Heatmap(
     -log10(combined_pvalues_ordered),
-    name = "-log10(Fisher's p-value)",
+    name = "-log(p)",
     col = col_fun,
     cluster_rows = FALSE,
     cluster_columns = FALSE,
     show_column_names = TRUE,
     show_row_names = TRUE,
     row_names_side = "left",
-    column_title = "Cell Types DEG Enrichment",
+    column_title = "snRNA-seq Pain DEG Enrichment",
     heatmap_legend_param = list(
-        title = "-log10(p-value)",
+        title = "-log(p)",
         title_position = "topcenter", # Corrected positioning
         title_gp = gpar(fontsize = 10),
         labels_gp = gpar(fontsize = 8)
@@ -256,9 +256,9 @@ heatmap_combined <- Heatmap(
 )
 
 # Display the heatmap
-pdf(here("plots", "21_pain_enrichment", "single_nucleus_heatmap_up_down_adjpval_0.1.pdf"))
+pdf(here("plots", "21_pain_enrichment", "single_nucleus_heatmap_up_down_adjpval_0.1.pdf"), heigh = 4, width = 4)
 draw(heatmap_combined, merge_legend = F, annotation_legend_side = "bottom")
-grid.text("bulk cutoff changed to adj pval < 0.1",
+grid.text("",
           x = unit(0.5, "npc"), y = unit(0.02, "npc"),
           just = "center", gp = gpar(fontsize = 10, col = "black"))
 dev.off()
