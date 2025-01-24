@@ -26,10 +26,12 @@ cor_layer <- layer_stat_cor(
 cor_layer
 save(cor_layer, file = here("processed-data", "12_spatial_registration",paste0("dACC_manual",nnSVG_precast_name,".rds")))
 
+cor_layer <- cor_layer[c(6,7,8,4,5,3,2,1),]
+
 pdf(file = here::here("plots", "12_spatial_registration", "dACC_manual",
                       paste0("dACC_manual_",nnSVG_precast_name,"_heatmap.pdf")), width = 5, height = 5)
 layer_stat_cor_plot(cor_layer, max = max(cor_layer))
-title("")
+title("Manual vs. PRECAST")
 dev.off()
 
 anno <- annotate_registered_clusters(
