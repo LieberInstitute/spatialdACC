@@ -77,10 +77,12 @@ cor_layer <- layer_stat_cor(
 cor_layer
 save(cor_layer, file = here("processed-data", "12_spatial_registration",paste0("DLPFC_30_",nnSVG_precast_name,".rds")))
 
+cor_layer <- cor_layer[c(6,2,3,1,4,5,7),]
+
 pdf(file = here::here("plots", "12_spatial_registration", "DLPFC_manual",
-                      paste0("DLPFC_30_",nnSVG_precast_name,"_heatmap.pdf")), width = 14, height = 14)
-layer_stat_cor_plot(cor_layer, max = max(cor_layer))
-title("DLPFC n=30 vs. dACC")
+                      paste0("DLPFC_30_",nnSVG_precast_name,"_heatmap.pdf")), width = 5, height = 5)
+layer_stat_cor_plot(cor_layer, max = max(cor_layer)) +
+    title("DLPFC vs. dACC")
 dev.off()
 
 anno <- annotate_registered_clusters(
