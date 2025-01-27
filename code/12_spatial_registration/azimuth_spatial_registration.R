@@ -6,7 +6,8 @@ library("SingleCellExperiment")
 library("stringr")
 
 # get reference layer enrichment statistics
-k <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
+#k <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
+k = 9
 nnSVG_precast_name <- paste0("nnSVG_PRECAST_captureArea_", k)
 load(file = here("processed-data", "11_differential_expression", "pseudobulk",
                  "nnSVG_precast_DE", paste0(nnSVG_precast_name,".Rdata")))
@@ -42,8 +43,10 @@ cor_layer <- layer_stat_cor(
 cor_layer
 save(cor_layer, file = here("processed-data", "12_spatial_registration",paste0("azimuth",nnSVG_precast_name,".rds")))
 
+cor_layer <- cor_layer[c(1,19,9,18,7,10,11,8,16,12,17,13,15,3,5,14,2,4,6),]
+
 pdf(file = here::here("plots", "12_spatial_registration", "azimuth",
-                      paste0("azimuth_",nnSVG_precast_name,"_heatmap.pdf")), width = 14, height = 14)
+                      paste0("azimuth_",nnSVG_precast_name,"_heatmap.pdf")), width = 6, height = 4)
 layer_stat_cor_plot(cor_layer, max = max(cor_layer))
 dev.off()
 
