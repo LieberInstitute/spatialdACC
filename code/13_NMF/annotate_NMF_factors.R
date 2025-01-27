@@ -82,7 +82,22 @@ create_custom_dot_plot <- function(data, category_col, features_cols,
 
     # Adjusting Feature as a factor with the specified order and reversing the category_col order
     stats$Feature <- factor(stats$Feature, levels = features_cols)
-    stats[[category_col]] <- fct_relevel(stats[[category_col]], rev)
+    stats[[category_col]] <- as.factor(stats[[category_col]])
+
+    print(levels(stats[[category_col]]))
+
+    # Desired order of factors
+    desired_order <- c(
+        "L2_3_IT", "L5_ET", "L5_IT", "L5_6_NP", "L6_CT", "L6_IT", "L6_IT_Car3",
+        "L6b", "Lamp5", "Pvalb", "Sncg", "Sst", "Vip",
+        "Astro", "Endo", "MicroPVM", "Oligo", "OPC", "VLMC"
+    )
+
+    # Reordering the factor levels
+    stats[[category_col]] <- fct_relevel(stats[[category_col]], desired_order)
+
+    print(stats[[category_col]])
+
     print(stats$NonZeroProportion)
 
     # Creating the plot
@@ -105,6 +120,9 @@ create_custom_dot_plot <- function(data, category_col, features_cols,
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth.Rdata"))
 
 df <- as.data.frame(colData(sce))
+#remove Sst Chodl
+idx <- which(df$cellType_azimuth == "Sst Chodl")
+df <- df[-idx, ]
 df$cellType_azimuth <- factor(df$cellType_azimuth)
 
 # subset to one factor for each cell type to reduce width
@@ -133,9 +151,12 @@ factors <- factors[!(rownames(factors) == "OPC-NMF24"), ]
 factors <- factors[!(rownames(factors) == "MicroPVM-NMF54"), ]
 factors <- factors[!(rownames(factors) == "MicroPVM-NMF57"), ]
 factors <- factors[!(rownames(factors) == "misc-NMF64"), ]
+factors <- factors[!(rownames(factors) == "misc-NMF64"), ]
+factors <- factors[!(rownames(factors) == "Sst_Chodl-NMF51"), ]
 
 # re order factors
-factors <- factors[c(7,4,8,2,5,9,6,3,13,10,14,11,12,15,17,16,20,1,18,19),]
+factors <- factors[c(7,4,8,2,5,9,6,3,12,10,13,11,14,16,15,19,1,17,18),]
+factors <- factors[,-idx]
 
 df <- cbind(df, t(factors))
 
