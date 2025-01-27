@@ -232,19 +232,24 @@ df_list <- data.frame(
 
 pdf(file = here::here("plots", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
                       paste0("volcano_", "L6a-L6b", ".pdf")),
-    width = 8.5, height = 8)
+    width = 7, height = 7)
 
 print(EnhancedVolcano(df_list,
                       lab = df_list$gene_name,
                       x = 'logFC',
                       y = 'FDR',
-                      FCcutoff = 1.5,
+                      xlim = c(-3, 4),
+                      ylim = c(0, -log10(10e-40)),
+                      legendPosition = "bottom",
+                      FCcutoff = 1,
                       pCutoff = 0.05,
+                      labSize = 7.0,
                       ylab = "-log10 FDR",
-                      legendLabels = c('Not sig.','Log (base 2) FC','FDR',
-                                       'FDR & Log (base 2) FC'),
-                      title = "nnSVG PRECAST dACC",
-                      subtitle = "L6a minus L6b",
+                      legendLabels = c('Not sig.','LogFC','FDR',
+                                       'FDR & LogFC'),
+                      title = "L6a vs. L6b",
+                      subtitle = "",
+                      caption = ""
 )
 )
 

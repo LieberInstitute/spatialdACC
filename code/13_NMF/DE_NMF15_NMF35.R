@@ -119,19 +119,24 @@ df_list <- data.frame(
     )
 
 pdf(file = here::here("plots", "13_NMF", "volcano_plots_NMF15_NMF35.pdf"),
-    width = 8.5, height = 8)
+    width = 7, height = 7)
 
 print(EnhancedVolcano(df_list,
                       lab = df_list$gene_name,
                       x = 'logFC',
                       y = 'FDR',
+                      xlim = c(-3, 3),
+                      ylim = c(0, -log10(10e-16)),
+                      legendPosition = "bottom",
                       FCcutoff = 1,
                       pCutoff = 0.05,
+                      labSize = 7.0,
                       ylab = "-log10 FDR",
-                      legendLabels = c('Not sig.','Log (base 2) FC','FDR',
-                                       'FDR & Log (base 2) FC'),
-                      title = "nnSVG PRECAST dACC",
-                      subtitle = "NMF15 minus NMF35",
+                      legendLabels = c('Not sig.','LogFC','FDR',
+                                       'FDR & LogFC'),
+                      title = "NMF15 vs. NMF35",
+                      subtitle = "",
+                      caption = ""
                       )
       )
 
