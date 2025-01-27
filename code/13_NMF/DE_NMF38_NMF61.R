@@ -137,20 +137,25 @@ df_list <- data.frame(
     )
 
 pdf(file = here::here("plots", "13_NMF", "volcano_plots_NMF38_NMF61.pdf"),
-    width = 8.5, height = 8)
+    width = 7, height = 7)
 
 print(EnhancedVolcano(df_list,
                       lab = df_list$gene_name,
                       x = 'logFC',
                       y = 'FDR',
+                      xlim = c(-3, 5),
+                      ylim = c(0, -log10(10e-22)),
+                      legendPosition = "bottom",
                       selectLab = c("VAT1L", "POU3F1", "SULF2", "HAPLN4", "LYPD1", "FEZF2", "GABRQ"),
                       FCcutoff = 1.5,
                       pCutoff = 0.05,
+                      labSize = 7.0,
                       ylab = "-log10 FDR",
-                      legendLabels = c('Not sig.','Log (base 2) FC','FDR',
-                                       'FDR & Log (base 2) FC'),
-                      title = "nnSVG PRECAST dACC",
-                      subtitle = "NMF61 minus NMF38",
+                      legendLabels = c('Not sig.','LogFC','FDR',
+                                       'FDR & LogFC'),
+                      title = "NMF61 vs. NMF38",
+                      subtitle = "",
+                      caption = ""
                       )
       )
 
