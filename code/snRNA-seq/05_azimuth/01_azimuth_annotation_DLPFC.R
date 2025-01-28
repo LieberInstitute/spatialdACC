@@ -17,6 +17,12 @@ sce <- HDF5Array::loadHDF5SummarizedExperiment(
 )
 assay(sce, "logcounts") <- as(assay(sce, "logcounts"), "dgCMatrix")
 
+duplicated_genes <- rownames(sce)[duplicated(rownames(sce))]
+# remove one of the duplicated genes at random for each gene
+for (gene in duplicated_genes) {
+    sce <- sce[-sample(which(rownames(sce) == gene), 1),]
+}
+
 query <- CreateSeuratObject(
     counts = as.matrix(counts(sce)),
     meta.data = data.frame(colData(sce)),
