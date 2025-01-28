@@ -53,7 +53,6 @@ summary_DLPFC <- dat_DLPFC %>%
 summary_DLPFC$frac38_DLPFC <- summary_DLPFC$count38_DLPFC / summary_DLPFC$totalL5_DLPFC
 summary_DLPFC$frac61_DLPFC <- summary_DLPFC$count61_DLPFC / summary_DLPFC$totalL5_DLPFC
 
-
 summary_DLPFC$region <- rep("DLPFC", 10)
 
 summary_overall <- summary_dACC
@@ -62,15 +61,25 @@ summary_overall[c(11:20),] <- summary_DLPFC
 p1 <- ggplot(summary_overall, aes(x=region, y=frac38_dACC), fill=region) +
     geom_boxplot() +
     ylim(c(0,0.4)) +
-    ggtitle("Fraction Nonzero NMF38 Spots by Region")
+    geom_point(color="black", size=0.4, alpha=0.9) +
+    ylab("Fraction Nonzero NMF38 Spots") +
+    ggtitle("") +
+    theme_bw()
+
 
 p2 <- ggplot(summary_overall, aes(x=region, y=frac61_dACC), fill=region) +
     geom_boxplot() +
+    geom_point(color="black", size=0.4, alpha=0.9) +
+    ylab("Fraction Nonzero NMF61 Spots") +
     ylim(c(0,0.4)) +
-    ggtitle("Fraction Nonzero NMF61 Spots by Region")
+    ggtitle("") +
+    theme_bw()
 
-pdf(file = here::here("plots", "13_NMF", "NMF38_61_boxplots_DLPFC_dACC.pdf"))
+pdf(file = here::here("plots", "13_NMF", "NMF38_boxplots_DLPFC_dACC.pdf"), height = 4, width = 4)
 print(p1)
+dev.off()
+
+pdf(file = here::here("plots", "13_NMF", "NMF61_boxplots_DLPFC_dACC.pdf"), height = 4, width = 4)
 print(p2)
 dev.off()
 
