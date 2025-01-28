@@ -5,6 +5,10 @@ library("SeuratData")
 library("patchwork")
 library("here")
 library("sessioninfo")
+library(spatialLIBD)
+library(gridExtra)
+library(dplyr)
+
 
 sce_path_zip <- fetch_data("spatialDLPFC_snRNAseq")
 sce_path <- unzip(sce_path_zip, exdir = tempdir())
