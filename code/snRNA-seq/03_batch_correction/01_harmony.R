@@ -23,7 +23,7 @@ reducedDim(sce, "PCA") <- NULL
 set.seed(602)
 
 message("running UMAP - ", Sys.time())
-sce <- runUMAP(sce, dimred = "HARMONY", name="UMAP-HARMONY")
+sce <- runUMAP(sce, dimred = "HARMONY", name="UMAP-HARMONY", min_dist = 0.3)
 sce <- runTSNE(sce, dimred = "HARMONY", name="TSNE-HARMONY")
 sce <- runTSNE(sce, dimred = "HARMONY", name="TSNE5-HARMONY", perplexity = 5)
 sce <- runTSNE(sce, dimred = "HARMONY", name="TSNE20-HARMONY", perplexity = 20)
