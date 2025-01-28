@@ -110,7 +110,6 @@ for (comparison in combinations) {
 # save the results
 saveRDS(results_list, file = here("processed-data", "11_differential_expression", "dream_results_consistent_logFC.rds"))
 
-
 dACC_layers <- c("L1", "L2", "L3", "L5", "L6a", "L6b", "WM")
 DLPFC_layers <- c("L1", "L2", "L3", "L4", "L5", "L6", "WM")
 
@@ -214,16 +213,16 @@ heatmap_data_dACC <- heatmap_data %>%
 # round to two decimal places
 heatmap_data_dACC$value <- round(heatmap_data_dACC$value, 2)
 
-pdf(here("plots", "11_differential_expression", "dream_heatmap_dACC_stand.pdf"), width = 8, height = 6)
+pdf(here("plots", "11_differential_expression", "dream_heatmap_dACC_stand.pdf"), width = 4, height = 4)
 
 ggplot(heatmap_data_dACC, aes(x = Var2, y = Var1, fill = value)) +
     geom_tile() +
     geom_text(aes(label=value), color="black", size=2) +
     scale_fill_gradient(low = "blue", high = "white") +
-    labs(title = "Number of Significant Genes by Layer Comparison",
+    labs(title = "Prop. Significant DEGs by dACC Layer",
          x = "DLPFC Layer",
          y = "dACC Layer",
-         caption = "standardized by total dACC sig genes, removing WM") +
+         caption = "") +
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1),
           axis.text.y = element_text())
