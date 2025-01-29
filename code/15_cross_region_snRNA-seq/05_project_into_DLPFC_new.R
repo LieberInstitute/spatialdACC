@@ -235,6 +235,19 @@ for (i in seq(1, length(plot_list), by = 5)) {
 
 }
 
+
+
+# just NMF 5
+p <- plotColData(spe_DLPFC_30.temp, x = "BayesSpace_harmony_09", y = "nmf5") +
+    facet_wrap(~ spe_DLPFC_30.temp$BayesSpace_harmony_09, scales = "free_x", nrow = 1) +
+    labs(y = expression(NMF[DLPFC] ~ 5)) +
+    xlab("DLPFC Layer")
+
+pdf(file = here::here("plots", "15_cross_region_snRNA-seq", paste0("NMF_boxplots_DLPFC_30_", "5", ".pdf")),
+    width = 4, height = 2)
+print(p)
+dev.off()
+
 # create a loop to run kruskal.test and rank_epsilon_squared for all NMFs
 library(effectsize)
 
