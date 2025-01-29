@@ -229,10 +229,10 @@ pvalues_MDD_down <- sapply(results_MDD_down, function(x) x$fisher_test$p.value)
 
 # Combine all p-value matrices
 combined_pvalues <- cbind(
-    "PTSD Upreg." = pvalues_PTSD_up,
-    "PTSD Downreg." = pvalues_PTSD_down,
-    "MDD Upreg." = pvalues_MDD_up,
-    "MDD Downreg." = pvalues_MDD_down
+    "PTSD Up" = pvalues_PTSD_up,
+    "PTSD Down" = pvalues_PTSD_down,
+    "MDD Up" = pvalues_MDD_up,
+    "MDD Down" = pvalues_MDD_down
 )
 
 # Reorder the matrix for the heatmap based on average p-values
@@ -261,7 +261,7 @@ heatmap_combined <- Heatmap(
     show_column_names = TRUE,
     show_row_names = TRUE,
     row_names_side = "left",
-    column_title = "Spatial Pysch. DEG Enrichment",
+    column_title = "Pysch. DEG Enrichment",
     heatmap_legend_param = list(
         title = "-log(p)",
         title_position = "topcenter",

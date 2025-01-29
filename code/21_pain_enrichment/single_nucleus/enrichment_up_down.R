@@ -209,13 +209,13 @@ for (i in 1:length(k)) {
 
 # Combine matrices into one matrix for the heatmap
 combined_pvalues <- cbind(
-    Upreg. = pvalues_up,
-    Downreg. = pvalues_down
+    Upreg = pvalues_up,
+    Downreg = pvalues_down
 )
 
 # Assign row names for spatial domains and column names for regulation types
 rownames(combined_pvalues) <- k
-colnames(combined_pvalues) <- c("Upreg.", "Downreg.")
+colnames(combined_pvalues) <- c("Upreg", "Downreg")
 
 # Compute average values for reordering
 row_means <- rowMeans(-log10(combined_pvalues), na.rm = TRUE)
@@ -243,7 +243,7 @@ heatmap_combined <- Heatmap(
     show_column_names = TRUE,
     show_row_names = TRUE,
     row_names_side = "left",
-    column_title = "snRNA-seq Pain DEG Enrichment",
+    column_title = "Pain DEG Enrichment",
     heatmap_legend_param = list(
         title = "-log(p)",
         title_position = "topcenter", # Corrected positioning
@@ -256,7 +256,7 @@ heatmap_combined <- Heatmap(
 )
 
 # Display the heatmap
-pdf(here("plots", "21_pain_enrichment", "single_nucleus_heatmap_up_down_adjpval_0.1.pdf"), heigh = 4, width = 4)
+pdf(here("plots", "21_pain_enrichment", "single_nucleus_heatmap_up_down_adjpval_0.1.pdf"), heigh = 4, width = 2.5)
 draw(heatmap_combined, merge_legend = F, annotation_legend_side = "bottom")
 grid.text("",
           x = unit(0.5, "npc"), y = unit(0.02, "npc"),

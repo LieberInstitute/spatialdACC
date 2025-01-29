@@ -182,7 +182,7 @@ heatmap_combined <- Heatmap(
     show_column_names = TRUE,
     show_row_names = TRUE,
     row_names_side = "left",
-    column_title = "snRNA-seq Psych. Enrichment",
+    column_title = "Psych. DEG Enrichment",
     heatmap_legend_param = list(
         title = "-log(p)",
         title_position = "topcenter",

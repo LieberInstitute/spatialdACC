@@ -197,8 +197,8 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
     pvalues_down <- sapply(results_down, function(x) x$fisher_test$p.value)
 
     combined_pvalues <- cbind(
-        Upreg. = pvalues_up,
-        Downreg. = pvalues_down
+        Upreg = pvalues_up,
+        Downreg = pvalues_down
     )
 
     row_means <- rowMeans(-log10(combined_pvalues), na.rm = TRUE)
@@ -225,7 +225,7 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
         show_column_names = TRUE,
         show_row_names = TRUE,
         row_names_side = "left",
-        column_title = "Spatial Pain DEG Enrichment",
+        column_title = "Pain DEG Enrichment",
         heatmap_legend_param = list(
             title = "-log(p)",
             title_position = "topcenter",
@@ -245,7 +245,7 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
 
 # Display the heatmap
 pdf(here("plots", "21_pain_enrichment", "spatial_heatmap_up_down_adjpval_0.1.pdf"),
-    height = 4, width = 4)
+    height = 4, width = 2)
 generate_spatial_heatmap()
 grid.text("",
           x = unit(0.5, "npc"), y = unit(0.02, "npc"),
