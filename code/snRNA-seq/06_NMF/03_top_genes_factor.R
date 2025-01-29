@@ -70,7 +70,11 @@ m1 <- t(scale(t(m1)))
 
 pdf(here("plots", "snRNA-seq", "06_NMF", "NMF_top_genes_heatmap.pdf"), height = 4, width = 4)
 ComplexHeatmap::Heatmap(m1, show_column_dend = FALSE, show_row_dend = FALSE,
-                        column_names_rot = 45, row_names_side = "left")
+                        column_names_rot = 45, row_names_side = "left",
+                        heatmap_legend_param = list(
+                            title = "loadings\nscaled by\ngene", at = c(-4, 0, 4),
+                            labels = c("-4", "0", "4")
+                        ))
 dev.off()
 
 
