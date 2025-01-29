@@ -80,6 +80,8 @@ dim(sce_DLPFC)
 
 sce_DLPFC$cellType_azimuth <- colData(sce_DLPFC_Azimuth)$cellType_azimuth
 
+# fraction of cells
+
 dat_DLPFC <- as.data.frame(colData(sce_DLPFC))
 dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_azimuth %in% c("L5_IT")),]
 summary_DLPFC_IT <- dat_DLPFC %>%
@@ -169,17 +171,101 @@ print(p3)
 print(p4)
 dev.off()
 
-plot_list <- list()
+# average weight
+
+dat_DLPFC <- as.data.frame(colData(sce_DLPFC))
+dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_azimuth %in% c("L5_IT")),]
+summary_DLPFC_IT <- dat_DLPFC %>%
+    group_by(Sample) %>%
+    summarize(avg38 = mean(nmf38), avg61 = mean(nmf61))
+
+summary_DLPFC_IT$region <- rep("DLPFC", dim(summary_DLPFC_IT)[1])
+summary_DLPFC_IT$celltype <- rep("L5_IT", dim(summary_DLPFC_IT)[1])
+
+dat_DLPFC <- as.data.frame(colData(sce_DLPFC))
+dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_azimuth %in% c("L5_ET")),]
+summary_DLPFC_ET <- dat_DLPFC %>%
+    group_by(Sample) %>%
+    summarize(avg38 = mean(nmf38), avg61 = mean(nmf61))
+
+summary_DLPFC_ET$region <- rep("DLPFC", dim(summary_DLPFC_ET)[1])
+summary_DLPFC_ET$celltype <- rep("L5_ET", dim(summary_DLPFC_ET)[1])
+
+dat_dACC <- as.data.frame(colData(sce_dACC))
+dat_dACC <- dat_dACC[which(dat_dACC$cellType_azimuth %in% c("L5_IT")),]
+summary_dACC_IT <- dat_dACC %>%
+    group_by(Sample) %>%
+    summarize(avg38 = mean(NMF_38), avg61 = mean(NMF_61))
+
+summary_dACC_IT$region <- rep("dACC", 10)
+summary_dACC_IT$celltype <- rep("L5_IT", 10)
+
+dat_dACC <- as.data.frame(colData(sce_dACC))
+dat_dACC <- dat_dACC[which(dat_dACC$cellType_azimuth %in% c("L5_ET")),]
+summary_dACC_ET <- dat_dACC %>%
+    group_by(Sample) %>%
+    summarize(avg38 = mean(NMF_38), avg61 = mean(NMF_61))
+
+summary_dACC_ET$region <- rep("dACC", 10)
+summary_dACC_ET$celltype <- rep("L5_ET", 10)
+
+summary_overall <- summary_dACC_ET
+summary_overall[c(11:22),] <- summary_DLPFC_ET
+summary_overall[c(23:32),] <- summary_dACC_IT
+summary_overall[c(33:51),] <- summary_DLPFC_IT
+
+p1 <- ggplot(summary_overall, aes(x=interaction(region, celltype), y=avg38), fill=interaction(region, celltype)) +
+    ylim(c(0,0.003)) +
+    geom_point(color="black", size=1, alpha=0.9) +
+    ylab("Average Weight NMF38") +
+    ggtitle("") +
+    xlab("Region & Cell Type") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle=45, vjust=1, hjust=1))
+
+p2 <- ggplot(summary_overall, aes(x=interaction(region, celltype), y=avg61), fill=interaction(region, celltype)) +
+    geom_point(color="black", size=1, alpha=0.9) +
+    ylab("Average Weight NMF61") +
+    ylim(c(0,0.003)) +
+    ggtitle("") +
+    xlab("Region & Cell Type") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle=45, vjust=1, hjust=1))
+
+
+pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC.pdf"), height = 4, width = 4)
+print(p1)
+print(p2)
+dev.off()
+
+
+plot_list_DLPFC <- list()
+sce_DLPFC <- sce_DLPFC[which(sce_DLPFC$cellType_azimuth %in% c("L5 IT", "L5 ET")),]
+
 
 for (i in c(38,61)){
     print(paste0("i=", i))
 
-    p <- plotColData(sce_DLPFC, x = "layer_annotation", y = paste0("nmf", i)) +
+    p <- plotColData(sce_DLPFC, x = "cellType_azimuth", y = paste0("nmf", i)) +
         ggtitle(paste0("NMF ", i, " DLPFC snRNA-seq Layer Boxplots")) +
-        facet_wrap(~ sce_DLPFC$layer_annotation, scales = "free_x", nrow = 1) +
-        ylim(c(0,0.0007))
+        facet_wrap(~ sce_DLPFC$cellType_azimuth, scales = "free_x", nrow = 1) +
+        ylim(c(0,0.004))
 
-    plot_list[[i]] <- p
+    plot_list_DLPFC[[i]] <- p
+
+}
+
+plot_list_dACC <- list()
+
+for (i in c(38,61)){
+    print(paste0("i=", i))
+
+    p <- plotColData(sce_dACC, x = "cellType_azimuth", y = paste0("NMF_", i)) +
+        ggtitle(paste0("NMF ", i, " DLPFC snRNA-seq Layer Boxplots")) +
+        facet_wrap(~ sce_dACC$cellType_azimuth, scales = "free_x", nrow = 1) +
+        ylim(c(0,0.004))
+
+    plot_list_dACC[[i]] <- p
 
 }
 
@@ -187,9 +273,15 @@ pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_single_nucleus_38_6
     width = 10, height = 10)
 
 grid.arrange(
-    grobs = plot_list[c(38,61)],
+    grobs = plot_list_DLPFC[c(38,61)],
     ncol = 1,
     nrow = 2
     )
+
+grid.arrange(
+    grobs = plot_list_dACC[c(38,61)],
+    ncol = 1,
+    nrow = 2
+)
 
 dev.off()
