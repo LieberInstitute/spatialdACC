@@ -219,10 +219,11 @@ ggplot(heatmap_data_dACC, aes(x = Var2, y = Var1, fill = value)) +
     geom_tile() +
     geom_text(aes(label=value), color="black", size=2) +
     scale_fill_gradient(low = "blue", high = "white") +
-    labs(title = "Prop. Significant DEGs by dACC Layer",
+    labs(title = "",
          x = "DLPFC Layer",
          y = "dACC Layer",
-         caption = "") +
+         caption = "",
+         fill = "prop. DEGs\nscaled by\ndACC layer") +
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1),
           axis.text.y = element_text())
