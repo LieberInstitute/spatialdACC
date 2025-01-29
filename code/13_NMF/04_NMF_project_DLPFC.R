@@ -101,13 +101,13 @@ for (i in c(38,61)){
             spe_1 <- spe_DLPFC_30b[, which(spe_DLPFC_30b$sample_id == samples[1])]
             p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 9) |> add_ground(var="BayesSpace_harmony_09", stroke=0.5, point_size = 9) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L4" = "#E6D200",   # Yellow
-                    "L6" = "#984EA3",  # Purple
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L4" = "#984EA3",
+                    "L6" = "#FF7F00",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
@@ -117,13 +117,13 @@ for (i in c(38,61)){
             spe_1 <- spe_DLPFC_30b[, which(spe_DLPFC_30b$sample_id == samples[1])]
             p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 4) |> add_ground(var="BayesSpace_harmony_09", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L4" = "#E6D200",   # Yellow
-                    "L6" = "#984EA3",  # Purple
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L4" = "#984EA3",
+                    "L6" = "#FF7F00",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
@@ -131,13 +131,13 @@ for (i in c(38,61)){
             spe_2 <- spe_DLPFC_30b[, which(spe_DLPFC_30b$sample_id == samples[2])]
             p2 <- make_escheR(spe_2) |> add_fill(var=factor, point_size = 4) |> add_ground(var="BayesSpace_harmony_09", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L4" = "#E6D200",   # Yellow
-                    "L6" = "#984EA3",  # Purple
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L4" = "#984EA3",
+                    "L6" = "#FF7F00",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
@@ -147,13 +147,13 @@ for (i in c(38,61)){
             spe_1 <- spe_DLPFC_30b[, which(spe_DLPFC_30b$sample_id == samples[1])]
             p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 4) |> add_ground(var="BayesSpace_harmony_09", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L4" = "#E6D200",   # Yellow
-                    "L6" = "#984EA3",  # Purple
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L4" = "#984EA3",
+                    "L6" = "#FF7F00",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
@@ -161,13 +161,13 @@ for (i in c(38,61)){
             spe_2 <- spe_DLPFC_30b[, which(spe_DLPFC_30b$sample_id == samples[2])]
             p2 <- make_escheR(spe_2) |> add_fill(var=factor, point_size = 4) |> add_ground(var="BayesSpace_harmony_09", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L4" = "#E6D200",   # Yellow
-                    "L6" = "#984EA3",  # Purple
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L4" = "#984EA3",
+                    "L6" = "#FF7F00",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
@@ -175,13 +175,13 @@ for (i in c(38,61)){
             spe_3 <- spe_DLPFC_30b[, which(spe_DLPFC_30b$sample_id == samples[3])]
             p3 <- make_escheR(spe_3) |> add_fill(var=factor, point_size = 4) |> add_ground(var="BayesSpace_harmony_09", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L4" = "#E6D200",   # Yellow
-                    "L6" = "#984EA3",  # Purple
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L4" = "#984EA3",
+                    "L6" = "#FF7F00",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[3]))

@@ -69,7 +69,7 @@ spe_dACC.temp <- spe_dACC
 
 brains <- unique(spe_dACC.temp$brnum)
 
-for (i in 1:75){
+for (i in c(37,9,5)){
     print(paste0("i=", i))
 
     factor <- paste0("nmf", i)
@@ -88,15 +88,15 @@ for (i in 1:75){
 
         if (length(samples) == 1){
             spe_1 <- spe_dACCb[, which(spe_dACCb$sample_id == samples[1])]
-            p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 9) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 9) +
+            p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 9) |> add_ground(var="layer", stroke=0.5, point_size = 9) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L6a" = "#984EA3",  # Purple
-                    "L6b" = "#FF7F00",  # Orange
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#CD661D",
+                    "L3" = "#00FA9A",
+                    "L5" = "#00CED1",
+                    "L6a" = "#000080",
+                    "L6b" = "#EED5B7",
+                    "WM" = "black",
+                    "L1" = "#CDB7B5"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
@@ -104,29 +104,29 @@ for (i in 1:75){
             grid.arrange(p1, nrow = 1)
         } else if (length(samples) == 2){
             spe_1 <- spe_dACCb[, which(spe_dACCb$sample_id == samples[1])]
-            p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 4) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 4) +
+            p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L6a" = "#984EA3",  # Purple
-                    "L6b" = "#FF7F00",  # Orange
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#CD661D",
+                    "L3" = "#00FA9A",
+                    "L5" = "#00CED1",
+                    "L6a" = "#000080",
+                    "L6b" = "#EED5B7",
+                    "WM" = "black",
+                    "L1" = "#CDB7B5"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
 
             spe_2 <- spe_dACCb[, which(spe_dACCb$sample_id == samples[2])]
-            p2 <- make_escheR(spe_2) |> add_fill(var=factor, point_size = 4) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 4) +
+            p2 <- make_escheR(spe_2) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L6a" = "#984EA3",  # Purple
-                    "L6b" = "#FF7F00",  # Orange
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#CD661D",
+                    "L3" = "#00FA9A",
+                    "L5" = "#00CED1",
+                    "L6a" = "#000080",
+                    "L6b" = "#EED5B7",
+                    "WM" = "black",
+                    "L1" = "#CDB7B5"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
@@ -134,43 +134,43 @@ for (i in 1:75){
             grid.arrange(p1, p2, nrow = 2)
         } else if (length(samples) == 3){
             spe_1 <- spe_dACCb[, which(spe_dACCb$sample_id == samples[1])]
-            p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 4) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 4) +
+            p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L6a" = "#984EA3",  # Purple
-                    "L6b" = "#FF7F00",  # Orange
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#CD661D",
+                    "L3" = "#00FA9A",
+                    "L5" = "#00CED1",
+                    "L6a" = "#000080",
+                    "L6b" = "#EED5B7",
+                    "WM" = "black",
+                    "L1" = "#CDB7B5"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
 
             spe_2 <- spe_dACCb[, which(spe_dACCb$sample_id == samples[2])]
-            p2 <- make_escheR(spe_2) |> add_fill(var=factor, point_size = 4) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 4) +
+            p2 <- make_escheR(spe_2) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L6a" = "#984EA3",  # Purple
-                    "L6b" = "#FF7F00",  # Orange
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#CD661D",
+                    "L3" = "#00FA9A",
+                    "L5" = "#00CED1",
+                    "L6a" = "#000080",
+                    "L6b" = "#EED5B7",
+                    "WM" = "black",
+                    "L1" = "#CDB7B5"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
 
             spe_3 <- spe_dACCb[, which(spe_dACCb$sample_id == samples[3])]
-            p3 <- make_escheR(spe_3) |> add_fill(var=factor, point_size = 4) |> add_ground(var="PRECAST_cluster", stroke=0.5, point_size = 4) +
+            p3 <- make_escheR(spe_3) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#E41A1C",   # Bright red
-                    "L3" = "#377EB8",   # Strong blue
-                    "L5" = "#4DAF4A",   # Vivid green
-                    "L6a" = "#984EA3",  # Purple
-                    "L6b" = "#FF7F00",  # Orange
-                    "WM" = "#F781BF",# Pink
-                    "L1" = "#00CED1"    # Dark turquoise
+                    "L2" = "#CD661D",
+                    "L3" = "#00FA9A",
+                    "L5" = "#00CED1",
+                    "L6a" = "#000080",
+                    "L6b" = "#EED5B7",
+                    "WM" = "black",
+                    "L1" = "#CDB7B5"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[3]))

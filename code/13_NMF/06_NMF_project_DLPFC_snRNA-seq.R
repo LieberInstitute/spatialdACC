@@ -68,32 +68,106 @@ colData(sce) <- cbind(colData(sce),patterns)
 # save sce_DLPFC
 save(sce_DLPFC, file = here("processed-data", "13_NMF", "sce_NMF_DLPFC_30_snRNA-seq.Rdata"))
 
+sce_dACC <- sce
+
+# load DLPFC Azimuth annotations
+load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_DLPFC_azimuth.Rdata"))
+sce_DLPFC_Azimuth <- sce
+
+# add Azimuth labels to sce_DLPFC
+dim(sce_DLPFC_Azimuth)
+dim(sce_DLPFC)
+
+sce_DLPFC$cellType_azimuth <- colData(sce_DLPFC_Azimuth)$cellType_azimuth
+
 dat_DLPFC <- as.data.frame(colData(sce_DLPFC))
-dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$layer_annotation %in% c("L5","L5/6")),]
-summary_DLPFC <- dat_DLPFC %>%
+dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_azimuth %in% c("L5_IT")),]
+summary_DLPFC_IT <- dat_DLPFC %>%
     group_by(Sample) %>%
     summarize(total_DLPFC = n(), count38_DLPFC = sum(nmf38 > 0), count61_DLPFC = sum(nmf61 > 0))
 
-summary_DLPFC$frac38_DLPFC <- summary_DLPFC$count38_DLPFC / summary_DLPFC$total_DLPFC
-summary_DLPFC$frac61_DLPFC <- summary_DLPFC$count61_DLPFC / summary_DLPFC$total_DLPFC
+summary_DLPFC_IT$frac38_DLPFC <- summary_DLPFC_IT$count38_DLPFC / summary_DLPFC_IT$total_DLPFC
+summary_DLPFC_IT$frac61_DLPFC <- summary_DLPFC_IT$count61_DLPFC / summary_DLPFC_IT$total_DLPFC
 
-dat_dACC <- as.data.frame(colData(sce))
+summary_DLPFC_IT$region <- rep("DLPFC", dim(summary_DLPFC_IT)[1])
+
+dat_DLPFC <- as.data.frame(colData(sce_DLPFC))
+dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_azimuth %in% c("L5_ET")),]
+summary_DLPFC_ET <- dat_DLPFC %>%
+    group_by(Sample) %>%
+    summarize(total_DLPFC = n(), count38_DLPFC = sum(nmf38 > 0), count61_DLPFC = sum(nmf61 > 0))
+
+summary_DLPFC_ET$frac38_DLPFC <- summary_DLPFC_ET$count38_DLPFC / summary_DLPFC_ET$total_DLPFC
+summary_DLPFC_ET$frac61_DLPFC <- summary_DLPFC_ET$count61_DLPFC / summary_DLPFC_ET$total_DLPFC
+
+summary_DLPFC_ET$region <- rep("DLPFC", dim(summary_DLPFC_ET)[1])
+
+dat_dACC <- as.data.frame(colData(sce_dACC))
 dat_dACC <- dat_dACC[which(dat_dACC$cellType_azimuth %in% c("L5_IT")),]
-summary_dACC <- dat_dACC %>%
+summary_dACC_IT <- dat_dACC %>%
     group_by(Sample) %>%
     summarize(total_dACC = n(), count38_dACC = sum(NMF_38 > 0), count61_dACC = sum(NMF_61 > 0))
 
-summary_dACC$frac38_dACC <- summary_dACC$count38_dACC / summary_dACC$total_dACC
-summary_dACC$frac61_dACC <- summary_dACC$count61_dACC / summary_dACC$total_dACC
+summary_dACC_IT$frac38_dACC <- summary_dACC_IT$count38_dACC / summary_dACC_IT$total_dACC
+summary_dACC_IT$frac61_dACC <- summary_dACC_IT$count61_dACC / summary_dACC_IT$total_dACC
 
-dat_dACC <- as.data.frame(colData(sce))
+summary_dACC_IT$region <- rep("dACC", 10)
+
+dat_dACC <- as.data.frame(colData(sce_dACC))
 dat_dACC <- dat_dACC[which(dat_dACC$cellType_azimuth %in% c("L5_ET")),]
-summary_dACC <- dat_dACC %>%
+summary_dACC_ET <- dat_dACC %>%
     group_by(Sample) %>%
     summarize(total_dACC = n(), count38_dACC = sum(NMF_38 > 0), count61_dACC = sum(NMF_61 > 0))
 
-summary_dACC$frac38_dACC <- summary_dACC$count38_dACC / summary_dACC$total_dACC
-summary_dACC$frac61_dACC <- summary_dACC$count61_dACC / summary_dACC$total_dACC
+summary_dACC_ET$frac38_dACC <- summary_dACC_ET$count38_dACC / summary_dACC_ET$total_dACC
+summary_dACC_ET$frac61_dACC <- summary_dACC_ET$count61_dACC / summary_dACC_ET$total_dACC
+
+summary_dACC_ET$region <- rep("dACC", 10)
+
+summary_overall_ET <- summary_dACC_ET
+summary_overall_ET[c(11:22),] <- summary_DLPFC_ET
+
+summary_overall_IT <- summary_dACC_IT
+summary_overall_IT[c(11:29),] <- summary_DLPFC_IT
+
+p1 <- ggplot(summary_overall_ET, aes(x=region, y=frac38_dACC), fill=region) +
+    geom_boxplot() +
+    ylim(c(0,1)) +
+    geom_point(color="black", size=0.4, alpha=0.9) +
+    ylab("Fraction Nonzero NMF38 Spots in L5 ET") +
+    ggtitle("") +
+    theme_bw()
+
+p2 <- ggplot(summary_overall_ET, aes(x=region, y=frac61_dACC), fill=region) +
+    geom_boxplot() +
+    geom_point(color="black", size=0.4, alpha=0.9) +
+    ylab("Fraction Nonzero NMF61 Spots in L5 ET") +
+    ylim(c(0,1)) +
+    ggtitle("") +
+    theme_bw()
+
+p3 <- ggplot(summary_overall_IT, aes(x=region, y=frac38_dACC), fill=region) +
+    geom_boxplot() +
+    ylim(c(0,1)) +
+    geom_point(color="black", size=0.4, alpha=0.9) +
+    ylab("Fraction Nonzero NMF38 Spots in L5 IT") +
+    ggtitle("") +
+    theme_bw()
+
+p4 <- ggplot(summary_overall_IT, aes(x=region, y=frac61_dACC), fill=region) +
+    geom_boxplot() +
+    geom_point(color="black", size=0.4, alpha=0.9) +
+    ylab("Fraction Nonzero NMF61 Spots in L5 IT") +
+    ylim(c(0,1)) +
+    ggtitle("") +
+    theme_bw()
+
+pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC.pdf"), height = 4, width = 4)
+print(p1)
+print(p2)
+print(p3)
+print(p4)
+dev.off()
 
 plot_list <- list()
 
