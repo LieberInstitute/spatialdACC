@@ -26,7 +26,7 @@ cor_layer <- layer_stat_cor(
 cor_layer
 save(cor_layer, file = here("processed-data", "12_spatial_registration",paste0("dACC_manual",nnSVG_precast_name,".rds")))
 
-cor_layer <- cor_layer[c(6,7,8,4,5,3,2,1),]
+cor_layer <- cor_layer[c(6,1,2,4,5,3,8,7),]
 
 pdf(file = here::here("plots", "12_spatial_registration", "dACC_manual",
                       paste0("dACC_manual_","DLPFC_30","_heatmap.pdf")), width = 5, height = 5)
