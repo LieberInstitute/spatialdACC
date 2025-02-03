@@ -69,7 +69,7 @@ spe_dACC.temp <- spe_dACC
 
 brains <- unique(spe_dACC.temp$brnum)
 
-for (i in c(37,9,5)){
+for (i in c(52,31)){
     print(paste0("i=", i))
 
     factor <- paste0("nmf", i)
@@ -223,13 +223,24 @@ for (i in seq(1, length(plot_list), by = 5)) {
 
 }
 
-# just NMF 5
-p <- plotColData(spe_dACC, x = "layer", y = "nmf5") +
+# just NMF 31
+p <- plotColData(spe_dACC, x = "layer", y = "nmf31") +
     facet_wrap(~ spe_dACC$layer, scales = "free_x", nrow = 1) +
-    labs(y = expression(NMF[DLPFC] ~ 5)) +
+    labs(y = expression(NMF[DLPFC] ~ 31)) +
     xlab("dACC Layer")
 
-pdf(file = here::here("plots", "15_cross_region_snRNA-seq", paste0("NMF_boxplots_dACC_", "5", ".pdf")),
+pdf(file = here::here("plots", "15_cross_region_snRNA-seq", paste0("NMF_violins_dACC_", "31", ".pdf")),
+    width = 4, height = 2)
+print(p)
+dev.off()
+
+# just NMF 52
+p <- plotColData(spe_dACC, x = "layer", y = "nmf52") +
+    facet_wrap(~ spe_dACC$layer, scales = "free_x", nrow = 1) +
+    labs(y = expression(NMF[DLPFC] ~ 52)) +
+    xlab("dACC Layer")
+
+pdf(file = here::here("plots", "15_cross_region_snRNA-seq", paste0("NMF_violins_dACC_", "52", ".pdf")),
     width = 4, height = 2)
 print(p)
 dev.off()

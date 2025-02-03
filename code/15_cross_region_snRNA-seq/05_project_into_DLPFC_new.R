@@ -83,7 +83,7 @@ spe_DLPFC_30.temp <- spe_DLPFC_30.temp[ , which(spe_DLPFC_30.temp$BayesSpace_har
 
 brains <- unique(spe_DLPFC_30.temp$subject)
 
-for (i in c(1:75)){
+for (i in c(31,52)){
     print(paste0("i=", i))
 
     factor <- paste0("nmf", i)
@@ -237,13 +237,24 @@ for (i in seq(1, length(plot_list), by = 5)) {
 
 
 
-# just NMF 5
-p <- plotColData(spe_DLPFC_30.temp, x = "BayesSpace_harmony_09", y = "nmf5") +
+# just NMF 31
+p <- plotColData(spe_DLPFC_30.temp, x = "BayesSpace_harmony_09", y = "nmf31") +
     facet_wrap(~ spe_DLPFC_30.temp$BayesSpace_harmony_09, scales = "free_x", nrow = 1) +
-    labs(y = expression(NMF[DLPFC] ~ 5)) +
+    labs(y = expression(NMF[DLPFC] ~ 31)) +
     xlab("DLPFC Layer")
 
-pdf(file = here::here("plots", "15_cross_region_snRNA-seq", paste0("NMF_boxplots_DLPFC_30_", "5", ".pdf")),
+pdf(file = here::here("plots", "15_cross_region_snRNA-seq", paste0("NMF_violins_DLPFC_30_", "31", ".pdf")),
+    width = 4, height = 2)
+print(p)
+dev.off()
+
+# just NMF 52
+p <- plotColData(spe_DLPFC_30.temp, x = "BayesSpace_harmony_09", y = "nmf52") +
+    facet_wrap(~ spe_DLPFC_30.temp$BayesSpace_harmony_09, scales = "free_x", nrow = 1) +
+    labs(y = expression(NMF[DLPFC] ~ 52)) +
+    xlab("DLPFC Layer")
+
+pdf(file = here::here("plots", "15_cross_region_snRNA-seq", paste0("NMF_violins_DLPFC_30_", "52", ".pdf")),
     width = 4, height = 2)
 print(p)
 dev.off()
