@@ -47,7 +47,8 @@ p1 <- plotReducedDim(sce, dimred = "UMAP-HARMONY", colour_by = "cellType_azimuth
           axis.title.x=element_blank(),
           axis.title.y=element_blank(),legend.position="none",
           panel.background=element_blank(),panel.border=element_blank(),panel.grid.major=element_blank(),
-          panel.grid.minor=element_blank(),plot.background=element_blank())
+          panel.grid.minor=element_blank(),plot.background=element_blank()) +
+    ggtitle("Azimuth Cell Types")
 
 pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "HARMONY_azimuth_UMAP.pdf"), height = 6, width = 6)
 p1
