@@ -90,7 +90,7 @@ create_custom_dot_plot <- function(data, category_col, features_cols,
     desired_order <- c(
         "L2_3_IT", "L5_ET", "L5_IT", "L5_6_NP", "L6_CT", "L6_IT", "L6_IT_Car3",
         "L6b", "Lamp5", "Pvalb", "Sncg", "Sst", "Vip",
-        "Astro", "Endo", "MicroPVM", "Oligo", "OPC", "VLMC"
+        "Astro", "Endo", "MicroPVM", "Oligo", "OPC"
     )
 
     # Reordering the factor levels
@@ -120,8 +120,8 @@ create_custom_dot_plot <- function(data, category_col, features_cols,
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth.Rdata"))
 
 df <- as.data.frame(colData(sce))
-#remove Sst Chodl
-idx <- which(df$cellType_azimuth == "Sst Chodl")
+#remove Sst Chodl and VLMC
+idx <- which(df$cellType_azimuth %in% c("Sst Chodl","VLMC"))
 df <- df[-idx, ]
 df$cellType_azimuth <- factor(df$cellType_azimuth)
 
@@ -153,9 +153,10 @@ factors <- factors[!(rownames(factors) == "MicroPVM-NMF57"), ]
 factors <- factors[!(rownames(factors) == "misc-NMF64"), ]
 factors <- factors[!(rownames(factors) == "misc-NMF64"), ]
 factors <- factors[!(rownames(factors) == "Sst_Chodl-NMF51"), ]
+factors <- factors[!(rownames(factors) == "VLMC-NMF59"), ]
 
 # re order factors
-factors <- factors[c(7,4,8,2,5,9,6,3,12,10,13,11,14,16,15,19,1,17,18),]
+factors <- factors[c(7,4,8,2,5,9,6,3,12,10,13,11,14,16,15,18,1,17),]
 factors <- factors[,-idx]
 
 df <- cbind(df, t(factors))
