@@ -44,10 +44,17 @@ cor_layer
 save(cor_layer, file = here("processed-data", "12_spatial_registration",paste0("azimuth",nnSVG_precast_name,".rds")))
 
 cor_layer <- cor_layer[c(1,19,9,18,7,10,11,8,16,12,17,13,15,3,5,14,2,4,6),]
+t_cor_layer <- t(cor_layer)
+
+load(file = here("processed-data", "snRNA-seq", "05_azimuth", "celltype_colors.Rdata"))
 
 pdf(file = here::here("plots", "12_spatial_registration", "azimuth",
                       paste0("azimuth_",nnSVG_precast_name,"_heatmap.pdf")), width = 6, height = 4)
-layer_stat_cor_plot(cor_layer, max = max(cor_layer))
+layer_stat_cor_plot(t_cor_layer, color_max = max(cor_layer),
+                    reference_colors = celltype_colors,
+                    cluster_rows = FALSE,
+                    cluster_columns = FALSE,
+                    row_names_side = "left")
 dev.off()
 
 anno <- annotate_registered_clusters(
