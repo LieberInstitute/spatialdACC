@@ -214,24 +214,28 @@ summary_overall[c(11:22),] <- summary_DLPFC_ET
 summary_overall[c(23:32),] <- summary_dACC_IT
 summary_overall[c(33:51),] <- summary_DLPFC_IT
 
-p1 <- ggplot(summary_overall, aes(x=interaction(region, celltype), y=avg38), fill=interaction(region, celltype)) +
-    ylim(c(0,0.003)) +
-    geom_point(color="black", size=1, alpha=0.9) +
-    ylab("Average Weight NMF38") +
-    ggtitle("") +
-    xlab("Region & Cell Type") +
-    theme_bw() +
-    theme(axis.text.x = element_text(angle=45, vjust=1, hjust=1))
+summary_overall_38 <- summary_overall %>%
+    filter(celltype=="L5_IT")
 
-p2 <- ggplot(summary_overall, aes(x=interaction(region, celltype), y=avg61), fill=interaction(region, celltype)) +
+p1 <- ggplot(summary_overall_38, aes(x=region, y=avg38), fill=region) +
+    geom_boxplot() +
+    ylim(c(0,0.001)) +
     geom_point(color="black", size=1, alpha=0.9) +
-    ylab("Average Weight NMF61") +
+    ylab("Average Weight NMF38 in L5 IT") +
+    ggtitle("") +
+    xlab("region") +
+    theme_bw()
+summary_overall_61 <- summary_overall %>%
+    filter(celltype=="L5_ET")
+
+p2 <- ggplot(summary_overall_61, aes(x=region, y=avg61), fill=region) +
+    geom_boxplot() +
+    geom_point(color="black", size=1, alpha=0.9) +
+    ylab("Average Weight NMF61 in L5 ET") +
     ylim(c(0,0.003)) +
     ggtitle("") +
-    xlab("Region & Cell Type") +
-    theme_bw() +
-    theme(axis.text.x = element_text(angle=45, vjust=1, hjust=1))
-
+    xlab("region") +
+    theme_bw()
 
 pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC.pdf"), height = 4, width = 4)
 print(p1)
