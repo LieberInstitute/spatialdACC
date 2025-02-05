@@ -189,15 +189,19 @@ data[,c("Oligo-NMF26", "Oligo-NMF23", "Oligo-NMF27", "Oligo-NMF13", "Oligo-NMF43
 # remove columns that are not excitatory
 data_subclass <- data[-which(data$Subclass %in% c("Lamp5 Gaba","Pvalb Gaba","Sst Gaba","Vip Gaba")),]
 
-pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_subclass_dotplot.pdf'),h=10,w=15)
-create_custom_dot_plot(data_subclass, "Subclass", colnames(data)[-c(1,2)], "", "NMF pattern",
+feat_cols <- colnames(data)[-c(1,2)]
+feat_cols <- feat_cols[-c(7)]
+feat_cols <- feat_cols[c(7,3,6,1,4,8,5,2)]
+
+pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_subclass_dotplot.pdf'),h=11,w=15)
+create_custom_dot_plot(data_subclass, "Subclass", feat_cols, "", "NMF pattern",
                        "Allen subclass", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
     theme(axis.text=element_text(size=32,color='black'),text=element_text(size=32,color='black'))
 dev.off()
 
-pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_target_dotplot.pdf'),h=13,w=17)
-create_custom_dot_plot(data, "Target", colnames(data)[-c(1,2)], "", "NMF pattern",
+pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_target_dotplot.pdf'),h=11,w=15)
+create_custom_dot_plot(data, "Target", feat_cols, "", "NMF pattern",
                        "Target", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
     theme(axis.text=element_text(size=32,color='black'),text=element_text(size=32,color='black'))
