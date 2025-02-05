@@ -22,8 +22,10 @@ sce <- sce[,-which(sce$cellType_azimuth == "Sst Chodl")]
 sce$cellType_azimuth <- as.factor(sce$cellType_azimuth)
 
 mycolors <- pals::cols25()[1:19]
-celltype_colors <- setNames(mycolors, unique(sce$fine_celltype))
+celltype_colors <- setNames(mycolors, unique(sce$cellType_azimuth))
 celltype_colors
+
+save(celltype_colors, file = here("processed-data", "snRNA-seq", "05_azimuth", "celltype_colors.Rdata"))
 
 umap_coords <- reducedDim(sce, "UMAP-HARMONY")
 plot_data <- data.frame(umap_coords, Celltype = sce$cellType_azimuth)
