@@ -47,7 +47,7 @@ no_expr <- which(rowSums(loads) == 0)
 loads <- loads[-no_expr, ]
 
 # create heatmap of selected genes
-select.nmfs = c("nmf11","nmf61","nmf38","nmf46","nmf15","nmf32","nmf68","nmf35")
+select.nmfs = c("nmf3","nmf61","nmf38","nmf46","nmf15","nmf32","nmf68","nmf35")
 nmf.genes = c("ASIC2", "RBFOX1", "ZNF385D",
               "ROBO2", "DPP10", "KIAA1217",
               "KCNIP4", "ROBO2",
@@ -63,7 +63,7 @@ nmf.genes <- unique(nmf.genes)
 
 m1 = loads[nmf.genes,select.nmfs]
 
-colnames(m1) <- c("L2_3_IT-NMF11", "L5_ET-NMF61", "L5_IT-NMF38", "L5_6_NP-NMF46", "L6_CT-NMF15",
+colnames(m1) <- c("L2_3_IT-NMF3", "L5_ET-NMF61", "L5_IT-NMF38", "L5_6_NP-NMF46", "L6_CT-NMF15",
                   "L6_IT-NMF32", "L6_IT_Car3-NMF68","L6b-NMF35")
 
 m1 <- t(scale(t(m1)))
