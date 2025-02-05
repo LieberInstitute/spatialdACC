@@ -50,7 +50,7 @@ loads <- loads[-no_expr, ]
 select.nmfs = c("nmf11","nmf61","nmf38","nmf46","nmf15","nmf32","nmf68","nmf35")
 nmf.genes = c("ASIC2", "RBFOX1", "ZNF385D",
               "ROBO2", "DPP10", "KIAA1217",
-              "KCNIP4", "ROBO2", "MALAT1",
+              "KCNIP4", "ROBO2",
               "ROBO2", "DPP10", "LRP1B",
               "KCNIP4", "LSAMP", "CSMD1",
               "KCNIP4", "EPHA6", "LRRTM4",
