@@ -27,67 +27,67 @@ for (i in seq_along(brains)){
     if (length(samples) == 1){
         p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "layer", colors = cols, spatial = FALSE, point_size = 8, ... = paste0("_", brains[i])) +
             scale_fill_manual(values = c(
-                "L2" = "#CD661D",
-                "L3" = "#00FA9A",
-                "L5" = "#00CED1",
-                "L6a" = "#000080",
-                "L6b" = "#EED5B7",
-                "WM" = "black",
-                "L1" = "#CDB7B5"
+                "L2" = "#377EB8",
+                "L3" = "#4DAF4A",
+                "L5" = "#FFD700",
+                "L6b" = "#c46200",
+                "L6a" = "#FFC18A",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
             ))
         grid.arrange(p1, nrow = 1)
     } else if (length(samples) == 2){
         p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "layer", colors = cols, spatial = FALSE, point_size = 4, ... = paste0("_", brains[i])) +
             scale_fill_manual(values = c(
-                "L2" = "#CD661D",
-                "L3" = "#00FA9A",
-                "L5" = "#00CED1",
-                "L6a" = "#000080",
-                "L6b" = "#EED5B7",
-                "WM" = "black",
-                "L1" = "#CDB7B5"
+                "L2" = "#377EB8",
+                "L3" = "#4DAF4A",
+                "L5" = "#FFD700",
+                "L6b" = "#c46200",
+                "L6a" = "#FFC18A",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
             ))
         p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "layer", colors = cols, spatial = FALSE, point_size = 4, ... = paste0("_", brains[i])) +
             scale_fill_manual(values = c(
-                "L2" = "#CD661D",
-                "L3" = "#00FA9A",
-                "L5" = "#00CED1",
-                "L6a" = "#000080",
-                "L6b" = "#EED5B7",
-                "WM" = "black",
-                "L1" = "#CDB7B5"
+                "L2" = "#377EB8",
+                "L3" = "#4DAF4A",
+                "L5" = "#FFD700",
+                "L6b" = "#c46200",
+                "L6a" = "#FFC18A",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
             ))
         grid.arrange(p1, p2, nrow = 2)
     } else if (length(samples) == 3){
         p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "layer", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i])) +
             scale_fill_manual(values = c(
-                "L2" = "#CD661D",
-                "L3" = "#00FA9A",
-                "L5" = "#00CED1",
-                "L6a" = "#000080",
-                "L6b" = "#EED5B7",
-                "WM" = "black",
-                "L1" = "#CDB7B5"
+                "L2" = "#377EB8",
+                "L3" = "#4DAF4A",
+                "L5" = "#FFD700",
+                "L6b" = "#c46200",
+                "L6a" = "#FFC18A",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
             ))
         p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "layer", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i])) +
             scale_fill_manual(values = c(
-                "L2" = "#CD661D",
-                "L3" = "#00FA9A",
-                "L5" = "#00CED1",
-                "L6a" = "#000080",
-                "L6b" = "#EED5B7",
-                "WM" = "black",
-                "L1" = "#CDB7B5"
+                "L2" = "#377EB8",
+                "L3" = "#4DAF4A",
+                "L5" = "#FFD700",
+                "L6b" = "#c46200",
+                "L6a" = "#FFC18A",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
             ))
         p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "layer", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i])) +
             scale_fill_manual(values = c(
-                "L2" = "#CD661D",
-                "L3" = "#00FA9A",
-                "L5" = "#00CED1",
-                "L6a" = "#000080",
-                "L6b" = "#EED5B7",
-                "WM" = "black",
-                "L1" = "#CDB7B5"
+                "L2" = "#377EB8",
+                "L3" = "#4DAF4A",
+                "L5" = "#FFD700",
+                "L6b" = "#c46200",
+                "L6a" = "#FFC18A",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
             ))
         grid.arrange(p1, p2, p3, nrow = 2)
     }

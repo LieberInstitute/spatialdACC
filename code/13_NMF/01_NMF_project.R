@@ -63,7 +63,7 @@ save(spe, file = here("processed-data", "13_NMF", "spe_NMF.Rdata"))
 spe.temp <- spe
 brains <- unique(spe.temp$brnum)
 
-for (i in c(38,61)){
+for (i in c(38,61,35,15)){
     print(paste0("i=", i))
     factor <- paste0("nmf", i)
 
@@ -83,13 +83,13 @@ for (i in c(38,61)){
             spe_1 <- speb[, which(speb$sample_id == samples[1])]
             p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 9) |> add_ground(var="layer", stroke=0.5, point_size = 9) +
                 scale_color_manual(values = c(
-                    "L2" = "#CD661D",
-                    "L3" = "#00FA9A",
-                    "L5" = "#00CED1",
-                    "L6a" = "#000080",
-                    "L6b" = "#EED5B7",
-                    "WM" = "black",
-                    "L1" = "#CDB7B5"
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L6b" = "#c46200",
+                    "L6a" = "#FFC18A",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
@@ -99,13 +99,13 @@ for (i in c(38,61)){
             spe_1 <- speb[, which(speb$sample_id == samples[1])]
             p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#CD661D",
-                    "L3" = "#00FA9A",
-                    "L5" = "#00CED1",
-                    "L6a" = "#000080",
-                    "L6b" = "#EED5B7",
-                    "WM" = "black",
-                    "L1" = "#CDB7B5"
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L6b" = "#c46200",
+                    "L6a" = "#FFC18A",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
@@ -113,13 +113,13 @@ for (i in c(38,61)){
             spe_2 <- speb[, which(speb$sample_id == samples[2])]
             p2 <- make_escheR(spe_2) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#CD661D",
-                    "L3" = "#00FA9A",
-                    "L5" = "#00CED1",
-                    "L6a" = "#000080",
-                    "L6b" = "#EED5B7",
-                    "WM" = "black",
-                    "L1" = "#CDB7B5"
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L6b" = "#c46200",
+                    "L6a" = "#FFC18A",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
@@ -129,13 +129,13 @@ for (i in c(38,61)){
             spe_1 <- speb[, which(speb$sample_id == samples[1])]
             p1 <- make_escheR(spe_1) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#CD661D",
-                    "L3" = "#00FA9A",
-                    "L5" = "#00CED1",
-                    "L6a" = "#000080",
-                    "L6b" = "#EED5B7",
-                    "WM" = "black",
-                    "L1" = "#CDB7B5"
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L6b" = "#c46200",
+                    "L6a" = "#FFC18A",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[1]))
@@ -143,13 +143,13 @@ for (i in c(38,61)){
             spe_2 <- speb[, which(speb$sample_id == samples[2])]
             p2 <- make_escheR(spe_2) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#CD661D",
-                    "L3" = "#00FA9A",
-                    "L5" = "#00CED1",
-                    "L6a" = "#000080",
-                    "L6b" = "#EED5B7",
-                    "WM" = "black",
-                    "L1" = "#CDB7B5"
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L6b" = "#c46200",
+                    "L6a" = "#FFC18A",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[2]))
@@ -157,13 +157,13 @@ for (i in c(38,61)){
             spe_3 <- speb[, which(speb$sample_id == samples[3])]
             p3 <- make_escheR(spe_3) |> add_fill(var=factor, point_size = 4) |> add_ground(var="layer", stroke=0.5, point_size = 4) +
                 scale_color_manual(values = c(
-                    "L2" = "#CD661D",
-                    "L3" = "#00FA9A",
-                    "L5" = "#00CED1",
-                    "L6a" = "#000080",
-                    "L6b" = "#EED5B7",
-                    "WM" = "black",
-                    "L1" = "#CDB7B5"
+                    "L2" = "#377EB8",
+                    "L3" = "#4DAF4A",
+                    "L5" = "#FFD700",
+                    "L6b" = "#c46200",
+                    "L6a" = "#FFC18A",
+                    "WM" = "#1A1A1A",
+                    "L1" = "#F0027F"
                 )) +
                 labs(color = "layer") +
                 scale_fill_gradient(low = "white", high = "black") + labs(title = paste0("Sample ", samples[3]))
