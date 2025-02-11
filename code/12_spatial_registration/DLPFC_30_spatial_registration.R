@@ -79,10 +79,33 @@ save(cor_layer, file = here("processed-data", "12_spatial_registration",paste0("
 
 cor_layer <- cor_layer[c(6,2,3,1,4,5,7),]
 
+layer_colors <- c(
+    "L2" = "#377EB8",
+    "L3" = "#4DAF4A",
+    "L5" = "#FFD700",
+    "L6b" = "#c46200",
+    "L6a" = "#FFC18A",
+    "WM" = "#1A1A1A",
+    "L1" = "#F0027F"
+)
+
+ref_colors <- c(
+    "L2" = "#377EB8",
+    "L3" = "#4DAF4A",
+    "L5" = "#FFD700",
+    "L4" = "#984EA3",
+    "L6" = "#FF7F00",
+    "WM" = "#1A1A1A",
+    "L1" = "#F0027F"
+)
+
 pdf(file = here::here("plots", "12_spatial_registration", "DLPFC_manual",
-                      paste0("DLPFC_30_",nnSVG_precast_name,"_heatmap.pdf")), width = 5, height = 5)
-layer_stat_cor_plot(cor_layer, max = max(cor_layer)) +
-    title("DLPFC vs. dACC")
+                      paste0("DLPFC_30_",nnSVG_precast_name,"_heatmap.pdf")), width = 5, height = 4)
+layer_stat_cor_plot(t(cor_layer), color_max = max(cor_layer),
+                    query_colors = layer_colors,
+                    reference_colors = ref_colors,
+                    cluster_rows = FALSE,
+                    cluster_columns = FALSE)
 dev.off()
 
 anno <- annotate_registered_clusters(
