@@ -135,26 +135,32 @@ for (dACC_layer in dACC_layers) {
 
 heatmap_data <- melt(heatmap_matrix)
 
-# remove rows that have "WM"
-heatmap_data <- heatmap_data[!grepl("WM", heatmap_data$Var1),]
-heatmap_data <- heatmap_data[!grepl("WM", heatmap_data$Var2),]
+heatmap_data_prop <- heatmap_data %>%
+    group_by(Var1) %>%
+    mutate(value = value / sum(value))
+# round to two decimal places
+heatmap_data_prop$value <- round(heatmap_data_prop$value, 2)
 
-pdf(here("plots", "11_differential_expression", "dream_heatmap_noWM.pdf"), width = 8, height = 6)
+pdf(here("plots", "11_differential_expression", "dream_heatmap_withWM.pdf"), width = 4, height = 3)
 
-ggplot(heatmap_data, aes(x = Var2, y = Var1, fill = value)) +
+ggplot(heatmap_data_prop, aes(x = Var2, y = Var1, fill = value)) +
     geom_tile() +
     geom_text(aes(label=value), color="black", size=2) +
-    scale_fill_gradient(low = "grey", high = "red") +
-    labs(title = "Number of Significant Genes by Layer Comparison",
+    scale_fill_gradient(low = "blue", high = "white") +
+    labs(title = "",
          x = "DLPFC Layer",
          y = "dACC Layer",
-         caption = "using logFC threshold of 1.5 with dream") +
+         caption = "",
+         fill = "prop. DEGs\nscaled by\ndACC layer") +
     theme_minimal() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
           axis.text.y = element_text())
 
 dev.off()
 
+# remove rows that have "WM"
+heatmap_data <- heatmap_data[!grepl("WM", heatmap_data$Var1),]
+heatmap_data <- heatmap_data[!grepl("WM", heatmap_data$Var2),]
 
 # add up total number of significant genes for each Var2 (DLPFC layer)
 heatmap_data %>%
@@ -213,7 +219,7 @@ heatmap_data_dACC <- heatmap_data %>%
 # round to two decimal places
 heatmap_data_dACC$value <- round(heatmap_data_dACC$value, 2)
 
-pdf(here("plots", "11_differential_expression", "dream_heatmap_dACC_stand.pdf"), width = 4, height = 4)
+pdf(here("plots", "11_differential_expression", "dream_heatmap_dACC_stand.pdf"), width = 4, height = 3)
 
 ggplot(heatmap_data_dACC, aes(x = Var2, y = Var1, fill = value)) +
     geom_tile() +
@@ -225,7 +231,7 @@ ggplot(heatmap_data_dACC, aes(x = Var2, y = Var1, fill = value)) +
          caption = "",
          fill = "prop. DEGs\nscaled by\ndACC layer") +
     theme_minimal() +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1),
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
           axis.text.y = element_text())
 
 dev.off()
