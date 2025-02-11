@@ -56,6 +56,26 @@ pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "HARMONY_azimuth_UMAP.
 p1
 dev.off()
 
+# create small barplot of # nuclei in each cell type
+df <- as.data.frame(table(sce$cellType_azimuth))
+
+df <- df[c(3,5,6,4,7,8,9,10,11,15,16,17,18,1,2,12,13,14,19),]
+p <- ggplot(data = df, aes(x=Var1, y=Freq, fill=Var1)) +
+    geom_bar(stat="identity") +
+    scale_fill_manual(values=celltype_colors) +
+    ylab("number of nuclei") +
+    scale_x_discrete(limits=df$Var1) +
+    theme_minimal() +
+    theme(legend.position="none",
+          axis.title.x=element_blank(),
+          axis.text.x=element_blank(),
+          axis.ticks.x=element_blank()) +
+    scale_y_continuous(position = "right")
+
+pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "azimuth_barplot.pdf"), height = 2, width = 6)
+p
+dev.off()
+
 p1 <- plotReducedDim(sce, dimred="TSNE-HARMONY", colour_by="cellType_azimuth", point_size = 0.5) +
     xlab("t-SNE 1") +
     ylab("t-SNE 2") +
