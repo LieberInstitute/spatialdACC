@@ -12,6 +12,7 @@ library("sessioninfo")
 library("here")
 library("schex")
 library("svglite")
+library("dplyr")
 
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth.Rdata"))
 
@@ -72,7 +73,21 @@ p <- ggplot(data = df, aes(x=Var1, y=Freq, fill=Var1)) +
           axis.ticks.x=element_blank()) +
     scale_y_continuous(position = "right")
 
-pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "azimuth_barplot.pdf"), height = 2, width = 6)
+
+# create small barplot of # nuclei in each cell type
+df <- as.data.frame(colData(sce))
+df <- df %>%
+    group_by(brain) %>%
+    count(cellType_azimuth)
+
+p <- ggplot(data = df, aes(x=cellType_azimuth, y=n, fill=brain)) +
+    geom_bar(stat="identity") +
+    ylab("number of nuclei") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
+pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "azimuth_barplot.pdf"), height = 8, width = 6)
 p
 dev.off()
 
