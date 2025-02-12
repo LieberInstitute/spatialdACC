@@ -71,7 +71,7 @@ p2 <- ggplot(summary_overall, aes(x=region, y=frac61_dACC)) +
     geom_boxplot(outlier.shape = NA, color="#FFD700") +
     geom_point(color="#FFD700", size=1, alpha=0.8) +
     ylab("Frac. Nonzero NMF61") +
-    ylim(c(0,0.2)) +
+    ylim(c(0,0.4)) +
     ggtitle("") +
     theme_bw()
 
