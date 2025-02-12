@@ -5,6 +5,7 @@ library(SpatialExperiment)
 library(RcppML)
 library(here)
 library(UpSetR)
+library(ComplexHeatmap)
 
 load(file = here("processed-data", "snRNA-seq", "03_batch_correction", "sce_harmony.Rdata"))
 x <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "nmf_results.RDS"))
@@ -78,4 +79,49 @@ ComplexHeatmap::Heatmap(m1, show_column_dend = FALSE, show_row_dend = FALSE,
 dev.off()
 
 
+# heatmap of top gene for each excitatory NMF pattern
+loads<-x@w
+no_expr <- which(rowSums(loads) == 0)
+loads <- loads[-no_expr, ]
+
+# create heatmap of selected genes
+select.nmfs = c("nmf3","nmf61","nmf38","nmf46","nmf15","nmf32","nmf68","nmf35")
+
+# i want to get the genes that are unique (not duplicated)
+top <- top_genes(x$w, 100)
+subset_genes <- top[,select.nmfs]
+list_subset_genes <- as.vector(subset_genes)
+unique_elements <- names(table(list_subset_genes))[table(list_subset_genes) == 1]
+nmf.genes <- unique_elements
+
+group_vec <- c()
+
+for (gene in unique_elements) {
+    for (factor_var in select.nmfs) {
+        print(factor_var)
+        if(gene %in% subset_genes[,factor_var]){
+            group_vec <- append(group_vec, factor_var)
+        }
+    }
+}
+
+m1 = loads[nmf.genes,select.nmfs]
+
+colnames(m1) <- c("L2_3_IT-NMF3", "L5_ET-NMF61", "L5_IT-NMF38", "L5_6_NP-NMF46", "L6_CT-NMF15",
+                  "L6_IT-NMF32", "L6_IT_Car3-NMF68","L6b-NMF35")
+
+m1 <- t(scale(t(m1)))
+
+dend = cluster_within_group(t(m1),group_vec)
+
+pdf(here("plots", "snRNA-seq", "06_NMF", "NMF_top_genes_heatmap_100.pdf"), height = 3, width = 20)
+ComplexHeatmap::Heatmap(t(m1), show_column_dend = FALSE, show_row_dend = FALSE,
+                        cluster_columns = dend, cluster_rows = T,
+                        column_names_rot = 90, row_names_side = "left",
+                        top_annotation = HeatmapAnnotation(group=group_vec),
+                        heatmap_legend_param = list(
+                            title = "loadings\nscaled by\ngene", at = c(-4, 0, 4),
+                            labels = c("-4", "0", "4")
+                        ))
+dev.off()
 
