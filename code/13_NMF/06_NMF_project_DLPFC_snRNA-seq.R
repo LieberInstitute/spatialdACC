@@ -21,6 +21,7 @@ library(projectR)
 library(spatialLIBD)
 library(gridExtra)
 library(dplyr)
+library(ggbeeswarm)
 
 # get NMF results from single nucleus data
 x <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "nmf_results.RDS"))
@@ -179,7 +180,7 @@ summary_DLPFC_IT <- dat_DLPFC %>%
     group_by(Sample) %>%
     summarize(avg38 = mean(nmf38), avg61 = mean(nmf61))
 
-summary_DLPFC_IT$region <- rep("DLPFC", dim(summary_DLPFC_IT)[1])
+summary_DLPFC_IT$region <- rep("dlPFC", dim(summary_DLPFC_IT)[1])
 summary_DLPFC_IT$celltype <- rep("L5_IT", dim(summary_DLPFC_IT)[1])
 
 dat_DLPFC <- as.data.frame(colData(sce_DLPFC))
@@ -188,7 +189,7 @@ summary_DLPFC_ET <- dat_DLPFC %>%
     group_by(Sample) %>%
     summarize(avg38 = mean(nmf38), avg61 = mean(nmf61))
 
-summary_DLPFC_ET$region <- rep("DLPFC", dim(summary_DLPFC_ET)[1])
+summary_DLPFC_ET$region <- rep("dlPFC", dim(summary_DLPFC_ET)[1])
 summary_DLPFC_ET$celltype <- rep("L5_ET", dim(summary_DLPFC_ET)[1])
 
 dat_dACC <- as.data.frame(colData(sce_dACC))
@@ -217,27 +218,28 @@ summary_overall[c(33:51),] <- summary_DLPFC_IT
 summary_overall_38 <- summary_overall %>%
     filter(celltype=="L5_IT")
 
-p1 <- ggplot(summary_overall_38, aes(x=region, y=avg38), fill=region) +
-    geom_boxplot() +
-    ylim(c(0,0.001)) +
-    geom_point(color="black", size=1, alpha=0.9) +
-    ylab("Average Weight NMF38 in L5 IT") +
+p1 <- ggplot(summary_overall_38, aes(x=region, y=avg38)) +
+    geom_boxplot(outlier.shape = NA, color="#6A33C2") +
+    ylim(c(0,0.00075)) +
+    geom_point(color="#6A33C2", size=1, alpha=0.8) +
+    ylab("Avg. NMF38 Weight") +
     ggtitle("") +
     xlab("region") +
     theme_bw()
+
 summary_overall_61 <- summary_overall %>%
     filter(celltype=="L5_ET")
 
-p2 <- ggplot(summary_overall_61, aes(x=region, y=avg61), fill=region) +
-    geom_boxplot() +
-    geom_point(color="black", size=1, alpha=0.9) +
-    ylab("Average Weight NMF61 in L5 ET") +
-    ylim(c(0,0.003)) +
+p2 <- ggplot(summary_overall_61, aes(x=region, y=avg61)) +
+    geom_boxplot(outlier.shape = NA, color="#C8308C") +
+    geom_point(color="#C8308C", size=1, alpha=0.8) +
+    ylab("Avg. NMF61 Weight") +
+    ylim(c(0.0004,0.003)) +
     ggtitle("") +
     xlab("region") +
     theme_bw()
 
-pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC.pdf"), height = 4, width = 4)
+pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC.pdf"), height = 2, width = 2)
 print(p1)
 print(p2)
 dev.off()
