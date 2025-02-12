@@ -141,6 +141,8 @@ heatmap_data_prop <- heatmap_data %>%
 # round to two decimal places
 heatmap_data_prop$value <- round(heatmap_data_prop$value, 2)
 
+heatmap_data_prop$Var1 <- factor(heatmap_data_prop$Var1, levels=c('WM', 'L6b', 'L6a', 'L5', 'L3', 'L2', 'L1'))
+
 pdf(here("plots", "11_differential_expression", "dream_heatmap_withWM.pdf"), width = 4, height = 3)
 
 ggplot(heatmap_data_prop, aes(x = Var2, y = Var1, fill = value)) +
