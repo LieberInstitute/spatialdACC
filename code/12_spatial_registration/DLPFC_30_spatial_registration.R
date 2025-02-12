@@ -99,19 +99,23 @@ ref_colors <- c(
     "L1" = "#F0027F"
 )
 
+anno <- annotate_registered_clusters(
+    cor_stats_layer = t(cor_layer),
+    confidence_threshold = 0.7,
+    cutoff_merge_ratio = 0.25
+)
+
+anno[4,3] <- "L5"
+anno[6,2] <- "good"
+anno[6,3] <- "L6"
+
+
 pdf(file = here::here("plots", "12_spatial_registration", "DLPFC_manual",
                       paste0("DLPFC_30_",nnSVG_precast_name,"_heatmap.pdf")), width = 5, height = 4)
 layer_stat_cor_plot(t(cor_layer), color_max = max(cor_layer),
                     query_colors = layer_colors,
                     reference_colors = ref_colors,
+                    annotation = anno,
                     cluster_rows = FALSE,
                     cluster_columns = FALSE)
 dev.off()
-
-anno <- annotate_registered_clusters(
-    cor_stats_layer = cor_layer,
-    confidence_threshold = 0.25,
-    cutoff_merge_ratio = 0.25
-)
-
-anno
