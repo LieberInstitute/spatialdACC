@@ -91,12 +91,12 @@ select.nmfs = c("nmf3","nmf61","nmf38","nmf46","nmf15","nmf32","nmf68","nmf35")
 top <- top_genes(x$w, 100)
 subset_genes <- top[,select.nmfs]
 list_subset_genes <- as.vector(subset_genes)
-unique_elements <- names(table(list_subset_genes))[table(list_subset_genes) == 1]
-nmf.genes <- unique_elements
+nmf.genes <- names(table(list_subset_genes))[table(list_subset_genes) == 1]
+nmf.genes <- append(c("VAT1L", "ADRA1A", "GABRQ", "POU3F1"), nmf.genes)
 
 group_vec <- c()
 
-for (gene in unique_elements) {
+for (gene in nmf.genes) {
     for (factor_var in select.nmfs) {
         print(factor_var)
         if(gene %in% subset_genes[,factor_var]){
@@ -104,6 +104,8 @@ for (gene in unique_elements) {
         }
     }
 }
+
+group_vec <- append(rep("nmf61",4), group_vec)
 
 m1 = loads[nmf.genes,select.nmfs]
 
@@ -116,9 +118,17 @@ dend = cluster_within_group(t(m1),group_vec)
 
 pdf(here("plots", "snRNA-seq", "06_NMF", "NMF_top_genes_heatmap_100.pdf"), height = 3, width = 20)
 ComplexHeatmap::Heatmap(t(m1), show_column_dend = FALSE, show_row_dend = FALSE,
-                        cluster_columns = dend, cluster_rows = T,
+                        cluster_columns = dend, cluster_rows = F,
                         column_names_rot = 90, row_names_side = "left",
-                        top_annotation = HeatmapAnnotation(group=group_vec),
+                        top_annotation = HeatmapAnnotation(group=group_vec,
+                                                           col = list(group=c("nmf15"="#FB6496",
+                                                                      "nmf3"="#1F78C8",
+                                                                      "nmf32"="#FDBF6F",
+                                                                      "nmf35"="#33a02c",
+                                                                      "nmf38"="#6A33C2",
+                                                                      "nmf46"="#0000FF",
+                                                                      "nmf61"="#C8308C",
+                                                                      "nmf68"="#C814FA"))),
                         heatmap_legend_param = list(
                             title = "loadings\nscaled by\ngene", at = c(-4, 0, 4),
                             labels = c("-4", "0", "4")
