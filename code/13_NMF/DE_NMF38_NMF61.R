@@ -77,6 +77,8 @@ modeling_results <- list(
     "pairwise" = results_pairwise
 )
 
+save(modeling_results, file=here("processed-data", "13_NMF", "DE_NMF38_61.Rdata"))
+
 sig_genes <- sig_genes_extract(
     n = 50,
     modeling_results = modeling_results,
@@ -137,7 +139,7 @@ df_list <- data.frame(
     )
 
 pdf(file = here::here("plots", "13_NMF", "volcano_plots_NMF38_NMF61.pdf"),
-    width = 7, height = 7)
+    width = 7, height = 6)
 
 print(EnhancedVolcano(df_list,
                       lab = df_list$gene_name,
