@@ -75,11 +75,77 @@ p2 <- ggplot(summary_overall, aes(x=region, y=frac61_dACC)) +
     ggtitle("") +
     theme_bw()
 
-pdf(file = here::here("plots", "13_NMF", "NMF38_boxplots_DLPFC_dACC.pdf"), height = 2, width = 2)
-print(p1)
+load(file = here("processed-data", "13_NMF", "DLPFC_dACC_celltype_NMF.Rdata"))
+
+dat_DLPFC <- as.data.frame(colData(sce_DLPFC))
+dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_azimuth %in% c("L5_IT")),]
+summary_DLPFC_IT <- dat_DLPFC %>%
+    group_by(Sample) %>%
+    summarize(avg38 = mean(nmf38), avg61 = mean(nmf61))
+
+summary_DLPFC_IT$region <- rep("dlPFC", dim(summary_DLPFC_IT)[1])
+summary_DLPFC_IT$celltype <- rep("L5_IT", dim(summary_DLPFC_IT)[1])
+
+dat_DLPFC <- as.data.frame(colData(sce_DLPFC))
+dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_azimuth %in% c("L5_ET")),]
+summary_DLPFC_ET <- dat_DLPFC %>%
+    group_by(Sample) %>%
+    summarize(avg38 = mean(nmf38), avg61 = mean(nmf61))
+
+summary_DLPFC_ET$region <- rep("dlPFC", dim(summary_DLPFC_ET)[1])
+summary_DLPFC_ET$celltype <- rep("L5_ET", dim(summary_DLPFC_ET)[1])
+
+dat_dACC <- as.data.frame(colData(sce_dACC))
+dat_dACC <- dat_dACC[which(dat_dACC$cellType_azimuth %in% c("L5_IT")),]
+summary_dACC_IT <- dat_dACC %>%
+    group_by(Sample) %>%
+    summarize(avg38 = mean(NMF_38), avg61 = mean(NMF_61))
+
+summary_dACC_IT$region <- rep("dACC", 10)
+summary_dACC_IT$celltype <- rep("L5_IT", 10)
+
+dat_dACC <- as.data.frame(colData(sce_dACC))
+dat_dACC <- dat_dACC[which(dat_dACC$cellType_azimuth %in% c("L5_ET")),]
+summary_dACC_ET <- dat_dACC %>%
+    group_by(Sample) %>%
+    summarize(avg38 = mean(NMF_38), avg61 = mean(NMF_61))
+
+summary_dACC_ET$region <- rep("dACC", 10)
+summary_dACC_ET$celltype <- rep("L5_ET", 10)
+
+summary_overall <- summary_dACC_ET
+summary_overall[c(11:22),] <- summary_DLPFC_ET
+summary_overall[c(23:32),] <- summary_dACC_IT
+summary_overall[c(33:51),] <- summary_DLPFC_IT
+
+summary_overall_38 <- summary_overall %>%
+    filter(celltype=="L5_IT")
+
+p3 <- ggplot(summary_overall_38, aes(x=region, y=avg38)) +
+    geom_boxplot(outlier.shape = NA, color="#6A33C2") +
+    ylim(c(0,0.00075)) +
+    geom_point(color="#6A33C2", size=1, alpha=0.8) +
+    ylab("Avg. NMF38 Weight") +
+    ggtitle("") +
+    xlab("region") +
+    theme_bw()
+
+summary_overall_61 <- summary_overall %>%
+    filter(celltype=="L5_ET")
+
+p4 <- ggplot(summary_overall_61, aes(x=region, y=avg61)) +
+    geom_boxplot(outlier.shape = NA, color="#C8308C") +
+    geom_point(color="#C8308C", size=1, alpha=0.8) +
+    ylab("Avg. NMF61 Weight") +
+    ylim(c(0.0004,0.003)) +
+    ggtitle("") +
+    xlab("region") +
+    theme_bw()
+
+
+pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC.pdf"), height = 6, width = 6)
+wrap_plots(list(p1,p3,p2,p4), nrow = 2)
 dev.off()
 
-pdf(file = here::here("plots", "13_NMF", "NMF61_boxplots_DLPFC_dACC.pdf"), height = 2, width = 2)
-print(p2)
-dev.off()
+
 

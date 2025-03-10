@@ -84,6 +84,11 @@ sce_DLPFC$cellType_azimuth <- colData(sce_DLPFC_Azimuth)$cellType_azimuth
 # fraction of cells
 
 dat_DLPFC <- as.data.frame(colData(sce_DLPFC))
+dat_dACC <- as.data.frame(colData(sce_dACC))
+
+# save for future use
+save(dat_dACC, dat_DLPFC, file = here("processed-data", "13_NMF", "DLPFC_dACC_celltype_NMF.Rdata"))
+
 dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_azimuth %in% c("L5_IT")),]
 summary_DLPFC_IT <- dat_DLPFC %>%
     group_by(Sample) %>%
@@ -105,7 +110,6 @@ summary_DLPFC_ET$frac61_DLPFC <- summary_DLPFC_ET$count61_DLPFC / summary_DLPFC_
 
 summary_DLPFC_ET$region <- rep("DLPFC", dim(summary_DLPFC_ET)[1])
 
-dat_dACC <- as.data.frame(colData(sce_dACC))
 dat_dACC <- dat_dACC[which(dat_dACC$cellType_azimuth %in% c("L5_IT")),]
 summary_dACC_IT <- dat_dACC %>%
     group_by(Sample) %>%
