@@ -135,3 +135,55 @@ ComplexHeatmap::Heatmap(t(m1), show_column_dend = FALSE, show_row_dend = FALSE,
                         ))
 dev.off()
 
+# manually subsetting
+
+loads<-x@w
+no_expr <- which(rowSums(loads) == 0)
+loads <- loads[-no_expr, ]
+
+# create heatmap of selected genes
+select.nmfs = c("nmf3","nmf61","nmf38","nmf46","nmf15","nmf32","nmf68","nmf35")
+
+nmf.genes <- c(
+                "GNAL","ROBO1","SGCD","GRIA2","CACNB2",
+                "VAT1L", "ADRA1A", "GABRQ", "POU3F1","COL5A2",
+                "LINC02055","IL1RAPL2","RORB","CASC15","AC008415.1",
+                "ITGA8","HTR2C","NPSR1-AS1","TSHZ2","DCC",
+                "ADAMTSL1","AC011246.1","SEMA5A","TRPM3","TMEFF2",
+                "AC007368.1","NCAM2","SGCZ","SLIT3","PTPRK",
+                "SEMA6D","RGS12","CUX1","SYNPR","ZNF804B",
+                "AL136456.1","PCSK5","FUT9","PCDH11X","ZFHX3")
+
+group_vec <- c(
+               rep("NMF3",5), rep("NMF61",5),
+               rep("NMF38",5), rep("NMF46",5),
+               rep("NMF15",5), rep("NMF32",5),
+               rep("NMF68",5), rep("NMF35",5))
+
+m1 <- loads[nmf.genes,select.nmfs]
+
+colnames(m1) <- c("L2_3_IT-NMF3", "L5_ET-NMF61", "L5_IT-NMF38", "L5_6_NP-NMF46", "L6_CT-NMF15",
+                  "L6_IT-NMF32", "L6_IT_Car3-NMF68","L6b-NMF35")
+
+m1 <- t(scale(t(m1)))
+
+dend <- cluster_within_group(t(m1),group_vec)
+
+pdf(here("plots", "snRNA-seq", "06_NMF", "NMF_top_genes_heatmap_5.pdf"), height = 3, width = 10)
+ComplexHeatmap::Heatmap(t(m1), show_column_dend = FALSE, show_row_dend = FALSE,
+                        cluster_columns = F, cluster_rows = F,
+                        column_names_rot = 90, row_names_side = "left",
+                        top_annotation = HeatmapAnnotation(factor=group_vec,
+                                                           col = list(factor=c("NMF15"="#FB6496",
+                                                                              "NMF3"="#1F78C8",
+                                                                              "NMF32"="#FDBF6F",
+                                                                              "NMF35"="#33a02c",
+                                                                              "NMF38"="#6A33C2",
+                                                                              "NMF46"="#0000FF",
+                                                                              "NMF61"="#C8308C",
+                                                                              "NMF68"="#C814FA"))),
+                        heatmap_legend_param = list(
+                            title = "loadings\nscaled by\ngene", at = c(-4, 0, 4),
+                            labels = c("-4", "0", "4")
+                        ))
+dev.off()
