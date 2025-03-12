@@ -72,12 +72,16 @@ results_PTSD_down <- list()
 results_MDD_up <- list()
 results_MDD_down <- list()
 
+gene_list <- list()
+gene_list[["nmf38"]] <- setdiff(top500[,"nmf38"],top500[,"nmf61"])
+gene_list[["nmf61"]] <- setdiff(top500[,"nmf61"],top500[,"nmf38"])
+
 k <- c("nmf38","nmf61")
 
 for (i in k) {
     print(i)
 
-    top500_i <- top500[,i]
+    top500_i <- gene_list[[i]]
 
     # match gene names to gene ids from sce
     top500_i_id <- rowData(sce)$gene_id[match(top500_i, rowData(sce)$gene_name)]
