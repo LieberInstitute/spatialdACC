@@ -30,6 +30,9 @@ sce_pseudo <-
                             var_sample_id = "brain"
     )
 
+save(sce_pseudo, file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth_pseudo.Rdata"))
+
+
 sig_genes <- sig_genes_extract(
     n = 20,
     modeling_results = modeling_results,
