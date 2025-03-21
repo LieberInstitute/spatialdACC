@@ -93,9 +93,19 @@ results_enrichment <-
         gene_name = "gene_name"
     )
 
+results_anova <-
+    registration_stats_anova(
+        spe_pseudo,
+        block_cor = block_cor,
+        covars = NULL,
+        gene_ensembl = "gene_id",
+        gene_name = "gene_name"
+    )
+
 modeling_results <- list(
     "pairwise" = results_pairwise,
-    "enrichment" = results_enrichment
+    "enrichment" = results_enrichment,
+    "anova" = results_anova
 )
 
 ###save modeling results list
