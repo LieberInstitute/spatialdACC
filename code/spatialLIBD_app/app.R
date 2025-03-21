@@ -9,9 +9,9 @@ options(repos = BiocManager::repositories())
 
 ## Load the data (all paths are relative to this script's location)
 load("spe_nnSVG_PRECAST_9_labels.Rdata", verbose = TRUE)
-# spe$CellCount <- spe$segmentation_info
-# spe$CellCount <- spe$NBW
-# vars <- colnames(colData(spe))
+load("nnSVG_PRECAST_captureArea_9.Rdata", verbose = TRUE)
+
+sig_genes <- readRDS("nnSVG_PRECAST_captureArea_9_sig_genes_all.rds")
 
 # Added biocGenerics specifically for finding the right colnames, also due to R update
 vars <- BiocGenerics::colnames(colData(spe))
@@ -19,11 +19,11 @@ vars <- BiocGenerics::colnames(colData(spe))
 ## Deploy the website
 spatialLIBD::run_app(
     spe,
-    sce_layer = NULL,
-    modeling_results = NULL,
-    sig_genes = NULL,
+    sce_layer = spe,
+    modeling_results = modeling_results,
+    sig_genes = sig_genes,
     title = "spatialdACC, Visium",
-    spe_discrete_vars = c(vars[grep("10x_", vars)], "ManualAnnotation"),
+    spe_discrete_vars = c(vars[grep("10x_", vars)], "ManualAnnotation", "layer"),
     spe_continuous_vars = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
     default_cluster = "10x_graphclust"
 )

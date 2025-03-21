@@ -5,7 +5,5 @@ account: libd
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9193352
-bundleId: 7267689
+bundleId: 9981388
 url: https://libd.shinyapps.io/spatialdACC_Visium/
-when: 1685110707.00878
-lastSyncTime: 1685110707.00879

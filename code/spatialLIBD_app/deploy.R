@@ -20,7 +20,9 @@ rsconnect::deployApp(
     appDir = app_dir,
     appFiles = c(
         "app.R",
-        "spe_nnSVG_PRECAST_9_labels.Rdata"
+        "spe_nnSVG_PRECAST_9_labels.Rdata",
+        "nnSVG_PRECAST_captureArea_9.Rdata",
+        "nnSVG_PRECAST_captureArea_9_sig_genes_all.rds"
     ),
     appName = "spatialdACC_Visium",
     account = "libd",
