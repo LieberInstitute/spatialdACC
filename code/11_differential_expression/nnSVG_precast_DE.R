@@ -126,6 +126,20 @@ sig_genes <- sig_genes_extract(
 write.csv(sig_genes, file = here::here("processed-data", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
                                        paste0(nnSVG_precast_name, "_sig_genes_30.csv")), row.names = FALSE)
 
+
+## For sig_genes_extract_all() to work
+spe_pseudo$spatialLIBD <- spe_pseudo$layer
+
+sig_genes_all <- sig_genes_extract_all(
+    n = 30,
+    modeling_results = modeling_results,
+    sce_layer = spe_pseudo
+)
+
+saveRDS(sig_genes_all, file = here::here("processed-data", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
+                                       paste0(nnSVG_precast_name, "_sig_genes_all.rds")))
+
+
 # remove the "WM" rows in the "test" column
 sig_genes <- sig_genes[sig_genes$test != "WM",]
 
