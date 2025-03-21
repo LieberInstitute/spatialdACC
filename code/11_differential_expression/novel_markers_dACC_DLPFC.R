@@ -114,7 +114,7 @@ for (layer in layers) {
               here("processed-data", "11_differential_expression", "novel_markers", paste0("dACC_DLPFC_", layer, ".csv")))
 
     if(layer == "L6a"){
-        genes_to_label <- c("ISLR", "NR4A2", "DACH1", "KCTD8")
+        genes_to_label <- c("ISLR", "NR4A2", "DACH1", "KCTD8","TBR1")
     }
     if(layer == "L6b"){
         genes_to_label <- c("SEMA3A", "NXPH3", "ADRA2A", "SCUBE1", "CPLX3", "CRHBP")

@@ -23,13 +23,13 @@ groups_dlPFC <- factor(colData(sce)[["layer_guess_reordered_short"]])
 #genes <- c("STXBP6", "LAMP5", "KCTD4", "ARHGAP4", "RSPO2", "CCNO","C1QL2")
 #genes <- c("LINC01007", "ADCYAP1")
 #genes <- c("RORB", "UNC5D", "PVALB")
-genes <- c("PCP4", "TRABD2A", "MEPE", "CD24", "CD52", "FDPS", "DRD5", "GYG1", "ITGB1BP1")
-#genes <- c("ISLR", "NR4A2", "DACH1", "KCTD8")
+#genes <- c("PCP4", "TRABD2A", "MEPE", "CD24", "CD52", "FDPS", "DRD5", "GYG1", "ITGB1BP1")
+genes <- c("ISLR", "NR4A2", "DACH1", "KCTD8", "TBR1")
 #genes <- c("SEMA3A", "NXPH3", "ADRA2A", "SCUBE1", "CPLX3", "CRHBP")
 
 for(gene in genes){
     print(gene)
-    pdf(file = here("plots", "11_differential_expression", "pseudobulk","boxplots_annotations", "L5",
+    pdf(file = here("plots", "11_differential_expression", "pseudobulk","boxplots_annotations", "L6a",
                     paste0(gene,".pdf")), height=10, width=15)
 
     par(mfrow = c(1, 2))  # Set plotting area to have 1 row and 2 columns
