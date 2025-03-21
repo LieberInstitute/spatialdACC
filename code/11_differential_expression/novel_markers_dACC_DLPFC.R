@@ -25,6 +25,8 @@ genes_intersect <- intersect(genes_dACC, genes_DLPFC)
 dACC_results <- modeling_results_dACC[["enrichment"]][genes_intersect,]
 DLPFC_results <- modeling_results_DLPFC[["enrichment"]][genes_intersect,]
 
+pdf(file = here("plots", "11_differential_expression", "layer_markers_dACC_DLPFC.pdf"), width = 15, height = 15)
+
 # repeat this in a loop for layers L1, L2, L3, L5
 layers <- c("L1", "L2", "L3", "L5")
 p_list <- list()
@@ -49,14 +51,27 @@ for (layer in layers) {
 
     # write to csv file
     # genes that are either "DLPFC & dACC enriched" or "dACC enriched"
-    write.csv(df_layer[df_layer$color != "Neither",],
-              here("processed-data", "11_differential_expression", "novel_markers", paste0("dACC_DLPFC_", layer, ".csv")))
+    #write.csv(df_layer[df_layer$color != "Neither",],
+    #          here("processed-data", "11_differential_expression", "novel_markers", paste0("dACC_DLPFC_", layer, ".csv")))
+
+    if(layer == "L1"){
+        genes_to_label <- c("RELN", "MSX1", "VIM","HBB","NTS","HBA1")
+    }
+    if(layer == "L2"){
+        genes_to_label <- c("STXBP6", "LAMP5", "KCTD4", "ARHGAP4", "RSPO2", "CCNO","C1QL2")
+    }
+    if(layer == "L3"){
+        genes_to_label <- c("LINC01007", "ADCYAP1")
+    }
+    if(layer == "L5"){
+        genes_to_label <- c("PCP4", "TRABD2A", "MEPE", "CD24", "CD52", "FDPS", "DRD5", "GYG1", "ITGB1BP1")
+    }
 
     # plot
     p <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
         geom_point(aes(color = color), size=0.7) +
         scale_color_manual(values = c("DLPFC & dACC enriched" = "blue", "dACC enriched" = "red", "Neither" = "grey")) +
-        geom_text_repel(aes(label = gene), size = 3) +
+        geom_text_repel(aes(label = ifelse(gene %in% genes_to_label, gene, "")), size = 3, max.overlaps = Inf) +
         geom_smooth(method = "lm", se = FALSE, color = "blue") +
         geom_vline(xintercept = 1.25, color = "black", linetype = "dashed") +
         geom_hline(yintercept = 1.25, color = "black", linetype = "dashed") +
@@ -70,6 +85,8 @@ for (layer in layers) {
             y = "DLPFC logFC",
             subtitle = paste0("Pearson's r: ", round(corr_layer$estimate, 2))
         )
+
+    print(p)
     p_list[[layer]] <- p
 }
 
@@ -96,12 +113,18 @@ for (layer in layers) {
     write.csv(df_layer[df_layer$color != "Neither",],
               here("processed-data", "11_differential_expression", "novel_markers", paste0("dACC_DLPFC_", layer, ".csv")))
 
+    if(layer == "L6a"){
+        genes_to_label <- c("ISLR", "NR4A2", "DACH1", "KCTD8")
+    }
+    if(layer == "L6b"){
+        genes_to_label <- c("SEMA3A", "NXPH3", "ADRA2A", "SCUBE1", "CPLX3", "CRHBP")
+    }
 
     # plot
     p <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
         geom_point(aes(color = color), size=0.7) +
         scale_color_manual(values = c("DLPFC & dACC enriched" = "blue", "dACC enriched" = "red", "Neither" = "grey")) +
-        geom_text_repel(aes(label = gene), size = 3) +
+        geom_text_repel(aes(label = ifelse(gene %in% genes_to_label, gene, "")), size = 3, max.overlaps = Inf) +
         geom_smooth(method = "lm", se = FALSE, color = "blue") +
         geom_vline(xintercept = 1.25, color = "black", linetype = "dashed") +
         geom_hline(yintercept = 1.25, color = "black", linetype = "dashed") +
@@ -115,8 +138,13 @@ for (layer in layers) {
             y = "DLPFC logFC",
             subtitle = paste0("Pearson's r: ", round(corr_layer$estimate, 2))
         )
+
+    print(p)
     p_list[[layer]] <- p
 }
+
+
+dev.off()
 
 pdf(file = here("plots", "11_differential_expression", "layer_markers_dACC_DLPFC.pdf"), width = 10, height = 10)
 for (layer in names(p_list)) {
