@@ -22,7 +22,8 @@ rsconnect::deployApp(
         "app.R",
         "spe_nnSVG_PRECAST_9_labels.Rdata",
         "nnSVG_PRECAST_captureArea_9.Rdata",
-        "nnSVG_PRECAST_captureArea_9_sig_genes_all.rds"
+        "nnSVG_PRECAST_captureArea_9_sig_genes_all.rds",
+        "modeling-nnSVG_PRECAST_captureArea_9.Rdata"
     ),
     appName = "spatialdACC_Visium",
     account = "libd",
