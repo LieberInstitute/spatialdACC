@@ -45,3 +45,18 @@ table(sce$high_mito, sce$scDblFinder.class)
 # FALSE   35161    1871
 
 #we just flagged doublet scores, did not remove from sce
+
+
+df <- as.data.frame(table(sce$Sample, sce$scDblFinder.class))
+
+drop_barplot <- df %>%
+    ggplot(aes(x = Var1, y = Freq, fill = Var2)) +
+    geom_col() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    ggtitle("Doublet Detection") +
+    xlab("Sample") +
+    ylab("Frequency") +
+    labs(fill="Category")
+
+ggsave(drop_barplot, filename = here("plots", "snRNA-seq", "01_QC", "doublet_barplot.png"), width = 9)
+
