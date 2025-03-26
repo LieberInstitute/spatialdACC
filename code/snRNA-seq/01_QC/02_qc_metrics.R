@@ -10,6 +10,7 @@ library("tidyverse")
 library("scDblFinder")
 library("jaffelab")
 library("batchelor")
+library("patchwork")
 
 load(here("processed-data", "04_build_sce", "1c-10c_sce_raw.rda"))
 
@@ -176,21 +177,22 @@ table(sce$discard_auto)
 # 37032  5732
 
 #### QC plots ####
-pdf(here("plots", "snRNA-seq", "01_QC", "QC_violin_plots.pdf"), width = 21)
 
-hist(colData(sce)$subsets_Mito_percent, breaks = 400, ylim = c(0,2000))
+sce$`Mito Discard` <- sce$high_mito
+sce$`Detected Discard` <- sce$low_detected
 
-plotColData(sce, x = "Sample", y = "subsets_Mito_percent", colour_by = "high_mito") +
-    ggtitle("Mito Percent")
+p1 <- plotColData(sce, x = "Sample", y = "subsets_Mito_percent", colour_by = "Mito Discard") +
+    ggtitle("Mitochondrial Percent") +
+    ylab("Mitochondrial Percent")
 
-plotColData(sce, x = "Sample", y = "sum", colour_by = "low_sum") +
+p2 <- plotColData(sce, x = "Sample", y = "detected", colour_by = "Detected Discard") +
     scale_y_log10() +
-    ggtitle("Total UMIs")
+    ggtitle("Detected Genes") +
+    ylab("Number of Detected Genes")
 
-plotColData(sce, x = "Sample", y = "detected", colour_by = "low_detected") +
-    scale_y_log10() +
-    ggtitle("Detected genes")
 
+png(here("plots", "snRNA-seq", "01_QC", "QC_violin_plots.png"), width = 15, height = 10, units = "in", res=300)
+wrap_plots(p1,p2,nrow=2)
 dev.off()
 
 # remove low quality nuclei
