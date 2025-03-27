@@ -76,26 +76,34 @@ p2 <- ggplot(summary_overall, aes(x=region, y=frac61_dACC)) +
     theme_bw()
 
 load(file = here("processed-data", "13_NMF", "DLPFC_dACC_celltype_NMF.Rdata"))
+# we do not use the Azimuth annotations because they are not good for dlPFC
 
-dat_DLPFC <- as.data.frame(colData(sce_DLPFC))
-dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_azimuth %in% c("L5_IT")),]
+dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_layer %in% c("Excit_L5")),]
 summary_DLPFC_IT <- dat_DLPFC %>%
     group_by(Sample) %>%
     summarize(avg38 = mean(nmf38), avg61 = mean(nmf61))
 
 summary_DLPFC_IT$region <- rep("dlPFC", dim(summary_DLPFC_IT)[1])
-summary_DLPFC_IT$celltype <- rep("L5_IT", dim(summary_DLPFC_IT)[1])
+summary_DLPFC_IT$celltype <- rep("Excit_L5", dim(summary_DLPFC_IT)[1])
 
 dat_DLPFC <- as.data.frame(colData(sce_DLPFC))
-dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_azimuth %in% c("L5_ET")),]
+dat_DLPFC <- dat_DLPFC[which(sce_DLPFC$cellType_layer %in% c("Excit_L5")),]
 summary_DLPFC_ET <- dat_DLPFC %>%
     group_by(Sample) %>%
     summarize(avg38 = mean(nmf38), avg61 = mean(nmf61))
 
 summary_DLPFC_ET$region <- rep("dlPFC", dim(summary_DLPFC_ET)[1])
-summary_DLPFC_ET$celltype <- rep("L5_ET", dim(summary_DLPFC_ET)[1])
+summary_DLPFC_ET$celltype <- rep("Excit_L5", dim(summary_DLPFC_ET)[1])
 
-dat_dACC <- as.data.frame(colData(sce_dACC))
+dat_dACC <- dat_dACC[which(dat_dACC$cellType_layer %in% c("Excit_L5")),]
+summary_dACC_IT <- dat_dACC %>%
+    group_by(Sample) %>%
+    summarize(avg38 = mean(NMF_38), avg61 = mean(NMF_61))
+
+summary_dACC_IT$region <- rep("dACC", 10)
+summary_dACC_IT$celltype <- rep("Excit_L5", 10)
+
+dat_dACC_orig <- dat_dACC
 dat_dACC <- dat_dACC[which(dat_dACC$cellType_azimuth %in% c("L5_IT")),]
 summary_dACC_IT <- dat_dACC %>%
     group_by(Sample) %>%
@@ -104,7 +112,7 @@ summary_dACC_IT <- dat_dACC %>%
 summary_dACC_IT$region <- rep("dACC", 10)
 summary_dACC_IT$celltype <- rep("L5_IT", 10)
 
-dat_dACC <- as.data.frame(colData(sce_dACC))
+dat_dACC <- dat_dACC_orig
 dat_dACC <- dat_dACC[which(dat_dACC$cellType_azimuth %in% c("L5_ET")),]
 summary_dACC_ET <- dat_dACC %>%
     group_by(Sample) %>%
@@ -113,34 +121,34 @@ summary_dACC_ET <- dat_dACC %>%
 summary_dACC_ET$region <- rep("dACC", 10)
 summary_dACC_ET$celltype <- rep("L5_ET", 10)
 
-summary_overall <- summary_dACC_ET
-summary_overall[c(11:22),] <- summary_DLPFC_ET
-summary_overall[c(23:32),] <- summary_dACC_IT
-summary_overall[c(33:51),] <- summary_DLPFC_IT
+summary_overall <- summary_dACC_IT
+summary_overall[c(11:28),] <- summary_DLPFC_ET
 
-summary_overall_38 <- summary_overall %>%
-    filter(celltype=="L5_IT")
 
-p3 <- ggplot(summary_overall_38, aes(x=region, y=avg38)) +
-    geom_boxplot(outlier.shape = NA, color="#6A33C2") +
-    ylim(c(0,0.00075)) +
-    geom_point(color="#6A33C2", size=1, alpha=0.8) +
+p3 <- ggplot(summary_overall, aes(x=region, y=avg38, color=region)) +
+    geom_boxplot(outlier.shape = NA) +
+    ylim(c(0,0.00065)) +
+    geom_point(size=1, alpha=0.8) +
     ylab("Avg. NMF38 Weight") +
     ggtitle("") +
     xlab("region") +
-    theme_bw()
+    theme_bw() +
+    scale_color_manual(values = c("#6A33C2", "black")) +
+    theme(legend.position="none")
 
-summary_overall_61 <- summary_overall %>%
-    filter(celltype=="L5_ET")
+summary_overall <- summary_dACC_ET
+summary_overall[c(11:28),] <- summary_DLPFC_ET
 
-p4 <- ggplot(summary_overall_61, aes(x=region, y=avg61)) +
-    geom_boxplot(outlier.shape = NA, color="#C8308C") +
-    geom_point(color="#C8308C", size=1, alpha=0.8) +
+p4 <- ggplot(summary_overall, aes(x=region, y=avg61, color=region)) +
+    geom_boxplot(outlier.shape = NA) +
+    geom_point(size=1, alpha=0.8) +
     ylab("Avg. NMF61 Weight") +
-    ylim(c(0.0004,0.003)) +
+    ylim(c(0.000,0.003)) +
     ggtitle("") +
     xlab("region") +
-    theme_bw()
+    theme_bw() +
+    scale_color_manual(values = c("#C8308C", "black")) +
+    theme(legend.position="none")
 
 
 pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC.pdf"), height = 6, width = 6)
