@@ -8,6 +8,7 @@ library(ggplot2)
 library(spatialLIBD)
 library(pheatmap)
 library(scater)
+library(patchwork)
 
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth.Rdata"))
 sce <- logNormCounts(sce)
@@ -30,9 +31,6 @@ for (i in 1:length(top20_markers)) {
 }
 
 # visualize some of the layer markers recovered in the snRNA-seq data
-sce <- computeSumFactors(sce)
-sce <- logNormCounts(sce)
-
 sce$counts_PCP4 <- counts(sce)[which(rowData(sce)$gene_name=="PCP4"),]
 sce$logcounts_PCP4 <- logcounts(sce)[which(rowData(sce)$gene_name=="PCP4"),]
 
@@ -168,6 +166,61 @@ plotColData(sce, x = "cellType_azimuth", y = "counts_PVALB") +
 plotColData(sce, x = "cellType_azimuth", y = "logcounts_PVALB") +
     ggtitle("PVALB Logcounts by Azimuth Cluster") +
     facet_wrap(~ sce$cellType_azimuth, scales = "free_x", nrow = 1)
+
+dev.off()
+
+
+
+# visualize 3 of the layer markers recovered in the snRNA-seq data
+load(file = here("processed-data", "snRNA-seq", "05_azimuth", "celltype_colors.Rdata"))
+
+sce$logcounts_PCP4 <- logcounts(sce)[which(rowData(sce)$gene_name=="PCP4"),]
+
+sce$logcounts_CPLX3 <- logcounts(sce)[which(rowData(sce)$gene_name=="CPLX3"),]
+
+sce$logcounts_CD24 <- logcounts(sce)[which(rowData(sce)$gene_name=="CD24"),]
+
+p1 <- plotColData(sce, x = "cellType_azimuth", y = "logcounts_PCP4", colour_by = "cellType_azimuth") +
+    ggtitle("Marker Gene Expression by Azimuth Cell Type") +
+    facet_wrap(~ sce$cellType_azimuth, scales = "free_x", nrow = 1) +
+    scale_color_manual(values = celltype_colors) +
+    theme(legend.position="none") +
+    xlab("") +
+    ylab("PCP4 Logcounts") +
+    theme(
+        strip.background = element_blank(),
+        strip.text.x = element_blank()
+    )
+
+p2 <- plotColData(sce, x = "cellType_azimuth", y = "logcounts_CPLX3", colour_by = "cellType_azimuth") +
+    ggtitle("") +
+    facet_wrap(~ sce$cellType_azimuth, scales = "free_x", nrow = 1) +
+    scale_color_manual(values = celltype_colors) +
+    theme(legend.position="none") +
+    xlab("") +
+    ylab("CPLX3 Logcounts") +
+    theme(
+        strip.background = element_blank(),
+        strip.text.x = element_blank()
+    )
+
+p3 <- plotColData(sce, x = "cellType_azimuth", y = "logcounts_CD24", colour_by = "cellType_azimuth") +
+    ggtitle("") +
+    facet_wrap(~ sce$cellType_azimuth, scales = "free_x", nrow = 1) +
+    scale_color_manual(values = celltype_colors) +
+    theme(legend.position="none") +
+    xlab("") +
+    ylab("CD24 Logcounts") +
+    theme(
+        strip.background = element_blank(),
+        strip.text.x = element_blank()
+    )
+
+
+pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "subset_marker_violin_plots.pdf"),
+    width = 10, height = 5)
+
+wrap_plots(p1,p2,p3, nrow=3)
 
 dev.off()
 
