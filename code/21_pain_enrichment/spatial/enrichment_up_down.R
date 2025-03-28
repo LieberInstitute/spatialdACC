@@ -237,11 +237,12 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
         border_gp = gpar(col = "black", lwd = 2)
     )
 
-    print(combined_pvalues_ordered)
+    return(combined_pvalues_ordered)
 
-    # Return the heatmap object
-    return(heatmap_combined)
 }
+
+combined_pvalues_ordered_spatial_pain <- generate_spatial_heatmap()
+save(combined_pvalues_ordered_spatial_pain, file=here("processed-data","19_bulk_deconvolution","combined_pvalues_ordered_spatial_pain.Rdata"))
 
 # Display the heatmap
 pdf(here("plots", "21_pain_enrichment", "spatial_heatmap_up_down_adjpval_0.1.pdf"),

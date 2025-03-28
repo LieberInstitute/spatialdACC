@@ -166,6 +166,11 @@ ordered_cols <- order(col_means, decreasing = TRUE)
 
 # Reorder the heatmap matrix
 combined_pvalues_ordered <- combined_pvalues[ordered_rows, ordered_cols]
+row.names(combined_pvalues_ordered)[1] <- "MicroPVM"
+
+combined_pvalues_ordered_sn_bulk <- combined_pvalues_ordered
+save(combined_pvalues_ordered_sn_bulk, file=here("processed-data","19_bulk_deconvolution","combined_pvalues_ordered_sn_bulk.Rdata"))
+
 
 col_fun <- colorRamp2(
     c(1.3, max(-log10(combined_pvalues_ordered))),
