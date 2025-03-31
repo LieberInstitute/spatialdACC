@@ -10,6 +10,7 @@ suppressPackageStartupMessages({
     library(gridExtra)
     library(here)
     library(bluster)
+    library(patchwork)
 })
 
 read_barcoded_csv <- function(x) {
@@ -160,3 +161,40 @@ boxplot <- ggplot(avg_purity, aes(x = clustering, y = avg_purity,fill=algorithm)
 pdf(here::here('plots', '08_clustering', 'cluster_diagnostics','avg_purity_boxplot_with_nnSVG.pdf'))
 print(boxplot)
 dev.off()
+
+
+
+# just nnSVG PRECAST diagnostics
+
+avg_purity_subset <- avg_purity[which(avg_purity$algorithm == "nnSVG PRECAST"),]
+
+# just nnSVG PRECAST diagnostics
+
+avg_purity_subset <- avg_purity[which(avg_purity$algorithm == "nnSVG PRECAST"),]
+avg_purity_subset$clustering <- sub(".*nnSVG_PRECAST_captureArea_", "", avg_purity_subset$clustering)
+avg_purity_subset$clustering <- as.numeric(avg_purity_subset$clustering)
+avg_purity_subset$clustering <- as.factor(avg_purity_subset$clustering)
+
+boxplot <- ggplot(avg_purity_subset, aes(x = clustering, y = avg_purity)) +
+    geom_boxplot() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("Average cluster purity nnSVG-Guided PRECAST") +
+    theme_bw() +
+    xlab("Number of Clusters") +
+    ylab("Average Cluster Purity")
+
+
+df_nnSVG_precast <- read.table(file=here("processed-data", "08_clustering", "cluster_diagnostics", "fasthplus", "fasthplus_results_nnSVG_precast.csv"), header=T)
+p1 <- ggplot(data = df_nnSVG_precast, aes(x = k, y = fasthplus, group = 1)) +
+    geom_line() +
+    geom_point() +
+    ylab(expression(H^{
+        "+"
+    })) +
+    theme_bw() +
+    ggtitle("H+ Discordance nnSVG-Guided PRECAST")
+
+png(here("plots", "08_clustering", "diagnostics_nnSVG_PRECAST.png"), height=8, width = 12, units = "in", res = 300)
+wrap_plots(boxplot,p1, nrow=2)
+dev.off()
+
