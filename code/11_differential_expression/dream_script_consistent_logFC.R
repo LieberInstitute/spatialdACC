@@ -150,7 +150,7 @@ ggplot(heatmap_data_prop, aes(x = Var2, y = Var1, fill = value)) +
     geom_text(aes(label=value), color="black", size=2) +
     scale_fill_gradient(low = "blue", high = "white") +
     labs(title = "",
-         x = "DLPFC Layer",
+         x = "dlPFC Layer",
          y = "dACC Layer",
          caption = "",
          fill = "prop. DEGs\nscaled by\ndACC layer") +
