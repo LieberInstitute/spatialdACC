@@ -13,6 +13,7 @@ library("here")
 library("schex")
 library("svglite")
 library("dplyr")
+library("patchwork")
 
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth.Rdata"))
 
@@ -82,13 +83,28 @@ df <- df %>%
 
 p <- ggplot(data = df, aes(x=cellType_azimuth, y=n, fill=brain)) +
     geom_bar(stat="identity") +
-    ylab("number of nuclei") +
-    theme_minimal() +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+    ylab("Number of Nuclei") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+    xlab("Cell Type")
+
+load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9_labels.Rdata"))
+df_2 <- as.data.frame(colData(spe))
+df_2 <- df_2 %>%
+    group_by(brnum) %>%
+    count(layer)
+
+p2 <- ggplot(data = df_2, aes(x=layer, y=n, fill=brnum)) +
+    geom_bar(stat="identity") +
+    ylab("Number of Spots") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+    xlab("Layer") +
+    theme(legend.position="none")
 
 
-pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "azimuth_barplot.pdf"), height = 8, width = 6)
-p
+png(file = here::here("plots", "snRNA-seq", "05_azimuth", "azimuth_barplot.png"), height = 8, width = 10, unit="in",res=300)
+wrap_plots(p,p2,nrow=1, guides="collect")
 dev.off()
 
 p1 <- plotReducedDim(sce, dimred="TSNE-HARMONY", colour_by="cellType_azimuth", point_size = 0.5) +
