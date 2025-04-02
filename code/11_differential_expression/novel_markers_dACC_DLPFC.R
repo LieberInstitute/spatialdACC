@@ -26,10 +26,11 @@ genes_intersect <- intersect(genes_dACC, genes_DLPFC)
 dACC_results <- modeling_results_dACC[["enrichment"]][genes_intersect,]
 DLPFC_results <- modeling_results_DLPFC[["enrichment"]][genes_intersect,]
 
+# old plots code
 pdf(file = here("plots", "11_differential_expression", "layer_markers_dACC_DLPFC.pdf"), width = 7, height = 7)
 
 # repeat this in a loop for layers L1, L2, L3, L5
-layers <- c("L2", "L3", "L5")
+layers <- c("L1","L2", "L3", "L5")
 p_list <- list()
 
 for (layer in layers) {
@@ -47,13 +48,16 @@ for (layer in layers) {
 
     df_layer$color <- with(df_layer, ifelse(
         dACC_logFC > 1.25 & DLPFC_logFC > 1.25, "dlPFC & dACC enriched",
-        ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched", "Neither")
+        ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched",
+               ifelse(DLPFC_logFC > 1.25 & dACC_logFC < 1.25, "dlPFC enriched", "None")
+        )
     ))
+
 
     # write to csv file
     # genes that are either "DLPFC & dACC enriched" or "dACC enriched"
-    #write.csv(df_layer[df_layer$color != "Neither",],
-    #          here("processed-data", "11_differential_expression", "novel_markers", paste0("dACC_DLPFC_", layer, ".csv")))
+    write.csv(df_layer[df_layer$color != "None",],
+              here("processed-data", "11_differential_expression", "novel_markers", paste0("dACC_DLPFC_", layer, ".csv")))
 
     if(layer == "L1"){
         genes_to_label <- c("RELN", "MSX1", "VIM","HBB","NTS","HBA1")
@@ -89,7 +93,7 @@ for (layer in layers) {
         ) +
         theme_bw()
 
-    print(p)
+    #print(p)
     p_list[[layer]] <- p
 }
 
@@ -109,11 +113,14 @@ for (layer in layers) {
 
     df_layer$color <- with(df_layer, ifelse(
         dACC_logFC > 1.25 & DLPFC_logFC > 1.25, "dlPFC & dACC enriched",
-        ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched", "Neither")
+        ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched",
+               ifelse(DLPFC_logFC > 1.25 & dACC_logFC < 1.25, "dlPFC enriched", "None")
+        )
     ))
 
+
     # genes that are either "DLPFC & dACC enriched" or "dACC enriched"
-    write.csv(df_layer[df_layer$color != "Neither",],
+    write.csv(df_layer[df_layer$color != "None",],
               here("processed-data", "11_differential_expression", "novel_markers", paste0("dACC_DLPFC_", layer, ".csv")))
 
     if(layer == "L6a"){
@@ -143,7 +150,7 @@ for (layer in layers) {
         ) +
         theme_bw()
 
-    print(p)
+    #print(p)
     p_list[[layer]] <- p
 }
 
@@ -160,7 +167,7 @@ dev.off()
 
 
 
-
+# final plots code
 layer <- "L5"
 genes <- dACC_results[, "gene"]
 dACC_logFC <- dACC_results[, paste0("logFC_", layer)]
@@ -176,9 +183,10 @@ df_layer <- data.frame(
 
 df_layer$color <- with(df_layer, ifelse(
     dACC_logFC > 1.25 & DLPFC_logFC > 1.25, "dlPFC & dACC enriched",
-    ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched", "Neither")
+    ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched",
+           ifelse(DLPFC_logFC > 1.25 & dACC_logFC < 1.25, "dlPFC enriched", "None")
+    )
 ))
-
 
 genes_to_label_L5 <- c("PCP4", "TRABD2A", "MEPE", "CD24", "CD52", "FDPS", "DRD5", "GYG1", "ITGB1BP1",
                         "VAT1L", "SULF2", "HAPLN4", "GABRQ", "FEZF2", "POU3F1")
@@ -186,17 +194,20 @@ genes_to_label_L5 <- c("PCP4", "TRABD2A", "MEPE", "CD24", "CD52", "FDPS", "DRD5"
 # plot
 p5 <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
     geom_point(aes(color = color), size=0.5) +
-    scale_color_manual(values = c("dlPFC & dACC enriched" = "blue", "dACC enriched" = "red", "Neither" = "grey")) +
+    scale_color_manual(values = c("dlPFC & dACC enriched" = "purple",
+                                  "dACC enriched" = "red",
+                                  "dlPFC enriched" = "blue",
+                                  "Neither" = "grey")) +
     geom_text_repel(aes(label = ifelse(gene %in% genes_to_label_L5, gene, "")), size = 3, max.overlaps = Inf) +
     geom_smooth(method = "lm", se = FALSE, color = "black") +
     geom_vline(xintercept = 1.25, color = "black", linetype = "dashed") +
     geom_hline(yintercept = 1.25, color = "black", linetype = "dashed") +
     geom_vline(xintercept = -1.25, color = "black", linetype = "dashed") +
     geom_hline(yintercept = -1.25, color = "black", linetype = "dashed") +
-    xlim(-3.5, 3.5) +
-    ylim(-3.5, 3.5) +
+    xlim(-2.6, 3.9) +
+    ylim(-1.7, 2.7) +
     labs(
-        title = paste0("Layer: ", layer),
+        title = "dlPFC L5 & dACC L5",
         x = "dACC logFC",
         y = "dlPFC logFC",
         subtitle = paste0("Pearson's r: ", round(corr_layer$estimate, 2))
@@ -218,25 +229,29 @@ df_layer <- data.frame(
 
 df_layer$color <- with(df_layer, ifelse(
     dACC_logFC > 1.25 & DLPFC_logFC > 1.25, "dlPFC & dACC enriched",
-    ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched", "Neither")
+    ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched",
+           ifelse(DLPFC_logFC > 1.25 & dACC_logFC < 1.25, "dlPFC enriched", "None")
+    )
 ))
-
 genes_to_label_L6a <- c("ISLR", "NR4A2", "DACH1", "KCTD8","TBR1")
 
 # plot
 p6a <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
     geom_point(aes(color = color), size=0.5) +
-    scale_color_manual(values = c("dlPFC & dACC enriched" = "blue", "dACC enriched" = "red", "Neither" = "grey")) +
+    scale_color_manual(values = c("dlPFC & dACC enriched" = "purple",
+                                  "dACC enriched" = "red",
+                                  "dlPFC enriched" = "blue",
+                                  "Neither" = "grey")) +
     geom_text_repel(aes(label = ifelse(gene %in% genes_to_label_L6a, gene, "")), size = 3, max.overlaps = Inf) +
     geom_smooth(method = "lm", se = FALSE, color = "black") +
     geom_vline(xintercept = 1.25, color = "black", linetype = "dashed") +
     geom_hline(yintercept = 1.25, color = "black", linetype = "dashed") +
     geom_vline(xintercept = -1.25, color = "black", linetype = "dashed") +
     geom_hline(yintercept = -1.25, color = "black", linetype = "dashed") +
-    xlim(-3.5, 3.5) +
-    ylim(-3.5, 3.5) +
+    xlim(-2.6, 3.9) +
+    ylim(-1.7, 2.7) +
     labs(
-        title = paste0("dlPFC: L6 & dACC Layer: ", layer),
+        title = paste0("dlPFC L6 & dACC ", layer),
         x = "dACC logFC",
         y = "dlPFC logFC",
         subtitle = paste0("Pearson's r: ", round(corr_layer$estimate, 2))
@@ -258,25 +273,29 @@ df_layer <- data.frame(
 
 df_layer$color <- with(df_layer, ifelse(
     dACC_logFC > 1.25 & DLPFC_logFC > 1.25, "dlPFC & dACC enriched",
-    ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched", "Neither")
+    ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched",
+           ifelse(DLPFC_logFC > 1.25 & dACC_logFC < 1.25, "dlPFC enriched", "None")
+    )
 ))
-
 genes_to_label_L6b <- c("SEMA3A", "NXPH3", "ADRA2A", "SCUBE1", "CPLX3", "CRHBP")
 
 # plot
 p6b <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
     geom_point(aes(color = color), size=0.5) +
-    scale_color_manual(values = c("dlPFC & dACC enriched" = "blue", "dACC enriched" = "red", "Neither" = "grey")) +
+    scale_color_manual(values = c("dlPFC & dACC enriched" = "purple",
+                                  "dACC enriched" = "red",
+                                  "dlPFC enriched" = "blue",
+                                  "Neither" = "grey")) +
     geom_text_repel(aes(label = ifelse(gene %in% genes_to_label_L6b, gene, "")), size = 3, max.overlaps = Inf) +
     geom_smooth(method = "lm", se = FALSE, color = "black") +
     geom_vline(xintercept = 1.25, color = "black", linetype = "dashed") +
     geom_hline(yintercept = 1.25, color = "black", linetype = "dashed") +
     geom_vline(xintercept = -1.25, color = "black", linetype = "dashed") +
     geom_hline(yintercept = -1.25, color = "black", linetype = "dashed") +
-    xlim(-3.5, 3.5) +
-    ylim(-3.5, 3.5) +
+    xlim(-2.6, 3.9) +
+    ylim(-1.7, 2.7) +
     labs(
-        title = paste0("dlPFC: L6 & dACC Layer: ", layer),
+        title = paste0("dlPFC L6 & dACC ", layer),
         x = "dACC logFC",
         y = "dlPFC logFC",
         subtitle = paste0("Pearson's r: ", round(corr_layer$estimate, 2))
