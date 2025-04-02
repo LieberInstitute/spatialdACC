@@ -6,6 +6,7 @@ suppressPackageStartupMessages({
     library("scater")
     library("spatialLIBD")
     library("dplyr")
+    library("patchwork")
 })
 
 read_barcoded_csv <- function(x) {
@@ -149,4 +150,49 @@ vars <- getVarianceExplained(spe_pseudo,
 
 plotExplanatoryVariables(vars)
 
+dev.off()
+
+
+
+
+
+# make supp figure
+
+
+p1 <- plotPCA(
+    spe_pseudo,
+    colour_by = "layer",
+    ncomponents = 2,
+    point_size = 2,
+    percentVar = metadata(spe_pseudo)$PCA_var_explained
+)
+
+p2 <- plotPCA(
+    spe_pseudo,
+    colour_by = "sample_id",
+    ncomponents = 2,
+    point_size = 2,
+    percentVar = metadata(spe_pseudo)$PCA_var_explained
+)
+
+p3 <- plotPCA(
+    spe_pseudo,
+    colour_by = "sum_sample",
+    ncomponents = 2,
+    point_size = 2,
+    percentVar = metadata(spe_pseudo)$PCA_var_explained
+)
+
+vars <- getVarianceExplained(spe_pseudo,
+                             variables = c("layer","sample_id", "sum_sample", "detected_sample")
+)
+
+p4 <- plotExplanatoryVariables(vars)
+
+png(file = here("plots", "11_differential_expression",
+                "pseudobulk", "nnSVG_precast_pseudobulk",
+                paste0("pseudobulk_PC_",nnSVG_precast_name,".png")),
+    width = 10, height = 10, unit="in", res=300)
+
+wrap_plots(p1,p2,p3,p4,nrow=2)
 dev.off()
