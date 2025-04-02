@@ -13,6 +13,8 @@ library(variancePartition)
 library(edgeR)
 library(BiocParallel)
 library(reshape2)
+library(ComplexHeatmap)
+library(RColorBrewer)
 
 param <- SnowParam(6, "SOCK", progressbar = TRUE)
 
@@ -133,30 +135,43 @@ for (dACC_layer in dACC_layers) {
     }
 }
 
-heatmap_data <- melt(heatmap_matrix)
+heatmap_matrix <- heatmap_matrix / rowSums(heatmap_matrix)
+heatmap_matrix <- round(heatmap_matrix, 2)
 
-heatmap_data_prop <- heatmap_data %>%
-    group_by(Var1) %>%
-    mutate(value = value / sum(value))
-# round to two decimal places
-heatmap_data_prop$value <- round(heatmap_data_prop$value, 2)
+layer_colors <- c(
+    "L2" = "#377EB8",
+    "L3" = "#4DAF4A",
+    "L5" = "#FFD700",
+    "L6b" = "#c46200",
+    "L6a" = "#FFC18A",
+    "WM" = "#1A1A1A",
+    "L1" = "#F0027F"
+)
 
-heatmap_data_prop$Var1 <- factor(heatmap_data_prop$Var1, levels=c('WM', 'L6b', 'L6a', 'L5', 'L3', 'L2', 'L1'))
+ref_colors <- c(
+    "L2" = "#377EB8",
+    "L3" = "#4DAF4A",
+    "L5" = "#FFD700",
+    "L4" = "#984EA3",
+    "L6" = "#FF7F00",
+    "WM" = "#1A1A1A",
+    "L1" = "#F0027F"
+)
 
-pdf(here("plots", "11_differential_expression", "dream_heatmap_withWM.pdf"), width = 4, height = 3)
+anno_layer <- rowAnnotation(" " = rownames(heatmap_matrix),
+                            col=list(" "=layer_colors),
+                            show_legend=F)
+anno_ref <- columnAnnotation(" " = colnames(heatmap_matrix),
+                             col = list(" " = ref_colors),
+                             show_legend=F)
 
-ggplot(heatmap_data_prop, aes(x = Var2, y = Var1, fill = value)) +
-    geom_tile() +
-    geom_text(aes(label=value), color="black", size=2) +
-    scale_fill_gradient(low = "blue", high = "white") +
-    labs(title = "",
-         x = "dlPFC Layer",
-         y = "dACC Layer",
-         caption = "",
-         fill = "prop. DEGs\nscaled by\ndACC layer") +
-    theme_minimal() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1),
-          axis.text.y = element_text())
+pdf(here("plots", "11_differential_expression", "dream_heatmap_withWM.pdf"), width = 5, height = 4)
+
+Heatmap(heatmap_matrix, cluster_rows = FALSE, cluster_columns = FALSE,
+        col = circlize::colorRamp2(c(0,0.25),c("blue","white")),
+        right_annotation = anno_layer,
+        bottom_annotation = anno_ref,
+        heatmap_legend_param = list(title="prop. DEGs\nscaled by\ndACC layer"))
 
 dev.off()
 
