@@ -7,6 +7,7 @@ suppressPackageStartupMessages({
     library("spatialLIBD")
     library("dplyr")
     library('EnhancedVolcano')
+    library("patchwork")
 })
 
 # read_barcoded_csv <- function(x) {
@@ -193,6 +194,7 @@ fdrs_gene_ids <- rowData(spe_pseudo)$gene_id
 fdrs_gene_names <- rowData(spe_pseudo)$gene_name
 
 df_list <- list()
+plot_list <- list()
 
 pdf(file = here::here("plots", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
                       paste0("volcano_", nnSVG_precast_name, ".pdf")),
@@ -218,8 +220,9 @@ for (i in unique(colData(spe_pseudo)[["layer"]])) {
         sig = sig
     )
 
-    print(EnhancedVolcano(df_list[[i]],
+    p <- EnhancedVolcano(df_list[[i]],
                     lab = df_list[[i]]$gene_name,
+                    pointSize = 1,
                     x = 'logFC',
                     y = 'FDR',
                     FCcutoff = 1.5,
@@ -227,10 +230,26 @@ for (i in unique(colData(spe_pseudo)[["layer"]])) {
                     ylab = "-log10 FDR",
                     legendLabels = c('Not sig.','Log (base 2) FC','FDR',
                                      'FDR & Log (base 2) FC'),
-                    title = "nnSVG PRECAST dACC",
-                    subtitle = paste0(i, " vs. all others")
-    ))
+                    title = paste0(i, " vs. all others"),
+                    subtitle = "",
+                    caption = ""
+    )
+
+    plot_list[[i]] <- p
 }
+
+dev.off()
+
+
+
+# supp figure
+png(file = here::here("plots", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
+                      paste0("volcano_", nnSVG_precast_name, ".png")),
+    width = 13, height = 18, unit="in", res=300)
+
+wrap_plots(plot_list[["L1"]],plot_list[["L2"]],plot_list[["L3"]],plot_list[["L5"]],
+           plot_list[["L6a"]],plot_list[["L6b"]],plot_list[["WM"]],
+           nrow=4, guides="collect") & theme(legend.position = 'bottom')
 
 dev.off()
 
