@@ -48,7 +48,8 @@ cvnmf <- cross_validate_nmf(
 
 saveRDS(cvnmf, file = here("processed-data", "snRNA-seq", "06_NMF", "nmf_cv_results_lower_k.RDS"))
 
-pdf(here("plots","snRNA-seq","06_NMF","nmf_cv_results_lower_k.pdf"))
+png(here("plots","snRNA-seq","06_NMF","nmf_cv_results_lower_k.png"),
+    height=4,width=8, unit="in",res=300)
 plot(cvnmf)
 dev.off()
 
