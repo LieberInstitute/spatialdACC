@@ -6,9 +6,74 @@ library(spatialLIBD)
 library(here)
 library(scran)
 library('EnhancedVolcano')
+library("dplyr")
+library("scater")
+library("patchwork")
 
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth.Rdata"))
-sce <- logNormCounts(sce)
+sum_by_sample <- setNames(aggregate(sum ~ Sample, colData(sce), sum), c("Sample", "sum_sample"))
+detected_by_sample <- setNames(aggregate(detected ~ Sample, colData(sce), sum), c("Sample", "detected_sample"))
+
+sce_pseudo <-
+    registration_pseudobulk(sce,
+                            var_registration = "cellType_azimuth",
+                            var_sample_id = "brain"
+    )
+
+save(sce_pseudo, file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth_pseudo.Rdata"))
+
+pca <- prcomp(t(assays(sce_pseudo)$logcounts))
+metadata(sce_pseudo) <- list("PCA_var_explained" = jaffelab::getPcaVars(pca)[seq_len(20)])
+pca_pseudo <- pca$x[, seq_len(20)]
+colnames(pca_pseudo) <- paste0("PC", sprintf("%02d", seq_len(ncol(pca_pseudo))))
+reducedDims(sce_pseudo) <- list(PCA = pca_pseudo)
+
+## Plot PCs
+col_data_df <- as.data.frame(colData(sce_pseudo))
+col_data_df <- left_join(col_data_df, detected_by_sample, by = "Sample")
+col_data_df <- left_join(col_data_df, sum_by_sample, by = "Sample")
+
+colData(sce_pseudo) <- DataFrame(col_data_df)
+
+# make supp figure
+p1 <- plotPCA(
+    sce_pseudo,
+    colour_by = "cellType_azimuth",
+    ncomponents = 2,
+    point_size = 2,
+    percentVar = metadata(sce_pseudo)$PCA_var_explained
+)
+
+p2 <- plotPCA(
+    sce_pseudo,
+    colour_by = "brain",
+    ncomponents = 2,
+    point_size = 2,
+    percentVar = metadata(sce_pseudo)$PCA_var_explained
+)
+
+p3 <- plotPCA(
+    sce_pseudo,
+    colour_by = "sum_sample",
+    ncomponents = 2,
+    point_size = 2,
+    percentVar = metadata(sce_pseudo)$PCA_var_explained
+)
+
+vars <- getVarianceExplained(sce_pseudo,
+                             variables = c("cellType_azimuth","brain", "sum_sample", "detected_sample")
+)
+
+p4 <- plotExplanatoryVariables(vars)
+
+png(file = here("plots", "snRNA-seq",
+                "05_azimuth",
+                "pseudobulk_PC_azimuth.png"),
+    width = 10, height = 10, unit="in", res=300)
+
+wrap_plots(p1,p2,p3,p4,nrow=2)
+dev.off()
+
 
 modeling_results <- registration_wrapper(
     sce,
@@ -24,17 +89,8 @@ save(
     file = here("processed-data", "snRNA-seq", "05_azimuth", "azimuth_DE_results.Rdata")
 )
 
-sce_pseudo <-
-    registration_pseudobulk(sce,
-                            var_registration = "cellType_azimuth",
-                            var_sample_id = "brain"
-    )
-
-save(sce_pseudo, file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth_pseudo.Rdata"))
-
-
 sig_genes <- sig_genes_extract(
-    n = 20,
+    n = 30,
     modeling_results = modeling_results,
     model_type = "enrichment",
     sce_layer = sce_pseudo
@@ -42,8 +98,13 @@ sig_genes <- sig_genes_extract(
 
 save(
     sig_genes,
-    file = here("processed-data", "snRNA-seq", "05_azimuth", "azimuth_DE_sig_genes_top20.Rdata")
+    file = here("processed-data", "snRNA-seq", "05_azimuth", "azimuth_DE_sig_genes_top30.Rdata")
 )
+
+write.csv(sig_genes, file = here("processed-data", "snRNA-seq", "05_azimuth", "azimuth_DE_sig_genes_top30.csv"),
+          row.names = F
+)
+
 
 #volcano plots
 thresh_fdr <- 0.05
