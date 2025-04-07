@@ -83,7 +83,7 @@ modeling_results <- registration_wrapper(
     gene_name = 'gene_name'
 )
 
-###save modeling results list
+# save modeling results list
 save(
     modeling_results,
     file = here("processed-data", "snRNA-seq", "05_azimuth", "azimuth_DE_results.Rdata")
@@ -114,7 +114,12 @@ fdrs_gene_names <- rowData(sce_pseudo)$gene_name
 
 df_list <- list()
 k <- unique(sce$cellType_azimuth)
-k <- k[k != "Sst_Chodl"]
+k <- k[k != "Sst Chodl"]
+
+k1 <- k[c(1,3,4,9,12,15,17,18)]
+k2 <- setdiff(k,k1)
+
+plot_list <- list()
 
 pdf(file = here::here("plots", "snRNA-seq","05_azimuth", "azimuth_DE_volcano_plots.pdf"),
     width = 8.5, height = 8)
@@ -139,8 +144,9 @@ for (i in k) {
         sig = sig
     )
 
-    print(EnhancedVolcano(df_list[[i]],
+    p <- EnhancedVolcano(df_list[[i]],
                           lab = df_list[[i]]$gene_name,
+                          pointSize = 1,
                           x = 'logFC',
                           y = 'FDR',
                           FCcutoff = 1.5,
@@ -148,10 +154,35 @@ for (i in k) {
                           ylab = "-log10 FDR",
                           legendLabels = c('Not sig.','Log (base 2) FC','FDR',
                                            'FDR & Log (base 2) FC'),
-                          title = "Cell Type (Azimuth) dACC",
-                          subtitle = paste0("Cluster ", i, " vs. all others")
-    ))
+                         title = paste0(i, " vs. all others"),
+                         subtitle = "",
+                         caption = ""
+    )
+
+    plot_list[[i]] <- p
 }
 
 dev.off()
 
+
+# supp figures
+png(file = here::here("plots", "snRNA-seq","05_azimuth", "azimuth_DE_volcano_plots_layer.png"),
+    width = 13, height = 18, unit="in", res=300)
+
+wrap_plots(plot_list[["L2_3_IT"]],plot_list[["L5_ET"]],plot_list[["L5_IT"]],plot_list[["L5_6_NP"]],
+           plot_list[["L6_CT"]],plot_list[["L6_IT"]],plot_list[["L6_IT_Car3"]],plot_list[["L6b"]],
+           nrow=4, guides="collect") & theme(legend.position = 'bottom')
+
+dev.off()
+
+
+sort(k2)
+png(file = here::here("plots", "snRNA-seq","05_azimuth", "azimuth_DE_volcano_plots_other.png"),
+    width = 18, height = 18, unit="in", res=300)
+
+wrap_plots(plot_list[["Astro"]],plot_list[["Endo"]],plot_list[["Lamp5"]],plot_list[["MicroPVM"]],
+           plot_list[["Oligo"]],plot_list[["OPC"]],plot_list[["Pvalb"]],plot_list[["Sncg"]],
+           plot_list[["Sst"]],plot_list[["Vip"]],plot_list[["VLMC"]],
+           nrow=4, guides="collect") & theme(legend.position = 'bottom')
+
+dev.off()
