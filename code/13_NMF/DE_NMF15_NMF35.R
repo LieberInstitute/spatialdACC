@@ -47,9 +47,12 @@ spe <- spe[, colData(spe)$classification != "neither"]
 
 table(colData(spe)$classification, colData(spe)$layer)
 
-vis_grid_clus(spe, "classification",
-              pdf_file = here("plots", "13_NMF", "spot_plots_NMF35_NMF15.pdf"),
-              spatial = F, ncol = 3)
+p_list <- vis_grid_clus(spe, "classification",
+                        spatial = F, ncol = 4,
+                        return_plots = T)
+png(here("plots", "13_NMF", "spot_plots_NMF15_NMF35.png"), height=20, width=20, unit="in",res=300)
+cowplot::plot_grid(plotlist = p_list, ncol = 4)
+dev.off()
 
 spe_pseudo <-
     registration_pseudobulk(spe,
@@ -76,6 +79,9 @@ results_pairwise <-
 modeling_results <- list(
     "pairwise" = results_pairwise
 )
+
+save(modeling_results, file=here("processed-data", "13_NMF", "DE_NMF15_35.Rdata"))
+
 
 sig_genes <- sig_genes_extract(
     n = 50,
@@ -119,7 +125,7 @@ df_list <- data.frame(
     )
 
 pdf(file = here::here("plots", "13_NMF", "volcano_plots_NMF15_NMF35.pdf"),
-    width = 7, height = 7)
+    width = 7, height = 6)
 
 print(EnhancedVolcano(df_list,
                       lab = df_list$gene_name,
