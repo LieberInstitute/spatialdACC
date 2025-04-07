@@ -84,3 +84,12 @@ save(spe_anno, file = here("processed-data", "20_WM_comparisons", "spe_anno.Rdat
 vis_grid_clus(spe_anno, clustervar = 'anno_label',
               pdf_file = here("plots","20_WM_comparisons","vis_manual_annotations.pdf"),
               spatial= F, ncol = 4)
+
+cols <- setNames(c("grey","#F0027F","#377EB8","#4DAF4A","#984EA3","#FFD700","#FF7F00","#1A1A1A"),
+                 c("CC","L1","L2","L2/3","L4/5","L5","L6","WM"))
+p_list <- vis_grid_clus(spe_anno, clustervar = 'anno_label',
+              spatial= F, return_plots = T, colors = cols)
+
+png(here("plots","20_WM_comparisons","vis_manual_annotations.png"), height=25, width=25, unit="in",res=300)
+cowplot::plot_grid(plotlist = p_list, ncol = 3)
+dev.off()
