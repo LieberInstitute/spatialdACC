@@ -47,9 +47,12 @@ spe <- spe[, colData(spe)$classification != "neither"]
 
 table(colData(spe)$classification, colData(spe)$layer)
 
-vis_grid_clus(spe, "classification",
-              pdf_file = here("plots", "13_NMF", "spot_plots_NMF38_NMF61.pdf"),
-              spatial = F, ncol = 3)
+p_list <- vis_grid_clus(spe, "classification",
+              spatial = F, ncol = 4,
+              return_plots = T)
+png(here("plots", "13_NMF", "spot_plots_NMF38_NMF61.png"), height=20, width=20, unit="in",res=300)
+cowplot::plot_grid(plotlist = p_list, ncol = 4)
+dev.off()
 
 spe_pseudo <-
     registration_pseudobulk(spe,
