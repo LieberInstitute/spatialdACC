@@ -174,6 +174,11 @@ dev.off()
 # visualize 3 of the layer markers recovered in the snRNA-seq data
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "celltype_colors.Rdata"))
 
+#remove Sst chodl
+idx <- which(sce$cellType_azimuth=="Sst Chodl")
+sce <- sce[-idx,]
+sce <- sce[,-idx]
+
 sce$logcounts_PCP4 <- logcounts(sce)[which(rowData(sce)$gene_name=="PCP4"),]
 
 sce$logcounts_CPLX3 <- logcounts(sce)[which(rowData(sce)$gene_name=="CPLX3"),]
@@ -218,7 +223,7 @@ p3 <- plotColData(sce, x = "cellType_azimuth", y = "logcounts_CD24", colour_by =
 
 
 pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "subset_marker_violin_plots.pdf"),
-    width = 10, height = 5)
+    width = 15, height = 7)
 
 wrap_plots(p1,p2,p3, nrow=3)
 
