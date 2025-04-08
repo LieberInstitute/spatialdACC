@@ -298,3 +298,30 @@ print(EnhancedVolcano(df_list,
 
 dev.off()
 
+sig_genes <- sig_genes_extract(
+    n = 50,
+    modeling_results = modeling_results,
+    model_type = "pairwise",
+    sce_layer = spe_pseudo
+)
+
+idx <- which(sig_genes$test == "L6a-L6b")
+
+sig_genes <- sig_genes[idx,]
+
+sig_genes_reverse <- sig_genes_extract(
+    n = 50,
+    modeling_results = modeling_results,
+    model_type = "pairwise",
+    reverse = TRUE,
+    sce_layer = spe_pseudo
+)
+
+idx <- which(sig_genes_reverse$test == "L6b-L6a")
+
+sig_genes_reverse <- sig_genes_reverse[idx,]
+
+sig_genes_combined <- rbind(sig_genes,sig_genes_reverse)
+
+write.csv(sig_genes_combined, file = here::here("processed-data", "11_differential_expression",
+                                       "L6a_L6b_sig_genes_50.csv"), row.names = FALSE)
