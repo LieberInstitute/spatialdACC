@@ -81,8 +81,8 @@ p3 <- make_escheR(spe_2) |> add_fill(var="nmf15", point_size = 2) |> add_ground(
         "L1" = "#F0027F"
     ), guide="none") +
     scale_fill_gradientn(colors=c("white","black"),
-                         breaks=c(0,0.001),labels=c("low","high"),
-                         limits=c(0,0.001), name="NMF15") +
+                         breaks=c(0,0.01197358),labels=c("low","high"),
+                         limits=c(0,0.01197358), name="NMF15") +
     ggtitle("dlPFC")
 
 p4 <- make_escheR(spe_2) |> add_fill(var="nmf35", point_size = 2) |> add_ground(var="BayesSpace_harmony_09", stroke=0.3, point_size = 2) +
@@ -96,8 +96,8 @@ p4 <- make_escheR(spe_2) |> add_fill(var="nmf35", point_size = 2) |> add_ground(
         "L1" = "#F0027F"
     ), guide="none") +
     scale_fill_gradientn(colors=c("white","black"),
-                         breaks=c(0,0.2),labels=c("low","high"),
-                         limits=c(0,0.2), name="NMF35")
+                         breaks=c(0,0.01345171),labels=c("low","high"),
+                         limits=c(0,0.01345171), name="NMF35")
 
 pdf(file = here::here("plots", "13_NMF", "NMF_spotplots_DLPFC_dACC_35_15.pdf"), height = 10, width = 10)
 wrap_plots(list(p1,p3,p2,p4), nrow = 2)
