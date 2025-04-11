@@ -49,43 +49,6 @@ loads <- loads[-no_expr, ]
 
 # create heatmap of selected genes
 select.nmfs = c("nmf3","nmf61","nmf38","nmf46","nmf15","nmf32","nmf68","nmf35")
-nmf.genes = c("ASIC2", "RBFOX1", "ZNF385D",
-              "ROBO2", "DPP10", "KIAA1217",
-              "KCNIP4", "ROBO2",
-              "ROBO2", "DPP10", "LRP1B",
-              "KCNIP4", "LSAMP", "CSMD1",
-              "KCNIP4", "EPHA6", "LRRTM4",
-              "ROBO2", "KCNIP4", "AC117453.1",
-              "AC109466.1", "KCNIP4", "IL1RAPL2",
-              "ROBO2", "CDH13", "LRP1B",
-              "VAT1L")
-
-nmf.genes <- unique(nmf.genes)
-
-m1 = loads[nmf.genes,select.nmfs]
-
-colnames(m1) <- c("L2_3_IT-NMF3", "L5_ET-NMF61", "L5_IT-NMF38", "L5_6_NP-NMF46", "L6_CT-NMF15",
-                  "L6_IT-NMF32", "L6_IT_Car3-NMF68","L6b-NMF35")
-
-m1 <- t(scale(t(m1)))
-
-pdf(here("plots", "snRNA-seq", "06_NMF", "NMF_top_genes_heatmap.pdf"), height = 4, width = 4)
-ComplexHeatmap::Heatmap(m1, show_column_dend = FALSE, show_row_dend = FALSE,
-                        column_names_rot = 45, row_names_side = "left",
-                        heatmap_legend_param = list(
-                            title = "loadings\nscaled by\ngene", at = c(-4, 0, 4),
-                            labels = c("-4", "0", "4")
-                        ))
-dev.off()
-
-
-# heatmap of top gene for each excitatory NMF pattern
-loads<-x@w
-no_expr <- which(rowSums(loads) == 0)
-loads <- loads[-no_expr, ]
-
-# create heatmap of selected genes
-select.nmfs = c("nmf3","nmf61","nmf38","nmf46","nmf15","nmf32","nmf68","nmf35")
 
 # i want to get the genes that are unique (not duplicated)
 top <- top_genes(x$w, 100)
@@ -113,6 +76,11 @@ colnames(m1) <- c("L2_3_IT-NMF3", "L5_ET-NMF61", "L5_IT-NMF38", "L5_6_NP-NMF46",
                   "L6_IT-NMF32", "L6_IT_Car3-NMF68","L6b-NMF35")
 
 m1 <- t(scale(t(m1)))
+
+df <- data.frame(
+    gene = rownames(m1),
+    factor = group_vec
+)
 
 dend = cluster_within_group(t(m1),group_vec)
 
@@ -153,6 +121,11 @@ nmf.genes <- c(
                 "AC007368.1","NCAM2","SGCZ","SLIT3","PTPRK",
                 "SEMA6D","RGS12","CUX1","SYNPR","ZNF804B",
                 "AL136456.1","PCSK5","FUT9","PCDH11X","ZFHX3")
+
+df$heatmap <- ifelse(df$gene %in% nmf.genes, "in heatmap", "not in heatmap")
+df <- df[order(df$factor), ]
+
+write.csv(here("processed-data", "snRNA-seq","06_NMF","NMF_celltype_heatmap_genes.csv"))
 
 group_vec <- c(
                rep("NMF3",5), rep("NMF61",5),
