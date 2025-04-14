@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=cluster
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=40G
+#SBATCH --mem-per-cpu=90G
 #SBATCH --output=logs/azimuth_DLPFC.txt
 #SBATCH --error=logs/azimuth_DLPFC.txt
 #SBATCH --mail-type=END
