@@ -8,6 +8,7 @@ library(tidyr)
 library(forcats)
 library(ggplot2)
 library(dplyr)
+library(patchwork)
 
 ##load the data
 mch<-readH5AD(file=here::here('processed-data','snRNA-seq',
@@ -194,17 +195,22 @@ feat_cols <- feat_cols[-c(7)]
 feat_cols <- feat_cols[c(7,3,6,1,4,8,5,2)]
 
 pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_subclass_dotplot.pdf'),h=11,w=15)
-create_custom_dot_plot(data_subclass, "Subclass", feat_cols, "", "NMF pattern",
+p1 <- create_custom_dot_plot(data_subclass, "Subclass", feat_cols, "", "NMF pattern",
                        "Allen subclass", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
     theme(axis.text=element_text(size=32,color='black'),text=element_text(size=32,color='black'))
 dev.off()
 
 pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_target_dotplot.pdf'),h=11,w=15)
-create_custom_dot_plot(data, "Target", feat_cols, "", "NMF pattern",
+p2 <- create_custom_dot_plot(data, "Target", feat_cols, "", "NMF pattern",
                        "Target", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
     theme(axis.text=element_text(size=32,color='black'),text=element_text(size=32,color='black'))
 dev.off()
 
+p2 <- p2 + theme(legend.position="none")
 
+pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_dotplots.pdf'),h=21,w=15)
+wrap_plots(p1,p2,nrow=2,guides="collect")
+
+dev.off()
