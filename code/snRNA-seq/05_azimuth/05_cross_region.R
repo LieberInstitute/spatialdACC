@@ -132,6 +132,10 @@ cor_layer <- layer_stat_cor(
     top_n = 100
 )
 
+row.names(cor_layer)[3] <- "Excit_L5_6"
+row.names(cor_layer)[13] <- "Excit_L2_3"
+row.names(cor_layer)[14] <- "Excit_L3_4_5"
+
 anno <- annotate_registered_clusters(
     cor_stats_layer = cor_layer,
     confidence_threshold = 0.25,
@@ -141,7 +145,6 @@ anno <- annotate_registered_clusters(
 anno
 
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "celltype_colors.Rdata"))
-
 
 pdf(file = here::here("plots", "snRNA-seq", "05_azimuth",
                       paste0("azimuth_","dlPFC","_heatmap.pdf")), width = 6, height = 6)
