@@ -1,4 +1,3 @@
-Unloading conda_R/4.3.x
 Loading conda_R/4.3.x
 Loading required package: SingleCellExperiment
 Loading required package: SummarizedExperiment
@@ -85,13 +84,13 @@ The following object is masked from ‘package:MERINGUE’:
     normalizeCounts
 
 Warning message:
-In cor.test.default(dat$VAT1L, dat$DRD5, method = "spearman") :
+In cor.test.default(dat$VAT1L, dat$POU3F1, method = "spearman") :
   Cannot compute exact p-value with ties
 `geom_smooth()` using formula = 'y ~ x'
 [1] "V12N28-334_C1"
-[1] 0.01098901
+[1] 0.000999001
 [1] "V12N28-334_A1"
-[1] 0.7722278
+[1] 0.01198801
 [1] "V12N28-334_D1"
 [1] 0.000999001
 [1] "V12Y31-080_C1"
@@ -101,17 +100,17 @@ In cor.test.default(dat$VAT1L, dat$DRD5, method = "spearman") :
 [1] "V12Y31-080_B1"
 [1] 0.000999001
 [1] "V12J03-002_A1"
-[1] 0.000999001
+[1] 0.004995005
 [1] "V12N28-331_A1"
 [1] 0.000999001
 [1] "V12N28-332_A1"
-[1] 0.1578422
+[1] 0.000999001
 [1] "V12J03-002_B1"
-[1] 0.1668332
+[1] 0.000999001
 [1] "V12N28-331_B1"
 [1] 0.000999001
 [1] "V12N28-332_B1"
-[1] 0.04695305
+[1] 0.002997003
 [1] "V12J03-002_C1"
 [1] 0.000999001
 [1] "V12N28-331_C1"
@@ -119,7 +118,7 @@ In cor.test.default(dat$VAT1L, dat$DRD5, method = "spearman") :
 [1] "V12N28-332_C1"
 [1] 0.000999001
 [1] "V12N28-331_D1"
-[1] 0.005994006
+[1] 0.001998002
 [1] "V12N28-332_D1"
 [1] 0.000999001
 null device 
