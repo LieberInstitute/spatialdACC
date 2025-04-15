@@ -192,7 +192,7 @@ p2 <- plotColData(sce, x = "Sample", y = "detected", colour_by = "Detected Disca
 
 
 png(here("plots", "snRNA-seq", "01_QC", "QC_violin_plots.png"), width = 15, height = 10, units = "in", res=300)
-wrap_plots(p1,p2,nrow=2)
+wrap_plots(p1,p2,nrow=2) + plot_annotation(tag_levels = 'A')
 dev.off()
 
 # remove low quality nuclei

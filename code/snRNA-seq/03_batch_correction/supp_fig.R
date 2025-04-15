@@ -52,5 +52,5 @@ p2 <- plotReducedDim(sce, dimred="UMAP-HARMONY", colour_by="Sample", point_size 
 
 png(here("plots", "snRNA-seq", "03_batch_correction", "preprocessing_supp.png"), height = 4, width=8, unit="in", res=300)
 
-wrap_plots(p1,p2,nrow=1)
+wrap_plots(p1,p2,nrow=1) + plot_annotation(tag_levels = 'A')
 dev.off()

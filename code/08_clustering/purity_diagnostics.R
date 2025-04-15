@@ -195,6 +195,6 @@ p1 <- ggplot(data = df_nnSVG_precast, aes(x = k, y = fasthplus, group = 1)) +
     ggtitle("H+ Discordance nnSVG-Guided PRECAST")
 
 png(here("plots", "08_clustering", "diagnostics_nnSVG_PRECAST.png"), height=8, width = 12, units = "in", res = 300)
-wrap_plots(boxplot,p1, nrow=2)
+wrap_plots(boxplot,p1, nrow=2) + plot_annotation(tag_levels = 'A')
 dev.off()
 
