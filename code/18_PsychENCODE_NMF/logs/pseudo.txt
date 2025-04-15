@@ -1,0 +1,148 @@
+**** Job starts ****
+Tue Aug 20 01:38:58 PM EDT 2024
+**** SLURM info ****
+User: kshah
+Job id: 9434241
+Job name: pseudo
+Hostname: compute-158
+Task id: 
+Loading conda_R/4.4.x
+
+Currently Loaded Modules:
+  1) JHPCE_ROCKY9_DEFAULT_ENV   3) conda/3-24.3.0
+  2) JHPCE_tools/3.0            4) conda_R/4.4.x
+
+ 
+
+Loading required package: SummarizedExperiment
+Loading required package: MatrixGenerics
+Loading required package: matrixStats
+
+Attaching package: ‘MatrixGenerics’
+
+The following objects are masked from ‘package:matrixStats’:
+
+    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+    colWeightedMeans, colWeightedMedians, colWeightedSds,
+    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+    rowWeightedSds, rowWeightedVars
+
+Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, table,
+    tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:utils’:
+
+    findMatches
+
+The following objects are masked from ‘package:base’:
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+Loading required package: GenomeInfoDb
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+Attaching package: ‘Biobase’
+
+The following object is masked from ‘package:MatrixGenerics’:
+
+    rowMedians
+
+The following objects are masked from ‘package:matrixStats’:
+
+    anyMissing, rowMedians
+
+Loading required package: SpatialExperiment
+here() starts at /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC
+Registered S3 method overwritten by 'zellkonverter':
+  method                                             from      
+  py_to_r.pandas.core.arrays.categorical.Categorical reticulate
+2024-08-20 16:05:55.701292 Pseudobulk for dataset: CMC
+2024-08-20 16:05:55.716354 make pseudobulk object
+2024-08-20 16:07:35.233684 dropping 166 pseudo-bulked samples that are below 'min_ncells'.
+2024-08-20 16:07:35.379966 drop lowly expressed genes
+2024-08-20 16:07:36.830757 normalize expression
+
+SCE Pseudobulk Dimensions for dataset CMC:
+2024-08-20 16:27:56.171434 Pseudobulk for dataset: DevBrain-snRNAseq
+2024-08-20 16:27:56.174005 make pseudobulk object
+2024-08-20 16:28:02.40139 dropping 8 pseudo-bulked samples that are below 'min_ncells'.
+2024-08-20 16:28:02.441077 drop lowly expressed genes
+2024-08-20 16:28:02.710583 normalize expression
+
+SCE Pseudobulk Dimensions for dataset DevBrain-snRNAseq:
+2024-08-20 16:35:26.001634 Pseudobulk for dataset: IsoHuB
+2024-08-20 16:35:26.004521 make pseudobulk object
+2024-08-20 16:35:34.028385 dropping 11 pseudo-bulked samples that are below 'min_ncells'.
+2024-08-20 16:35:34.075249 drop lowly expressed genes
+2024-08-20 16:35:34.367301 normalize expression
+
+SCE Pseudobulk Dimensions for dataset IsoHuB:
+2024-08-20 17:03:51.978392 Pseudobulk for dataset: MultiomeBrain-DLPFC
+2024-08-20 17:03:51.986927 make pseudobulk object
+2024-08-20 17:04:00.418301 dropping 14 pseudo-bulked samples that are below 'min_ncells'.
+2024-08-20 17:04:00.460567 drop lowly expressed genes
+2024-08-20 17:04:00.767804 normalize expression
+
+SCE Pseudobulk Dimensions for dataset MultiomeBrain-DLPFC:
+2024-08-20 17:47:08.866627 Pseudobulk for dataset: PTSDBrainomics
+2024-08-20 17:47:08.873902 make pseudobulk object
+2024-08-20 17:47:35.528088 dropping 30 pseudo-bulked samples that are below 'min_ncells'.
+2024-08-20 17:47:35.583687 drop lowly expressed genes
+2024-08-20 17:47:36.014859 normalize expression
+
+SCE Pseudobulk Dimensions for dataset PTSDBrainomics:
+2024-08-20 19:44:31.208691 Pseudobulk for dataset: SZBDMulti-Seq
+2024-08-20 19:44:31.218311 make pseudobulk object
+2024-08-20 19:45:21.740484 dropping 119 pseudo-bulked samples that are below 'min_ncells'.
+2024-08-20 19:45:21.827822 drop lowly expressed genes
+2024-08-20 19:45:22.745583 normalize expression
+
+SCE Pseudobulk Dimensions for dataset SZBDMulti-Seq:
+2024-08-20 21:18:46.261088 Pseudobulk for dataset: UCLA-ASD
+2024-08-20 21:18:46.272654 make pseudobulk object
+2024-08-20 21:19:45.371001 dropping 86 pseudo-bulked samples that are below 'min_ncells'.
+2024-08-20 21:19:45.455419 drop lowly expressed genes
+2024-08-20 21:19:46.065372 normalize expression
+
+SCE Pseudobulk Dimensions for dataset UCLA-ASD:
+There were 50 or more warnings (use warnings() to see the first 50)
+**** Job ends ****
+Tue Aug 20 09:20:32 PM EDT 2024

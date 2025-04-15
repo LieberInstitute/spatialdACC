@@ -1,0 +1,23 @@
+**** Job starts ****
+Fri Aug 16 04:46:18 PM EDT 2024
+**** SLURM info ****
+User: kshah
+Job id: 9394849
+Job name: downloading
+Hostname: compute-162
+Task id: 
+
+Currently Loaded Modules:
+  1) JHPCE_ROCKY9_DEFAULT_ENV   2) JHPCE_tools/3.0   3) conda/3-24.3.0
+
+ 
+
+Exported raw X counts matrix to /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/processed-data/18_PsychENCODE_NMF/raw_CMC.csv
+Exported raw X counts matrix to /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/processed-data/18_PsychENCODE_NMF/raw_DevBrain-snRNAseq.csv
+Exported raw X counts matrix to /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/processed-data/18_PsychENCODE_NMF/raw_IsoHuB.csv
+Exported raw X counts matrix to /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/processed-data/18_PsychENCODE_NMF/raw_MultiomeBrain-DLPFC.csv
+Exported raw X counts matrix to /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/processed-data/18_PsychENCODE_NMF/raw_PTSDBrainomics.csv
+Exported raw X counts matrix to /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/processed-data/18_PsychENCODE_NMF/raw_SZBDMulti-Seq.csv
+Exported raw X counts matrix to /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/processed-data/18_PsychENCODE_NMF/raw_UCLA-ASD.csv
+**** Job ends ****
+Sat Aug 17 07:20:59 AM EDT 2024
