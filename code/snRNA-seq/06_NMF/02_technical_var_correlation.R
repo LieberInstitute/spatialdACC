@@ -86,3 +86,60 @@ vars <- as.matrix(vars)
 pdf(here("plots", "snRNA-seq", "06_NMF", "nmf_age_correlation_heatmap.pdf"))
 pheatmap(cor(t(x@h),vars), fontsize_row = 5)
 dev.off()
+
+
+
+
+
+
+
+
+# supp figure
+
+vars<-colData(sce)[,c('detected','sum','subsets_Mito_percent')]
+
+# fix error cor(t(x@h), vars) : 'y' must be numeric
+vars$detected<-as.numeric(vars$detected)
+vars$sum<-as.numeric(vars$sum)
+vars$mito_percent<-as.numeric(vars$subsets_Mito_percent)
+vars$subsets_Mito_percent<-NULL
+vars <- as.matrix(vars)
+colnames(vars) <- c("Detected UMI", "Sum UMI", "Mitochondrial %")
+
+data<-as.data.frame(sce$brain)
+colnames(data)<-'brain'
+onehot_brain <-  dcast(data = data, rownames(data) ~ brain, length)
+rownames(onehot_brain)<-onehot_brain[,1]
+onehot_brain[,1]<-as.numeric(onehot_brain[,1])
+onehot_brain<-onehot_brain[order(onehot_brain[,1],decreasing=F),]
+onehot_brain[,1]<-NULL
+
+# add sex to sce for each donor
+colData(sce)$sex[colData(sce)$brain=="Br2743"] <- "M"
+colData(sce)$sex[colData(sce)$brain=="Br2720"] <- "F"
+colData(sce)$sex[colData(sce)$brain=="Br6432"] <- "M"
+colData(sce)$sex[colData(sce)$brain=="Br6471"] <- "M"
+colData(sce)$sex[colData(sce)$brain=="Br6522"] <- "M"
+colData(sce)$sex[colData(sce)$brain=="Br3942"] <- "M"
+colData(sce)$sex[colData(sce)$brain=="Br6423"] <- "M"
+colData(sce)$sex[colData(sce)$brain=="Br8325"] <- "F"
+colData(sce)$sex[colData(sce)$brain=="Br8492"] <- "F"
+colData(sce)$sex[colData(sce)$brain=="Br8667"] <- "F"
+
+####onehot encode sex
+data<-as.data.frame(sce$sex)
+colnames(data)<-'sex'
+onehot_sex <-  dcast(data = data, rownames(data) ~ sex, length)
+rownames(onehot_sex)<-onehot_sex[,1]
+onehot_sex[,1]<-as.numeric(onehot_sex[,1])
+onehot_sex<-onehot_sex[order(onehot_sex[,1],decreasing=F),]
+onehot_sex[,1]<-NULL
+colnames(onehot_sex) <- c("Female", "Male")
+
+all_vars <- cbind(vars,onehot_sex, onehot_brain)
+
+png(here("plots", "snRNA-seq", "06_NMF", "nmf_correlation_heatmap.png"),
+    unit="in",res=300, height=10, width=10)
+pheatmap(cor(t(x@h),all_vars), fontsize_row = 5, main = "dACC snRNA-seq NMF Patterns and Technical Variables")
+dev.off()
+
