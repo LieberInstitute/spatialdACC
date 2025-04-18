@@ -59,6 +59,6 @@ ggsave(filename = here("plots", "snRNA-seq", "01_QC", "knee_plots.png"),
     plot_list[["7c_dACC_SVB"]], plot_list[["8c_dACC_SVB"]], plot_list[["9c_dACC_SVB"]],
     plot_list[["10c_dACC_SVB"]], guides = "collect", nrow = 3
     ),
-    width=30, height=30
+    width=20, height=15
     )
 
