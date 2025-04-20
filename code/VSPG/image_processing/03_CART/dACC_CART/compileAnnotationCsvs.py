@@ -38,22 +38,17 @@ for sample_id in sample_ids:
     #   Determine paths for this sample
     this_df_path = str(df_path).format(sample_id)
     this_manual_label_path = str(manual_label_path).format(sample_id)
-       
     #   Read in all required CSVs
     this_df = pd.read_csv(this_df_path, names = expected_df_cols, header=0)
-    this_manual_labels = pd.read_csv(this_manual_label_path)
-        
+    this_manual_labels = pd.read_csv(this_manual_label_path) 
     #   Check the columns are all as expected
     #assert all([x == y for x, y in zip(this_df.columns.tolist(), expected_df_cols)])
-    
     #   Fix indices (index rows by cell ID)
     this_manual_labels.index = this_manual_labels['id']
     this_df.index = this_df['id']
-    
     this_df['label'] = this_manual_labels['label']
     this_df['label_sample'] = this_df['label'] + '_' + sample_id
     df = pd.concat([df, this_df.dropna()])
-    
 #   Verify we have the correct amount of cells
 #    assert(df.shape[0] == len(sample_ids) * expected_num_labels * num_cell_types)
 label_counts = df['label'].value_counts()
@@ -67,5 +62,5 @@ label_counts
 
     
     #   Write a clean copy of both sets of manual labels
-    df.to_csv(manual_label_path_out, index = False)
+df.to_csv(manual_label_path_out, index = False)
 
