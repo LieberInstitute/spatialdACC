@@ -57,7 +57,7 @@ x_test.drop('label_sample', axis = 1, inplace = True)
 
 perc_train = round(100 * x_train.shape[0] / (x_train.shape[0] + x_test.shape[0]), 2)
 print(f'Using {x_train.shape[0]} training and {x_test.shape[0]} test examples ({perc_train}% training).')
-
+#Using 390 training and 98 test examples (79.92% training).
 #   Write the dataset to disk for later use
 with open(df_path_out, 'wb') as f:
     pickle.dump((x_train, x_test, y_train, y_test), f)
@@ -85,9 +85,9 @@ grid.fit(x_train, y_train)
 #   Compute training and test accuracy on the best model
 acc_train = round(100 * grid.best_estimator_.score(x_train, y_train), 1)
 acc_test = round(100 * grid.best_estimator_.score(x_test, y_test), 1)
-print(f'CART training accuracy: {acc_train}%.')
-print(f'CART test accuracy: {acc_test}%.')
-print(f'Best params: {grid.best_params_}')
+print(f'CART training accuracy: {acc_train}%.') #CART training accuracy: 74.1%.
+print(f'CART test accuracy: {acc_test}%.') #CART test accuracy: 64.3%.
+print(f'Best params: {grid.best_params_}') #Best params: {'ccp_alpha': 0.01, 'criterion': 'entropy', 'max_depth': 4, 'min_samples_leaf': 15}
 
 #   Print a more thorough report about training and test scores, making sure
 #   performance is good across all classes (since we optimized for accuracy)
