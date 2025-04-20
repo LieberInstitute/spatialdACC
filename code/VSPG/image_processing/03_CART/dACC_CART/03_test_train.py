@@ -68,9 +68,11 @@ with open(df_path_out, 'wb') as f:
 tuned_parameters = [
     {
         'criterion': ['gini', 'entropy'],
-        'max_depth': [2, 3, 4, 5],
-        'min_samples_leaf': [1, 5, 10, 15, 20, 25],
-        'ccp_alpha': [0, 0.001, 0.003, 0.01, 0.03, 0.1, 0.3]
+        'max_depth': [2, 3, 4, 5, 6, 8, 10],
+        'min_samples_split': [2, 5, 10],
+        'min_samples_leaf': [1, 2, 5, 10, 20, 30],
+        'ccp_alpha': np.linspace(0, 0.05, 20),
+        'splitter'=['best', 'random']
     }
 ]
 
@@ -94,7 +96,36 @@ print(f'Best params: {grid.best_params_}') #Best params: {'ccp_alpha': 0.01, 'cr
 labels_train = grid.best_estimator_.predict(x_train)
 labels_test = grid.best_estimator_.predict(x_test)
 print('Training report:\n', classification_report(y_train, labels_train))
+
+#Training report:
+#               precision    recall  f1-score   support
+#
+#          AF       0.57      0.60      0.59        65
+#        DAPI       0.57      0.45      0.50        65
+#        GFAP       0.84      0.78      0.81        65
+#        NeuN       0.84      0.91      0.87        65
+#       OLIG2       0.72      0.79      0.75        66
+#     TMEM119       0.87      0.92      0.89        64
+#
+#    accuracy                           0.74       390
+#   macro avg       0.74      0.74      0.74       390
+#weighted avg       0.73      0.74      0.74       390
+
 print('Test report:\n', classification_report(y_test, labels_test))
+
+#Test report:
+#               precision    recall  f1-score   support
+#
+#          AF       0.47      0.53      0.50        17
+#        DAPI       0.40      0.25      0.31        16
+#        GFAP       0.71      0.75      0.73        16
+#        NeuN       0.82      0.88      0.85        16
+#       OLIG2       0.72      0.76      0.74        17
+#     TMEM119       0.76      0.81      0.79        16
+#
+#    accuracy                           0.66        98
+#   macro avg       0.65      0.66      0.65        98
+#weighted avg       0.65      0.66      0.65        98
 
 #-------------------------------------------------------------------------------
 #   Try logistic regression
