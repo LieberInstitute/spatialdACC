@@ -15,8 +15,8 @@ import pyhere
 from pathlib import Path
 import pickle
 
-df_path = pyhere.here("processed-data", "spot_deconvo", "groundTruth", "02_samui_manual_annotation", "annotations_SCP_processed.csv")
-df_path_out = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '03_CART', 'annotation_dataset.pkl')
+df_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '02_samui', 'samui_manualAnnotation', 'annotations_Atharv_processed.csv')
+df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset.pkl')
 
 num_cell_types = 5
 test_proportion = 0.2 # for training/test split
@@ -34,7 +34,7 @@ df = pd.read_csv(df_path,header=0)
 
 #   Define the inputs (features we want the model to access) and outputs to the
 #   model
-x = df.loc[:, ['NeuN', 'TMEM119', 'GFAP', 'OLIG2', 'area', 'label_sample']]
+x = df.loc[:, ['gfap', 'neun', 'olig2', 'tmem119', 'area', 'label_sample']]
 y = df['label']
 
 #   Split data into training and test sets (80%: 20%), evenly stratified across
