@@ -1,0 +1,36 @@
+**** Job starts ****
+Wed Oct  9 06:45:46 PM EDT 2024
+**** JHPCE info ****
+User: mtippani
+Job id: 
+Job name: 
+Hostname: compute-169
+Task id: 
+Loading LIBD SLURM module for cellpose/2.2.2
+Keeping dist    30.1
+dist    30.1
+dtype: float64% of masks, which were within spots covered by tissue.
+Traceback (most recent call last):
+  File "03_cart_test_dlpfc.py", line 95, in <module>
+    df = df[df.dist < json_data['spot_diameter_fullres'] / 2]
+  File "/jhpce/shared/libd/core/cellpose/2.2.2/cellpose_env/lib/python3.8/site-packages/pandas/core/frame.py", line 3748, in __getitem__
+    return self.where(key)
+  File "/jhpce/shared/libd/core/cellpose/2.2.2/cellpose_env/lib/python3.8/site-packages/pandas/core/frame.py", line 11527, in where
+    return super().where(
+  File "/jhpce/shared/libd/core/cellpose/2.2.2/cellpose_env/lib/python3.8/site-packages/pandas/core/generic.py", line 9933, in where
+    return self._where(cond, other, inplace, axis, level)
+  File "/jhpce/shared/libd/core/cellpose/2.2.2/cellpose_env/lib/python3.8/site-packages/pandas/core/generic.py", line 9660, in _where
+    cond = cond.reindex(self._info_axis, axis=self._info_axis_number, copy=False)
+  File "/jhpce/shared/libd/core/cellpose/2.2.2/cellpose_env/lib/python3.8/site-packages/pandas/core/frame.py", line 5055, in reindex
+    return super().reindex(
+  File "/jhpce/shared/libd/core/cellpose/2.2.2/cellpose_env/lib/python3.8/site-packages/pandas/core/generic.py", line 5360, in reindex
+    return self._reindex_axes(
+  File "/jhpce/shared/libd/core/cellpose/2.2.2/cellpose_env/lib/python3.8/site-packages/pandas/core/frame.py", line 4890, in _reindex_axes
+    frame = frame._reindex_columns(
+  File "/jhpce/shared/libd/core/cellpose/2.2.2/cellpose_env/lib/python3.8/site-packages/pandas/core/frame.py", line 4932, in _reindex_columns
+    new_columns, indexer = self.columns.reindex(
+  File "/jhpce/shared/libd/core/cellpose/2.2.2/cellpose_env/lib/python3.8/site-packages/pandas/core/indexes/base.py", line 4275, in reindex
+    raise ValueError("cannot reindex on an axis with duplicate labels")
+ValueError: cannot reindex on an axis with duplicate labels
+**** Job ends ****
+Wed Oct  9 06:45:49 PM EDT 2024
