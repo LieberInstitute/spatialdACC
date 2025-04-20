@@ -34,8 +34,8 @@ mask_path = pyhere.here('processed-data', 'VSPG', 'image_processing' ,'01_cellpo
 spot_path = pyhere.here('processed-data', '01_spaceranger', 'spaceranger_if_2023-06-29_KMay061223', '{}', 'outs', 'spatial', 'tissue_positions.csv')
 scale_path = pyhere.here('processed-data', '01_spaceranger', 'spaceranger_if_2023-06-29_KMay061223', '{}', 'outs', 'spatial','scalefactors_json.json')
 
-out_df_path = pyhere.here('processed-data', 'VSPG', 'image_processing' ,'03_CART', 'DLPFC_CART', 'df_cells')
-plot_dir = pyhere.here('plots','VSPG', 'image_processing','03_CART', 'DLPFC_CART',)
+out_df_path = pyhere.here('processed-data', 'VSPG', 'image_processing' ,'03_CART', 'dACC_CART')
+plot_dir = pyhere.here('plots','VSPG', 'image_processing','03_CART', 'dACC_CART')
 Path(plot_dir).mkdir(parents=True, exist_ok=True)
 
 #-------------------------------------------------------------------------------
