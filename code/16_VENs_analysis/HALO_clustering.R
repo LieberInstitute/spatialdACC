@@ -1,4 +1,7 @@
 library(SingleCellExperiment)
+library(factoextra)
+library(cluster)
+library(mbkmeans)
 
 load(file="normalized_dfs.Rdata")
 
@@ -21,20 +24,39 @@ sce <- SingleCellExperiment(list(counts=as.matrix(counts_mat)),
                             colData=col_mat,
                             rowData=row_mat)
 
-# run k means clustering with 2 groups - hopefully VENs and not VENs
-set.seed(1032)
-res <- kmeans(t(counts(sce)),
-              centers = 3)
-colData(sce)$cluster <- res$cluster
-
-table(colData(sce)$cluster, colData(sce)$region)
-table(colData(sce)$cluster, colData(sce)$sample)
-
 pca <- prcomp(t(assays(sce)$counts))
 metadata(sce) <- list("PCA_var_explained" = jaffelab::getPcaVars(pca)[seq_len(20)])
 pca_pseudo <- pca$x[, seq_len(4)]
 colnames(pca_pseudo) <- paste0("PC", sprintf("%02d", seq_len(ncol(pca_pseudo))))
 reducedDims(sce) <- list(PCA = pca_pseudo)
+
+# look at gene loadings to see what is driving this
+pcar <- pca$rotation
+barplot(pcar[, c('PC1', 'PC2')], beside=TRUE, col=seq_len(ncol(pcar)) + 1,
+        legend=rownames(pcar), args.legend=list(x='top'))
+abline(h=0.3, col='red', lty=2)
+
+plotExpression(sce, features=rowData(sce)$gene_name, x="cluster",colour_by = "cluster", exprs_values="counts")
+
+# look at elbow plot
+ks <- seq(2, 15)
+res <- lapply(ks, function(k) {
+    mbkmeans(sce, clusters = k,
+             reduceMethod = NA,
+             calc_wcss = TRUE, num_init=10)
+})
+wcss <- sapply(res, function(x) sum(x$WCSS_per_cluster))
+plot(ks, wcss, type = "b")
+
+# run k means clustering with 2 groups - hopefully VENs and not VENs
+set.seed(1032)
+res <- kmeans(t(counts(sce)),
+              centers = 6)
+colData(sce)$cluster <- res$cluster
+colData(sce)$cluster <- as.factor(colData(sce)$cluster)
+
+table(colData(sce)$cluster, colData(sce)$region)
+table(colData(sce)$cluster, colData(sce)$sample)
 
 # plot counts of clusters from dACC or dlPFC
 p1 <- plotPCA(
@@ -62,10 +84,4 @@ p3 <- plotPCA(
 )
 
 wrap_plots(p1,p2,p3)
-
-# look at gene loadings to see what is driving this
-pcar <- pca$rotation
-barplot(pcar[, c('PC1', 'PC2')], beside=TRUE, col=seq_len(ncol(pcar)) + 1,
-        legend=rownames(pcar), args.legend=list(x='top'))
-abline(h=0.3, col='red', lty=2)
 
