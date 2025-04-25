@@ -6,6 +6,9 @@ suppressPackageStartupMessages({
     library("scater")
     library("spatialLIBD")
     library("dplyr")
+    library("tidyr")
+    library("ggplot2")
+    library("patchwork")
 })
 
 nnSVG_precast_name <- paste0("nnSVG_PRECAST_captureArea_", 9)
@@ -78,3 +81,105 @@ for(gene in genes){
 
     dev.off()
 }
+
+
+
+
+
+# subfigure
+nnSVG_precast_name <- paste0("nnSVG_PRECAST_captureArea_", 9)
+load(
+    file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_pseudobulk", paste0(nnSVG_precast_name,".Rdata"))
+)
+# we need to manually compute log2(cpm+1) instead of scaled pseudocount
+assay(spe_pseudo, "logcounts") <- NULL
+colData(spe_pseudo)$sizeFactor <- NULL
+assay(spe_pseudo, "normounts") <- edgeR::cpm(counts(spe_pseudo))
+assay(spe_pseudo, "logcounts") <- log2(assay(spe_pseudo, "normounts")+1)
+mat_dACC <- assay(spe_pseudo, "logcounts")
+groups_dACC <- factor(colData(spe_pseudo)[["layer"]])
+spe_pseudo_dACC <- spe_pseudo
+
+load(file = here("processed-data", "12_spatial_registration",paste0("DLPFC_30_pseudobulk",".Rdata")))
+assay(spe_pseudo, "logcounts") <- NULL
+colData(spe_pseudo)$sizeFactor <- NULL
+assay(spe_pseudo, "normounts") <- edgeR::cpm(counts(spe_pseudo))
+assay(spe_pseudo, "logcounts") <- log2(assay(spe_pseudo, "normounts")+1)
+mat_dlPFC <- assay(spe_pseudo, "logcounts")
+groups_dlPFC <- factor(colData(spe_pseudo)[["BayesSpace_harmony_09"]])
+spe_pseudo_dlPFC <- spe_pseudo
+
+genes <- c("NXPH3", "ISLR", "NR4A2")
+
+dACC_layer_colors <- c(
+    "L2" = "#377EB8",
+    "L3" = "#4DAF4A",
+    "L5" = "#FFD700",
+    "L6b" = "#c46200",
+    "L6a" = "#FFC18A",
+    "WM" = "#1A1A1A",
+    "L1" = "#F0027F"
+)
+dlPFC_layer_colors <- c(
+    "L2" = "#377EB8",
+    "L3" = "#4DAF4A",
+    "L5" = "#FFD700",
+    "L4" = "#984EA3",
+    "L6" = "#FF7F00",
+    "WM" = "#1A1A1A",
+    "L1" = "#F0027F"
+)
+
+plot_list <- c()
+
+for (gene in genes) {
+    print(gene)
+    i_dACC <- which(rowData(spe_pseudo_dACC)$gene_name == gene)
+    i_dlPFC <- which(rowData(spe_pseudo_dlPFC)$gene_name == gene)
+
+    df_dACC <- as.data.frame(mat_dACC[i_dACC, ])
+    df_dACC$Layer <- groups_dACC
+    colnames(df_dACC)[1] <- "Expression"
+
+    df_dlPFC <- as.data.frame(mat_dlPFC[i_dlPFC, ])
+    df_dlPFC$Layer <- groups_dlPFC
+    colnames(df_dlPFC)[1] <- "Expression"
+
+    p1 <- ggplot(df_dACC,aes(x=Layer, y=Expression, color=Layer, fill=Layer)) +
+        geom_boxplot() +
+        theme_bw() +
+        scale_color_manual(values=dACC_layer_colors) +
+        scale_fill_manual(values=dACC_layer_colors) +
+        ylab(expression("dACC " ~ log[2](cpm + 1))) +
+        theme(axis.text.x=element_blank(),
+              axis.ticks.x=element_blank()) +
+        ggtitle(gene) +
+        xlab("") +
+        ylim(c(0,7.5))
+
+    p2 <- ggplot(df_dlPFC,aes(x=Layer, y=Expression, color=Layer, fill=Layer)) +
+        geom_boxplot() +
+        theme_bw() +
+        scale_color_manual(values=dlPFC_layer_colors) +
+        scale_fill_manual(values=dlPFC_layer_colors) +
+        ylab(expression("dlPFC " ~ log[2](cpm + 1))) +
+        theme(axis.text.x=element_blank(),
+              axis.ticks.x=element_blank()) +
+        xlab("") +
+        ylim(c(0,7.5))
+
+
+    plot_list <- c(plot_list, list(p1, p2))
+
+}
+
+pdf(file = here("plots", "11_differential_expression", "pseudobulk","boxplots_annotations",
+                "dACC_dlPFC_pseudobulked.pdf"), height=5, width=7)
+
+wrap_plots(plot_list[[1]], plot_list[[3]],
+           plot_list[[5]], plot_list[[2]],
+           plot_list[[4]], plot_list[[6]],
+           nrow = 2, guides="collect") +
+    plot_layout(axes = "collect_y")
+
+dev.off()
