@@ -36,6 +36,9 @@ spe_pseudo <-
                             var_sample_id = "sample_id"
     )
 
+save(spe_pseudo, file = here("processed-data", "12_spatial_registration",paste0("DLPFC_30_pseudobulk",".Rdata")))
+
+
 spe_modeling_results <- registration_wrapper(
     spe,
     var_registration = "BayesSpace_harmony_09",
