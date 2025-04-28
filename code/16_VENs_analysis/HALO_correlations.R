@@ -28,21 +28,21 @@ colnames(Br8325_right_dACC) <- c("POU3F1", "SULF2", "GABRQ")
 
 # compute correlations
 # make df of correlations
-corr_list <- c(cor(Br6432_dACC$POU3F1, Br6432_dACC$SULF2, method="spearman"),
-               cor(Br6432_dACC$POU3F1, Br6432_dACC$GABRQ, method="spearman"),
-               cor(Br6432_dACC$SULF2, Br6432_dACC$GABRQ, method="spearman"),
-               cor(Br6432_dlPFC$POU3F1, Br6432_dlPFC$SULF2, method="spearman"),
-               cor(Br6432_dlPFC$POU3F1, Br6432_dlPFC$GABRQ, method="spearman"),
-               cor(Br6432_dlPFC$SULF2, Br6432_dlPFC$GABRQ, method="spearman"),
-               cor(Br8325_dlPFC$POU3F1, Br8325_dlPFC$SULF2, method="spearman"),
-               cor(Br8325_dlPFC$POU3F1, Br8325_dlPFC$GABRQ, method="spearman"),
-               cor(Br8325_dlPFC$SULF2, Br8325_dlPFC$GABRQ, method="spearman"),
-               cor(Br8325_left_dACC$POU3F1, Br8325_left_dACC$SULF2, method="spearman"),
-               cor(Br8325_left_dACC$POU3F1, Br8325_left_dACC$GABRQ, method="spearman"),
-               cor(Br8325_left_dACC$SULF2, Br8325_left_dACC$GABRQ, method="spearman"),
-               cor(Br8325_right_dACC$POU3F1, Br8325_right_dACC$SULF2, method="spearman"),
-               cor(Br8325_right_dACC$POU3F1, Br8325_right_dACC$GABRQ, method="spearman"),
-               cor(Br8325_right_dACC$SULF2, Br8325_right_dACC$GABRQ, method="spearman"))
+corr_list <- c(cor(Br6432_dACC$POU3F1, Br6432_dACC$SULF2, method="kendall"),
+               cor(Br6432_dACC$POU3F1, Br6432_dACC$GABRQ, method="kendall"),
+               cor(Br6432_dACC$SULF2, Br6432_dACC$GABRQ, method="kendall"),
+               cor(Br6432_dlPFC$POU3F1, Br6432_dlPFC$SULF2, method="kendall"),
+               cor(Br6432_dlPFC$POU3F1, Br6432_dlPFC$GABRQ, method="kendall"),
+               cor(Br6432_dlPFC$SULF2, Br6432_dlPFC$GABRQ, method="kendall"),
+               cor(Br8325_dlPFC$POU3F1, Br8325_dlPFC$SULF2, method="kendall"),
+               cor(Br8325_dlPFC$POU3F1, Br8325_dlPFC$GABRQ, method="kendall"),
+               cor(Br8325_dlPFC$SULF2, Br8325_dlPFC$GABRQ, method="kendall"),
+               cor(Br8325_left_dACC$POU3F1, Br8325_left_dACC$SULF2, method="kendall"),
+               cor(Br8325_left_dACC$POU3F1, Br8325_left_dACC$GABRQ, method="kendall"),
+               cor(Br8325_left_dACC$SULF2, Br8325_left_dACC$GABRQ, method="kendall"),
+               cor(Br8325_right_dACC$POU3F1, Br8325_right_dACC$SULF2, method="kendall"),
+               cor(Br8325_right_dACC$POU3F1, Br8325_right_dACC$GABRQ, method="kendall"),
+               cor(Br8325_right_dACC$SULF2, Br8325_right_dACC$GABRQ, method="kendall"))
 
 region_list <- c(rep("dACC",3), rep("dlPFC",3), rep("dlPFC",3),
                  rep("dACC",3), rep("dACC",3))
