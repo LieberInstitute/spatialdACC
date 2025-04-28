@@ -6,7 +6,7 @@ library(scater)
 library(RcppML)
 library(ggspavis)
 library(here)
-library(scRNAseq)
+#library(scRNAseq)
 library(Matrix)
 library(scran)
 library(scuttle)
@@ -141,33 +141,69 @@ df_list <- data.frame(
     sig = sig
     )
 
-pdf(file = here::here("plots", "13_NMF", "volcano_plots_NMF38_NMF61.pdf"),
-    width = 7, height = 6)
 
-print(EnhancedVolcano(df_list,
-                      lab = df_list$gene_name,
-                      x = 'logFC',
-                      y = 'FDR',
-                      xlim = c(-3, 5),
-                      ylim = c(0, -log10(10e-22)),
-                      legendPosition = "bottom",
-                      selectLab = c("VAT1L", "POU3F1", "SULF2", "HAPLN4", "LYPD1", "FEZF2", "GABRQ"),
-                      FCcutoff = 1.5,
-                      pCutoff = 0.05,
-                      labSize = 7.0,
-                      ylab = "-log10 FDR",
-                      legendLabels = c('Not sig.','LogFC','FDR',
-                                       'FDR & LogFC'),
-                      title = "NMF61 vs. NMF38",
-                      subtitle = "",
-                      caption = ""
-                      )
-      )
+
+# loading snRNAseq data to get colors
+
+load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth.Rdata"))
+
+#plot harmony UMAP colored by azimuth labels
+
+# remove Sst Chodl
+sce <- sce[,-which(sce$cellType_azimuth == "Sst Chodl")]
+sce$cellType_azimuth <- as.factor(sce$cellType_azimuth)
+
+mycolors <- pals::cols25()[1:19]
+celltype_colors <- setNames(mycolors, unique(sce$cellType_azimuth))
+celltype_colors  
+#  L2_3_IT      Oligo        L6b      L5_IT      Pvalb        OPC      Lamp5 
+#  "#1F78C8"  "#ff0000"  "#33a02c"  "#6A33C2"  "#ff7f00"  "#565656"  "#FFD700" 
+#        Vip      L6_CT   MicroPVM        Sst      L6_IT       VLMC      Astro 
+#  "#a6cee3"  "#FB6496"  "#b2df8a"  "#CAB2D6"  "#FDBF6F"  "#999999"  "#EEE685" 
+#      L5_ET       Sncg L6_IT_Car3    L5_6_NP       Endo 
+#  "#C8308C"  "#FF83FA"  "#C814FA"  "#0000FF"  "#36648B" 
+
+# NMF61 = L5_ET
+# NMF38 = L5_IT
+
+# create a color vector for the volcano plot
+keyvals <- ifelse(
+    df_list$logFC < -1.5, celltype_colors["L5_IT"], # NMF38
+    ifelse(df_list$logFC > 1.5, celltype_colors["L5_ET"], # NMF61
+           'grey30')) # not significant
+keyvals[is.na(keyvals)] <- 'grey30'
+names(keyvals)[keyvals == celltype_colors["L5_IT"]] <- 'NMF38'
+names(keyvals)[keyvals == celltype_colors["L5_ET"]] <- 'NMF61'
+names(keyvals)[keyvals == 'grey30'] <- 'not sig.'
+
+
+png(file = here::here("plots", "13_NMF", "volcano_plots_NMF38_NMF61.png"),
+    width = 4, height = 4.5, res = 300, unit = "in")
+
+EnhancedVolcano(df_list,
+                lab = df_list$gene_name,
+                x = 'logFC',
+                y = 'FDR',
+                xlim = c(-3, 5),
+                ylim = c(0, -log10(10e-22)),
+                legendPosition = "bottom",
+                selectLab = c("VAT1L", "POU3F1", "SULF2", "FEZF2", "GABRQ"),
+                FCcutoff = 1.5,
+                pCutoff = 0.05,
+                labSize = 4.5,
+                ylab = "-log10 FDR",
+                legendLabels = c('Not sig.','LogFC','FDR',
+                                'FDR & LogFC'),
+                title = "NMF38 < ----- > NMF61",
+                subtitle = "",
+                caption = "",
+                drawConnectors=TRUE,
+                widthConnectors = 1.0,
+                colConnectors = 'black',
+                colCustom=keyvals
+                ) +
+ggpubr::theme_pubr() +
+theme(legend.position = "none") + guides(fill="none")
+    
 
 dev.off()
-
-
-
-
-
-
