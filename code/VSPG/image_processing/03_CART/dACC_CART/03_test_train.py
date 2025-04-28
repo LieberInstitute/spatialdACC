@@ -32,6 +32,8 @@ random_seed = 0
 
 df = pd.read_csv(df_path,header=0)
 
+ #df['label'] = df['label'].replace('AF', 'DAPI')
+ #df['label_sample'] = df['label_sample'].str.replace('AF_', 'DAPI_', regex=False)
 #   Define the inputs (features we want the model to access) and outputs to the
 #   model
 x = df.loc[:, ['gfap', 'neun', 'olig2', 'tmem119', 'area', 'label_sample']]
@@ -72,7 +74,7 @@ tuned_parameters = [
         'min_samples_split': [2, 5, 10],
         'min_samples_leaf': [1, 2, 5, 10, 20, 30],
         'ccp_alpha': np.linspace(0, 0.05, 20),
-        'splitter'=['best', 'random']
+        'splitter':['best', 'random']
     }
 ]
 
@@ -89,7 +91,7 @@ acc_train = round(100 * grid.best_estimator_.score(x_train, y_train), 1)
 acc_test = round(100 * grid.best_estimator_.score(x_test, y_test), 1)
 print(f'CART training accuracy: {acc_train}%.') #CART training accuracy: 74.1%.
 print(f'CART test accuracy: {acc_test}%.') #CART test accuracy: 64.3%.
-print(f'Best params: {grid.best_params_}') #Best params: {'ccp_alpha': 0.01, 'criterion': 'entropy', 'max_depth': 4, 'min_samples_leaf': 15}
+print(f'Best params: {grid.best_params_}') #Best params: {'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 6, 'min_samples_leaf': 20, 'min_samples_split': 2, 'splitter': 'best'}
 
 #   Print a more thorough report about training and test scores, making sure
 #   performance is good across all classes (since we optimized for accuracy)
