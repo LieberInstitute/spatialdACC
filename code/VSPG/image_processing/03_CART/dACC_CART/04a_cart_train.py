@@ -1,5 +1,5 @@
 import os
-os.chdir('/dcs04/lieber/lcolladotor/spatialHPC_LIBD4035/spatial_hpc/')
+os.chdir('/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/')
 
 import pandas as pd
 import numpy as np
@@ -22,9 +22,9 @@ import graphviz
 # sample_id = "V12D07-332_D1"
 # df_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '02_samui_manual_annotation', sample_id + '_df.csv')
 # predictions_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '02_samui_manual_annotation', '{}' + 'CART_predictions.csv')
-dataset_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '03_CART', 'annotation_dataset.pkl')
-tree_path = pyhere.here('plots', 'spot_deconvo', 'groundTruth', '03_CART', 'decision_tree.pdf')
-model_out_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '03_CART', 'decision_tree.pkl')
+dataset_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset.pkl')
+tree_path = pyhere.here('plots', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'decision_tree.pdf')
+model_out_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'decision_tree.pkl')
 
 random_seed = 0
 
@@ -77,9 +77,9 @@ with open(dataset_path, 'rb') as f:
 #   qualitatively change with the introduction of new data (if we used all
 #   manual labels for inference).
 model = tree.DecisionTreeClassifier(
-    criterion = 'gini', 
+    criterion = 'entropy', 
     max_depth = 4,
-    min_samples_leaf = 1, 
+    min_samples_leaf = 15, 
     random_state = random_seed,
     ccp_alpha = 0.01
 )
@@ -92,8 +92,8 @@ with open(model_out_path, 'wb') as f:
 #   Compute training and test accuracy on the model
 acc_train = round(100 * model.score(x_train, y_train), 1)
 acc_test = round(100 * model.score(x_test, y_test), 1)
-print(f'CART training accuracy: {acc_train}%.') #CART training accuracy: 94.0%.
-print(f'CART test accuracy: {acc_test}%.') #CART test accuracy: 95.4%.
+print(f'CART training accuracy: {acc_train}%.') #CART training accuracy: 74.1%.
+print(f'CART test accuracy: {acc_test}%.') #CART test accuracy: 64.3%.
 
 #   Print a more thorough report about training and test scores, making sure
 #   performance is good across all classes (since we optimized for accuracy)
@@ -103,29 +103,31 @@ print('Training report:\n', classification_report(y_train, labels_train))
 #Training report:
 #               precision    recall  f1-score   support
 #
-#   astrocyte       0.92      0.88      0.90        41
-#   microglia       0.87      0.93      0.90        29
-#      neuron       0.99      0.93      0.96       107
-#       oligo       0.95      0.98      0.96        94
-#       other       0.90      0.94      0.92        77
+#          AF       0.57      0.60      0.59        65
+#        DAPI       0.49      0.26      0.34        65
+#        GFAP       0.85      0.88      0.86        65
+#        NeuN       0.78      0.95      0.86        65
+#       OLIG2       0.75      0.83      0.79        66
+#     TMEM119       0.87      0.92      0.89        64
 #
-#    accuracy                           0.94       348
-#   macro avg       0.93      0.93      0.93       348
-#weighted avg       0.94      0.94      0.94       348
+#    accuracy                           0.74       390
+#   macro avg       0.72      0.74      0.72       390
+#weighted avg       0.72      0.74      0.72       390
 
 print('Test report:\n', classification_report(y_test, labels_test))
 #Test report:
 #               precision    recall  f1-score   support
 #
-#   astrocyte       1.00      0.80      0.89        10
-#   microglia       0.86      0.86      0.86         7
-#      neuron       1.00      1.00      1.00        27
-#       oligo       0.92      1.00      0.96        23
-#       other       0.95      0.95      0.95        20
+#          AF       0.47      0.53      0.50        17
+#        DAPI       0.50      0.19      0.27        16
+#        GFAP       0.55      0.69      0.61        16
+#        NeuN       0.82      0.88      0.85        16
+#       OLIG2       0.68      0.76      0.72        17
+#     TMEM119       0.76      0.81      0.79        16
 #
-#    accuracy                           0.95        87
-#   macro avg       0.95      0.92      0.93        87
-#weighted avg       0.96      0.95      0.95        87
+#    accuracy                           0.64        98
+#   macro avg       0.63      0.64      0.62        98
+#weighted avg       0.63      0.64      0.62        98
 #-------------------------------------------------------------------------------
 #   Write a small CSV of model predictions for import to loopy to visually
 #   verify model performance
