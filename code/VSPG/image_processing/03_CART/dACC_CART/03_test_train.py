@@ -113,6 +113,20 @@ print('Training report:\n', classification_report(y_train, labels_train))
 #   macro avg       0.74      0.74      0.74       390
 #weighted avg       0.73      0.74      0.74       390
 
+
+#Training report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.76      0.73      0.75       130
+#        GFAP       0.84      0.75      0.80        65
+#        NeuN       0.87      0.92      0.90        65
+#       OLIG2       0.74      0.85      0.79        66
+#     TMEM119       0.94      0.91      0.92        64
+#
+#    accuracy                           0.82       390
+#   macro avg       0.83      0.83      0.83       390
+#weighted avg       0.82      0.82      0.81       390
+
 print('Test report:\n', classification_report(y_test, labels_test))
 
 #Test report:
@@ -128,6 +142,19 @@ print('Test report:\n', classification_report(y_test, labels_test))
 #    accuracy                           0.66        98
 #   macro avg       0.65      0.66      0.65        98
 #weighted avg       0.65      0.66      0.65        98
+
+#Test report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.66      0.64      0.65        33
+#        GFAP       0.93      0.81      0.87        16
+#        NeuN       0.85      0.69      0.76        16
+#       OLIG2       0.64      0.82      0.72        17
+#     TMEM119       0.76      0.81      0.79        16
+#
+#    accuracy                           0.73        98
+#   macro avg       0.77      0.75      0.76        98
+#weighted avg       0.75      0.73      0.74        98
 
 #-------------------------------------------------------------------------------
 #   Try logistic regression
