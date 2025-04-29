@@ -7,6 +7,8 @@ library(factoextra)
 library(cluster)
 library(mclust)
 library(scater)
+library(ComplexHeatmap)
+library(circlize)
 
 setwd("../../../Downloads/Data")
 
@@ -102,7 +104,6 @@ expr_list <- lapply(names(datasets), function(name) {
     )
 })
 
-# Combine into one long data frame
 expr_df <- bind_rows(expr_list)
 
 ggplot(expr_df, aes(x = gene, y = expression, fill = dataset)) +
@@ -161,4 +162,73 @@ ggplot(coexpression_summary_long, aes(x = name, y = value, color=dataset)) +
     labs(x = "Group", y = "Proportion Coexpression", title = "Coexpression Proportions Across Datasets and Genes") +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+# visualize coexpression as heatmap separated for dACC and dlPFC
+
+SULF2_POU3F1 <- mean(c(dim(Br6432_dACC %>% filter(SULF2_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br6432_dACC %>% filter(SULF2_class == 2))[1],
+                     dim(Br8325_left_dACC %>% filter(SULF2_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_left_dACC %>% filter(SULF2_class == 2))[1],
+                     dim(Br8325_right_dACC %>% filter(SULF2_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_right_dACC %>% filter(SULF2_class == 2))[1]))
+GABRQ_POU3F1 <- mean(c(dim(Br6432_dACC %>% filter(GABRQ_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br6432_dACC %>% filter(GABRQ_class == 2))[1],
+                       dim(Br8325_left_dACC %>% filter(GABRQ_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_left_dACC %>% filter(GABRQ_class == 2))[1],
+                       dim(Br8325_right_dACC %>% filter(GABRQ_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_right_dACC %>% filter(GABRQ_class == 2))[1]))
+GABRQ_SULF2 <- mean(c(dim(Br6432_dACC %>% filter(GABRQ_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br6432_dACC %>% filter(GABRQ_class == 2))[1],
+                      dim(Br8325_left_dACC %>% filter(GABRQ_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_left_dACC %>% filter(GABRQ_class == 2))[1],
+                      dim(Br8325_right_dACC %>% filter(GABRQ_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_right_dACC %>% filter(GABRQ_class == 2))[1]))
+
+POU3F1_SULF2 <- mean(c(dim(Br6432_dACC %>% filter(POU3F1_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br6432_dACC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_left_dACC %>% filter(POU3F1_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_left_dACC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_right_dACC %>% filter(POU3F1_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_right_dACC %>% filter(POU3F1_class == 2))[1]))
+POU3F1_GABRQ <- mean(c(dim(Br6432_dACC %>% filter(POU3F1_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br6432_dACC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_left_dACC %>% filter(POU3F1_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_left_dACC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_right_dACC %>% filter(POU3F1_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_right_dACC %>% filter(POU3F1_class == 2))[1]))
+SULF2_GABRQ <- mean(c(dim(Br6432_dACC %>% filter(SULF2_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br6432_dACC %>% filter(SULF2_class == 2))[1],
+                      dim(Br8325_left_dACC %>% filter(SULF2_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_left_dACC %>% filter(SULF2_class == 2))[1],
+                      dim(Br8325_right_dACC %>% filter(SULF2_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_right_dACC %>% filter(SULF2_class == 2))[1]))
+
+dACC_mat <- matrix(c(NA, SULF2_POU3F1, GABRQ_POU3F1,
+                     POU3F1_SULF2, NA, GABRQ_SULF2,
+                     POU3F1_GABRQ, SULF2_GABRQ, NA), ncol=3)
+rownames(dACC_mat) <- c("POU3F1","SULF2","GABRQ")
+colnames(dACC_mat) <- c("POU3F1","SULF2","GABRQ")
+
+col_fun <- colorRamp2(c(0, 0.5, 1), c("red", "green", "purple"))
+
+Heatmap(dACC_mat, na_col = "black",
+        cluster_rows = FALSE, cluster_columns = FALSE,
+        col = col_fun, row_names_side = "left", column_names_side = "top",
+        column_names_rot = 0, column_names_centered = T,
+        heatmap_legend_param = list(title="dACC\nproportion\nof overlaps"),
+        cell_fun = function(j, i, x, y, width, height, fill) {
+            grid.text(sprintf("%.2f", dACC_mat[i, j]), x, y, gp = gpar(fontsize = 10))
+        })
+
+SULF2_POU3F1 <- mean(c(dim(Br6432_dlPFC %>% filter(SULF2_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br6432_dlPFC %>% filter(SULF2_class == 2))[1],
+                       dim(Br8325_dlPFC %>% filter(SULF2_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_dlPFC %>% filter(SULF2_class == 2))[1]))
+GABRQ_POU3F1 <- mean(c(dim(Br6432_dlPFC %>% filter(GABRQ_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br6432_dlPFC %>% filter(GABRQ_class == 2))[1],
+                       dim(Br8325_dlPFC %>% filter(GABRQ_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_dlPFC %>% filter(GABRQ_class == 2))[1]))
+GABRQ_SULF2 <- mean(c(dim(Br6432_dlPFC %>% filter(GABRQ_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br6432_dlPFC %>% filter(GABRQ_class == 2))[1],
+                      dim(Br8325_dlPFC %>% filter(GABRQ_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_dlPFC %>% filter(GABRQ_class == 2))[1]))
+POU3F1_SULF2 <- mean(c(dim(Br6432_dlPFC %>% filter(POU3F1_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br6432_dlPFC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_dlPFC %>% filter(POU3F1_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_dlPFC %>% filter(POU3F1_class == 2))[1]))
+POU3F1_GABRQ <- mean(c(dim(Br6432_dlPFC %>% filter(POU3F1_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br6432_dlPFC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_dlPFC %>% filter(POU3F1_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_dlPFC %>% filter(POU3F1_class == 2))[1]))
+SULF2_GABRQ <- mean(c(dim(Br6432_dlPFC %>% filter(SULF2_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br6432_dlPFC %>% filter(SULF2_class == 2))[1],
+                      dim(Br8325_dlPFC %>% filter(SULF2_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_dlPFC %>% filter(SULF2_class == 2))[1]))
+
+
+dlPFC_mat <- matrix(c(NA, SULF2_POU3F1, GABRQ_POU3F1,
+                     POU3F1_SULF2, NA, GABRQ_SULF2,
+                     POU3F1_GABRQ, SULF2_GABRQ, NA), ncol=3)
+rownames(dlPFC_mat) <- c("POU3F1","SULF2","GABRQ")
+colnames(dlPFC_mat) <- c("POU3F1","SULF2","GABRQ")
+
+col_fun <- colorRamp2(c(0, 0.5, 1), c("red", "green", "purple"))
+
+Heatmap(dlPFC_mat, na_col = "black",
+        cluster_rows = FALSE, cluster_columns = FALSE,
+        col = col_fun, row_names_side = "left", column_names_side = "top",
+        column_names_rot = 0, column_names_centered = T,
+        heatmap_legend_param = list(title="dlPFC\nproportion\nof overlaps"),
+        cell_fun = function(j, i, x, y, width, height, fill) {
+            grid.text(sprintf("%.2f", dlPFC_mat[i, j]), x, y, gp = gpar(fontsize = 10))
+        })
 
