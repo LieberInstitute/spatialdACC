@@ -2,7 +2,7 @@
 #   present in each spot.
 
 import os
-os.chdir('/dcs04/lieber/lcolladotor/spatialHPC_LIBD4035/spatial_hpc/')
+os.chdir('/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/')
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -21,8 +21,8 @@ import json
 ################################################################################
 #   Paths
 ################################################################################
-spaceranger_dirs = pd.read_csv(pyhere.here("code","spot_deconvo","shared_utilities","samples.txt"), sep = '\t', header=None, names = ['SPpath', 'sample_id', 'brain'])
-spaceranger_dirs = spaceranger_dirs.iloc[36:].reset_index(drop=True)
+spaceranger_dirs = pyhere.here('processed-data', '01_spaceranger', 'spaceranger_if_2023-06-29_KMay061223'}
+
 df_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '02_samui_manual_annotation', '{}' + '_df.csv')
 
 #   Trained DecisionTreeClassifier path
@@ -37,8 +37,8 @@ cells_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '03_CA
 # os.environ['SGE_TASK_ID'] = '1'
 
 sample_id = spaceranger_dirs.sample_id[int(os.environ['SGE_TASK_ID']) - 1]
-spot_path = pyhere.here(spaceranger_dirs.SPpath[int(os.environ['SGE_TASK_ID']) - 1],'outs','spatial','tissue_positions.csv')
-json_path = pyhere.here(spaceranger_dirs.SPpath[int(os.environ['SGE_TASK_ID']) - 1],'outs','spatial','scalefactors_json.json')
+spot_path = pyhere.here(spaceranger_dirs, sample_id,'outs','spatial','tissue_positions.csv')
+json_path = pyhere.here(spaceranger_dirs, sample_id,,'outs','spatial','scalefactors_json.json')
 df_path = str(df_path).format(sample_id)
 
 clusters_path = str(clusters_path).format(sample_id)

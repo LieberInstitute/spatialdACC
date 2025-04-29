@@ -32,6 +32,8 @@ random_seed = 0
 
 df = pd.read_csv(df_path,header=0)
 
+ #df['label'] = df['label'].replace('AF', 'DAPI')
+ #df['label_sample'] = df['label_sample'].str.replace('AF_', 'DAPI_', regex=False)
 #   Define the inputs (features we want the model to access) and outputs to the
 #   model
 x = df.loc[:, ['gfap', 'neun', 'olig2', 'tmem119', 'area', 'label_sample']]
@@ -72,7 +74,7 @@ tuned_parameters = [
         'min_samples_split': [2, 5, 10],
         'min_samples_leaf': [1, 2, 5, 10, 20, 30],
         'ccp_alpha': np.linspace(0, 0.05, 20),
-        'splitter'=['best', 'random']
+        'splitter':['best', 'random']
     }
 ]
 
@@ -89,7 +91,7 @@ acc_train = round(100 * grid.best_estimator_.score(x_train, y_train), 1)
 acc_test = round(100 * grid.best_estimator_.score(x_test, y_test), 1)
 print(f'CART training accuracy: {acc_train}%.') #CART training accuracy: 74.1%.
 print(f'CART test accuracy: {acc_test}%.') #CART test accuracy: 64.3%.
-print(f'Best params: {grid.best_params_}') #Best params: {'ccp_alpha': 0.01, 'criterion': 'entropy', 'max_depth': 4, 'min_samples_leaf': 15}
+print(f'Best params: {grid.best_params_}') #Best params: {'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 6, 'min_samples_leaf': 20, 'min_samples_split': 2, 'splitter': 'best'}
 
 #   Print a more thorough report about training and test scores, making sure
 #   performance is good across all classes (since we optimized for accuracy)
@@ -111,6 +113,20 @@ print('Training report:\n', classification_report(y_train, labels_train))
 #   macro avg       0.74      0.74      0.74       390
 #weighted avg       0.73      0.74      0.74       390
 
+
+#Training report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.76      0.73      0.75       130
+#        GFAP       0.84      0.75      0.80        65
+#        NeuN       0.87      0.92      0.90        65
+#       OLIG2       0.74      0.85      0.79        66
+#     TMEM119       0.94      0.91      0.92        64
+#
+#    accuracy                           0.82       390
+#   macro avg       0.83      0.83      0.83       390
+#weighted avg       0.82      0.82      0.81       390
+
 print('Test report:\n', classification_report(y_test, labels_test))
 
 #Test report:
@@ -126,6 +142,19 @@ print('Test report:\n', classification_report(y_test, labels_test))
 #    accuracy                           0.66        98
 #   macro avg       0.65      0.66      0.65        98
 #weighted avg       0.65      0.66      0.65        98
+
+#Test report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.66      0.64      0.65        33
+#        GFAP       0.93      0.81      0.87        16
+#        NeuN       0.85      0.69      0.76        16
+#       OLIG2       0.64      0.82      0.72        17
+#     TMEM119       0.76      0.81      0.79        16
+#
+#    accuracy                           0.73        98
+#   macro avg       0.77      0.75      0.76        98
+#weighted avg       0.75      0.73      0.74        98
 
 #-------------------------------------------------------------------------------
 #   Try logistic regression
