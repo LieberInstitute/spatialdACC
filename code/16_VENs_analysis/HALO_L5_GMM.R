@@ -9,6 +9,7 @@ library(mclust)
 library(scater)
 library(ComplexHeatmap)
 library(circlize)
+library(ClusterR)
 
 setwd("../../../Downloads/Data")
 
@@ -195,34 +196,194 @@ p4 <- ggplot(long_df[which(long_df$gene=="SULF2"),], aes(x = gene, y = expressio
 wrap_plots(p1,p2,p3,p4, nrow=2, guides="collect")
 
 # use GMM for each gene in each sample
-set.seed(190)
+# wanted to use "V" for unequal variances, but this does not run?
+set.seed(90)
 for (gene in c("POU3F1","SULF2","GABRQ")) {
     print(gene)
-    Br6432_dACC_mod <- Mclust(Br6432_dACC[,gene],3)
+    Br6432_dACC_mod <- Mclust(Br6432_dACC[,gene],2,modelNames="V")
     Br6432_dACC[,paste0(gene,"_class")] <- Br6432_dACC_mod$classification
     print(summary(Br6432_dACC_mod, parameters=T))
     print(plot.Mclust(Br6432_dACC_mod, what="classification"), xlab=gene)
 
-    Br6432_dlPFC_mod <- Mclust(Br6432_dlPFC[,gene],3)
+    Br6432_dlPFC_mod <- Mclust(Br6432_dlPFC[,gene],2,modelNames="V")
     Br6432_dlPFC[,paste0(gene,"_class")] <- Br6432_dlPFC_mod$classification
     print(summary(Br6432_dlPFC_mod, parameters=T))
     print(plot.Mclust(Br6432_dlPFC_mod, what="classification"), xlab=gene)
 
-    Br8325_dlPFC_mod <- Mclust(Br8325_dlPFC[,gene],3)
+    Br8325_dlPFC_mod <- Mclust(Br8325_dlPFC[,gene],2,modelNames="V")
     Br8325_dlPFC[,paste0(gene,"_class")] <- Br8325_dlPFC_mod$classification
     print(summary(Br8325_dlPFC_mod, parameters=T))
     print(plot.Mclust(Br8325_dlPFC_mod, what="classification"), xlab=gene)
 
-    Br8325_left_dACC_mod <- Mclust(Br8325_left_dACC[,gene],3)
+    Br8325_left_dACC_mod <- Mclust(Br8325_left_dACC[,gene],2,modelNames="V")
     Br8325_left_dACC[,paste0(gene,"_class")] <- Br8325_left_dACC_mod$classification
     print(summary(Br8325_left_dACC_mod, parameters=T))
     print(plot.Mclust(Br8325_left_dACC_mod, what="classification"), xlab=gene)
 
-    Br8325_right_dACC_mod <- Mclust(Br8325_right_dACC[,gene],)
+    Br8325_right_dACC_mod <- Mclust(Br8325_right_dACC[,gene],2,modelNames="V")
     Br8325_right_dACC[,paste0(gene,"_class")] <- Br8325_right_dACC_mod$classification
     print(summary(Br8325_right_dACC_mod, parameters=T))
     print(plot.Mclust(Br8325_right_dACC_mod, what="classification"), xlab=gene)
 }
+
+
+# use GMM for each gene in each sample
+# this function does not require the equal variance assumption, which is better for this data
+set.seed(90)
+for (gene in c("POU3F1","SULF2","GABRQ")) {
+    print(gene)
+    Br6432_dACC_mod <- GMM(as.matrix(Br6432_dACC[,gene]),2)
+    Br6432_dACC[,paste0(gene,"_class")] <- predict_GMM(as.matrix(Br6432_dACC[,gene]),Br6432_dACC_mod$centroids,
+                                                       Br6432_dACC_mod$covariance_matrices, Br6432_dACC_mod$weights)$cluster_labels
+    if(Br6432_dACC_mod$centroids[1] > Br6432_dACC_mod$centroids[2]){
+        print("swap")
+        Br6432_dACC[,paste0(gene,"_class")] <- ifelse(Br6432_dACC[,paste0(gene,"_class")] == 1,
+               2, 1)
+    }
+    print(Br6432_dACC_mod$centroids)
+    print(table(Br6432_dACC[,paste0(gene,"_class")]))
+
+    Br6432_dlPFC_mod <- GMM(as.matrix(Br6432_dlPFC[,gene]),2)
+    Br6432_dlPFC[,paste0(gene,"_class")] <- predict_GMM(as.matrix(Br6432_dlPFC[,gene]),Br6432_dlPFC_mod$centroids,
+                                                       Br6432_dlPFC_mod$covariance_matrices, Br6432_dlPFC_mod$weights)$cluster_labels
+    if(Br6432_dlPFC_mod$centroids[1] > Br6432_dlPFC_mod$centroids[2]){
+        print("swap")
+        Br6432_dlPFC[,paste0(gene,"_class")] <- ifelse(Br6432_dlPFC[,paste0(gene,"_class")] == 1,
+                                                      2, 1)
+    }
+    print(Br6432_dlPFC_mod$centroids)
+    print(table(Br6432_dlPFC[,paste0(gene,"_class")]))
+
+
+    Br8325_dlPFC_mod <- GMM(as.matrix(Br8325_dlPFC[,gene]),2)
+    Br8325_dlPFC[,paste0(gene,"_class")] <- predict_GMM(as.matrix(Br8325_dlPFC[,gene]),Br8325_dlPFC_mod$centroids,
+                                                        Br8325_dlPFC_mod$covariance_matrices, Br8325_dlPFC_mod$weights)$cluster_labels
+    if(Br8325_dlPFC_mod$centroids[1] > Br8325_dlPFC_mod$centroids[2]){
+        print("swap")
+        Br8325_dlPFC[,paste0(gene,"_class")] <- ifelse(Br8325_dlPFC[,paste0(gene,"_class")] == 1,
+                                                       2, 1)
+    }
+    print(Br8325_dlPFC_mod$centroids)
+    print(table(Br8325_dlPFC[,paste0(gene,"_class")]))
+
+    Br8325_left_dACC_mod <- GMM(as.matrix(Br8325_left_dACC[,gene]),2)
+    Br8325_left_dACC[,paste0(gene,"_class")] <- predict_GMM(as.matrix(Br8325_left_dACC[,gene]),Br8325_left_dACC_mod$centroids,
+                                                        Br8325_left_dACC_mod$covariance_matrices, Br8325_left_dACC_mod$weights)$cluster_labels
+    if(Br8325_left_dACC_mod$centroids[1] > Br8325_left_dACC_mod$centroids[2]){
+        print("swap")
+        Br8325_left_dACC[,paste0(gene,"_class")] <- ifelse(Br8325_left_dACC[,paste0(gene,"_class")] == 1,
+                                                       2, 1)
+    }
+    print(Br8325_left_dACC_mod$centroids)
+    print(table(Br8325_left_dACC[,paste0(gene,"_class")]))
+
+    Br8325_right_dACC_mod <- GMM(as.matrix(Br8325_right_dACC[,gene]),2)
+    Br8325_right_dACC[,paste0(gene,"_class")] <- predict_GMM(as.matrix(Br8325_right_dACC[,gene]),Br8325_right_dACC_mod$centroids,
+                                                            Br8325_right_dACC_mod$covariance_matrices, Br8325_right_dACC_mod$weights)$cluster_labels
+    if(Br8325_right_dACC_mod$centroids[1] > Br8325_right_dACC_mod$centroids[2]){
+        print("swap")
+        Br8325_right_dACC[,paste0(gene,"_class")] <- ifelse(Br8325_right_dACC[,paste0(gene,"_class")] == 1,
+                                                           2, 1)
+    }
+    print(Br8325_right_dACC_mod$centroids)
+    print(table(Br8325_right_dACC[,paste0(gene,"_class")]))
+}
+
+# use k-means with k=2 for each gene in each sample
+set.seed(90)
+for (gene in c("POU3F1","SULF2","GABRQ")) {
+    print(gene)
+    Br6432_dACC_mod <- kmeans(Br6432_dACC[,gene],2)
+    Br6432_dACC[,paste0(gene,"_class")] <- Br6432_dACC_mod$cluster
+    if(Br6432_dACC_mod$centers[1] > Br6432_dACC_mod$centers[2]){
+        print("swap")
+        Br6432_dACC[,paste0(gene,"_class")] <- ifelse(Br6432_dACC[,paste0(gene,"_class")] == 1,
+                                                      2, 1)
+    }
+    print(Br6432_dACC_mod)
+
+    Br6432_dlPFC_mod <- kmeans(Br6432_dlPFC[,gene],2)
+    Br6432_dlPFC[,paste0(gene,"_class")] <- Br6432_dlPFC_mod$cluster
+    if(Br6432_dlPFC_mod$centers[1] > Br6432_dlPFC_mod$centers[2]){
+        print("swap")
+        Br6432_dlPFC[,paste0(gene,"_class")] <- ifelse(Br6432_dlPFC[,paste0(gene,"_class")] == 1,
+                                                       2, 1)
+    }
+    print(Br6432_dlPFC_mod)
+
+    Br8325_dlPFC_mod <- kmeans(Br8325_dlPFC[,gene],2)
+    Br8325_dlPFC[,paste0(gene,"_class")] <- Br8325_dlPFC_mod$cluster
+    if(Br8325_dlPFC_mod$centers[1] > Br8325_dlPFC_mod$centers[2]){
+        print("swap")
+        Br8325_dlPFC[,paste0(gene,"_class")] <- ifelse(Br8325_dlPFC[,paste0(gene,"_class")] == 1,
+                                                       2, 1)
+    }
+    print(Br8325_dlPFC_mod)
+
+    Br8325_left_dACC_mod <- kmeans(Br8325_left_dACC[,gene],2)
+    Br8325_left_dACC[,paste0(gene,"_class")] <- Br8325_left_dACC_mod$cluster
+    if(Br8325_left_dACC_mod$centers[1] > Br8325_left_dACC_mod$centers[2]){
+        print("swap")
+        Br8325_left_dACC[,paste0(gene,"_class")] <- ifelse(Br8325_left_dACC[,paste0(gene,"_class")] == 1,
+                                                           2, 1)
+    }
+    print(Br8325_left_dACC_mod)
+
+    Br8325_right_dACC_mod <- kmeans(Br8325_right_dACC[,gene],2)
+    Br8325_right_dACC[,paste0(gene,"_class")] <- Br8325_right_dACC_mod$cluster
+    if(Br8325_right_dACC_mod$centers[1] > Br8325_right_dACC_mod$centers[2]){
+        print("swap")
+        Br8325_right_dACC[,paste0(gene,"_class")] <- ifelse(Br8325_right_dACC[,paste0(gene,"_class")] == 1,
+                                                            2, 1)
+    }
+    print(Br8325_right_dACC_mod)
+}
+
+library(ggplot2)
+library(patchwork)
+
+# Helper function to generate histogram for one gene/sample combo
+plot_histogram <- function(data, gene, sample_name) {
+    # Convert class column to factor
+    class_col <- paste0(gene, "_class")
+    data[[class_col]] <- factor(data[[class_col]])
+
+    ggplot(data, aes_string(x = gene, fill = class_col)) +
+        geom_histogram(bins = 300, alpha = 0.8, color = "black", position = "identity") +
+        scale_fill_manual(values = c("1" = "#1f78b4", "2" = "#e31a1c")) +
+        theme_minimal() +
+        ggtitle(paste0(sample_name, " - ", gene)) +
+        xlab("Expression") +
+        ylab("Count") +
+        guides(fill = guide_legend(title = "Class")) +
+        scale_y_continuous(trans="log10")
+}
+
+
+# Create plots
+plot_list <- list()
+
+for (gene in c("POU3F1", "SULF2", "GABRQ")) {
+    plot_list[[paste0(gene, "_Br6432_dACC")]] <- plot_histogram(Br6432_dACC, gene, "Br6432_dACC")
+    plot_list[[paste0(gene, "_Br6432_dlPFC")]] <- plot_histogram(Br6432_dlPFC, gene, "Br6432_dlPFC")
+    plot_list[[paste0(gene, "_Br8325_dlPFC")]] <- plot_histogram(Br8325_dlPFC, gene, "Br8325_dlPFC")
+    plot_list[[paste0(gene, "_Br8325_left_dACC")]] <- plot_histogram(Br8325_left_dACC, gene, "Br8325_left_dACC")
+    plot_list[[paste0(gene, "_Br8325_right_dACC")]] <- plot_histogram(Br8325_right_dACC, gene, "Br8325_right_dACC")
+}
+
+# Display plots per gene
+for (gene in c("POU3F1", "SULF2", "GABRQ")) {
+    print(
+        plot_list[[paste0(gene, "_Br6432_dACC")]] +
+            plot_list[[paste0(gene, "_Br6432_dlPFC")]] +
+            plot_list[[paste0(gene, "_Br8325_dlPFC")]] +
+            plot_list[[paste0(gene, "_Br8325_left_dACC")]] +
+            plot_list[[paste0(gene, "_Br8325_right_dACC")]] +
+            plot_layout(ncol = 1)
+    )
+}
+
+
 
 datasets <- list(
     Br6432_dACC = Br6432_dACC,
@@ -269,17 +430,17 @@ expr_list <- lapply(names(datasets), function(name) {
     # Create filtered data for each gene
     bind_rows(
         dat %>%
-            filter(POU3F1_class == 3) %>%
+            filter(POU3F1_class == 2) %>%
             select(expression = POU3F1) %>%
             mutate(gene = "POU3F1", dataset = name),
 
         dat %>%
-            filter(SULF2_class == 3) %>%
+            filter(SULF2_class == 2) %>%
             select(expression = SULF2) %>%
             mutate(gene = "SULF2", dataset = name),
 
         dat %>%
-            filter(GABRQ_class == 3) %>%
+            filter(GABRQ_class == 2) %>%
             select(expression = GABRQ) %>%
             mutate(gene = "GABRQ", dataset = name)
     )
@@ -312,11 +473,11 @@ for (name in names(datasets)) {
 
     total_cells <- nrow(dat)
 
-    # coexpression counts (both == 3)
-    pou3f1_sulf2 <- sum(dat$POU3F1_class == 3 & dat$SULF2_class == 3, na.rm = TRUE)
-    pou3f1_gabrq <- sum(dat$POU3F1_class == 3 & dat$GABRQ_class == 3, na.rm = TRUE)
-    gabrq_sulf2 <- sum(dat$GABRQ_class == 3 & dat$SULF2_class == 3, na.rm = TRUE)
-    all_three <- sum(dat$POU3F1_class == 3 & dat$SULF2_class == 3 & dat$GABRQ_class == 3, na.rm = TRUE)
+    # coexpression counts (both == 2)
+    pou3f1_sulf2 <- sum(dat$POU3F1_class == 2 & dat$SULF2_class == 2, na.rm = TRUE)
+    pou3f1_gabrq <- sum(dat$POU3F1_class == 2 & dat$GABRQ_class == 2, na.rm = TRUE)
+    gabrq_sulf2 <- sum(dat$GABRQ_class == 2 & dat$SULF2_class == 2, na.rm = TRUE)
+    all_three <- sum(dat$POU3F1_class == 2 & dat$SULF2_class == 2 & dat$GABRQ_class == 2, na.rm = TRUE)
 
     coexpression_summary <- rbind(coexpression_summary, data.frame(
         dataset = name,
@@ -344,25 +505,25 @@ ggplot(coexpression_summary_long, aes(x = name, y = value, color=dataset)) +
 
 # visualize coexpression as heatmap separated for dACC and dlPFC
 
-SULF2_POU3F1 <- mean(c(dim(Br6432_dACC %>% filter(SULF2_class == 3) %>% filter(POU3F1_class == 3))[1] / dim(Br6432_dACC %>% filter(SULF2_class == 3))[1],
-                       dim(Br8325_left_dACC %>% filter(SULF2_class == 3) %>% filter(POU3F1_class == 3))[1] / dim(Br8325_left_dACC %>% filter(SULF2_class == 3))[1],
-                       dim(Br8325_right_dACC %>% filter(SULF2_class == 3) %>% filter(POU3F1_class == 3))[1] / dim(Br8325_right_dACC %>% filter(SULF2_class == 3))[1]))
-GABRQ_POU3F1 <- mean(c(dim(Br6432_dACC %>% filter(GABRQ_class == 3) %>% filter(POU3F1_class == 3))[1] / dim(Br6432_dACC %>% filter(GABRQ_class == 3))[1],
-                       dim(Br8325_left_dACC %>% filter(GABRQ_class == 3) %>% filter(POU3F1_class == 3))[1] / dim(Br8325_left_dACC %>% filter(GABRQ_class == 3))[1],
-                       dim(Br8325_right_dACC %>% filter(GABRQ_class == 3) %>% filter(POU3F1_class == 3))[1] / dim(Br8325_right_dACC %>% filter(GABRQ_class == 3))[1]))
-GABRQ_SULF2 <- mean(c(dim(Br6432_dACC %>% filter(GABRQ_class == 3) %>% filter(SULF2_class == 3))[1] / dim(Br6432_dACC %>% filter(GABRQ_class == 3))[1],
-                      dim(Br8325_left_dACC %>% filter(GABRQ_class == 3) %>% filter(SULF2_class == 3))[1] / dim(Br8325_left_dACC %>% filter(GABRQ_class == 3))[1],
-                      dim(Br8325_right_dACC %>% filter(GABRQ_class == 3) %>% filter(SULF2_class == 3))[1] / dim(Br8325_right_dACC %>% filter(GABRQ_class == 3))[1]))
+SULF2_POU3F1 <- mean(c(dim(Br6432_dACC %>% filter(SULF2_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br6432_dACC %>% filter(SULF2_class == 2))[1],
+                       dim(Br8325_left_dACC %>% filter(SULF2_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_left_dACC %>% filter(SULF2_class == 2))[1],
+                       dim(Br8325_right_dACC %>% filter(SULF2_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_right_dACC %>% filter(SULF2_class == 2))[1]))
+GABRQ_POU3F1 <- mean(c(dim(Br6432_dACC %>% filter(GABRQ_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br6432_dACC %>% filter(GABRQ_class == 2))[1],
+                       dim(Br8325_left_dACC %>% filter(GABRQ_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_left_dACC %>% filter(GABRQ_class == 2))[1],
+                       dim(Br8325_right_dACC %>% filter(GABRQ_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_right_dACC %>% filter(GABRQ_class == 2))[1]))
+GABRQ_SULF2 <- mean(c(dim(Br6432_dACC %>% filter(GABRQ_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br6432_dACC %>% filter(GABRQ_class == 2))[1],
+                      dim(Br8325_left_dACC %>% filter(GABRQ_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_left_dACC %>% filter(GABRQ_class == 2))[1],
+                      dim(Br8325_right_dACC %>% filter(GABRQ_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_right_dACC %>% filter(GABRQ_class == 2))[1]))
 
-POU3F1_SULF2 <- mean(c(dim(Br6432_dACC %>% filter(POU3F1_class == 3) %>% filter(SULF2_class == 3))[1] / dim(Br6432_dACC %>% filter(POU3F1_class == 3))[1],
-                       dim(Br8325_left_dACC %>% filter(POU3F1_class == 3) %>% filter(SULF2_class == 3))[1] / dim(Br8325_left_dACC %>% filter(POU3F1_class == 3))[1],
-                       dim(Br8325_right_dACC %>% filter(POU3F1_class == 3) %>% filter(SULF2_class == 3))[1] / dim(Br8325_right_dACC %>% filter(POU3F1_class == 3))[1]))
-POU3F1_GABRQ <- mean(c(dim(Br6432_dACC %>% filter(POU3F1_class == 3) %>% filter(GABRQ_class == 3))[1] / dim(Br6432_dACC %>% filter(POU3F1_class == 3))[1],
-                       dim(Br8325_left_dACC %>% filter(POU3F1_class == 3) %>% filter(GABRQ_class == 3))[1] / dim(Br8325_left_dACC %>% filter(POU3F1_class == 3))[1],
-                       dim(Br8325_right_dACC %>% filter(POU3F1_class == 3) %>% filter(GABRQ_class == 3))[1] / dim(Br8325_right_dACC %>% filter(POU3F1_class == 3))[1]))
-SULF2_GABRQ <- mean(c(dim(Br6432_dACC %>% filter(SULF2_class == 3) %>% filter(GABRQ_class == 3))[1] / dim(Br6432_dACC %>% filter(SULF2_class == 3))[1],
-                      dim(Br8325_left_dACC %>% filter(SULF2_class == 3) %>% filter(GABRQ_class == 3))[1] / dim(Br8325_left_dACC %>% filter(SULF2_class == 3))[1],
-                      dim(Br8325_right_dACC %>% filter(SULF2_class == 3) %>% filter(GABRQ_class == 3))[1] / dim(Br8325_right_dACC %>% filter(SULF2_class == 3))[1]))
+POU3F1_SULF2 <- mean(c(dim(Br6432_dACC %>% filter(POU3F1_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br6432_dACC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_left_dACC %>% filter(POU3F1_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_left_dACC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_right_dACC %>% filter(POU3F1_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_right_dACC %>% filter(POU3F1_class == 2))[1]))
+POU3F1_GABRQ <- mean(c(dim(Br6432_dACC %>% filter(POU3F1_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br6432_dACC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_left_dACC %>% filter(POU3F1_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_left_dACC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_right_dACC %>% filter(POU3F1_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_right_dACC %>% filter(POU3F1_class == 2))[1]))
+SULF2_GABRQ <- mean(c(dim(Br6432_dACC %>% filter(SULF2_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br6432_dACC %>% filter(SULF2_class == 2))[1],
+                      dim(Br8325_left_dACC %>% filter(SULF2_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_left_dACC %>% filter(SULF2_class == 2))[1],
+                      dim(Br8325_right_dACC %>% filter(SULF2_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_right_dACC %>% filter(SULF2_class == 2))[1]))
 
 dACC_mat <- matrix(c(NA, SULF2_POU3F1, GABRQ_POU3F1,
                      POU3F1_SULF2, NA, GABRQ_SULF2,
@@ -381,18 +542,18 @@ Heatmap(dACC_mat, na_col = "black",
             grid.text(sprintf("%.2f", dACC_mat[i, j]), x, y, gp = gpar(fontsize = 10))
         })
 
-SULF2_POU3F1 <- mean(c(dim(Br6432_dlPFC %>% filter(SULF2_class == 3) %>% filter(POU3F1_class == 3))[1] / dim(Br6432_dlPFC %>% filter(SULF2_class == 3))[1],
-                       dim(Br8325_dlPFC %>% filter(SULF2_class == 3) %>% filter(POU3F1_class == 3))[1] / dim(Br8325_dlPFC %>% filter(SULF2_class == 3))[1]))
-GABRQ_POU3F1 <- mean(c(dim(Br6432_dlPFC %>% filter(GABRQ_class == 3) %>% filter(POU3F1_class == 3))[1] / dim(Br6432_dlPFC %>% filter(GABRQ_class == 3))[1],
-                       dim(Br8325_dlPFC %>% filter(GABRQ_class == 3) %>% filter(POU3F1_class == 3))[1] / dim(Br8325_dlPFC %>% filter(GABRQ_class == 3))[1]))
-GABRQ_SULF2 <- mean(c(dim(Br6432_dlPFC %>% filter(GABRQ_class == 3) %>% filter(SULF2_class == 3))[1] / dim(Br6432_dlPFC %>% filter(GABRQ_class == 3))[1],
-                      dim(Br8325_dlPFC %>% filter(GABRQ_class == 3) %>% filter(SULF2_class == 3))[1] / dim(Br8325_dlPFC %>% filter(GABRQ_class == 3))[1]))
-POU3F1_SULF2 <- mean(c(dim(Br6432_dlPFC %>% filter(POU3F1_class == 3) %>% filter(SULF2_class == 3))[1] / dim(Br6432_dlPFC %>% filter(POU3F1_class == 3))[1],
-                       dim(Br8325_dlPFC %>% filter(POU3F1_class == 3) %>% filter(SULF2_class == 3))[1] / dim(Br8325_dlPFC %>% filter(POU3F1_class == 3))[1]))
-POU3F1_GABRQ <- mean(c(dim(Br6432_dlPFC %>% filter(POU3F1_class == 3) %>% filter(GABRQ_class == 3))[1] / dim(Br6432_dlPFC %>% filter(POU3F1_class == 3))[1],
-                       dim(Br8325_dlPFC %>% filter(POU3F1_class == 3) %>% filter(GABRQ_class == 3))[1] / dim(Br8325_dlPFC %>% filter(POU3F1_class == 3))[1]))
-SULF2_GABRQ <- mean(c(dim(Br6432_dlPFC %>% filter(SULF2_class == 3) %>% filter(GABRQ_class == 3))[1] / dim(Br6432_dlPFC %>% filter(SULF2_class == 3))[1],
-                      dim(Br8325_dlPFC %>% filter(SULF2_class == 3) %>% filter(GABRQ_class == 3))[1] / dim(Br8325_dlPFC %>% filter(SULF2_class == 3))[1]))
+SULF2_POU3F1 <- mean(c(dim(Br6432_dlPFC %>% filter(SULF2_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br6432_dlPFC %>% filter(SULF2_class == 2))[1],
+                       dim(Br8325_dlPFC %>% filter(SULF2_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_dlPFC %>% filter(SULF2_class == 2))[1]))
+GABRQ_POU3F1 <- mean(c(dim(Br6432_dlPFC %>% filter(GABRQ_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br6432_dlPFC %>% filter(GABRQ_class == 2))[1],
+                       dim(Br8325_dlPFC %>% filter(GABRQ_class == 2) %>% filter(POU3F1_class == 2))[1] / dim(Br8325_dlPFC %>% filter(GABRQ_class == 2))[1]))
+GABRQ_SULF2 <- mean(c(dim(Br6432_dlPFC %>% filter(GABRQ_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br6432_dlPFC %>% filter(GABRQ_class == 2))[1],
+                      dim(Br8325_dlPFC %>% filter(GABRQ_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_dlPFC %>% filter(GABRQ_class == 2))[1]))
+POU3F1_SULF2 <- mean(c(dim(Br6432_dlPFC %>% filter(POU3F1_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br6432_dlPFC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_dlPFC %>% filter(POU3F1_class == 2) %>% filter(SULF2_class == 2))[1] / dim(Br8325_dlPFC %>% filter(POU3F1_class == 2))[1]))
+POU3F1_GABRQ <- mean(c(dim(Br6432_dlPFC %>% filter(POU3F1_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br6432_dlPFC %>% filter(POU3F1_class == 2))[1],
+                       dim(Br8325_dlPFC %>% filter(POU3F1_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_dlPFC %>% filter(POU3F1_class == 2))[1]))
+SULF2_GABRQ <- mean(c(dim(Br6432_dlPFC %>% filter(SULF2_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br6432_dlPFC %>% filter(SULF2_class == 2))[1],
+                      dim(Br8325_dlPFC %>% filter(SULF2_class == 2) %>% filter(GABRQ_class == 2))[1] / dim(Br8325_dlPFC %>% filter(SULF2_class == 2))[1]))
 
 
 dlPFC_mat <- matrix(c(NA, SULF2_POU3F1, GABRQ_POU3F1,
@@ -411,7 +572,6 @@ Heatmap(dlPFC_mat, na_col = "black",
         cell_fun = function(j, i, x, y, width, height, fill) {
             grid.text(sprintf("%.2f", dlPFC_mat[i, j]), x, y, gp = gpar(fontsize = 10))
         })
-
 
 
 # compute correlations
