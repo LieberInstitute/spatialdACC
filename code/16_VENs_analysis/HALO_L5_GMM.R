@@ -10,6 +10,7 @@ library(scater)
 library(ComplexHeatmap)
 library(circlize)
 library(ClusterR)
+library(gridExtra)
 
 setwd("../../../Downloads/Data")
 
@@ -26,23 +27,23 @@ Br8325_right_dACC <- df[which(df$Algorithm.Name=="Vens dACC right 8325.2"),]
 cols <- c("X25xSil.Opal.520.Copies", "X20x.Opal.570.Copies",
           "X20x.Opal.620.Copies", "X20x.Opal.690.Copies")
 
-Br6432_dACC_nucleus_area <- Br6432_dACC$Nucleus.Area..µm..
+Br6432_dACC_Cell_area <- Br6432_dACC$Cell.Area..µm..
 Br6432_dACC <- Br6432_dACC[,cols]
 colnames(Br6432_dACC) <- c("PCP4", "POU3F1", "SULF2", "GABRQ")
 
-Br6432_dlPFC_nucleus_area <- Br6432_dlPFC$Nucleus.Area..µm..
+Br6432_dlPFC_Cell_area <- Br6432_dlPFC$Cell.Area..µm..
 Br6432_dlPFC <- Br6432_dlPFC[,cols]
 colnames(Br6432_dlPFC) <- c("PCP4", "POU3F1", "SULF2", "GABRQ")
 
-Br8325_dlPFC_nucleus_area <- Br8325_dlPFC$Nucleus.Area..µm..
+Br8325_dlPFC_Cell_area <- Br8325_dlPFC$Cell.Area..µm..
 Br8325_dlPFC <- Br8325_dlPFC[,cols]
 colnames(Br8325_dlPFC) <- c("PCP4", "POU3F1", "SULF2", "GABRQ")
 
-Br8325_left_dACC_nucleus_area <- Br8325_left_dACC$Nucleus.Area..µm..
+Br8325_left_dACC_Cell_area <- Br8325_left_dACC$Cell.Area..µm..
 Br8325_left_dACC <- Br8325_left_dACC[,cols]
 colnames(Br8325_left_dACC) <- c("PCP4", "POU3F1", "SULF2", "GABRQ")
 
-Br8325_right_dACC_nucleus_area <- Br8325_right_dACC$Nucleus.Area..µm..
+Br8325_right_dACC_Cell_area <- Br8325_right_dACC$Cell.Area..µm..
 Br8325_right_dACC <- Br8325_right_dACC[,cols]
 colnames(Br8325_right_dACC) <- c("PCP4", "POU3F1", "SULF2", "GABRQ")
 
@@ -109,24 +110,24 @@ p4 <- ggplot(long_df[which(long_df$gene=="SULF2"),], aes(x = gene, y = expressio
 
 wrap_plots(p1,p2,p3,p4, nrow=2, guides="collect")
 
-# boxplots of nucleus area
+# boxplots of Cell area
 df <- data.frame(
-    Area = c(Br6432_dACC_nucleus_area,
-             Br6432_dlPFC_nucleus_area,
-             Br8325_dlPFC_nucleus_area,
-             Br8325_left_dACC_nucleus_area,
-             Br8325_right_dACC_nucleus_area),
-    Dataset = c(rep("Br6432_dACC", length(Br6432_dACC_nucleus_area)),
-                rep("Br6432_dlPFC", length(Br6432_dlPFC_nucleus_area)),
-                rep("Br8325_dlPFC", length(Br8325_dlPFC_nucleus_area)),
-                rep("Br8325_left_dACC", length(Br8325_left_dACC_nucleus_area)),
-                rep("Br8325_right_dACC", length(Br8325_right_dACC_nucleus_area)))
+    Area = c(Br6432_dACC_Cell_area,
+             Br6432_dlPFC_Cell_area,
+             Br8325_dlPFC_Cell_area,
+             Br8325_left_dACC_Cell_area,
+             Br8325_right_dACC_Cell_area),
+    Dataset = c(rep("Br6432_dACC", length(Br6432_dACC_Cell_area)),
+                rep("Br6432_dlPFC", length(Br6432_dlPFC_Cell_area)),
+                rep("Br8325_dlPFC", length(Br8325_dlPFC_Cell_area)),
+                rep("Br8325_left_dACC", length(Br8325_left_dACC_Cell_area)),
+                rep("Br8325_right_dACC", length(Br8325_right_dACC_Cell_area)))
 )
 
 ggplot(df, aes(x = Dataset, y = Area, color=Dataset)) +
     geom_boxplot(position = position_dodge(0.8)) +
     theme_minimal() +
-    labs(x = "Dataset", y = "Nucleus Area", color = "Dataset") +
+    labs(x = "Dataset", y = "Cell Area", color = "Dataset") +
     scale_fill_brewer(palette = "Set2") +
     theme(axis.title.x=element_blank(),
           axis.text.x=element_blank(),
@@ -136,11 +137,11 @@ ggplot(df, aes(x = Dataset, y = Area, color=Dataset)) +
 # similar to block 9
 # https://github.com/LylaAtta123/normalization-analyses/blob/main/R/cosmx.ipynb
 # for nucleus area normalization, scale by current nucleus area / median nucleus area
-scale_Br6432_dACC <- Br6432_dACC_nucleus_area/median(Br6432_dACC_nucleus_area)
-scale_Br6432_dlPFC <- Br6432_dlPFC_nucleus_area/median(Br6432_dlPFC_nucleus_area)
-scale_Br8325_dlPFC <- Br8325_dlPFC_nucleus_area/median(Br8325_dlPFC_nucleus_area)
-scale_Br8325_left_dACC <- Br8325_left_dACC_nucleus_area/median(Br8325_left_dACC_nucleus_area)
-scale_Br8325_right_dACC <- Br8325_right_dACC_nucleus_area/median(Br8325_right_dACC_nucleus_area)
+scale_Br6432_dACC <- Br6432_dACC_Cell_area/median(Br6432_dACC_Cell_area)
+scale_Br6432_dlPFC <- Br6432_dlPFC_Cell_area/median(Br6432_dlPFC_Cell_area)
+scale_Br8325_dlPFC <- Br8325_dlPFC_Cell_area/median(Br8325_dlPFC_Cell_area)
+scale_Br8325_left_dACC <- Br8325_left_dACC_Cell_area/median(Br8325_left_dACC_Cell_area)
+scale_Br8325_right_dACC <- Br8325_right_dACC_Cell_area/median(Br8325_right_dACC_Cell_area)
 
 Br6432_dACC <- Br6432_dACC/scale_Br6432_dACC
 Br6432_dlPFC <- Br6432_dlPFC/scale_Br6432_dlPFC
@@ -196,155 +197,51 @@ p4 <- ggplot(long_df[which(long_df$gene=="SULF2"),], aes(x = gene, y = expressio
 wrap_plots(p1,p2,p3,p4, nrow=2, guides="collect")
 
 # use GMM for each gene in each sample
-# wanted to use "V" for unequal variances, but this does not run?
+
+#use log1p transformation
+Br6432_dACC <- log1p(Br6432_dACC)
+Br6432_dlPFC <- log1p(Br6432_dlPFC)
+Br8325_dlPFC <- log1p(Br8325_dlPFC)
+Br8325_left_dACC <- log1p(Br8325_left_dACC)
+Br8325_right_dACC <- log1p(Br8325_right_dACC)
+
+
 set.seed(90)
 for (gene in c("POU3F1","SULF2","GABRQ")) {
     print(gene)
-    Br6432_dACC_mod <- Mclust(Br6432_dACC[,gene],2,modelNames="V")
+    Br6432_dACC_mod <- Mclust(Br6432_dACC[,gene],2,modelNames="E")
     Br6432_dACC[,paste0(gene,"_class")] <- Br6432_dACC_mod$classification
     print(summary(Br6432_dACC_mod, parameters=T))
     print(plot.Mclust(Br6432_dACC_mod, what="classification"), xlab=gene)
 
-    Br6432_dlPFC_mod <- Mclust(Br6432_dlPFC[,gene],2,modelNames="V")
+    Br6432_dlPFC_mod <- Mclust(Br6432_dlPFC[,gene],2,modelNames="E")
     Br6432_dlPFC[,paste0(gene,"_class")] <- Br6432_dlPFC_mod$classification
     print(summary(Br6432_dlPFC_mod, parameters=T))
     print(plot.Mclust(Br6432_dlPFC_mod, what="classification"), xlab=gene)
 
-    Br8325_dlPFC_mod <- Mclust(Br8325_dlPFC[,gene],2,modelNames="V")
+    Br8325_dlPFC_mod <- Mclust(Br8325_dlPFC[,gene],2,modelNames="E")
     Br8325_dlPFC[,paste0(gene,"_class")] <- Br8325_dlPFC_mod$classification
     print(summary(Br8325_dlPFC_mod, parameters=T))
     print(plot.Mclust(Br8325_dlPFC_mod, what="classification"), xlab=gene)
 
-    Br8325_left_dACC_mod <- Mclust(Br8325_left_dACC[,gene],2,modelNames="V")
+    Br8325_left_dACC_mod <- Mclust(Br8325_left_dACC[,gene],2,modelNames="E")
     Br8325_left_dACC[,paste0(gene,"_class")] <- Br8325_left_dACC_mod$classification
     print(summary(Br8325_left_dACC_mod, parameters=T))
     print(plot.Mclust(Br8325_left_dACC_mod, what="classification"), xlab=gene)
 
-    Br8325_right_dACC_mod <- Mclust(Br8325_right_dACC[,gene],2,modelNames="V")
+    Br8325_right_dACC_mod <- Mclust(Br8325_right_dACC[,gene],2,modelNames="E")
     Br8325_right_dACC[,paste0(gene,"_class")] <- Br8325_right_dACC_mod$classification
     print(summary(Br8325_right_dACC_mod, parameters=T))
     print(plot.Mclust(Br8325_right_dACC_mod, what="classification"), xlab=gene)
 }
+#undo log1p transformation
+Br6432_dACC[,c(1:4)] <- expm1(Br6432_dACC[,c(1:4)])
+Br6432_dlPFC[,c(1:4)] <- expm1(Br6432_dlPFC[,c(1:4)])
+Br8325_dlPFC[,c(1:4)] <- expm1(Br8325_dlPFC[,c(1:4)])
+Br8325_left_dACC[,c(1:4)] <- expm1(Br8325_left_dACC[,c(1:4)])
+Br8325_right_dACC[,c(1:4)] <- expm1(Br8325_right_dACC[,c(1:4)])
 
-
-# use GMM for each gene in each sample
-# this function does not require the equal variance assumption, which is better for this data
-set.seed(90)
-for (gene in c("POU3F1","SULF2","GABRQ")) {
-    print(gene)
-    Br6432_dACC_mod <- GMM(as.matrix(Br6432_dACC[,gene]),2)
-    Br6432_dACC[,paste0(gene,"_class")] <- predict_GMM(as.matrix(Br6432_dACC[,gene]),Br6432_dACC_mod$centroids,
-                                                       Br6432_dACC_mod$covariance_matrices, Br6432_dACC_mod$weights)$cluster_labels
-    if(Br6432_dACC_mod$centroids[1] > Br6432_dACC_mod$centroids[2]){
-        print("swap")
-        Br6432_dACC[,paste0(gene,"_class")] <- ifelse(Br6432_dACC[,paste0(gene,"_class")] == 1,
-               2, 1)
-    }
-    print(Br6432_dACC_mod$centroids)
-    print(table(Br6432_dACC[,paste0(gene,"_class")]))
-
-    Br6432_dlPFC_mod <- GMM(as.matrix(Br6432_dlPFC[,gene]),2)
-    Br6432_dlPFC[,paste0(gene,"_class")] <- predict_GMM(as.matrix(Br6432_dlPFC[,gene]),Br6432_dlPFC_mod$centroids,
-                                                       Br6432_dlPFC_mod$covariance_matrices, Br6432_dlPFC_mod$weights)$cluster_labels
-    if(Br6432_dlPFC_mod$centroids[1] > Br6432_dlPFC_mod$centroids[2]){
-        print("swap")
-        Br6432_dlPFC[,paste0(gene,"_class")] <- ifelse(Br6432_dlPFC[,paste0(gene,"_class")] == 1,
-                                                      2, 1)
-    }
-    print(Br6432_dlPFC_mod$centroids)
-    print(table(Br6432_dlPFC[,paste0(gene,"_class")]))
-
-
-    Br8325_dlPFC_mod <- GMM(as.matrix(Br8325_dlPFC[,gene]),2)
-    Br8325_dlPFC[,paste0(gene,"_class")] <- predict_GMM(as.matrix(Br8325_dlPFC[,gene]),Br8325_dlPFC_mod$centroids,
-                                                        Br8325_dlPFC_mod$covariance_matrices, Br8325_dlPFC_mod$weights)$cluster_labels
-    if(Br8325_dlPFC_mod$centroids[1] > Br8325_dlPFC_mod$centroids[2]){
-        print("swap")
-        Br8325_dlPFC[,paste0(gene,"_class")] <- ifelse(Br8325_dlPFC[,paste0(gene,"_class")] == 1,
-                                                       2, 1)
-    }
-    print(Br8325_dlPFC_mod$centroids)
-    print(table(Br8325_dlPFC[,paste0(gene,"_class")]))
-
-    Br8325_left_dACC_mod <- GMM(as.matrix(Br8325_left_dACC[,gene]),2)
-    Br8325_left_dACC[,paste0(gene,"_class")] <- predict_GMM(as.matrix(Br8325_left_dACC[,gene]),Br8325_left_dACC_mod$centroids,
-                                                        Br8325_left_dACC_mod$covariance_matrices, Br8325_left_dACC_mod$weights)$cluster_labels
-    if(Br8325_left_dACC_mod$centroids[1] > Br8325_left_dACC_mod$centroids[2]){
-        print("swap")
-        Br8325_left_dACC[,paste0(gene,"_class")] <- ifelse(Br8325_left_dACC[,paste0(gene,"_class")] == 1,
-                                                       2, 1)
-    }
-    print(Br8325_left_dACC_mod$centroids)
-    print(table(Br8325_left_dACC[,paste0(gene,"_class")]))
-
-    Br8325_right_dACC_mod <- GMM(as.matrix(Br8325_right_dACC[,gene]),2)
-    Br8325_right_dACC[,paste0(gene,"_class")] <- predict_GMM(as.matrix(Br8325_right_dACC[,gene]),Br8325_right_dACC_mod$centroids,
-                                                            Br8325_right_dACC_mod$covariance_matrices, Br8325_right_dACC_mod$weights)$cluster_labels
-    if(Br8325_right_dACC_mod$centroids[1] > Br8325_right_dACC_mod$centroids[2]){
-        print("swap")
-        Br8325_right_dACC[,paste0(gene,"_class")] <- ifelse(Br8325_right_dACC[,paste0(gene,"_class")] == 1,
-                                                           2, 1)
-    }
-    print(Br8325_right_dACC_mod$centroids)
-    print(table(Br8325_right_dACC[,paste0(gene,"_class")]))
-}
-
-# use k-means with k=2 for each gene in each sample
-set.seed(90)
-for (gene in c("POU3F1","SULF2","GABRQ")) {
-    print(gene)
-    Br6432_dACC_mod <- kmeans(Br6432_dACC[,gene],2)
-    Br6432_dACC[,paste0(gene,"_class")] <- Br6432_dACC_mod$cluster
-    if(Br6432_dACC_mod$centers[1] > Br6432_dACC_mod$centers[2]){
-        print("swap")
-        Br6432_dACC[,paste0(gene,"_class")] <- ifelse(Br6432_dACC[,paste0(gene,"_class")] == 1,
-                                                      2, 1)
-    }
-    print(Br6432_dACC_mod)
-
-    Br6432_dlPFC_mod <- kmeans(Br6432_dlPFC[,gene],2)
-    Br6432_dlPFC[,paste0(gene,"_class")] <- Br6432_dlPFC_mod$cluster
-    if(Br6432_dlPFC_mod$centers[1] > Br6432_dlPFC_mod$centers[2]){
-        print("swap")
-        Br6432_dlPFC[,paste0(gene,"_class")] <- ifelse(Br6432_dlPFC[,paste0(gene,"_class")] == 1,
-                                                       2, 1)
-    }
-    print(Br6432_dlPFC_mod)
-
-    Br8325_dlPFC_mod <- kmeans(Br8325_dlPFC[,gene],2)
-    Br8325_dlPFC[,paste0(gene,"_class")] <- Br8325_dlPFC_mod$cluster
-    if(Br8325_dlPFC_mod$centers[1] > Br8325_dlPFC_mod$centers[2]){
-        print("swap")
-        Br8325_dlPFC[,paste0(gene,"_class")] <- ifelse(Br8325_dlPFC[,paste0(gene,"_class")] == 1,
-                                                       2, 1)
-    }
-    print(Br8325_dlPFC_mod)
-
-    Br8325_left_dACC_mod <- kmeans(Br8325_left_dACC[,gene],2)
-    Br8325_left_dACC[,paste0(gene,"_class")] <- Br8325_left_dACC_mod$cluster
-    if(Br8325_left_dACC_mod$centers[1] > Br8325_left_dACC_mod$centers[2]){
-        print("swap")
-        Br8325_left_dACC[,paste0(gene,"_class")] <- ifelse(Br8325_left_dACC[,paste0(gene,"_class")] == 1,
-                                                           2, 1)
-    }
-    print(Br8325_left_dACC_mod)
-
-    Br8325_right_dACC_mod <- kmeans(Br8325_right_dACC[,gene],2)
-    Br8325_right_dACC[,paste0(gene,"_class")] <- Br8325_right_dACC_mod$cluster
-    if(Br8325_right_dACC_mod$centers[1] > Br8325_right_dACC_mod$centers[2]){
-        print("swap")
-        Br8325_right_dACC[,paste0(gene,"_class")] <- ifelse(Br8325_right_dACC[,paste0(gene,"_class")] == 1,
-                                                            2, 1)
-    }
-    print(Br8325_right_dACC_mod)
-}
-
-library(ggplot2)
-library(patchwork)
-
-# Helper function to generate histogram for one gene/sample combo
 plot_histogram <- function(data, gene, sample_name) {
-    # Convert class column to factor
     class_col <- paste0(gene, "_class")
     data[[class_col]] <- factor(data[[class_col]])
 
@@ -360,7 +257,6 @@ plot_histogram <- function(data, gene, sample_name) {
 }
 
 
-# Create plots
 plot_list <- list()
 
 for (gene in c("POU3F1", "SULF2", "GABRQ")) {
@@ -371,7 +267,6 @@ for (gene in c("POU3F1", "SULF2", "GABRQ")) {
     plot_list[[paste0(gene, "_Br8325_right_dACC")]] <- plot_histogram(Br8325_right_dACC, gene, "Br8325_right_dACC")
 }
 
-# Display plots per gene
 for (gene in c("POU3F1", "SULF2", "GABRQ")) {
     print(
         plot_list[[paste0(gene, "_Br6432_dACC")]] +
@@ -416,11 +311,22 @@ prop_df <- long_df %>%
 
 prop_df$class <- as.factor(prop_df$class)
 
-ggplot(prop_df[which(prop_df$class==2),], aes(x = gene, y = proportion, color=dataset)) +
-    geom_jitter() +
+prop_df$Brain <- str_split_fixed(prop_df$dataset,"_",2)[,1]
+prop_df$Region <- sub(".*_", "", prop_df$dataset)
+
+prop_df$gene <- str_split_fixed(prop_df$gene,"_",2)[,1]
+
+prop_df$gene <- reorder(prop_df$gene, prop_df$proportion, FUN = median)
+
+s1 <- ggplot(prop_df[which(prop_df$class == 2),],
+       aes(x = gene, y = proportion, color = Region, shape = Brain)) +
+    geom_point(position = position_dodge(width = 0.6), size = 3) +
+    scale_color_manual(values=c("dACC"="blue","dlPFC"="gold")) +
     theme_bw() +
-    labs(x = "Gene", y = "Proportion", title = "Classification Proportions Across Datasets and Genes") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    labs(x = "Gene", y = "Proportion Expressed", title = "Classification Proportion using GMM") +
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+    guides(color = guide_legend(override.aes = list(shape = 16)))
+
 
 # plot distribution of expression for classification = 2
 
@@ -448,7 +354,11 @@ expr_list <- lapply(names(datasets), function(name) {
 
 expr_df <- bind_rows(expr_list)
 
-ggplot(expr_df, aes(x = gene, y = expression, fill = dataset)) +
+expr_df$brain <- str_split_fixed(expr_df$dataset,"_",2)[,1]
+expr_df$region <- sub(".*_", "", expr_df$dataset)
+
+
+ggplot(expr_df, aes(x = gene, y = expression, fill = region,color=brain)) +
     geom_boxplot() +
     theme_bw() +
     labs(x = "Gene", y = "Expression", title = "Gene Expression (``Expressed`` Cells Only)") +
@@ -497,11 +407,18 @@ print(coexpression_summary)
 coexpression_summary_long <- pivot_longer(coexpression_summary,
                                           cols=POU3F1_SULF2_prop:all_3_prop)
 
-ggplot(coexpression_summary_long, aes(x = name, y = value, color=dataset)) +
-    geom_jitter() +
+coexpression_summary_long$Brain <- str_split_fixed(coexpression_summary_long$dataset,"_",2)[,1]
+coexpression_summary_long$Region <- sub(".*_", "", coexpression_summary_long$dataset)
+
+coexpression_summary_long$name <- reorder(coexpression_summary_long$name, coexpression_summary_long$value, FUN = median)
+
+s2 <- ggplot(coexpression_summary_long, aes(x = name, y = value, color=Region,shape=Brain)) +
+    geom_point(position = position_dodge(width = 0.6), size = 3) +
+    scale_color_manual(values=c("dACC"="blue","dlPFC"="gold")) +
     theme_bw() +
-    labs(x = "Group", y = "Proportion Coexpression", title = "Coexpression Proportions Across Datasets and Genes") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    scale_x_discrete(labels=c('All 3', 'POU3F1 &\nSULF2', 'GABRQ &\nSULF2', 'POU3F1 &\nGABRQ')) +
+    labs(x = "Group", y = "Proportion Coexpression", title = "Coexpression Proportion") +
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
 
 # visualize coexpression as heatmap separated for dACC and dlPFC
 
@@ -531,9 +448,9 @@ dACC_mat <- matrix(c(NA, SULF2_POU3F1, GABRQ_POU3F1,
 rownames(dACC_mat) <- c("POU3F1","SULF2","GABRQ")
 colnames(dACC_mat) <- c("POU3F1","SULF2","GABRQ")
 
-col_fun <- colorRamp2(c(0, 0.5, 1), c("red", "green", "purple"))
+col_fun <- colorRamp2(c(0, 0.45), c("white", "red"))
 
-Heatmap(dACC_mat, na_col = "black",
+p1 <- Heatmap(dACC_mat, na_col = "black",
         cluster_rows = FALSE, cluster_columns = FALSE,
         col = col_fun, row_names_side = "left", column_names_side = "top",
         column_names_rot = 0, column_names_centered = T,
@@ -562,9 +479,9 @@ dlPFC_mat <- matrix(c(NA, SULF2_POU3F1, GABRQ_POU3F1,
 rownames(dlPFC_mat) <- c("POU3F1","SULF2","GABRQ")
 colnames(dlPFC_mat) <- c("POU3F1","SULF2","GABRQ")
 
-col_fun <- colorRamp2(c(0, 0.5, 1), c("red", "green", "purple"))
+col_fun <- colorRamp2(c(0, 0.45), c("white", "red"))
 
-Heatmap(dlPFC_mat, na_col = "black",
+p2 <- Heatmap(dlPFC_mat, na_col = "black",
         cluster_rows = FALSE, cluster_columns = FALSE,
         col = col_fun, row_names_side = "left", column_names_side = "top",
         column_names_rot = 0, column_names_centered = T,
@@ -573,6 +490,13 @@ Heatmap(dlPFC_mat, na_col = "black",
             grid.text(sprintf("%.2f", dlPFC_mat[i, j]), x, y, gp = gpar(fontsize = 10))
         })
 
+png("dACC_overlaps.png",unit="in", res=300,height=2.5,width=4)
+p1
+dev.off()
+
+png("dlPFC_overlaps.png",unit="in", res=300,height=2.5,width=4)
+p2
+dev.off()
 
 # compute correlations
 # make df of correlations
@@ -595,16 +519,42 @@ corr_list <- c(cor(Br6432_dACC$POU3F1, Br6432_dACC$SULF2, method="spearman"),
 region_list <- c(rep("dACC",3), rep("dlPFC",3), rep("dlPFC",3),
                  rep("dACC",3), rep("dACC",3))
 
+brain_list <- c(rep("Br6432",3), rep("Br6432",3), rep("Br8325",3),
+                rep("Br8325",3), rep("Br8325",3))
+
 genes_list <- c(rep(c("POU3F1 & SULF2","POU3F1 & GABRQ","GABRQ & SULF2"),5))
 
 df <- data.frame(
     Correlation = corr_list,
     Region = region_list,
+    Brain = brain_list,
     Genes = genes_list
 )
 
-ggplot(df, aes(x=Genes, y=Correlation, color=Region)) +
-    geom_point() +
+s4 <- ggplot(df, aes(
+    x = Genes, y = Correlation, color = Region, shape = Brain
+)) +
+    geom_point(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.6), size = 3) +
+    scale_color_manual(values = c("dACC" = "blue", "dlPFC" = "gold")) +
+    scale_x_discrete(labels = c('GABRQ &\nSULF2', 'POU3F1 &\nGABRQ', 'POU3F1 &\nSULF2')) +
+    labs(
+        x = "Group",
+        y = "Spearman's Correlation",
+        title = "Pairwise Correlation"
+    ) +
     theme_bw() +
-    theme(axis.text.x = element_text(angle = 45, hjust=1))
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
 
+
+df <- data.frame(x=Br8325_left_dACC$POU3F1,
+                    y=Br8325_left_dACC$SULF2)
+s3 <- ggplot(df, aes(x=x,y=y)) +
+    geom_point(size=0.5, color="blue") +
+    geom_smooth(se=F, color="black")  +
+    annotate("text", x=60, y=60, label= "Spearman's\ncorrelation=0.37") +
+    xlab("POU3F1 Copies") +
+    ylab("SULF2 Copies") +
+    ggtitle("Br8325 left dACC Correlation") +
+    theme_bw()
+
+wrap_plots(s1,s2,s3,s4,nrow=2) + plot_annotation(tag_levels = 'A')
