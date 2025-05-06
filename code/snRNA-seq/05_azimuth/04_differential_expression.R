@@ -186,3 +186,51 @@ wrap_plots(plot_list[["Astro"]],plot_list[["Endo"]],plot_list[["Lamp5"]],plot_li
            nrow=4, guides="collect") & theme(legend.position = 'bottom')
 
 dev.off()
+
+# DE between L5 ET and L5 IT
+# want the positive x-axis to be L5 ET
+
+# create volcano plot of pairwise comparison of NMF_38 and NMF_61
+#volcano plots
+thresh_fdr <- 0.05
+thresh_logfc <- log2(1.5)
+
+fdrs <- modeling_results[["pairwise"]][,paste0("fdr_", "L5_ET-L5_IT")]
+logfc <- modeling_results[["pairwise"]][,paste0("logFC_", "L5_ET-L5_IT")]
+#flip so L5 ET is positive
+logfc <- -logfc
+
+sig <- (fdrs < thresh_fdr) & (abs(logfc) > thresh_logfc)
+print(table(sig))
+
+df_list <- data.frame(
+    gene_name = modeling_results[["pairwise"]]$gene,
+    logFC = -logfc,
+    FDR = fdrs,
+    sig = sig
+)
+
+pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "volcano_plots_L5_IT_L5_ET.pdf"),
+    width = 7, height = 6)
+
+print(EnhancedVolcano(df_list,
+                      lab = df_list$gene_name,
+                      x = 'logFC',
+                      y = 'FDR',
+                      xlim = c(-3, 5),
+                      ylim = c(0, -log10(10e-22)),
+                      legendPosition = "bottom",
+                      selectLab = c("VAT1L", "POU3F1", "SULF2", "HAPLN4", "LYPD1", "FEZF2", "GABRQ"),
+                      FCcutoff = 1.5,
+                      pCutoff = 0.05,
+                      labSize = 7.0,
+                      ylab = "-log10 FDR",
+                      legendLabels = c('Not sig.','LogFC','FDR',
+                                       'FDR & LogFC'),
+                      title = "L5 ET vs. L5 IT",
+                      subtitle = "",
+                      caption = ""
+)
+)
+
+dev.off()
