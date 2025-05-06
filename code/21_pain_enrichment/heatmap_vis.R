@@ -18,6 +18,12 @@ colnames(combined_pvalues_ordered_sn_pain)[1] <- "Pain Down"
 colnames(combined_pvalues_ordered_spatial_pain)[2] <- "Pain Up"
 colnames(combined_pvalues_ordered_sn_pain)[2] <- "Pain Up"
 
+# re order spatial by L1-WM
+combined_pvalues_ordered_spatial_bulk <- combined_pvalues_ordered_spatial_bulk[c(1,3,7,5,6,4,2),]
+
+combined_pvalues_ordered_spatial_pain <- combined_pvalues_ordered_spatial_pain[c(4,6,5,7,2,1,3),]
+
+
 common_height <- unit(5, "mm")
 common_width <- unit(5, "mm")
 
