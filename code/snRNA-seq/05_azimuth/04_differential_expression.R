@@ -234,3 +234,77 @@ print(EnhancedVolcano(df_list,
 )
 
 dev.off()
+
+# connect with NMF factors logFC
+suppressPackageStartupMessages({
+    library("scater")
+    library("spatialLIBD")
+    library("dplyr")
+    library('EnhancedVolcano')
+    library('ggrepel')
+    library("patchwork")
+})
+
+
+load(file=here("processed-data", "13_NMF", "DE_NMF38_61.Rdata"))
+modeling_results_NMF <- modeling_results
+
+load(file = here("processed-data", "snRNA-seq", "05_azimuth", "azimuth_DE_results.Rdata"))
+modeling_results_snRNA <- modeling_results
+
+# intersect genes
+genes_NMF <- rownames(modeling_results_NMF[["pairwise"]])
+genes_snRNA <- rownames(modeling_results_snRNA[["pairwise"]])
+genes_intersect <- intersect(genes_NMF, genes_snRNA)
+NMF_results <- modeling_results_NMF[["pairwise"]][genes_intersect,]
+snRNA_results <- modeling_results_snRNA[["pairwise"]][genes_intersect,]
+
+genes <- NMF_results[, "gene"]
+NMF_logFC <- NMF_results[, paste0("logFC_", "NMF_38-NMF_61")]
+NMF_logFC <- -NMF_logFC
+snRNA_logFC <- snRNA_results[, paste0("logFC_", "L5_ET-L5_IT")]
+corr_val <- cor.test(NMF_logFC, snRNA_logFC)
+
+# create data frame
+df_layer <- data.frame(
+    gene = genes,
+    NMF_logFC = NMF_logFC,
+    snRNA_logFC = snRNA_logFC
+)
+
+df_layer$color <- with(df_layer, ifelse(
+    NMF_logFC > 1.25 & snRNA_logFC > 1.25, "cell type & NMF enriched",
+    ifelse(NMF_logFC > 1.25 & snRNA_logFC < 1.25, "NMF enriched",
+           ifelse(snRNA_logFC > 1.25 & NMF_logFC < 1.25, "cell type enriched", "None")
+    )
+))
+
+genes_to_label_L5 <- c("PCP4", "TRABD2A", "MEPE", "CD24", "CD52", "FDPS", "DRD5", "GYG1", "ITGB1BP1",
+                       "VAT1L", "SULF2", "HAPLN4", "GABRQ", "FEZF2", "POU3F1")
+
+# plot
+p <- ggplot(df_layer, aes(x = NMF_logFC, y = snRNA_logFC)) +
+    geom_point(aes(color = color), size=0.5) +
+    scale_color_manual(values = c("cell type & NMF enriched" = "purple",
+                                  "NMF enriched" = "red",
+                                  "cell type enriched" = "blue",
+                                  "Neither" = "grey")) +
+    geom_text_repel(aes(label = ifelse(gene %in% genes_to_label_L5, gene, "")), size = 3, max.overlaps = Inf) +
+    geom_smooth(method = "lm", se = FALSE, color = "black") +
+    geom_vline(xintercept = 1.25, color = "black", linetype = "dashed") +
+    geom_hline(yintercept = 1.25, color = "black", linetype = "dashed") +
+    geom_vline(xintercept = -1.25, color = "black", linetype = "dashed") +
+    geom_hline(yintercept = -1.25, color = "black", linetype = "dashed") +
+    labs(
+        title = "cell type vs. NMF pattern",
+        x = "NMF logFC",
+        y = "cell type logFC",
+        subtitle = paste0("Pearson's r: ", round(corr_val$estimate, 2))
+    ) +
+    theme_bw()
+
+
+pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "logFC_L5_IT_L5_ET.pdf"),
+    width = 7, height = 6)
+print(p)
+dev.off()
