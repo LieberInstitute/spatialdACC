@@ -62,5 +62,8 @@ processed-data/snRNA-seq/06_NMF/nmf_results.RDS
 processed-data/snRNA-seq/06_NMF/rs2_mch_matrix.h5ad
 raw-data/BrainScope/
 raw-data/Retro-seq/
-
-
+processed-data/21-submission-links-spaceranger/
+processed-data/22-submission-links-cellranger/
+code/spatialLIBD_app/
+code/20_shinyapp/
+code/10_iSee_app/sce.Rdata
