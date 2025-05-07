@@ -4,6 +4,7 @@ library("here")
 library("spatialLIBD")
 library("SpatialExperiment")
 library("tidyverse")
+library("gridExtra")
 
 # load spe without spots removed
 load(here("processed-data", "02_build_spe", "spe_raw.Rdata"), verbose = TRUE)
@@ -92,4 +93,91 @@ p_list <- vis_grid_clus(spe_anno, clustervar = 'anno_label',
 
 png(here("plots","20_WM_comparisons","vis_manual_annotations.png"), height=25, width=25, unit="in",res=300)
 cowplot::plot_grid(plotlist = p_list, ncol = 3)
+dev.off()
+
+# vis one brain per page
+spe <- spe_anno
+brains <- unique(spe$brnum)
+
+pdf(file = here::here("plots", "20_WM_comparisons", "manual_clusters.pdf"), width = 21, height = 20)
+
+for (i in seq_along(brains)){
+    speb <- spe[, which(spe$brnum == brains[i])]
+    samples <- unique(speb$sample_id)
+    print(length(samples))
+
+    if (length(samples) == 1){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "anno_label", colors = cols, spatial = FALSE, point_size = 8, ... = paste0("_", brains[i])) +
+            scale_fill_manual(values = c(
+                "CC" = "grey",
+                "L2" = "#377EB8",
+                "L2/3" = "#4DAF4A",
+                "L4/5" = "#984EA3",
+                "L5" = "#FFD700",
+                "L6" = "#FF7F00",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
+            ))
+        grid.arrange(p1, nrow = 1)
+    } else if (length(samples) == 2){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "anno_label", colors = cols, spatial = FALSE, point_size = 4, ... = paste0("_", brains[i])) +
+            scale_fill_manual(values = c(
+                "CC" = "grey",
+                "L2" = "#377EB8",
+                "L2/3" = "#4DAF4A",
+                "L4/5" = "#984EA3",
+                "L5" = "#FFD700",
+                "L6" = "#FF7F00",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
+            ))
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "anno_label", colors = cols, spatial = FALSE, point_size = 4, ... = paste0("_", brains[i])) +
+            scale_fill_manual(values = c(
+                "CC" = "grey",
+                "L2" = "#377EB8",
+                "L2/3" = "#4DAF4A",
+                "L4/5" = "#984EA3",
+                "L5" = "#FFD700",
+                "L6" = "#FF7F00",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
+            ))
+        grid.arrange(p1, p2, nrow = 2)
+    } else if (length(samples) == 3){
+        p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "anno_label", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i])) +
+            scale_fill_manual(values = c(
+                "CC" = "grey",
+                "L2" = "#377EB8",
+                "L2/3" = "#4DAF4A",
+                "L4/5" = "#984EA3",
+                "L5" = "#FFD700",
+                "L6" = "#FF7F00",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
+            ))
+        p2 <- vis_clus(spe = speb, sampleid = samples[2], clustervar = "anno_label", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i])) +
+            scale_fill_manual(values = c(
+                "CC" = "grey",
+                "L2" = "#377EB8",
+                "L2/3" = "#4DAF4A",
+                "L4/5" = "#984EA3",
+                "L5" = "#FFD700",
+                "L6" = "#FF7F00",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
+            ))
+        p3 <- vis_clus(spe = speb, sampleid = samples[3], clustervar = "anno_label", colors = cols, spatial = FALSE, point_size = 3, ... = paste0("_", brains[i])) +
+            scale_fill_manual(values = c(
+                "CC" = "grey",
+                "L2" = "#377EB8",
+                "L2/3" = "#4DAF4A",
+                "L4/5" = "#984EA3",
+                "L5" = "#FFD700",
+                "L6" = "#FF7F00",
+                "WM" = "#1A1A1A",
+                "L1" = "#F0027F"
+            ))
+        grid.arrange(p1, p2, p3, nrow = 2)
+    }
+}
 dev.off()
