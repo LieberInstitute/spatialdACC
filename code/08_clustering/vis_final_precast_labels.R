@@ -113,3 +113,9 @@ for (i in 1:nrow(samples)) {
 }
 
 dev.off()
+
+
+# just histology image
+pdf(file = here::here("plots", "08_clustering", "PRECAST", "hist_1_sample.pdf"), width = 21, height = 20)
+plotVisium(spe[, which(spe$sample_id == "V12Y31-080_B1")], spots = FALSE)
+dev.off()
