@@ -34,6 +34,8 @@ df = pd.read_csv(df_path,header=0)
 
  #df['label'] = df['label'].replace('AF', 'DAPI')
  #df['label_sample'] = df['label_sample'].str.replace('AF_', 'DAPI_', regex=False)
+ 
+df = df[df.label != "AF"]
 #   Define the inputs (features we want the model to access) and outputs to the
 #   model
 x = df.loc[:, ['gfap', 'neun', 'olig2', 'tmem119', 'area', 'label_sample']]
