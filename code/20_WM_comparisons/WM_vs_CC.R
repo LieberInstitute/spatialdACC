@@ -58,16 +58,9 @@ for (j in seq_along(brains)){
 
 dev.off()
 
-# exclude some samples from this comparison because the CC was not well detected
-# V12Y31−080_B1, V12N28−334_C1, V12N28−334_B1
-spe_anno <- spe_anno[, !spe_anno$sample_id %in% c("V12Y31-080_B1", "V12N28-334_C1", "V12N28-334_B1")]
-
-# exclude one sample without CC
-# V12N28−334_A1
-spe_anno <- spe_anno[,!spe_anno$sample_id %in% c("V12N28-334_A1")]
 
 dim(spe_anno)
-#[1] 36601 27146
+#[1] 36601 44212
 
 # relabel some clusters
 # L2/3 = L2_3
@@ -85,19 +78,13 @@ spe_pseudo <-
     )
 
 dim(spe_pseudo)
-#  15474    36
+#  13535    59
 
 pca <- prcomp(t(assays(spe_pseudo)$logcounts))
 metadata(spe_pseudo) <- list("PCA_var_explained" = jaffelab::getPcaVars(pca)[seq_len(20)])
 pca_pseudo <- pca$x[, seq_len(20)]
 colnames(pca_pseudo) <- paste0("PC", sprintf("%02d", seq_len(ncol(pca_pseudo))))
 reducedDims(spe_pseudo) <- list(PCA = pca_pseudo)
-
-## save pseudobulked spe file
-save(
-    spe_pseudo,
-    file = here("processed-data", "20_WM_comparisons", "pseudobulk_manual_anno.RData")
-)
 
 
 ## Plot PCs
@@ -130,6 +117,16 @@ vars <- getVarianceExplained(spe_pseudo,
 plotExplanatoryVariables(vars)
 
 dev.off()
+
+# remove one sample where registration_sample_id is V12N28−334_C1 and registration_variable is CC
+idx <- which(spe_pseudo$registration_sample_id == "V12N28-334_C1" & spe_pseudo$registration_variable == "CC")
+spe_pseudo <- spe_pseudo[, -idx]
+
+## save pseudobulked spe file
+save(
+    spe_pseudo,
+    file = here("processed-data", "20_WM_comparisons", "pseudobulk_manual_anno.RData")
+)
 
 modeling_results <- registration_wrapper(
     spe_anno,
