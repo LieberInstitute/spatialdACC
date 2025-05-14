@@ -235,6 +235,7 @@ for (gene in c("POU3F1","SULF2","GABRQ")) {
     print(summary(Br8325_right_dACC_mod, parameters=T))
     #print(plot.Mclust(Br8325_right_dACC_mod, what="classification"), xlab=gene)
 }
+
 #undo log1p transformation
 Br6432_dACC[,c(1:4)] <- expm1(Br6432_dACC[,c(1:4)])
 Br6432_dlPFC[,c(1:4)] <- expm1(Br6432_dlPFC[,c(1:4)])
@@ -386,6 +387,25 @@ s2 <- ggplot(coexpression_summary_long,
     scale_x_discrete(labels=c('All 3', 'POU3F1 &\nSULF2', 'GABRQ &\nSULF2', 'POU3F1 &\nGABRQ')) +
     labs(x = "Group", y = "Proportion Coexpression", title = "Coexpression Proportion") +
     theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+
+coexpression_all3 <- coexpression_summary_long %>%
+    filter(name == "all_3_prop")
+
+coexpression_all3$name <- "All 3"
+
+s_all3 <- ggplot(coexpression_all3,
+                 aes(x = Region, y = value, group = Region, color = Region)) +
+    geom_boxplot(outlier.shape = NA, width = 0.5, position = position_dodge(width = 0.6)) +
+    geom_point(aes(shape = Brain), position = position_dodge(width = 0.6), size = 3, alpha = 0.9) +
+    scale_color_manual(values = c("dACC" = "blue", "dlPFC" = "gold")) +
+    theme_bw() +
+    labs(x = "Region", y = "Proportion Coexpression", title = "Coexpression of 3 Genes") +
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+
+
+pdf(here("plots","16_VENs_analysis","coexpr_subset.pdf"),height=4,width=3)
+s_all3
+dev.off()
 
 # compute correlations
 # make df of correlations
