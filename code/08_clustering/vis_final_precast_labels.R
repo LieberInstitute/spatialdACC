@@ -119,3 +119,36 @@ dev.off()
 pdf(file = here::here("plots", "08_clustering", "PRECAST", "hist_1_sample.pdf"), width = 21, height = 20)
 plotVisium(spe[, which(spe$sample_id == "V12Y31-080_B1")], spots = FALSE)
 dev.off()
+
+# dlPFC sample
+spe_DLPFC_30 <- spatialLIBD::fetch_data(type = "spatialDLPFC_Visium")
+# create spatial labels for DLPFC_30
+spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 3] <- "L2"
+spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 8] <- "L4"
+spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 7] <- "L6"
+spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 5] <- "L3"
+spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 6] <- "WM"
+spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 4] <- "L5"
+spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 2] <- "L1"
+spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 1] <- "meninges"
+spe_DLPFC_30$BayesSpace_harmony_09[spe_DLPFC_30$BayesSpace_harmony_09 == 9] <- "WM"
+
+# remove meninges
+spe_DLPFC_30 <- spe_DLPFC_30[,which(spe_DLPFC_30$BayesSpace_harmony_09 != "meninges")]
+
+p1 <- vis_clus(spe = spe_DLPFC_30, sampleid = "Br8667_mid", clustervar = "BayesSpace_harmony_09", spatial = FALSE, point_size = 8, ... = paste0("")) +
+    scale_fill_manual(values = c(
+        "L2" = "#377EB8",
+        "L3" = "#4DAF4A",
+        "L5" = "#FFD700",
+        "L4" = "#984EA3",
+        "L6" = "#FF7F00",
+        "WM" = "#1A1A1A",
+        "L1" = "#F0027F"
+    ))
+
+pdf(file = here::here("plots", "08_clustering", "dlPFC_1_sample.pdf"), width = 21, height = 20)
+
+grid.arrange(p1, nrow = 1)
+
+dev.off()
