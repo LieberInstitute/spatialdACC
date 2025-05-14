@@ -66,8 +66,8 @@ spe_anno <- spe_anno[,colData(spe_anno)$in_tissue]
 spe_anno$anno_label[spe_anno$anno_label == "L1AQP4"] <- "L1"
 spe_anno$anno_label[spe_anno$anno_label == "L1RELN"] <- "L1"
 spe_anno$anno_label[spe_anno$anno_label == "L23HPCAL1"] <- "L2/3"
-spe_anno$anno_label[spe_anno$anno_label == "L2HPCAL1"] <- "L2"
-spe_anno$anno_label[spe_anno$anno_label == "L45PCP4"] <- "L4/5"
+spe_anno$anno_label[spe_anno$anno_label == "L2HPCAL1"] <- "L2/3"
+spe_anno$anno_label[spe_anno$anno_label == "L45PCP4"] <- "L5"
 spe_anno$anno_label[spe_anno$anno_label == "L5PCP4"] <- "L5"
 spe_anno$anno_label[spe_anno$anno_label == "L6KRT17"] <- "L6"
 
@@ -86,8 +86,8 @@ vis_grid_clus(spe_anno, clustervar = 'anno_label',
               pdf_file = here("plots","20_WM_comparisons","vis_manual_annotations.pdf"),
               spatial= F, ncol = 4)
 
-cols <- setNames(c("grey","#F0027F","#377EB8","#4DAF4A","#984EA3","#FFD700","#FF7F00","#1A1A1A"),
-                 c("CC","L1","L2","L2/3","L4/5","L5","L6","WM"))
+cols <- setNames(c("grey","#F0027F","turquoise","#FFD700","#FF7F00","#1A1A1A"),
+                 c("CC","L1","L2/3","L5","L6","WM"))
 p_list <- vis_grid_clus(spe_anno, clustervar = 'anno_label',
               spatial= F, return_plots = T, colors = cols)
 
@@ -110,9 +110,7 @@ for (i in seq_along(brains)){
         p1 <- vis_clus(spe = speb, sampleid = samples[1], clustervar = "anno_label", colors = cols, spatial = FALSE, point_size = 8, ... = paste0("_", brains[i])) +
             scale_fill_manual(values = c(
                 "CC" = "grey",
-                "L2" = "#377EB8",
-                "L2/3" = "#4DAF4A",
-                "L4/5" = "#984EA3",
+                "L2/3" = "turquoise",
                 "L5" = "#FFD700",
                 "L6" = "#FF7F00",
                 "WM" = "#1A1A1A",
