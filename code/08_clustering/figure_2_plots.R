@@ -88,7 +88,7 @@ dlPFC_layer_colors <- c(
     "L1" = "#F0027F"
 )
 
-genes_exp_1 <- c("PCP4", "ADCYAP1", "RORB", "ARHGAP4")
+genes_exp_1 <- c("ADCYAP1", "RORB", "PCP4", "DRD5", "CPLX3", "KCTD8")
 
 boxplot_list_exp1 <- c()
 
@@ -111,8 +111,7 @@ for (gene in genes_exp_1) {
         theme_bw() +
         scale_color_manual(values=dACC_layer_colors) +
         ylab(expression("dACC " ~ log[2](cpm + 1))) +
-        theme(axis.text.x=element_blank(),
-              axis.ticks.x=element_blank()) +
+        theme(axis.ticks.x=element_blank()) +
         ggtitle(gene) +
         xlab("") +
         ylim(c(0,max(df_dACC$Expression))) +
@@ -124,8 +123,7 @@ for (gene in genes_exp_1) {
         theme_bw() +
         scale_color_manual(values=dlPFC_layer_colors) +
         ylab(expression("dlPFC " ~ log[2](cpm + 1))) +
-        theme(axis.text.x=element_blank(),
-              axis.ticks.x=element_blank()) +
+        theme(axis.ticks.x=element_blank()) +
         ggtitle(gene) +
         xlab("") +
         ylim(c(0,max(df_dlPFC$Expression))) +
@@ -160,7 +158,20 @@ for (gene in genes_exp_1) {
 }
 
 
-genes_exp_2 <- c("CPLX3", "KCTD8", "NXPH3", "DRD5")
+pdf(file = here("plots", "08_clustering",
+                "dACC_dlPFC_figure_2.pdf"), height=20, width=12)
+
+wrap_plots(boxplot_list_exp1[[1]], spotplot_list_exp1[[1]], boxplot_list_exp1[[2]], spotplot_list_exp1[[2]],
+           boxplot_list_exp1[[3]], spotplot_list_exp1[[3]], boxplot_list_exp1[[4]], spotplot_list_exp1[[4]],
+           boxplot_list_exp1[[5]], spotplot_list_exp1[[5]],  boxplot_list_exp1[[6]], spotplot_list_exp1[[6]],
+           boxplot_list_exp1[[7]], spotplot_list_exp1[[7]], boxplot_list_exp1[[8]], spotplot_list_exp1[[8]],
+           boxplot_list_exp1[[9]], spotplot_list_exp1[[9]], boxplot_list_exp1[[10]], spotplot_list_exp1[[10]],
+           boxplot_list_exp1[[11]], spotplot_list_exp1[[11]], boxplot_list_exp1[[12]], spotplot_list_exp1[[12]],
+           nrow = 6)
+
+dev.off()
+
+genes_exp_2 <- c("RELN", "LAMP5", "ADRA2A", "CRHBP", "RSPO2", "TBR1")
 
 boxplot_list_exp2 <- c()
 
@@ -183,8 +194,7 @@ for (gene in genes_exp_2) {
         theme_bw() +
         scale_color_manual(values=dACC_layer_colors) +
         ylab(expression("dACC " ~ log[2](cpm + 1))) +
-        theme(axis.text.x=element_blank(),
-              axis.ticks.x=element_blank()) +
+        theme(axis.ticks.x=element_blank()) +
         ggtitle(gene) +
         xlab("") +
         ylim(c(0,max(df_dACC$Expression))) +
@@ -196,8 +206,7 @@ for (gene in genes_exp_2) {
         theme_bw() +
         scale_color_manual(values=dlPFC_layer_colors) +
         ylab(expression("dlPFC " ~ log[2](cpm + 1))) +
-        theme(axis.text.x=element_blank(),
-              axis.ticks.x=element_blank()) +
+        theme(axis.ticks.x=element_blank()) +
         ggtitle(gene) +
         xlab("") +
         ylim(c(0,max(df_dlPFC$Expression))) +
@@ -231,35 +240,17 @@ for (gene in genes_exp_2) {
 
 }
 
+png(file = here("plots", "08_clustering",
+                "dACC_dlPFC_supp_figure.png"), height=20, width=12, unit="in", res=300)
 
-
-
-pdf(file = here("plots", "08_clustering",
-                "dACC_dlPFC_figure_2.pdf"), height=13, width=6)
-
-wrap_plots(boxplot_list_exp1[[1]], spotplot_list_exp1[[1]],
-           boxplot_list_exp1[[3]], spotplot_list_exp1[[3]],
-           boxplot_list_exp1[[5]], spotplot_list_exp1[[5]],
-           boxplot_list_exp1[[7]], spotplot_list_exp1[[7]],
-           nrow = 4)
-
-wrap_plots(boxplot_list_exp1[[2]], spotplot_list_exp1[[2]],
-           boxplot_list_exp1[[4]], spotplot_list_exp1[[4]],
-           boxplot_list_exp1[[6]], spotplot_list_exp1[[6]],
-           boxplot_list_exp1[[8]], spotplot_list_exp1[[8]],
-           nrow = 4)
-
-wrap_plots(boxplot_list_exp2[[1]], spotplot_list_exp2[[1]],
-           boxplot_list_exp2[[3]], spotplot_list_exp2[[3]],
-           boxplot_list_exp2[[5]], spotplot_list_exp2[[5]],
-           boxplot_list_exp2[[7]], spotplot_list_exp2[[7]],
-           nrow = 4)
-
-wrap_plots(boxplot_list_exp2[[2]], spotplot_list_exp2[[2]],
-           boxplot_list_exp2[[4]], spotplot_list_exp2[[4]],
-           boxplot_list_exp2[[6]], spotplot_list_exp2[[6]],
-           boxplot_list_exp2[[8]], spotplot_list_exp2[[8]],
-           nrow = 4)
-
+wrap_plots(boxplot_list_exp2[[1]], spotplot_list_exp2[[1]], boxplot_list_exp2[[2]], spotplot_list_exp2[[2]],
+           boxplot_list_exp2[[3]], spotplot_list_exp2[[3]], boxplot_list_exp2[[4]], spotplot_list_exp2[[4]],
+           boxplot_list_exp2[[5]], spotplot_list_exp2[[5]], boxplot_list_exp2[[6]], spotplot_list_exp2[[6]],
+           boxplot_list_exp2[[7]], spotplot_list_exp2[[7]], boxplot_list_exp2[[8]], spotplot_list_exp2[[8]],
+           boxplot_list_exp2[[9]], spotplot_list_exp2[[9]], boxplot_list_exp2[[10]], spotplot_list_exp2[[10]],
+           boxplot_list_exp2[[11]], spotplot_list_exp2[[11]], boxplot_list_exp2[[12]], spotplot_list_exp2[[12]],
+           nrow = 6) +
+    # add alpha labels
+    plot_annotation(tag_levels = 'A')
 
 dev.off()
