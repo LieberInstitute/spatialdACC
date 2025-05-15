@@ -59,27 +59,31 @@ summary_DLPFC$region <- rep("dlPFC", 10)
 summary_overall <- summary_dACC
 summary_overall[c(11:20),] <- summary_DLPFC
 
-p1 <- ggplot(summary_overall, aes(x=region, y=frac38_dACC)) +
-    geom_boxplot(outlier.shape = NA, color="#FFD700") +
+p1 <- ggplot(summary_overall, aes(x=region, y=frac38_dACC, color=region)) +
+    geom_boxplot(outlier.shape = NA) +
     ylim(c(0,0.45)) +
-    geom_point(color="#FFD700", size=1, alpha=0.8) +
+    scale_color_manual(values = c("black", "grey")) +
+    geom_point(size=1, alpha=0.8) +
     ylab("Frac. Nonzero NMF38") +
     ggtitle("") +
     geom_signif(comparisons = list(c("dACC", "dlPFC")),
                 test = "t.test",
-                map_signif_level = TRUE, color="#FFD700") +
-    theme_bw()
+                map_signif_level = TRUE) +
+    theme_bw() +
+    theme(legend.position="none")
 
-p2 <- ggplot(summary_overall, aes(x=region, y=frac61_dACC)) +
-    geom_boxplot(outlier.shape = NA, color="#FFD700") +
-    geom_point(color="#FFD700", size=1, alpha=0.8) +
+p2 <- ggplot(summary_overall, aes(x=region, y=frac61_dACC, color=region)) +
+    geom_boxplot(outlier.shape = NA) +
+    geom_point(size=1, alpha=0.8) +
     ylab("Frac. Nonzero NMF61") +
     ylim(c(0,0.24)) +
+    scale_color_manual(values = c("black", "grey")) +
     ggtitle("") +
     geom_signif(comparisons = list(c("dACC", "dlPFC")),
                 test = "t.test",
-                map_signif_level = TRUE, color="#FFD700") +
-    theme_bw()
+                map_signif_level = TRUE) +
+    theme_bw() +
+    theme(legend.position="none")
 
 # calculate statistical significance of the 10 subjects
 # using t test
@@ -115,7 +119,7 @@ p3 <- ggplot(summary_overall, aes(x=region, y=avg38, color=region)) +
     ylab("Avg. NMF38 Weight") +
     ggtitle("") +
     xlab("region") +
-    scale_color_manual(values = c("#FFD700", "#FFD700")) +
+    scale_color_manual(values = c("black", "grey")) +
     geom_signif(comparisons = list(c("dACC", "dlPFC")),
                 test = "t.test",
                 map_signif_level = TRUE) +
@@ -129,7 +133,7 @@ p4 <- ggplot(summary_overall, aes(x=region, y=avg61, color=region)) +
     ylim(c(0.000,0.00024)) +
     ggtitle("") +
     xlab("region") +
-    scale_color_manual(values = c("#FFD700", "#FFD700")) +
+    scale_color_manual(values = c("black", "grey")) +
     geom_signif(comparisons = list(c("dACC", "dlPFC")),
                 test = "t.test",
                 map_signif_level = TRUE) +
@@ -140,6 +144,13 @@ p4 <- ggplot(summary_overall, aes(x=region, y=avg61, color=region)) +
 # using t test
 t_test_38 <- t.test(summary_dACC$avg38, summary_DLPFC$avg38, paired = T)
 t_test_61 <- t.test(summary_dACC$avg61, summary_DLPFC$avg61, paired = T)
+
+
+pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC.pdf"), height = 5, width = 5)
+wrap_plots(list(p1,p3,p2,p4), nrow = 2) + plot_annotation(title = "NMF38 and 61 in Layer 5")
+dev.off()
+
+
 
 # calculate nonzero spots for snRNA-seq data
 load(file = here("processed-data", "13_NMF", "DLPFC_dACC_celltype_NMF.Rdata"))
@@ -288,10 +299,4 @@ p8 <- ggplot(summary_overall, aes(x=region, y=avg61, color=region)) +
 t_test_38 <- t.test(summary_dACC_IT$avg38, summary_DLPFC$avg38, paired = T)
 t_test_61 <- t.test(summary_dACC_ET$avg61, summary_DLPFC$avg61, paired = T)
 
-pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC.pdf"), height = 6, width = 5)
-wrap_plots(list(p1,p3,p2,p4), nrow = 2) + plot_annotation(title = "NMF38 and 61 in SRT",
-                                                          caption = "Layer 5 in dACC and dlPFC")
-wrap_plots(list(p5,p7,p6,p8), nrow = 2) + plot_annotation(title = "NMF38 and 61 in snRNA-seq",
-                                                          caption = "L5 in dlPFC; L5 IT in dACC (top), L5 ET in dACC (bottom)")
-dev.off()
 
