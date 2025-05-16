@@ -5,6 +5,7 @@ library("spatialLIBD")
 library("SpatialExperiment")
 library("tidyverse")
 library("gridExtra")
+library("patchwork")
 
 # load spe without spots removed
 load(here("processed-data", "02_build_spe", "spe_raw.Rdata"), verbose = TRUE)
@@ -88,11 +89,21 @@ vis_grid_clus(spe_anno, clustervar = 'anno_label',
 
 cols <- setNames(c("grey","#F0027F","turquoise","#FFD700","#FF7F00","#1A1A1A"),
                  c("CC","L1","L2/3","L5","L6","WM"))
+
 p_list <- vis_grid_clus(spe_anno, clustervar = 'anno_label',
               spatial= F, return_plots = T, colors = cols)
 
+# add scale_fill_discrete(breaks = c("L1", "L2/3", "L5", "L6", "WM", "CC"), labels = c("L1", "L2/3", "L5", "L6", "WM", "CC"), type = cols)
+# to all plots
+for (i in seq_along(p_list)){
+    p_list[[i]] <- p_list[[i]] + scale_fill_manual(values = cols,
+                                                   breaks = c("L1", "L2/3", "L5", "L6", "WM", "CC"),
+                                                   labels = c("L1", "L2/3", "L5", "L6", "WM", "CC"))
+}
+p_list[["V12N28-334_A1"]] <- p_list[["V12N28-334_A1"]] + theme(legend.position = "none")
+
 png(here("plots","20_WM_comparisons","vis_manual_annotations.png"), height=25, width=25, unit="in",res=300)
-cowplot::plot_grid(plotlist = p_list, ncol = 3)
+wrap_plots(p_list, ncol = 3, guides="collect")
 dev.off()
 
 # vis one brain per page
