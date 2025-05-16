@@ -103,8 +103,8 @@ p2 <- ggplot(data = df_2, aes(x=layer, y=n, fill=brnum)) +
     theme(legend.position="none")
 
 
-png(file = here::here("plots", "snRNA-seq", "05_azimuth", "azimuth_barplot.png"), height = 8, width = 10, unit="in",res=300)
-wrap_plots(p,p2,nrow=1, guides="collect") + plot_annotation(tag_levels = 'A')
+png(file = here::here("plots", "snRNA-seq", "05_azimuth", "azimuth_barplot.png"), height = 8, width = 8, unit="in",res=300)
+p
 dev.off()
 
 p1 <- plotReducedDim(sce, dimred="TSNE-HARMONY", colour_by="cellType_azimuth", point_size = 0.5) +
