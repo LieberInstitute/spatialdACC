@@ -302,7 +302,7 @@ p6b <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
     ) +
     theme_bw()
 
-pdf(file = here("plots", "11_differential_expression", "layer_markers_dACC_DLPFC_new.pdf"), width = 10, height = 5)
+pdf(file = here("plots", "11_differential_expression", "layer_markers_dACC_DLPFC_subset.pdf"), width = 10, height = 5)
 wrap_plots(p5, p6a, p6b, nrow=1, guides = "collect") + plot_layout(axes = "collect") & theme(legend.position = "bottom")
 dev.off()
 
