@@ -16,8 +16,8 @@ load(file = here("processed-data", "11_differential_expression", "pseudobulk", "
 )
 modeling_results_dACC <- modeling_results
 
-load(file = here("processed-data", "12_spatial_registration",paste0("DLPFC_30_DE",".Rdata")))
-modeling_results_DLPFC <- spe_modeling_results
+load(file = here("processed-data", "11_differential_expression",paste0("DLPFC_30_DE_with_DRD5",".Rdata")))
+modeling_results_DLPFC <- modeling_results
 
 # intersect genes
 genes_dACC <- rownames(modeling_results_dACC[["enrichment"]])
@@ -189,7 +189,7 @@ df_layer$color <- with(df_layer, ifelse(
 ))
 
 genes_to_label_L5 <- c("PCP4", "TRABD2A", "MEPE", "CD24", "CD52", "FDPS", "DRD5", "GYG1", "ITGB1BP1",
-                        "VAT1L", "SULF2", "HAPLN4", "GABRQ", "FEZF2", "POU3F1")
+                        "VAT1L", "SULF2", "HAPLN4", "GABRQ", "FEZF2", "POU3F1", "DRD5")
 
 # plot
 p5 <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
@@ -302,7 +302,7 @@ p6b <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
     ) +
     theme_bw()
 
-pdf(file = here("plots", "11_differential_expression", "layer_markers_dACC_DLPFC_subset.pdf"), width = 10, height = 5)
+pdf(file = here("plots", "11_differential_expression", "layer_markers_dACC_DLPFC_new.pdf"), width = 10, height = 5)
 wrap_plots(p5, p6a, p6b, nrow=1, guides = "collect") + plot_layout(axes = "collect") & theme(legend.position = "bottom")
 dev.off()
 

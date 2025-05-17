@@ -62,6 +62,18 @@ colnames(DRD5_DLPFC_30_pseudo) <-
     )
 
 colData(DRD5_DLPFC_30_pseudo)$sizeFactor <- NULL
+
+DRD5_DLPFC_30_pseudo$pseudo_sum_umi <- colSums(counts(DRD5_DLPFC_30_pseudo))
+
+which(rowData(DRD5_DLPFC_30_pseudo)$gene_name == "DRD5")
+# [1] 6497
+
+# save
+save(
+    DRD5_DLPFC_30_pseudo,
+    file = here("processed-data", "08_clustering", "DRD5_DLPFC_30_pseudobulk.Rdata")
+)
+
 assay(DRD5_DLPFC_30_pseudo, "normounts") <- edgeR::cpm(counts(DRD5_DLPFC_30_pseudo))
 assay(DRD5_DLPFC_30_pseudo, "logcounts") <- log2(assay(DRD5_DLPFC_30_pseudo, "normounts")+1)
 mat_dlPFC <- assay(DRD5_DLPFC_30_pseudo, "logcounts")
