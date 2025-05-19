@@ -399,13 +399,9 @@ s_all3 <- ggplot(coexpression_all3,
     geom_point(aes(shape = Brain), position = position_dodge(width = 0.6), size = 3, alpha = 0.9) +
     scale_color_manual(values = c("dACC" = "blue", "dlPFC" = "gold")) +
     theme_bw() +
-    labs(x = "Region", y = "Proportion Coexpression", title = "Coexpression of 3 Genes") +
+    labs(x = "Region", y = "Proportion Coexpression", title = "Coexpression") +
     theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
 
-
-pdf(here("plots","16_VENs_analysis","coexpr_subset.pdf"),height=4,width=3)
-s_all3
-dev.off()
 
 # compute correlations
 # make df of correlations
@@ -454,6 +450,39 @@ s4 <- ggplot(df,
     theme_bw() +
     theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
 
+
+df_subset <- df %>%
+    filter(Genes == "POU3F1 & GABRQ")
+
+s_all3 <- ggplot(coexpression_all3,
+                 aes(x = Region, y = value, group = Region, color = Region)) +
+    geom_boxplot(outlier.shape = NA, width = 0.5, position = position_dodge(width = 0.6)) +
+    geom_point(aes(shape = Brain), position = position_dodge(width = 0.6), size = 3, alpha = 0.9) +
+    scale_color_manual(values = c("dACC" = "blue", "dlPFC" = "gold")) +
+    theme_bw() +
+    labs(x = "Region", y = "Proportion Coexpression", title = "Coexpression of 3 Genes") +
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+
+
+s_corr <- ggplot(df_subset,
+                 aes(x = Genes, y = Correlation, group = interaction(Genes, Region), color = Region)) +
+    geom_boxplot(outlier.shape = NA, width = 0.6, position = position_dodge(width = 0.6)) +
+    geom_point(aes(shape = Brain), position = position_dodge(width = 0.6), size = 3, alpha = 0.9) +
+    scale_color_manual(values=c("dACC"="blue","dlPFC"="gold")) +
+    scale_x_discrete(labels = c('POU3F1 &\nGABRQ')) +
+    labs(
+        x = "Genes",
+        y = "Spearman's Correlation",
+        title = "Correlation"
+    ) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+
+
+pdf(here("plots","16_VENs_analysis","coexpr_subset.pdf"),height=6,width=3)
+wrap_plots(s_all3, s_corr, ncol=1, guides="collect")
+dev.off()
+
 df <- data.frame(x=Br8325_left_dACC$POU3F1,
                     y=Br8325_left_dACC$SULF2)
 s3 <- ggplot(df, aes(x=x,y=y)) +
@@ -468,7 +497,6 @@ s3 <- ggplot(df, aes(x=x,y=y)) +
 png(here("plots","16_VENs_analysis","VENs_RNAscope_SI.png"), unit="in",res=300,height=8,width=10)
 wrap_plots(s1,s2,s3,s4,nrow=2) + plot_annotation(tag_levels = 'A')
 dev.off()
-
 
 # visualize coexpression as heatmap separated for dACC and dlPFC
 
