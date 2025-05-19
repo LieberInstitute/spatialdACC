@@ -100,7 +100,7 @@ dlPFC_layer_colors <- c(
     "L1" = "#F0027F"
 )
 
-genes_exp_1 <- c("ADCYAP1", "RORB", "PCP4", "DRD5", "CPLX3", "KCTD8")
+genes_exp_1 <- c("ADCYAP1", "RORB", "PCP4")
 
 boxplot_list_exp1 <- c()
 
@@ -171,15 +171,12 @@ for (gene in genes_exp_1) {
 
 
 pdf(file = here("plots", "08_clustering",
-                "dACC_dlPFC_figure_2.pdf"), height=20, width=12)
+                "dACC_dlPFC_figure_2.pdf"), height=10, width=12)
 
 wrap_plots(boxplot_list_exp1[[1]], spotplot_list_exp1[[1]], boxplot_list_exp1[[2]], spotplot_list_exp1[[2]],
            boxplot_list_exp1[[3]], spotplot_list_exp1[[3]], boxplot_list_exp1[[4]], spotplot_list_exp1[[4]],
            boxplot_list_exp1[[5]], spotplot_list_exp1[[5]],  boxplot_list_exp1[[6]], spotplot_list_exp1[[6]],
-           boxplot_list_exp1[[7]], spotplot_list_exp1[[7]], boxplot_list_exp1[[8]], spotplot_list_exp1[[8]],
-           boxplot_list_exp1[[9]], spotplot_list_exp1[[9]], boxplot_list_exp1[[10]], spotplot_list_exp1[[10]],
-           boxplot_list_exp1[[11]], spotplot_list_exp1[[11]], boxplot_list_exp1[[12]], spotplot_list_exp1[[12]],
-           nrow = 6)
+           nrow = 3)
 
 dev.off()
 
@@ -260,6 +257,89 @@ wrap_plots(boxplot_list_exp2[[1]], spotplot_list_exp2[[1]], boxplot_list_exp2[[2
            boxplot_list_exp2[[5]], spotplot_list_exp2[[5]], boxplot_list_exp2[[6]], spotplot_list_exp2[[6]],
            boxplot_list_exp2[[7]], spotplot_list_exp2[[7]], boxplot_list_exp2[[8]], spotplot_list_exp2[[8]],
            nrow = 4) +
+    # add alpha labels
+    plot_annotation(tag_levels = 'A')
+
+dev.off()
+
+
+
+genes_exp_2 <- c("RSPO2", "CRHBP", "ADRA2A")
+
+boxplot_list_exp2 <- c()
+
+for (gene in genes_exp_2) {
+    print(gene)
+    i_dACC <- which(rowData(spe_pseudo_dACC)$gene_name == gene)
+    i_dlPFC <- which(rowData(DRD5_DLPFC_30_pseudo)$gene_name == gene)
+
+    df_dACC <- as.data.frame(mat_dACC[i_dACC, ])
+    df_dACC$Layer <- groups_dACC
+    colnames(df_dACC)[1] <- "Expression"
+
+    df_dlPFC <- as.data.frame(mat_dlPFC[i_dlPFC, ])
+    df_dlPFC$Layer <- groups_dlPFC
+    colnames(df_dlPFC)[1] <- "Expression"
+
+    p1 <- ggplot(df_dACC,aes(x=Layer, y=Expression, color=Layer)) +
+        geom_boxplot(outlier.shape = NA) +
+        geom_point(size = 0.6, alpha = 0.7) +
+        theme_bw() +
+        scale_color_manual(values=dACC_layer_colors) +
+        ylab(expression("dACC " ~ log[2](cpm + 1))) +
+        theme(axis.ticks.x=element_blank()) +
+        ggtitle(gene) +
+        xlab("") +
+        ylim(c(0,max(df_dACC$Expression))) +
+        theme(legend.position="none")
+
+    p2 <- ggplot(df_dlPFC,aes(x=Layer, y=Expression, color=Layer)) +
+        geom_boxplot(outlier.shape = NA) +
+        geom_point(size = 0.6, alpha = 0.7) +
+        theme_bw() +
+        scale_color_manual(values=dlPFC_layer_colors) +
+        ylab(expression("dlPFC " ~ log[2](cpm + 1))) +
+        theme(axis.ticks.x=element_blank()) +
+        ggtitle(gene) +
+        xlab("") +
+        ylim(c(0,max(df_dlPFC$Expression))) +
+        theme(legend.position="none")
+
+
+    boxplot_list_exp2 <- c(boxplot_list_exp2, list(p1, p2))
+
+}
+
+spotplot_list_exp2 <- c()
+
+for (gene in genes_exp_2) {
+    print(gene)
+
+    spe_dACC_1 <- spe_dACC[, which(spe_dACC$sample_id == "V12N28-331_B1")]
+    spe_dACC_1$counts_gene <- logcounts(spe_dACC_1)[which(rowData(spe_dACC_1)$gene_name==gene),]
+    p1 <- make_escheR(spe_dACC_1) |> add_fill(var="counts_gene", point_size = 1) |> add_ground(var="layer", stroke=0.1, point_size = 1) +
+        scale_fill_gradient(low = "white", high = "black") + labs(title = "") +
+        scale_color_manual(values=dACC_layer_colors) +
+        theme(legend.position="none")
+
+    spe_DLPFC_30_1 <- spe_DLPFC_30[, which(spe_DLPFC_30$sample_id == "Br6432_ant")]
+    spe_DLPFC_30_1$counts_gene <- logcounts(spe_DLPFC_30_1)[which(rowData(spe_DLPFC_30_1)$gene_name==gene),]
+    p2 <- make_escheR(spe_DLPFC_30_1) |> add_fill(var="counts_gene", point_size = 1) |> add_ground(var="cluster", stroke=0.1, point_size = 1) +
+        scale_fill_gradient(low = "white", high = "black") + labs(title = "") +
+        scale_color_manual(values=dlPFC_layer_colors) +
+        theme(legend.position="none")
+
+    spotplot_list_exp2 <- c(spotplot_list_exp2, list(p1, p2))
+
+}
+
+png(file = here("plots", "08_clustering",
+                "dACC_dlPFC_supp_figure_2.png"), height=11, width=12, unit="in", res=300)
+
+wrap_plots(boxplot_list_exp2[[1]], spotplot_list_exp2[[1]], boxplot_list_exp2[[2]], spotplot_list_exp2[[2]],
+           boxplot_list_exp2[[3]], spotplot_list_exp2[[3]], boxplot_list_exp2[[4]], spotplot_list_exp2[[4]],
+           boxplot_list_exp2[[5]], spotplot_list_exp2[[5]], boxplot_list_exp2[[6]], spotplot_list_exp2[[6]],
+           nrow = 3) +
     # add alpha labels
     plot_annotation(tag_levels = 'A')
 
