@@ -183,7 +183,7 @@ wrap_plots(boxplot_list_exp1[[1]], spotplot_list_exp1[[1]], boxplot_list_exp1[[2
 
 dev.off()
 
-genes_exp_2 <- c("RELN", "LAMP5", "ADRA2A", "CRHBP", "RSPO2", "TBR1")
+genes_exp_2 <- c("RELN", "LAMP5", "NR4A2", "MOBP")
 
 boxplot_list_exp2 <- c()
 
@@ -253,15 +253,13 @@ for (gene in genes_exp_2) {
 }
 
 png(file = here("plots", "08_clustering",
-                "dACC_dlPFC_supp_figure.png"), height=20, width=12, unit="in", res=300)
+                "dACC_dlPFC_supp_figure.png"), height=15, width=12, unit="in", res=300)
 
 wrap_plots(boxplot_list_exp2[[1]], spotplot_list_exp2[[1]], boxplot_list_exp2[[2]], spotplot_list_exp2[[2]],
            boxplot_list_exp2[[3]], spotplot_list_exp2[[3]], boxplot_list_exp2[[4]], spotplot_list_exp2[[4]],
            boxplot_list_exp2[[5]], spotplot_list_exp2[[5]], boxplot_list_exp2[[6]], spotplot_list_exp2[[6]],
            boxplot_list_exp2[[7]], spotplot_list_exp2[[7]], boxplot_list_exp2[[8]], spotplot_list_exp2[[8]],
-           boxplot_list_exp2[[9]], spotplot_list_exp2[[9]], boxplot_list_exp2[[10]], spotplot_list_exp2[[10]],
-           boxplot_list_exp2[[11]], spotplot_list_exp2[[11]], boxplot_list_exp2[[12]], spotplot_list_exp2[[12]],
-           nrow = 6) +
+           nrow = 4) +
     # add alpha labels
     plot_annotation(tag_levels = 'A')
 
