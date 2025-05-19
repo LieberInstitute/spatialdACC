@@ -43,16 +43,15 @@ centroid_data$Color <- celltype_colors[centroid_data$Celltype]
 
 p1 <- plotReducedDim(sce, dimred = "UMAP-HARMONY", colour_by = "cellType_azimuth", point_size=0.3) +
     scale_color_manual(values = celltype_colors) +
-    ggrepel::geom_label_repel(data = centroid_data, aes(x = CentroidX, y = CentroidY, label = Celltype),
-                              #color = centroid_data$Color,
-                              fontface = "bold.italic", size=3) +
     theme(axis.line=element_blank(),axis.text.x=element_blank(),
           axis.text.y=element_blank(),axis.ticks=element_blank(),
           axis.title.x=element_blank(),
-          axis.title.y=element_blank(),legend.position="none",
+          axis.title.y=element_blank(),
           panel.background=element_blank(),panel.border=element_blank(),panel.grid.major=element_blank(),
           panel.grid.minor=element_blank(),plot.background=element_blank()) +
-    ggtitle("Azimuth Cell Types")
+    ggtitle("Azimuth Cell Types") +
+    labs(colour = "Cell Type") +
+    guides(colour = guide_legend(override.aes = list(size=1)))
 
 pdf(file = here::here("plots", "snRNA-seq", "05_azimuth", "HARMONY_azimuth_UMAP.pdf"), height = 6, width = 6)
 p1
