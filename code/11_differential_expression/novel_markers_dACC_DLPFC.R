@@ -308,6 +308,53 @@ dev.off()
 
 
 
+# indiv figure
+
+layer <- "L2"
+genes <- dACC_results[, "gene"]
+dACC_logFC <- dACC_results[, paste0("logFC_", layer)]
+DLPFC_logFC <- DLPFC_results[, paste0("logFC_", layer)]
+corr_layer <- cor.test(dACC_logFC, DLPFC_logFC)
+
+# create data frame
+df_layer <- data.frame(
+    gene = genes,
+    dACC_logFC = dACC_logFC,
+    DLPFC_logFC = DLPFC_logFC
+)
+
+df_layer$color <- with(df_layer, ifelse(
+    dACC_logFC > 1.25 & DLPFC_logFC > 1.25, "dlPFC & dACC enriched",
+    ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched",
+           ifelse(DLPFC_logFC > 1.25 & dACC_logFC < 1.25, "dlPFC enriched", "None")
+    )
+))
+
+genes_to_label_L2 <- c("STXBP6", "LAMP5", "KCTD4", "ARHGAP4", "RSPO2", "CCNO","C1QL2")
+
+# plot
+p2 <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
+    geom_point(aes(color = color), size=0.5) +
+    scale_color_manual(values = c("dlPFC & dACC enriched" = "purple",
+                                  "dACC enriched" = "red",
+                                  "dlPFC enriched" = "blue",
+                                  "Neither" = "grey")) +
+    geom_text_repel(aes(label = ifelse(gene %in% genes_to_label_L2, gene, "")), size = 3, max.overlaps = Inf) +
+    geom_smooth(method = "lm", se = FALSE, color = "black") +
+    geom_vline(xintercept = 1.25, color = "black", linetype = "dashed") +
+    geom_hline(yintercept = 1.25, color = "black", linetype = "dashed") +
+    geom_vline(xintercept = -1.25, color = "black", linetype = "dashed") +
+    geom_hline(yintercept = -1.25, color = "black", linetype = "dashed") +
+    labs(
+        title = "dlPFC L2 & dACC L2",
+        x = "dACC logFC",
+        y = "dlPFC logFC",
+        subtitle = paste0("Pearson's r: ", round(corr_layer$estimate, 2))
+    ) +
+    theme_bw()
+
+
+
 
 
 # supp figure
@@ -354,50 +401,6 @@ p1 <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
     ) +
     theme_bw()
 
-layer <- "L2"
-genes <- dACC_results[, "gene"]
-dACC_logFC <- dACC_results[, paste0("logFC_", layer)]
-DLPFC_logFC <- DLPFC_results[, paste0("logFC_", layer)]
-corr_layer <- cor.test(dACC_logFC, DLPFC_logFC)
-
-# create data frame
-df_layer <- data.frame(
-    gene = genes,
-    dACC_logFC = dACC_logFC,
-    DLPFC_logFC = DLPFC_logFC
-)
-
-df_layer$color <- with(df_layer, ifelse(
-    dACC_logFC > 1.25 & DLPFC_logFC > 1.25, "dlPFC & dACC enriched",
-    ifelse(dACC_logFC > 1.25 & DLPFC_logFC < 1.25, "dACC enriched",
-           ifelse(DLPFC_logFC > 1.25 & dACC_logFC < 1.25, "dlPFC enriched", "None")
-    )
-))
-
-genes_to_label_L2 <- c("STXBP6", "LAMP5", "KCTD4", "ARHGAP4", "RSPO2", "CCNO","C1QL2")
-
-# plot
-p2 <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
-    geom_point(aes(color = color), size=0.5) +
-    scale_color_manual(values = c("dlPFC & dACC enriched" = "purple",
-                                  "dACC enriched" = "red",
-                                  "dlPFC enriched" = "blue",
-                                  "Neither" = "grey")) +
-    geom_text_repel(aes(label = ifelse(gene %in% genes_to_label_L2, gene, "")), size = 3, max.overlaps = Inf) +
-    geom_smooth(method = "lm", se = FALSE, color = "black") +
-    geom_vline(xintercept = 1.25, color = "black", linetype = "dashed") +
-    geom_hline(yintercept = 1.25, color = "black", linetype = "dashed") +
-    geom_vline(xintercept = -1.25, color = "black", linetype = "dashed") +
-    geom_hline(yintercept = -1.25, color = "black", linetype = "dashed") +
-    labs(
-        title = "dlPFC L2 & dACC L2",
-        x = "dACC logFC",
-        y = "dlPFC logFC",
-        subtitle = paste0("Pearson's r: ", round(corr_layer$estimate, 2))
-    ) +
-    theme_bw()
-
-
 layer <- "L3"
 genes <- dACC_results[, "gene"]
 dACC_logFC <- dACC_results[, paste0("logFC_", layer)]
@@ -441,6 +444,6 @@ p3 <- ggplot(df_layer, aes(x = dACC_logFC, y = DLPFC_logFC)) +
     theme_bw() +
     theme(legend.position="none")
 
-png(file = here("plots", "11_differential_expression", "layer_markers_dACC_DLPFC_other.png"), width = 10, height = 5, unit="in",res=300)
-wrap_plots(p1, p2, p3, nrow=1, guides = "collect") + plot_layout(axes = "collect") & theme(legend.position = "bottom")
+png(file = here("plots", "11_differential_expression", "layer_markers_dACC_DLPFC_other.png"), width = 9, height = 5, unit="in",res=300)
+wrap_plots(p1, p3, nrow=1, guides = "collect") + plot_layout(axes = "collect") & theme(legend.position = "bottom")
 dev.off()
