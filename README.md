@@ -36,13 +36,13 @@ We provide the following interactive websites, organized by dataset with
 software labeled by emojis:
 
 - Visium (n = 17)
-  - 👀 <https://libd.shinyapps.io/pseudobulk_HPC/>
+  - 👀 <https://libd.shinyapps.io/spatialdACC_Visium/>
     - Provides tools for visualization of pseudobulked Visium data.
   - 🔍 [dACC Samui
-    browser](https://samuibrowser.com/from?url=data.libd.org/samuibrowser/&s=Br3942&s=Br8325&s=Br2720&s=Br2743&s=Br3942-VSPG&s=Br6423&s=Br6432&s=Br6471&s=Br6522&s=Br8325-VSPG&s=Br8492&s=Br8667)
+    browser](https://samuibrowser.com/from?url=data.libd.org/samuibrowser/&s=Br2720_V12J03-002_A1&s=Br2720_V12N28-331_A1&s=Br2720_V12N28-332_A1&s=Br2743_V12N28-334_C1&s=Br3942_V12N28-334_A1&s=Br6423_V12N28-334_D1&s=Br6432_V12J03-002_B1&s=Br6432_V12N28-331_B1&s=Br6432_V12N28-332_B1&s=Br6471_V12J03-002_C1&s=Br6471_V12N28-331_C1&s=Br6471_V12N28-332_C1&s=Br6522_V12N28-331_D1&s=Br6522_V12N28-332_D1&s=Br8325_V12Y31-080_C1&s=Br8492_V12N28-334_B1&s=Br8667_V12Y31-080_B1)
     - Provides interactive spot-level visualization of Visium data.
 - snRNA-seq (n = 10)
-  - 👀 <https://libd.shinyapps.io/HPC_snRNAseq_data/>
+  - 👀 <https://libd.shinyapps.io/snRNAseq_dACC/>
     - Provides tools for visualization of snRNA-seq data.
    
 ## Data Access
@@ -50,9 +50,9 @@ software labeled by emojis:
 All data, including raw FASTQ files and `SpaceRanger`/`CellRanger`
 processed data outputs, can be accessed via Gene Expression Omnibus
 (GEO) under accessions
-[GSE264692](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE264692)
+[GSE296731](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE296731)
 (SRT) and
-[GSE264624](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE264624)
+[GSE296789](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE296789)
 (snRNA-seq).
 
 ## Contact
