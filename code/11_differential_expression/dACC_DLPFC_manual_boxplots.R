@@ -100,16 +100,16 @@ mat_dACC <- assay(spe_pseudo, "logcounts")
 groups_dACC <- factor(colData(spe_pseudo)[["layer"]])
 spe_pseudo_dACC <- spe_pseudo
 
-load(file = here("processed-data", "12_spatial_registration",paste0("DLPFC_30_pseudobulk",".Rdata")))
-assay(spe_pseudo, "logcounts") <- NULL
-colData(spe_pseudo)$sizeFactor <- NULL
-assay(spe_pseudo, "normounts") <- edgeR::cpm(counts(spe_pseudo))
-assay(spe_pseudo, "logcounts") <- log2(assay(spe_pseudo, "normounts")+1)
-mat_dlPFC <- assay(spe_pseudo, "logcounts")
-groups_dlPFC <- factor(colData(spe_pseudo)[["BayesSpace_harmony_09"]])
-spe_pseudo_dlPFC <- spe_pseudo
+load(
+    file = here("processed-data", "08_clustering", "DRD5_DLPFC_30_pseudobulk.Rdata")
+)
+assay(DRD5_DLPFC_30_pseudo, "normounts") <- edgeR::cpm(counts(DRD5_DLPFC_30_pseudo))
+assay(DRD5_DLPFC_30_pseudo, "logcounts") <- log2(assay(DRD5_DLPFC_30_pseudo, "normounts")+1)
+mat_dlPFC <- assay(DRD5_DLPFC_30_pseudo, "logcounts")
+groups_dlPFC <- factor(colData(DRD5_DLPFC_30_pseudo)[["BayesSpace_harmony_09"]])
+spe_pseudo_dlPFC <- DRD5_DLPFC_30_pseudo
 
-genes <- c("NXPH3", "ISLR", "NR4A2")
+genes <- c("CPLX3", "KCTD8", "DRD5")
 
 dACC_layer_colors <- c(
     "L2" = "#377EB8",
@@ -145,11 +145,11 @@ for (gene in genes) {
     df_dlPFC$Layer <- groups_dlPFC
     colnames(df_dlPFC)[1] <- "Expression"
 
-    p1 <- ggplot(df_dACC,aes(x=Layer, y=Expression, color=Layer, fill=Layer)) +
-        geom_boxplot() +
+    p1 <- ggplot(df_dACC,aes(x=Layer, y=Expression, color=Layer)) +
+        geom_boxplot(outlier.shape = NA) +
+        geom_point(size = 0.6, alpha = 0.7) +
         theme_bw() +
         scale_color_manual(values=dACC_layer_colors) +
-        scale_fill_manual(values=dACC_layer_colors) +
         ylab(expression("dACC " ~ log[2](cpm + 1))) +
         theme(axis.text.x=element_blank(),
               axis.ticks.x=element_blank()) +
@@ -157,11 +157,11 @@ for (gene in genes) {
         xlab("") +
         ylim(c(0,7.5))
 
-    p2 <- ggplot(df_dlPFC,aes(x=Layer, y=Expression, color=Layer, fill=Layer)) +
-        geom_boxplot() +
+    p2 <- ggplot(df_dlPFC,aes(x=Layer, y=Expression, color=Layer)) +
+        geom_boxplot(outlier.shape = NA) +
+        geom_point(size = 0.6, alpha = 0.7) +
         theme_bw() +
         scale_color_manual(values=dlPFC_layer_colors) +
-        scale_fill_manual(values=dlPFC_layer_colors) +
         ylab(expression("dlPFC " ~ log[2](cpm + 1))) +
         theme(axis.text.x=element_blank(),
               axis.ticks.x=element_blank()) +
