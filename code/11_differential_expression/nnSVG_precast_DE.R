@@ -241,18 +241,6 @@ for (i in unique(colData(spe_pseudo)[["layer"]])) {
 dev.off()
 
 
-
-# supp figure
-png(file = here::here("plots", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
-                      paste0("volcano_", nnSVG_precast_name, ".png")),
-    width = 13, height = 18, unit="in", res=300)
-
-wrap_plots(plot_list[["L1"]],plot_list[["L2"]],plot_list[["L3"]],plot_list[["L5"]],
-           plot_list[["L6a"]],plot_list[["L6b"]],plot_list[["WM"]],
-           nrow=4, guides="collect") & theme(legend.position = 'bottom')
-
-dev.off()
-
 # create volcano plot of pairwise comparison of L6a and L6b
 #volcano plots
 thresh_fdr <- 0.05
@@ -273,28 +261,42 @@ df_list <- data.frame(
     sig = sig
 )
 
+p_pair <- EnhancedVolcano(df_list,
+                          lab = df_list$gene_name,
+                          x = 'logFC',
+                          y = 'FDR',
+                          xlim = c(-3, 4),
+                          ylim = c(0, -log10(10e-40)),
+                          legendPosition = "bottom",
+                          selectLab = c("CCK", "NPTXR", "NCAM2", "MBP", "MOG", "GFAP"),
+                          FCcutoff = 1,
+                          pCutoff = 0.05,
+                          labSize = 7.0,
+                          ylab = "-log10 FDR",
+                          legendLabels = c('Not sig.','LogFC','FDR',
+                                           'FDR & LogFC'),
+                          title = "L6a vs. L6b",
+                          subtitle = "",
+                          caption = ""
+)
+
+
+# supp figure
+png(file = here::here("plots", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
+                      paste0("volcano_", nnSVG_precast_name, ".png")),
+    width = 13, height = 18, unit="in", res=300)
+
+wrap_plots(plot_list[["L1"]],plot_list[["L2"]],plot_list[["L3"]],plot_list[["L5"]],
+           plot_list[["L6a"]],plot_list[["L6b"]],plot_list[["WM"]], p_pair,
+           nrow=4, guides="collect") + plot_annotation(tag_levels = 'A') & theme(legend.position = 'bottom')
+
+dev.off()
+
 pdf(file = here::here("plots", "11_differential_expression","pseudobulk", "nnSVG_precast_DE",
                       paste0("volcano_", "L6a-L6b", ".pdf")),
     width = 7, height = 7)
 
-print(EnhancedVolcano(df_list,
-                      lab = df_list$gene_name,
-                      x = 'logFC',
-                      y = 'FDR',
-                      xlim = c(-3, 4),
-                      ylim = c(0, -log10(10e-40)),
-                      legendPosition = "bottom",
-                      FCcutoff = 1,
-                      pCutoff = 0.05,
-                      labSize = 7.0,
-                      ylab = "-log10 FDR",
-                      legendLabels = c('Not sig.','LogFC','FDR',
-                                       'FDR & LogFC'),
-                      title = "L6a vs. L6b",
-                      subtitle = "",
-                      caption = ""
-)
-)
+print(p_pair)
 
 dev.off()
 
