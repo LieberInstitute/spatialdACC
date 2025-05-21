@@ -113,14 +113,14 @@ loads <- loads[-no_expr, ]
 select.nmfs = c("nmf3","nmf61","nmf38","nmf46","nmf15","nmf32","nmf68","nmf35")
 
 nmf.genes <- c(
-                "GNAL","ROBO1","SGCD","GRIA2","CACNB2",
-                "VAT1L", "ADRA1A", "GABRQ", "POU3F1","COL5A2",
-                "LINC02055","IL1RAPL2","RORB","CASC15","AC008415.1",
-                "ITGA8","HTR2C","NPSR1-AS1","TSHZ2","DCC",
-                "ADAMTSL1","AC011246.1","SEMA5A","TRPM3","TMEFF2",
+                "GRM1","ROBO1","GRIN2B","GRIA2","CACNB2",
+                "VAT1L", "ADRA1A", "GABRQ", "POU3F1","NTRK2",
+                "THRB","IL1RAPL2","RORB","ATXN1","RORA",
+                "ITGA8","HTR2C","KCNB2","TSHZ2","DCC",
+                "ADAMTSL1","FOXP2","SEMA5A","TRPM3","TMEFF2",
                 "AC007368.1","NCAM2","SGCZ","SLIT3","PTPRK",
-                "SEMA6D","RGS12","CUX1","SYNPR","ZNF804B",
-                "AL136456.1","PCSK5","FUT9","PCDH11X","ZFHX3")
+                "SEMA6D","SATB2","CUX1","GABRB3","ZNF804A",
+                "ASTN2","TLE4","CDH10","PCDH11X","ZFHX3")
 
 df$heatmap <- ifelse(df$gene %in% nmf.genes, "in heatmap", "not in heatmap")
 df <- df[order(df$factor), ]
