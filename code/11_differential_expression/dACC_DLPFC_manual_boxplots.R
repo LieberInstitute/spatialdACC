@@ -109,7 +109,7 @@ mat_dlPFC <- assay(DRD5_DLPFC_30_pseudo, "logcounts")
 groups_dlPFC <- factor(colData(DRD5_DLPFC_30_pseudo)[["BayesSpace_harmony_09"]])
 spe_pseudo_dlPFC <- DRD5_DLPFC_30_pseudo
 
-genes <- c("CPLX3", "KCTD8", "DRD5")
+genes <- c("DRD5", "KCTD8","CPLX3")
 
 dACC_layer_colors <- c(
     "L2" = "#377EB8",
