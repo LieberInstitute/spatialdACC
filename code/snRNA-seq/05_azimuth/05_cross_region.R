@@ -146,8 +146,8 @@ anno
 
 load(file = here("processed-data", "snRNA-seq", "05_azimuth", "celltype_colors.Rdata"))
 
-pdf(file = here::here("plots", "snRNA-seq", "05_azimuth",
-                      paste0("azimuth_","dlPFC","_heatmap.pdf")), width = 6, height = 6)
+png(file = here::here("plots", "snRNA-seq", "05_azimuth",
+                      "azimuth_dlPFC_heatmap.png"), width = 6, height = 5, unit="in", res=300)
 layer_stat_cor_plot(cor_layer, color_max = max(cor_layer),
                     reference_colors = celltype_colors,
                     annotation = anno,
