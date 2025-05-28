@@ -23,6 +23,8 @@ load(file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth.Rdata
 sce <- sce[,-which(sce$cellType_azimuth == "Sst Chodl")]
 sce$cellType_azimuth <- as.factor(sce$cellType_azimuth)
 
+save(sce, file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_azimuth_noSstChodl.Rdata"))
+
 mycolors <- pals::cols25()[1:19]
 celltype_colors <- setNames(mycolors, unique(sce$cellType_azimuth))
 celltype_colors
