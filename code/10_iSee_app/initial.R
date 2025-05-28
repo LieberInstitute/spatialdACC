@@ -4,7 +4,7 @@ initial <- list()
 # Settings for Reduced dimension plot 1
 ################################################################################
 
-initial[["ReducedDimensionPlot1"]] <- new("ReducedDimensionPlot", Type = "pp-GLM-PCA", XAxis = 1L,
+initial[["ReducedDimensionPlot1"]] <- new("ReducedDimensionPlot", Type = "UMAP-HARMONY", XAxis = 1L,
                                           YAxis = 2L, FacetRowByColData = "sort", FacetColumnByColData = "sort",
                                           ColorByColumnData = "Barcode", ColorByFeatureNameAssay = "logcounts",
                                           ColorBySampleNameColor = "#FF0000", ShapeByColumnData = "sort",
