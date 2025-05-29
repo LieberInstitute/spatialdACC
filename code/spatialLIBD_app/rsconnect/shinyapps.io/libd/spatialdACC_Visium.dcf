@@ -1,9 +1,0 @@
-name: spatialdACC_Visium
-title:
-username:
-account: libd
-server: shinyapps.io
-hostUrl: https://api.shinyapps.io/v1
-appId: 9193352
-bundleId: 9982242
-url: https://libd.shinyapps.io/spatialdACC_Visium/
