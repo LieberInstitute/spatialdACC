@@ -15,7 +15,7 @@ Thank you for your interest in our work!
 
 ## Study design
 
-<img src="https://github.com/LieberInstitute/spatialdACC/blob/main/plots/dACC_Fig1_draft2.png" width="1000px" align="left" />
+![Experimental Overview](./img/dACC_overview.png)
 
 Experimental design to generate paired single-nucleus RNA-sequencing
 (snRNA-seq) and spatially-resolved transcriptomics (SRT) data in the
@@ -63,6 +63,5 @@ answers. If you have any questions, please ask them at
 and refrain from emailing us. Thank you again for your interest in our
 work!
 
-## Internal
 
-JHPCE location:`/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/`
+
