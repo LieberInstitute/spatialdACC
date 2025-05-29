@@ -1,6 +1,0 @@
-ln -s /dcs04/lieber/lcolladotor/rawDataTDSC_LIBD001/raw-data/2023-03-14_SPag021323/dACC_6v* /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/FASTQ/2023-03-14_SPag021323/V12N28-334_B1/
-ln -s /dcs04/lieber/lcolladotor/rawDataTDSC_LIBD001/raw-data/2023-03-14_SPag021323/dACC_7v* /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/FASTQ/2023-03-14_SPag021323/V12N28-334_C1/
-ln -s /dcs04/lieber/lcolladotor/rawDataTDSC_LIBD001/raw-data/2023-03-14_SPag021323/dACC_8v* /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/FASTQ/2023-03-14_SPag021323/V12N28-334_D1/
-ln -s /dcs04/lieber/lcolladotor/rawDataTDSC_LIBD001/raw-data/2023-03-14_SPag021323/dACC_9v* /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/FASTQ/2023-03-14_SPag021323/V12Y31-080_B1/
-ln -s /dcs04/lieber/lcolladotor/rawDataTDSC_LIBD001/raw-data/2023-03-14_SPag021323/dACC_10v* /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/FASTQ/2023-03-14_SPag021323/V12Y31-080_C1/
-ln -s /dcs04/lieber/lcolladotor/rawDataTDSC_LIBD001/raw-data/2023-03-14_SPag021323/dACC_Mouse_4v* /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/raw-data/FASTQ/2023-03-14_SPag021323/V12Y31-080_D1/
