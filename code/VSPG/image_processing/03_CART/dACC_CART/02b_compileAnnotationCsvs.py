@@ -61,6 +61,14 @@ label_counts
 # microglia     36
 # Name: label, dtype: int64
 
+#label
+#NeuN       379
+#OLIG2      377
+#GFAP       374
+#TMEM119    364
+#AF          82
+#DAPI        81
+#Name: count, dtype: int64
     
     #   Write a clean copy of both sets of manual labels
 df.to_csv(manual_label_path_out, index = False)
