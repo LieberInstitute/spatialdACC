@@ -41,6 +41,7 @@ for sample_id in sample_ids:
     #   Read in all required CSVs
     this_df = pd.read_csv(this_df_path, names = expected_df_cols, header=0)
     this_manual_labels = pd.read_csv(this_manual_label_path) 
+    this_manual_labels = this_manual_labels[~this_manual_labels.duplicated(subset='id', keep=False)]
     #   Check the columns are all as expected
     #assert all([x == y for x, y in zip(this_df.columns.tolist(), expected_df_cols)])
     #   Fix indices (index rows by cell ID)
