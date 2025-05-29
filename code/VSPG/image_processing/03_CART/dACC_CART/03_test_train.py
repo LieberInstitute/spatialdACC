@@ -63,7 +63,8 @@ x_test.drop('label_sample', axis = 1, inplace = True)
 perc_train = round(100 * x_train.shape[0] / (x_train.shape[0] + x_test.shape[0]), 2)
 print(f'Using {x_train.shape[0]} training and {x_test.shape[0]} test examples ({perc_train}% training).')
 #Using 390 training and 98 test examples (79.92% training).
-#Using 324 training and 82 test examples (79.8% training). without AF clabelled cells
+#Using 324 training and 82 test examples (79.8% training). without AF clabelled cells:
+#Using 1260 training and 315 test examples (80.0% training). with new celltype annotations
 #   Write the dataset to disk for later use
 with open(df_path_out, 'wb') as f:
     pickle.dump((x_train, x_test, y_train, y_test), f)
@@ -96,6 +97,11 @@ acc_test = round(100 * grid.best_estimator_.score(x_test, y_test), 1)
 print(f'CART training accuracy: {acc_train}%.') #CART training accuracy: 74.1%.
 print(f'CART test accuracy: {acc_test}%.') #CART test accuracy: 64.3%.
 print(f'Best params: {grid.best_params_}') #Best params: {'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 6, 'min_samples_leaf': 20, 'min_samples_split': 2, 'splitter': 'best'}
+
+#with additional annotations from atharv
+#CART training accuracy: 94.3%.
+#CART test accuracy: 91.7%.
+#{'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 5, 'min_samples_leaf': 5, 'min_samples_split': 2, 'splitter': 'best'}
 
 #   Print a more thorough report about training and test scores, making sure
 #   performance is good across all classes (since we optimized for accuracy)
@@ -145,8 +151,22 @@ print('Training report:\n', classification_report(y_train, labels_train))
 #   macro avg       0.86      0.82      0.80       324
 #weighted avg       0.86      0.82      0.80       324
 
-print('Test report:\n', classification_report(y_test, labels_test))
+#more annotations added
+#Training report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.75      0.37      0.49        65
+#        GFAP       0.96      0.95      0.95       299
+#        NeuN       0.97      0.99      0.98       303
+#       OLIG2       0.90      0.97      0.93       301
+#     TMEM119       0.98      0.99      0.98       292
+#
+#    accuracy                           0.94      1260
+#   macro avg       0.91      0.85      0.87      1260
+#weighted avg       0.94      0.94      0.94      1260
+#
 
+print('Test report:\n', classification_report(y_test, labels_test))
 #Test report:
 #               precision    recall  f1-score   support
 #
@@ -188,6 +208,20 @@ print('Test report:\n', classification_report(y_test, labels_test))
 #    accuracy                           0.80        82
 #   macro avg       0.84      0.80      0.77        82
 #weighted avg       0.84      0.80      0.77        82
+
+#additional celltype annotations
+#Test report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.44      0.25      0.32        16
+#        GFAP       0.96      0.88      0.92        75
+#        NeuN       0.96      1.00      0.98        76
+#       OLIG2       0.86      0.96      0.91        76
+#     TMEM119       0.96      0.97      0.97        72
+#
+#    accuracy                           0.92       315
+#   macro avg       0.84      0.81      0.82       315
+#weighted avg       0.91      0.92      0.91       315
 #-------------------------------------------------------------------------------
 #   Try logistic regression
 #-------------------------------------------------------------------------------
