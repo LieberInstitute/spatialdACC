@@ -16,7 +16,8 @@ from pathlib import Path
 import pickle
 
 df_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '02_samui', 'samui_manualAnnotation', 'annotations_Atharv_processed.csv')
-df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset.pkl')
+#df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset.pkl')
+df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset_withoutAF.pkl')
 
 num_cell_types = 5
 test_proportion = 0.2 # for training/test split
@@ -62,6 +63,7 @@ x_test.drop('label_sample', axis = 1, inplace = True)
 perc_train = round(100 * x_train.shape[0] / (x_train.shape[0] + x_test.shape[0]), 2)
 print(f'Using {x_train.shape[0]} training and {x_test.shape[0]} test examples ({perc_train}% training).')
 #Using 390 training and 98 test examples (79.92% training).
+#Using 324 training and 82 test examples (79.8% training). without AF clabelled cells
 #   Write the dataset to disk for later use
 with open(df_path_out, 'wb') as f:
     pickle.dump((x_train, x_test, y_train, y_test), f)
@@ -115,7 +117,7 @@ print('Training report:\n', classification_report(y_train, labels_train))
 #   macro avg       0.74      0.74      0.74       390
 #weighted avg       0.73      0.74      0.74       390
 
-
+# AF relabelled as DAPI
 #Training report:
 #               precision    recall  f1-score   support
 #
@@ -128,6 +130,20 @@ print('Training report:\n', classification_report(y_train, labels_train))
 #    accuracy                           0.82       390
 #   macro avg       0.83      0.83      0.83       390
 #weighted avg       0.82      0.82      0.81       390
+
+# AF removed
+#Training report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.95      0.29      0.45        65
+#        GFAP       0.86      0.88      0.87        64
+#        NeuN       0.94      0.98      0.96        65
+#       OLIG2       0.65      0.97      0.78        66
+#     TMEM119       0.89      1.00      0.94        64
+#
+#    accuracy                           0.82       324
+#   macro avg       0.86      0.82      0.80       324
+#weighted avg       0.86      0.82      0.80       324
 
 print('Test report:\n', classification_report(y_test, labels_test))
 
@@ -145,6 +161,7 @@ print('Test report:\n', classification_report(y_test, labels_test))
 #   macro avg       0.65      0.66      0.65        98
 #weighted avg       0.65      0.66      0.65        98
 
+# AF relabelled as DAPI
 #Test report:
 #               precision    recall  f1-score   support
 #
@@ -158,6 +175,19 @@ print('Test report:\n', classification_report(y_test, labels_test))
 #   macro avg       0.77      0.75      0.76        98
 #weighted avg       0.75      0.73      0.74        98
 
+# AF removed
+#Test report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       1.00      0.25      0.40        16
+#        GFAP       0.83      0.88      0.86        17
+#        NeuN       0.88      0.94      0.91        16
+#       OLIG2       0.73      0.94      0.82        17
+#     TMEM119       0.76      1.00      0.86        16
+#
+#    accuracy                           0.80        82
+#   macro avg       0.84      0.80      0.77        82
+#weighted avg       0.84      0.80      0.77        82
 #-------------------------------------------------------------------------------
 #   Try logistic regression
 #-------------------------------------------------------------------------------
