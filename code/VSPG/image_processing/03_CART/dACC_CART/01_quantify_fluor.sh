@@ -17,7 +17,7 @@ echo "Hostname: ${HOSTNAME}"
 echo "Task id: ${SGE_TASK_ID}"
 
 module load cellpose/2.0
-python 01-quantify_fluor.py
+python 01_quantify_fluor.py
 
 echo "**** Job ends ****"
 date
