@@ -17,7 +17,7 @@ import pickle
 
 df_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '02_samui', 'samui_manualAnnotation', 'annotations_Atharv_processed.csv')
 #df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset.pkl')
-df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset_withoutAF.pkl')
+df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset_final.pkl')
 
 num_cell_types = 5
 test_proportion = 0.2 # for training/test split
@@ -65,6 +65,7 @@ print(f'Using {x_train.shape[0]} training and {x_test.shape[0]} test examples ({
 #Using 390 training and 98 test examples (79.92% training).
 #Using 324 training and 82 test examples (79.8% training). without AF clabelled cells:
 #Using 1260 training and 315 test examples (80.0% training). with new celltype annotations
+#Using 1422 training and 356 test examples (79.98% training). final
 #   Write the dataset to disk for later use
 with open(df_path_out, 'wb') as f:
     pickle.dump((x_train, x_test, y_train, y_test), f)
@@ -102,6 +103,11 @@ print(f'Best params: {grid.best_params_}') #Best params: {'ccp_alpha': 0.0, 'cri
 #CART training accuracy: 94.3%.
 #CART test accuracy: 91.7%.
 #{'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 5, 'min_samples_leaf': 5, 'min_samples_split': 2, 'splitter': 'best'}
+
+#with all versions of annotations from atharv
+#CART training accuracy: 87.8%.
+#CART test accuracy: 86.2%.
+#{'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 8, 'min_samples_leaf': 5, 'min_samples_split': 2, 'splitter': 'random'}
 
 #   Print a more thorough report about training and test scores, making sure
 #   performance is good across all classes (since we optimized for accuracy)
@@ -166,6 +172,20 @@ print('Training report:\n', classification_report(y_train, labels_train))
 #weighted avg       0.94      0.94      0.94      1260
 #
 
+# with all versions of annotations
+#Training report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.74      0.64      0.69       234
+#        GFAP       0.90      0.94      0.92       298
+#        NeuN       0.96      0.94      0.95       300
+#       OLIG2       0.80      0.89      0.84       299
+#     TMEM119       0.95      0.93      0.94       291
+#
+#    accuracy                           0.88      1422
+#   macro avg       0.87      0.87      0.87      1422
+#weighted avg       0.88      0.88      0.88      1422
+
 print('Test report:\n', classification_report(y_test, labels_test))
 #Test report:
 #               precision    recall  f1-score   support
@@ -222,6 +242,20 @@ print('Test report:\n', classification_report(y_test, labels_test))
 #    accuracy                           0.92       315
 #   macro avg       0.84      0.81      0.82       315
 #weighted avg       0.91      0.92      0.91       315
+
+#Test report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.70      0.60      0.65        58
+#        GFAP       0.88      0.92      0.90        75
+#        NeuN       0.93      0.93      0.93        75
+#       OLIG2       0.80      0.88      0.84        75
+#     TMEM119       0.94      0.92      0.93        73
+#
+#    accuracy                           0.86       356
+#   macro avg       0.85      0.85      0.85       356
+#weighted avg       0.86      0.86      0.86       356
+
 #-------------------------------------------------------------------------------
 #   Try logistic regression
 #-------------------------------------------------------------------------------
