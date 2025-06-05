@@ -116,9 +116,6 @@ img_path = str(img_path).format(sample_id_img)
 mask_path = str(mask_path).format(sample_id_img)
 spot_path = str(spot_path).format(sample_id_img)
 
-out_df_path = pyhere.here(out_df_path,str(sample_id_img + '_df.csv'))
-Path(out_df_path).parents[0].mkdir(parents=True, exist_ok=True)
-
 #   Path to JSON from spaceranger including spot size for this sample
 json_path = str(scale_path).format(sample_id_img)
 with open(json_path) as f: 
@@ -152,20 +149,62 @@ expanded_masks = balanced_dilation(masks, dilation_radius, dilation_chunk_size)
 #   (non-lipofuscin, non-DAPI) channel
 its = {
     names[i]: regionprops_table(
-        expanded_masks, intensity_image=imgs[i], properties=["intensity_mean"]
-       # masks, intensity_image=imgs[i], properties=["intensity_mean"]
+    masks, intensity_image=imgs[i], properties=["intensity_mean"]
     )["intensity_mean"]
     for i in range(2, 6)
 }
 
 #   Create a table containing the centroids and areas of each mask
 #   (nucleus), and add this info to the intensities table
+general = regionprops_table(masks, properties=["centroid", "area"])
+its["area"] = general["area"]
+its["x"] = general["centroid-0"]
+its["y"] = general["centroid-1"]
+
+df = pd.DataFrame(its)
+df.rename(
+    {
+        'x': 'y',
+        'y': 'x',
+        'Unnamed: 0': 'id'
+    },
+    axis = 1, inplace = True
+)
+out_df_path = pyhere.here(out_df_path,str(sample_id_img + '_df.csv'))
+Path(out_df_path).parents[0].mkdir(parents=True, exist_ok=True)
+
+df.to_csv(out_df_path)
+
+
+its = {
+    names[i]: regionprops_table(
+        expanded_masks, intensity_image=imgs[i], properties=["intensity_mean"]
+    )["intensity_mean"]
+    for i in range(2, 6)
+}
+
+#   Create a table containing the centroids and areas of each mask
+#   (nucleus), and add this info to the intensities table
+#general = regionprops_table(masks, properties=["centroid", "area"])
 general = regionprops_table(expanded_masks, properties=["centroid", "area"])
 its["area"] = general["area"]
 its["x"] = general["centroid-0"]
 its["y"] = general["centroid-1"]
 
 df = pd.DataFrame(its)
+df.rename(
+    {
+        'x': 'y',
+        'y': 'x',
+        'Unnamed: 0': 'id'
+    },
+    axis = 1, inplace = True
+)
+out_df_path = pyhere.here(out_df_path,str(sample_id_img + '_expanded_df.csv'))
+Path(out_df_path).parents[0].mkdir(parents=True, exist_ok=True)
+
+df.to_csv(out_df_path)
+
 #-------------------------------------------------------------------------------
 #   Exploratory plot: show the distribution of masks over spots
 #-------------------------------------------------------------------------------
@@ -181,15 +220,3 @@ plt.savefig(
     )
 )
 
-#-------------------------------------------------------------------------------
-#   Save relevant data
-#-------------------------------------------------------------------------------
-df.rename(
-    {
-        'x': 'y',
-        'y': 'x',
-        'Unnamed: 0': 'id'
-    },
-    axis = 1, inplace = True
-)
-df.to_csv(out_df_path)
