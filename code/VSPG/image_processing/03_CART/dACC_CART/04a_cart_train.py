@@ -22,7 +22,7 @@ import graphviz
 # sample_id = "V12D07-332_D1"
 # df_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '02_samui_manual_annotation', sample_id + '_df.csv')
 # predictions_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '02_samui_manual_annotation', '{}' + 'CART_predictions.csv')
-dataset_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset.pkl')
+dataset_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset_final.pkl')
 tree_path = pyhere.here('plots', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'decision_tree.pdf')
 model_out_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'decision_tree.pkl')
 
@@ -77,11 +77,13 @@ with open(dataset_path, 'rb') as f:
 #   qualitatively change with the introduction of new data (if we used all
 #   manual labels for inference).
 model = tree.DecisionTreeClassifier(
-    criterion = 'entropy', 
-    max_depth = 4,
-    min_samples_leaf = 15, 
+    criterion = 'gini', 
+    max_depth = 5,
+    min_samples_leaf = 5, 
     random_state = random_seed,
-    ccp_alpha = 0.01
+    min_samples_split = 2,
+    ccp_alpha = 0.0,
+    splitter = 'best'
 )
 
 model.fit(x_train, y_train)
