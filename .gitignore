@@ -38,7 +38,8 @@ processed-data/20_WM_comparisons/modeling_results_WM_vs_CC.RDS
 processed-data/20_WM_comparisons/pseudobulk_manual_anno.RData
 processed-data/20_WM_comparisons/spe_anno.Rdata
 processed-data/PTSD_bulk/
-processed-data/VSPG/
+processed-data/VSPG/02_label_transfer
+processed-data/VSPG/01_QC
 processed-data/manual_annotations/
 processed-data/pain/
 processed-data/snRNA-seq/01_QC/sce_doublet.rda
