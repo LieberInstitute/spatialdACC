@@ -1,11 +1,10 @@
 #!/bin/bash
-#$ -cwd
-#$ -N "quantify_fluor"
-#$ -o /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/03_CART/dACC_CART/logs/01_quantify_fluor_$TASK_ID.log
-#$ -e /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/03_CART/dACC_CART/logs/01_quantify_fluor_$TASK_ID.log
-#$ -l mf=20G,h_vmem=20G
-#$ -t 1-4
-#$ -tc 4
+#SBATCH --mem=20G
+#SBATCH --job-name=quantify_fluo
+#SBATCH --array=1-4%4
+#SBATCH -o /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/03_CART/dACC_CART/logs/1_quant_fluo%a.log
+#SBATCH -e /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/03_CART/dACC_CART/logs/1_quant_fluo%a.log
+
 
 echo "**** Job starts ****"
 date
