@@ -35,6 +35,7 @@ spot_path = pyhere.here('processed-data', '01_spaceranger', 'spaceranger_if_2023
 scale_path = pyhere.here('processed-data', '01_spaceranger', 'spaceranger_if_2023-06-29_KMay061223', '{}', 'outs', 'spatial','scalefactors_json.json')
 
 out_df_path = pyhere.here('processed-data', 'VSPG', 'image_processing' ,'03_CART', 'dACC_CART')
+Path(out_df_path).parents[0].mkdir(parents=True, exist_ok=True)
 plot_dir = pyhere.here('plots','VSPG', 'image_processing','03_CART', 'dACC_CART')
 Path(plot_dir).mkdir(parents=True, exist_ok=True)
 
@@ -170,10 +171,7 @@ df.rename(
     },
     axis = 1, inplace = True
 )
-out_df_path = pyhere.here(out_df_path,str(sample_id_img + '_df.csv'))
-Path(out_df_path).parents[0].mkdir(parents=True, exist_ok=True)
-
-df.to_csv(out_df_path)
+df.to_csv(pyhere.here(out_df_path,str(sample_id_img + '_df.csv')))
 
 
 its = {
@@ -200,10 +198,8 @@ df.rename(
     },
     axis = 1, inplace = True
 )
-out_df_path = pyhere.here(out_df_path,str(sample_id_img + '_expanded_df.csv'))
-Path(out_df_path).parents[0].mkdir(parents=True, exist_ok=True)
 
-df.to_csv(out_df_path)
+df.to_csv(pyhere.here(out_df_path,str(sample_id_img + '_expanded_df.csv')))
 
 #-------------------------------------------------------------------------------
 #   Exploratory plot: show the distribution of masks over spots
