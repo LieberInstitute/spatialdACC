@@ -79,6 +79,9 @@ label_counts
 #DAPI       244
 #Dapi        48
 #Name: count, dtype: int64
+
+df.loc[df['label'] == 'Dapi', 'label'] = 'DAPI'
+df['label_sample'] = df['label_sample'].str.replace('Dapi_', 'DAPI_', regex=False)
     #   Write a clean copy of both sets of manual labels
 df.to_csv(manual_label_path_out, index = False)
 
