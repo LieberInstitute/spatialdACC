@@ -1,10 +1,11 @@
 #!/bin/bash
-#SBATCH --partition=shared
-#SBATCH --mem=20G
-#SBATCH --job-name=cell_counts
-#SBATCH -o /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/03_CART/DLPFC_CART/logs/1-counts_%a.log
-#SBATCH -e /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/03_CART/DLPFC_CART/logs/1-counts_%a.log
-#SBATCH --array=1-4%4
+#$ -cwd
+#$ -N "quantify_fluor"
+#$ -o /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/03_CART/dACC_CART/logs/01_quantify_fluor_$TASK_ID.log
+#$ -e /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/03_CART/dACC_CART/logs/01_quantify_fluor_$TASK_ID.log
+#$ -l mf=20G,h_vmem=20G
+#$ -t 1-4
+#$ -tc 4
 
 echo "**** Job starts ****"
 date
@@ -16,7 +17,7 @@ echo "Hostname: ${HOSTNAME}"
 echo "Task id: ${SGE_TASK_ID}"
 
 module load cellpose/2.0
-python 01_quantify_fluor.py
+python 01-quantify_fluor.py
 
 echo "**** Job ends ****"
 date
