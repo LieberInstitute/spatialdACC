@@ -69,7 +69,16 @@ label_counts
 #AF          82
 #DAPI        81
 #Name: count, dtype: int64
-    
+
+#label
+#NeuN       375
+#OLIG2      374
+#GFAP       373
+#TMEM119    364
+#AF         279
+#DAPI       244
+#Dapi        48
+#Name: count, dtype: int64
     #   Write a clean copy of both sets of manual labels
 df.to_csv(manual_label_path_out, index = False)
 
