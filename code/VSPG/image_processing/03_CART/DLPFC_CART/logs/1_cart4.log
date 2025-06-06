@@ -1,0 +1,22 @@
+**** Job starts ****
+Thu Jun  5 11:28:03 PM EDT 2025
+**** JHPCE info ****
+User: mtippani
+Job id: 
+Job name: 
+Hostname: compute-169
+Task id: 
+Loading LIBD SLURM module for cellpose/2.0
+['micro' 'neuron' 'other' 'oligo' 'astro']
+Keeping 28.7% of masks, which were within spots covered by tissue.
+Total number of other cells: 9372
+Total number of neuron cells: 3249
+Total number of oligo cells: 1845
+Total number of microglia cells: 844
+Total number of astrocyte cells: 451
+Percentage of spots with at least one cell: 95.4%
+Mean number of cells per spot: 3.705
+Standard deviation (num cells per spot): 2.25
+Max number of cells per spot: 17
+**** Job ends ****
+Thu Jun  5 11:28:05 PM EDT 2025
