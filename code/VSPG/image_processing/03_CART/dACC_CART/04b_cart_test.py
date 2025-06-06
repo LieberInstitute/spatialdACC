@@ -21,7 +21,7 @@ import json
 ################################################################################
 #   Paths
 ################################################################################
-spaceranger_dirs = pyhere.here('processed-data', '01_spaceranger', 'spaceranger_if_2023-06-29_KMay061223'}
+spaceranger_dirs = pyhere.here('processed-data', '01_spaceranger', 'spaceranger_if_2023-06-29_KMay061223')
 
 df_path = pyhere.here('processed-data/VSPG/image_processing/03_CART/dACC_CART', '{}' + '_expanded_df.csv')
 
@@ -29,23 +29,19 @@ df_path = pyhere.here('processed-data/VSPG/image_processing/03_CART/dACC_CART', 
 model_path = pyhere.here('processed-data/VSPG/image_processing/03_CART/dACC_CART/decision_tree_final_expandedP.pkl')
 
 #   Main output: rows are spots and columns are cell types (values are counts)
-clusters_path = pyhere.here('processed-data/VSPG/image_processing/03_CART/dACC_CART', '{}', 'clusters.csv')
+clusters_path = pyhere.here('processed-data/VSPG/image_processing/03_CART/dACC_CART', '{}' + '_clusters.csv')
 
 #   Secondary output: rows are cells and columns are metrics/info
-cells_path = pyhere.here('processed-data/VSPG/image_processing/03_CART/dACC_CART', '{}', 'cell_metrics.csv')
+cells_path = pyhere.here('processed-data/VSPG/image_processing/03_CART/dACC_CART', '{}' + '_cell_metrics.csv')
 
 # os.environ['SGE_TASK_ID'] = '1'
-
-sample_id = spaceranger_dirs.sample_id[int(os.environ['SGE_TASK_ID']) - 1]
+sample_ids = [p.name for p in spaceranger_dirs.iterdir() if p.is_dir()]
+sample_id = sample_ids[int(os.environ.get('SLURM_ARRAY_TASK_ID', 1)) - 1]
 spot_path = pyhere.here(spaceranger_dirs, sample_id,'outs','spatial','tissue_positions.csv')
 json_path = pyhere.here(spaceranger_dirs, sample_id,'outs','spatial','scalefactors_json.json')
 df_path = str(df_path).format(sample_id)
-
 clusters_path = str(clusters_path).format(sample_id)
-Path(clusters_path).parents[0].mkdir(parents=True, exist_ok=True)
-
 cells_path = str(cells_path).format(sample_id)
-Path(cells_path).parents[0].mkdir(parents=True, exist_ok=True)
 
 ################################################################################
 #   Analysis
@@ -63,10 +59,12 @@ df.rename({'Unnamed: 0': 'id'}, axis = 1, inplace = True)
 df.index = df['id']
 x = df.drop(['id', 'x', 'y'], axis = 1)
 
-df['cell_type'] = model.predict(x)
+df['cell_type_orig'] = model.predict(x)
 
+print(df['cell_type_orig'].unique())
 #   Ensure cell-type names match with what we expect
-cell_types = {"NeuN": "neuron","OLIG2": "oligo","TMEM119": "microglia","GFAP": "astrocyte", "other":"other"}
+cell_types = {"NeuN": "neuron","OLIG2": "oligo","TMEM119": "microglia","GFAP": "astrocyte", "DAPI":"other"}
+df['cell_type'] = df['cell_type_orig'].map(cell_types)
 assert set(df['cell_type']) == set(list(cell_types.values()))
 
 #   Save
