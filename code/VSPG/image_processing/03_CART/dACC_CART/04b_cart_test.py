@@ -23,22 +23,22 @@ import json
 ################################################################################
 spaceranger_dirs = pyhere.here('processed-data', '01_spaceranger', 'spaceranger_if_2023-06-29_KMay061223'}
 
-df_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '02_samui_manual_annotation', '{}' + '_df.csv')
+df_path = pyhere.here('processed-data/VSPG/image_processing/03_CART/dACC_CART', '{}' + '_expanded_df.csv')
 
 #   Trained DecisionTreeClassifier path
-model_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '03_CART', 'decision_tree.pkl')
+model_path = pyhere.here('processed-data/VSPG/image_processing/03_CART/dACC_CART/decision_tree_final_expandedP.pkl')
 
 #   Main output: rows are spots and columns are cell types (values are counts)
-clusters_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '03_CART', '{}', 'clusters.csv')
+clusters_path = pyhere.here('processed-data/VSPG/image_processing/03_CART/dACC_CART', '{}', 'clusters.csv')
 
 #   Secondary output: rows are cells and columns are metrics/info
-cells_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '03_CART', '{}', 'cell_metrics.csv')
+cells_path = pyhere.here('processed-data/VSPG/image_processing/03_CART/dACC_CART', '{}', 'cell_metrics.csv')
 
 # os.environ['SGE_TASK_ID'] = '1'
 
 sample_id = spaceranger_dirs.sample_id[int(os.environ['SGE_TASK_ID']) - 1]
 spot_path = pyhere.here(spaceranger_dirs, sample_id,'outs','spatial','tissue_positions.csv')
-json_path = pyhere.here(spaceranger_dirs, sample_id,,'outs','spatial','scalefactors_json.json')
+json_path = pyhere.here(spaceranger_dirs, sample_id,'outs','spatial','scalefactors_json.json')
 df_path = str(df_path).format(sample_id)
 
 clusters_path = str(clusters_path).format(sample_id)

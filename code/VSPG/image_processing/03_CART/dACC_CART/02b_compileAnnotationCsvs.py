@@ -17,7 +17,7 @@ from pathlib import Path
 
 df_path = pyhere.here("processed-data", "VSPG", "image_processing", "03_CART", "dACC_CART", "{}" + "_expanded_df.csv")
 manual_label_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '02_samui', 'samui_manualAnnotation', "annotations_" + "{}" + "_coords.csv")
-manual_label_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '02_samui', 'samui_manualAnnotation', "annotations_Atharv_processed_expanded.csv")
+manual_label_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '02_samui', 'samui_manualAnnotation', "annotations_Atharv_processed_expandedP.csv")
 
 #   Define expected cell-type labels (after cleaning), expected columns
 #   in the fluorescence-intensity data frame, and expected number of counts

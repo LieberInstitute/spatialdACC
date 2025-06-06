@@ -22,9 +22,9 @@ import graphviz
 # sample_id = "V12D07-332_D1"
 # df_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '02_samui_manual_annotation', sample_id + '_df.csv')
 # predictions_path = pyhere.here('processed-data', 'spot_deconvo', 'groundTruth', '02_samui_manual_annotation', '{}' + 'CART_predictions.csv')
-dataset_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset_final.pkl')
-tree_path = pyhere.here('plots', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'decision_tree_final.pdf')
-model_out_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'decision_tree_final.pkl')
+dataset_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset_final_expandedP.pkl')
+tree_path = pyhere.here('plots', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'decision_tree_final_expandedP.pdf')
+model_out_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'decision_tree_final_expandedP.pkl')
 
 random_seed = 0
 
@@ -79,10 +79,10 @@ with open(dataset_path, 'rb') as f:
 model = tree.DecisionTreeClassifier(
     criterion = 'gini', 
     max_depth = 5,
-    min_samples_leaf = 5, 
+    min_samples_leaf = 10, 
     random_state = random_seed,
     min_samples_split = 2,
-    ccp_alpha = 0.0,
+    ccp_alpha = 0.005263157894736842,
     splitter = 'best'
 )
 
@@ -97,6 +97,8 @@ acc_test = round(100 * model.score(x_test, y_test), 1)
 print(f'CART training accuracy: {acc_train}%.') #CART training accuracy: 88.6%.
 print(f'CART test accuracy: {acc_test}%.') #CCART test accuracy: 86.0%.
 
+#CART training accuracy: 89.2%.
+#CART test accuracy: 90.5%.
 #   Print a more thorough report about training and test scores, making sure
 #   performance is good across all classes (since we optimized for accuracy)
 labels_train = model.predict(x_train)
@@ -115,7 +117,22 @@ print('Training report:\n', classification_report(y_train, labels_train))
 #   macro avg       0.89      0.87      0.87      1422
 #weighted avg       0.89      0.89      0.88      1422
 #
+
+#Training report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.83      0.53      0.65       196
+#        GFAP       0.95      0.90      0.92       298
+#        NeuN       0.92      0.98      0.95       300
+#       OLIG2       0.79      0.96      0.87       299
+#     TMEM119       0.96      0.96      0.96       291
+#
+#    accuracy                           0.89      1384
+#   macro avg       0.89      0.87      0.87      1384
+#weighted avg       0.89      0.89      0.89      1384
+
 print('Test report:\n', classification_report(y_test, labels_test))
+
 #Test report:
 #               precision    recall  f1-score   support
 #
@@ -128,6 +145,19 @@ print('Test report:\n', classification_report(y_test, labels_test))
 #    accuracy                           0.86       356
 #   macro avg       0.85      0.84      0.84       356
 #weighted avg       0.86      0.86      0.85       356
+
+#Test report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.85      0.60      0.71        48
+#        GFAP       0.95      0.95      0.95        75
+#        NeuN       0.94      0.96      0.95        75
+#       OLIG2       0.83      0.93      0.88        75
+#     TMEM119       0.93      0.97      0.95        73
+#
+#    accuracy                           0.90       346
+#   macro avg       0.90      0.88      0.89       346
+#weighted avg       0.90      0.90      0.90       346
 #-------------------------------------------------------------------------------
 #   Write a small CSV of model predictions for import to loopy to visually
 #   verify model performance

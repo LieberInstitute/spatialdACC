@@ -15,9 +15,9 @@ import pyhere
 from pathlib import Path
 import pickle
 
-df_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '02_samui', 'samui_manualAnnotation', 'annotations_Atharv_processed_expanded.csv')
+df_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '02_samui', 'samui_manualAnnotation', 'annotations_Atharv_processed_expandedP.csv')
 #df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset.pkl')
-df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset_final_expanded.pkl')
+df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset_final_expandedP.pkl')
 
 num_cell_types = 5
 test_proportion = 0.2 # for training/test split
@@ -37,6 +37,7 @@ df = pd.read_csv(df_path,header=0)
  #df['label_sample'] = df['label_sample'].str.replace('AF_', 'DAPI_', regex=False)
  
 df = df[df.label != "AF"]
+df = df[df.label != "Dapi"]
 #   Define the inputs (features we want the model to access) and outputs to the
 #   model
 x = df.loc[:, ['gfap', 'neun', 'olig2', 'tmem119', 'area', 'label_sample']]
@@ -181,6 +182,21 @@ print('Training report:\n', classification_report(y_train, labels_train))
 #Training report:
 #               precision    recall  f1-score   support
 #
+#        DAPI       0.79      0.71      0.75       234
+#        GFAP       0.93      0.94      0.94       298
+#        NeuN       0.95      0.98      0.96       300
+#       OLIG2       0.86      0.88      0.87       299
+#     TMEM119       0.96      0.98      0.97       291
+#
+#    accuracy                           0.91      1422
+#   macro avg       0.90      0.90      0.90      1422
+#weighted avg       0.91      0.91      0.91      1422
+
+
+# with all versions of annotations, not expanded
+#Training report:
+#               precision    recall  f1-score   support
+#
 #        DAPI       0.74      0.64      0.69       234
 #        GFAP       0.90      0.94      0.92       298
 #        NeuN       0.96      0.94      0.95       300
@@ -190,6 +206,8 @@ print('Training report:\n', classification_report(y_train, labels_train))
 #    accuracy                           0.88      1422
 #   macro avg       0.87      0.87      0.87      1422
 #weighted avg       0.88      0.88      0.88      1422
+
+
 
 print('Test report:\n', classification_report(y_test, labels_test))
 #Test report:
@@ -248,36 +266,7 @@ print('Test report:\n', classification_report(y_test, labels_test))
 #   macro avg       0.84      0.81      0.82       315
 #weighted avg       0.91      0.92      0.91       315
 
-#Test report:
-#               precision    recall  f1-score   support
-#
-#        DAPI       0.70      0.60      0.65        58
-#        GFAP       0.88      0.92      0.90        75
-#        NeuN       0.93      0.93      0.93        75
-#       OLIG2       0.80      0.88      0.84        75
-#     TMEM119       0.94      0.92      0.93        73
-#
-#    accuracy                           0.86       356
-#   macro avg       0.85      0.85      0.85       356
-#weighted avg       0.86      0.86      0.86       356
-
-
-#>>> print('Training report:\n', classification_report(y_train, labels_train))
-#Training report:
-#               precision    recall  f1-score   support
-#
-#        DAPI       0.79      0.71      0.75       234
-#        GFAP       0.93      0.94      0.94       298
-#        NeuN       0.95      0.98      0.96       300
-#       OLIG2       0.86      0.88      0.87       299
-#     TMEM119       0.96      0.98      0.97       291
-#
-#    accuracy                           0.91      1422
-#   macro avg       0.90      0.90      0.90      1422
-#weighted avg       0.91      0.91      0.91      1422
-#
-#>>> 
-#>>> print('Test report:\n', classification_report(y_test, labels_test))
+## expanded all data
 #Test report:
 #               precision    recall  f1-score   support
 #
@@ -291,6 +280,35 @@ print('Test report:\n', classification_report(y_test, labels_test))
 #   macro avg       0.84      0.84      0.84       356
 #weighted avg       0.85      0.85      0.85       356
 
+#all celltype annotations without expansion
+#Test report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.70      0.60      0.65        58
+#        GFAP       0.88      0.92      0.90        75
+#        NeuN       0.93      0.93      0.93        75
+#       OLIG2       0.80      0.88      0.84        75
+#     TMEM119       0.94      0.92      0.93        73
+#
+#    accuracy                           0.86       356
+#   macro avg       0.85      0.85      0.85       356
+#weighted avg       0.86      0.86      0.86       356
+
+#all celltype annotations without Dapi labels
+#Test report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.85      0.60      0.71        48
+#        GFAP       0.95      0.95      0.95        75
+#        NeuN       0.94      0.96      0.95        75
+#       OLIG2       0.83      0.93      0.88        75
+#     TMEM119       0.93      0.97      0.95        73
+#
+#    accuracy                           0.90       346
+#   macro avg       0.90      0.88      0.89       346
+#weighted avg       0.90      0.90      0.90       346
+
+#Best params: {'ccp_alpha': 0.005263157894736842, 'criterion': 'gini', 'max_depth': 5, 'min_samples_leaf': 10, 'min_samples_split': 2, 'splitter': 'best'}
 #-------------------------------------------------------------------------------
 #   Try logistic regression
 #-------------------------------------------------------------------------------
