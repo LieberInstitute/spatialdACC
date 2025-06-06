@@ -1,0 +1,15 @@
+**** Job starts ****
+Thu Jun  5 08:42:37 PM EDT 2025
+**** JHPCE info ****
+User: mtippani
+Job id: 
+Job name: 
+Hostname: compute-154
+Task id: 
+Loading LIBD SLURM module for cellpose/2.0
+Traceback (most recent call last):
+  File "04b_cart_test.py", line 66, in <module>
+    assert set(df['cell_type']) == set(list(cell_types.values()))
+AssertionError
+**** Job ends ****
+Thu Jun  5 08:42:39 PM EDT 2025
