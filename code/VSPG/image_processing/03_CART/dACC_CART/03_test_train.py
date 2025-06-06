@@ -15,9 +15,9 @@ import pyhere
 from pathlib import Path
 import pickle
 
-df_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '02_samui', 'samui_manualAnnotation', 'annotations_Atharv_processed.csv')
+df_path = pyhere.here('processed-data', 'VSPG', 'image_processing', '02_samui', 'samui_manualAnnotation', 'annotations_Atharv_processed_expanded.csv')
 #df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset.pkl')
-df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset_final.pkl')
+df_path_out = pyhere.here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', 'annotation_dataset_final_expanded.pkl')
 
 num_cell_types = 5
 test_proportion = 0.2 # for training/test split
@@ -108,6 +108,11 @@ print(f'Best params: {grid.best_params_}') #Best params: {'ccp_alpha': 0.0, 'cri
 #CART training accuracy: 87.8%.
 #CART test accuracy: 86.2%.
 #{'ccp_alpha': 0.0, 'criterion': 'gini', 'max_depth': 8, 'min_samples_leaf': 5, 'min_samples_split': 2, 'splitter': 'random'}
+
+#with all versions of annotations from atharv, DAPI expanded
+#CART training accuracy: 90.7%.
+#CART test accuracy: 85.1%.
+#{'ccp_alpha': 0.0, 'criterion': 'entropy', 'max_depth': 8, 'min_samples_leaf': 10, 'min_samples_split': 2, 'splitter': 'best'}
 
 #   Print a more thorough report about training and test scores, making sure
 #   performance is good across all classes (since we optimized for accuracy)
@@ -255,6 +260,36 @@ print('Test report:\n', classification_report(y_test, labels_test))
 #    accuracy                           0.86       356
 #   macro avg       0.85      0.85      0.85       356
 #weighted avg       0.86      0.86      0.86       356
+
+
+#>>> print('Training report:\n', classification_report(y_train, labels_train))
+#Training report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.79      0.71      0.75       234
+#        GFAP       0.93      0.94      0.94       298
+#        NeuN       0.95      0.98      0.96       300
+#       OLIG2       0.86      0.88      0.87       299
+#     TMEM119       0.96      0.98      0.97       291
+#
+#    accuracy                           0.91      1422
+#   macro avg       0.90      0.90      0.90      1422
+#weighted avg       0.91      0.91      0.91      1422
+#
+#>>> 
+#>>> print('Test report:\n', classification_report(y_test, labels_test))
+#Test report:
+#               precision    recall  f1-score   support
+#
+#        DAPI       0.64      0.55      0.59        58
+#        GFAP       0.94      0.91      0.93        75
+#        NeuN       0.88      0.96      0.92        75
+#       OLIG2       0.79      0.83      0.81        75
+#     TMEM119       0.93      0.95      0.94        73
+#
+#    accuracy                           0.85       356
+#   macro avg       0.84      0.84      0.84       356
+#weighted avg       0.85      0.85      0.85       356
 
 #-------------------------------------------------------------------------------
 #   Try logistic regression
