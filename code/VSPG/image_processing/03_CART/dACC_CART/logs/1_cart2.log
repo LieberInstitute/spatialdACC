@@ -1,15 +1,22 @@
 **** Job starts ****
-Thu Jun  5 08:42:37 PM EDT 2025
+Thu Jun  5 10:28:43 PM EDT 2025
 **** JHPCE info ****
 User: mtippani
 Job id: 
 Job name: 
-Hostname: compute-154
+Hostname: compute-169
 Task id: 
 Loading LIBD SLURM module for cellpose/2.0
-Traceback (most recent call last):
-  File "04b_cart_test.py", line 66, in <module>
-    assert set(df['cell_type']) == set(list(cell_types.values()))
-AssertionError
+['DAPI' 'TMEM119' 'GFAP' 'NeuN' 'OLIG2']
+Keeping 36.3% of masks, which were within spots covered by tissue.
+Total number of astrocyte cells: 996
+Total number of neuron cells: 989
+Total number of oligo cells: 2947
+Total number of other cells: 8499
+Total number of microglia cells: 940
+Percentage of spots with at least one cell: 89.8%
+Mean number of cells per spot: 3.332
+Standard deviation (num cells per spot): 2.27
+Max number of cells per spot: 17
 **** Job ends ****
-Thu Jun  5 08:42:39 PM EDT 2025
+Thu Jun  5 10:28:46 PM EDT 2025
