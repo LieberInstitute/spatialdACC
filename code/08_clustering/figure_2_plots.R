@@ -126,7 +126,7 @@ for (gene in genes_exp_1) {
         theme(axis.ticks.x=element_blank()) +
         ggtitle(gene) +
         xlab("") +
-        ylim(c(0,max(df_dACC$Expression))) +
+        ylim(c(0,max(c(df_dACC$Expression, df_dlPFC$Expression)))) +
         theme(legend.position="none")
 
     p2 <- ggplot(df_dlPFC,aes(x=Layer, y=Expression, color=Layer)) +
@@ -138,7 +138,7 @@ for (gene in genes_exp_1) {
         theme(axis.ticks.x=element_blank()) +
         ggtitle(gene) +
         xlab("") +
-        ylim(c(0,max(df_dlPFC$Expression))) +
+        ylim(c(0,max(c(df_dACC$Expression, df_dlPFC$Expression)))) +
         theme(legend.position="none")
 
 
