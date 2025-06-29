@@ -157,11 +157,11 @@ dev.off()
 
 
 # make supp figure
-
+spe_pseudo$spatial_domain <- spe_pseudo$layer
 
 p1 <- plotPCA(
     spe_pseudo,
-    colour_by = "layer",
+    colour_by = "spatial_domain",
     ncomponents = 2,
     point_size = 2,
     percentVar = metadata(spe_pseudo)$PCA_var_explained
@@ -184,7 +184,7 @@ p3 <- plotPCA(
 )
 
 vars <- getVarianceExplained(spe_pseudo,
-                             variables = c("layer","sample_id", "sum_sample", "detected_sample")
+                             variables = c("spatial_domain","sample_id", "sum_sample", "detected_sample")
 )
 
 p4 <- plotExplanatoryVariables(vars)
