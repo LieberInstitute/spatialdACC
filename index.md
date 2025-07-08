@@ -54,6 +54,7 @@ processed data outputs, can be accessed via Gene Expression Omnibus
 (SRT) and
 [GSE296789](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE296789)
 (snRNA-seq).
+R objects used for analysis are hosted at a public GLOBUS endpoint [https://research.libd.org/globus/](https://research.libd.org/globus/)
 
 ## Contact
 
