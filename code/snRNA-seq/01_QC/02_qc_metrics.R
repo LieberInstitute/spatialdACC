@@ -180,6 +180,7 @@ table(sce$discard_auto)
 
 sce$`Mito Discard` <- sce$high_mito
 sce$`Detected Discard` <- sce$low_detected
+sce$`Combined Discard` <- sce$discard_auto
 
 p1 <- plotColData(sce, x = "Sample", y = "subsets_Mito_percent", colour_by = "Mito Discard") +
     ggtitle("Mitochondrial Percent") +
@@ -190,9 +191,14 @@ p2 <- plotColData(sce, x = "Sample", y = "detected", colour_by = "Detected Disca
     ggtitle("Detected Genes") +
     ylab("Number of Detected Genes")
 
+p3 <- plotColData(sce, x = "Sample", y = "detected", colour_by = "Combined Discard") +
+    scale_y_log10() +
+    ggtitle("Total Discarded Genes") +
+    ylab("Number of Detected Genes")
 
-png(here("plots", "snRNA-seq", "01_QC", "QC_violin_plots.png"), width = 15, height = 10, units = "in", res=300)
-wrap_plots(p1,p2,nrow=2) + plot_annotation(tag_levels = 'A')
+
+png(here("plots", "snRNA-seq", "01_QC", "QC_violin_plots.png"), width = 15, height = 15, units = "in", res=300)
+wrap_plots(p1,p2,p3,nrow=3) + plot_annotation(tag_levels = 'A')
 dev.off()
 
 # remove low quality nuclei
