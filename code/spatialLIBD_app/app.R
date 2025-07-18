@@ -26,5 +26,6 @@ spatialLIBD::run_app(
     title = "spatialdACC, Visium",
     spe_discrete_vars = c(vars[grep("10x_", vars)], "ManualAnnotation", "layer"),
     spe_continuous_vars = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
-    default_cluster = "layer"
+    default_cluster = "layer",
+    docs_path = "www"
 )

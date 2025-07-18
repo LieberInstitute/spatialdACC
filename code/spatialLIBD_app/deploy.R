@@ -1,4 +1,6 @@
 library("rsconnect")
+library("here")
+library("withr")
 
 ## Locate app_dir. Edit as needed
 app_dir <- here::here("code", "spatialLIBD_app")
@@ -23,7 +25,8 @@ rsconnect::deployApp(
         "spe_nnSVG_PRECAST_9_labels.Rdata",
         "nnSVG_PRECAST_captureArea_9.Rdata",
         "nnSVG_PRECAST_captureArea_9_sig_genes_all.rds",
-        "modeling-nnSVG_PRECAST_captureArea_9.Rdata"
+        "modeling-nnSVG_PRECAST_captureArea_9.Rdata",
+        with_dir(here("code", "spatialLIBD_app"), dir("www", full.names = TRUE))
     ),
     appName = "spatialdACC_Visium",
     account = "libd",

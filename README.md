@@ -63,6 +63,9 @@ answers. If you have any questions, please ask them at
 and refrain from emailing us. Thank you again for your interest in our
 work!
 
+## How to Cite
+Shah, K. et al. Spatio-molecular gene expression reflects dorsal anterior cingulate cortex structure and function in the human brain. BioRxiv (2025) doi:10.1101/2025.07.14.664821.
+
 ## Internal
 
 JHPCE location:`/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/`
