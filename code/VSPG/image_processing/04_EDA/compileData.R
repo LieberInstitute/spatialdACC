@@ -38,7 +38,7 @@ library(ggplot2)
 cell_counts <- combined_df %>%
   group_by(sample_name, region, cell_type) %>%
   summarise(cell_count = n(), .groups = "drop")
-
+cell_counts$region = factor(cell_counts$region, levels = c("DLPFC", "dACC"))
 # View the first few rows of the aggregated data
 head(cell_counts)
 
@@ -54,3 +54,42 @@ ggplot(cell_counts, aes(x = region, y = cell_count, fill = cell_type)) +
   scale_color_brewer(palette = "Set3")  # Adj
   
   
+  
+  ######## normalize to tisse area #########
+  pixel_counts = readcsv('/users/asingh/R/tissue_area.csv')
+  
+  pixel_counts <- pixel_counts %>%
+    mutate(sample_id = case_when(
+      sample_id == "Br2720_Ant_IF"  ~ "V10B01-087_A1",
+      sample_id == "Br6432_Ant_IF"  ~ "V10B01-087_B1",
+      sample_id == "Br6522_Ant_IF"  ~ "V10B01-087_C1",
+      sample_id == "Br8667_Post_IF" ~ "V10B01-087_D1",
+      TRUE ~ sample_id  # keep others unchanged
+    ))
+	
+  # Step 1: Count number of cells per sample and cell type
+  cell_type_counts <- dplyr::count(combined_df, sample_name, cell_type)
+
+  # Step 2: Join with pixel_counts (rename to match sample_name column)
+  pixel_counts_renamed <- pixel_counts %>%
+    dplyr::rename(sample_name = sample_id)
+
+  # Step 3: Join and normalize to area_mm2
+  final_table <- cell_type_counts %>%
+    left_join(pixel_counts_renamed, by = "sample_name") %>%
+     mutate(cells_per_mm2 = n / area_mm2)
+
+ final_table$slide = sub("_[A-D]1$", "", final_table$sample_name)
+  # Step 4: View result
+  print(final_table)
+  
+  ggplot(final_table, aes(x = slide, y = cells_per_mm2, fill = cell_type)) +
+    geom_boxplot(outlier.shape = NA, alpha = 0.6) +  # Boxplot with transparency and no outliers
+    geom_jitter(aes(color = cell_type), width = 0.2, size = 1.5, alpha = 0.8) +  # Jittered data points
+    facet_wrap(~ cell_type) +  # Create separate plots for each cell type
+    labs(title = "Comparison of Cell Types Between DLPFC and dACC",
+         x = "Region",
+         y = "Number of Cells/mm2 of tissue") +
+    theme_minimal() +
+    scale_fill_brewer(palette = "Set3") +  # Adjust color palette for boxplot fill
+    scale_color_brewer(palette = "Set3")  # Adj
