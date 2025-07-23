@@ -68,52 +68,82 @@ ggplot() +
   theme(legend.position = "none")
 
 
-  extract_polygons <- function(df_sample, buffer_dist = 50) {
-    sid <- unique(df_sample$sample_id)
-  
-    # Step 1: Convert to sf points
-    pts <- st_as_sf(df_sample, coords = c("x", "y"), crs = NA)
-  
-    # Step 2: Buffer each point slightly to build a region (e.g., 50 µm)
-    buffered <- st_buffer(pts, dist = buffer_dist)
+library(purrr)
+library(sf)
+extract_polygons <- function(df_sample, buffer_dist = 500) {
+  sid <- unique(df_sample$sample_id)
 
-    # Step 3: Union all overlapping buffered regions
-    merged <- st_union(buffered)
+  pts <- st_as_sf(df_sample, coords = c("x", "y"), crs = NA)
+  buffered <- st_buffer(pts, dist = buffer_dist)
 
-    # Step 4: Extract individual polygons (MULTIPOLYGON → POLYGON)
-    polygons <- st_cast(merged, "POLYGON")
+  merged <- st_union(buffered)
+  polygons <- st_cast(merged, "POLYGON")
 
-    # Step 5: Return as sf with sample ID
-    st_sf(sample_id = sid, geometry = polygons)
-  }
+  polygons <- st_sf(geometry = polygons) %>%
+    mutate(area = st_area(geometry),
+           sample_id = sid)
+
+  return(polygons)
+}
 
   # Apply to each sample
   multipolygon_sf <- sample_df %>%
-    group_by(sample_id) %>%
-    group_split() %>%
-    bind_rows(lapply(., extract_polygons), .id = "group_id")
+   group_by(sample_id) %>%
+   group_split() %>%
+   setNames(unique(sample_df$sample_id)) %>%
+   map_dfr(~ extract_polygons(.x, buffer_dist = 500), .id = "sample_name")
 	
-	library(purrr)
+   nrow(multipolygon_sf)
+   summary(multipolygon_sf$area)
+   
+   multipolygon_sf <- multipolygon_sf %>%
+    filter(area > 5e6)  # 
+	
+	
+    sample_df_sf <- st_as_sf(sample_df, coords = c("x", "y"), crs = NA)
 
-	multipolygon_sf <- sample_df %>%
-	  group_by(sample_id) %>%
-	  group_split() %>%
-	  setNames(unique(sample_df$sample_id)) %>%
-	  map_dfr(extract_polygons, .id = "sample_name")  #
-	  
-	  sample_df_joined <- sample_df %>%
-	    filter(sample_id %in% multipolygon_sf$sample_id)
-
-	  # Now plot
-	  ggplot() +
-	    geom_sf(data = multipolygon_sf, aes(fill = sample_id), alpha = 0.4) +
-	    geom_point(data = sample_df_joined, aes(x = x, y = y), size = 0.3) +
-	    facet_wrap(~sample_id) +
-	    coord_sf()
-		  
+   sample_df_filtered <- st_join(sample_df_sf, multipolygon_sf, join = st_within) %>%
+     filter(!is.na(sample_id.y)) %>%
+     rename(sample_id = sample_id.x) %>%
+     select(sample_id, geometry) %>%
+     mutate(x = st_coordinates(.)[,1],
+            y = st_coordinates(.)[,2]) %>%
+     st_drop_geometry()
+	 
+	 ggplot() +
+	   geom_sf(data = multipolygon_sf, aes(fill = sample_id), alpha = 0.3) +
+	   geom_point(data = sample_df_filtered, aes(x = x, y = y), size = 0.3) +
+	   facet_wrap(~sample_id) +
+	   coord_sf()
+	   		  
 ## count cells in L5 ##
 
+combined_df_sf <- st_as_sf(combined_df, coords = c("x", "y"), crs = NA)
+polygon_list <- split(multipolygon_sf, multipolygon_sf$sample_name)
+point_list <- split(combined_df_sf, combined_df_sf$sample_name)
 
+# Match each sample’s points to its polygons
+filtered_list <- mapply(function(pts, polys) {
+  if (nrow(polys) == 0 || nrow(pts) == 0) return(NULL)
+  matched <- pts[st_within(pts, polys, sparse = FALSE) %>% rowSums() > 0, ]
+  return(matched)
+}, point_list, polygon_list, SIMPLIFY = FALSE)
+
+# Combine the valid points across all samples
+combined_df_filtered <- do.call(rbind, filtered_list)
+combined_df_filtered <- combined_df_filtered %>%
+ mutate(x = st_coordinates(.)[,1],
+        y = st_coordinates(.)[,2]) %>%
+ st_drop_geometry()
+ 
+ > ggplot() +
+   geom_sf(data = multipolygon_sf, aes(fill = sample_name), alpha = 0.3, color = NA) +
+   geom_point(data = combined_df_filtered, aes(x = x, y = y), size = 0.3, color = "black") +
+   facet_wrap(~sample_name) +
+   coord_sf() +
+   theme_minimal() +
+   guides(fill = "none")
+   
 ggplot(final_table, aes(x = slide, y = cells_per_mm2, fill = cell_type)) +
   geom_boxplot(outlier.shape = NA, alpha = 0.6) +  # Boxplot with transparency and no outliers
   geom_jitter(aes(color = cell_type), width = 0.2, size = 1.5, alpha = 0.8) +  # Jittered data points
