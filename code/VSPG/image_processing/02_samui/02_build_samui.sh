@@ -4,6 +4,7 @@
 #SBATCH --job-name=create_samui_postCART
 #SBATCH -o logs/create_samui.txt 
 #SBATCH -e logs/create_samui.txt 
+#SBATCH --array=1-4%2
 
 echo "**** Job starts ****"
 date
