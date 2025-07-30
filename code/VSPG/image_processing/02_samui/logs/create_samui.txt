@@ -1,0 +1,84 @@
+**** Job starts ****
+Wed Jul 30 02:55:39 PM EDT 2025
+**** JHPCE info ****
+User: mtippani
+Job id: 21118339s
+Job name: create_samui_postCART
+Hostname: 
+Task id: 4
+Loading LIBD SLURM module for samui/1.0.0-next.24
+/jhpce/shared/libd/core/samui/1.0.0-next.24/samui_env/lib/python3.10/site-packages/pydantic/_internal/_config.py:269: UserWarning: Valid config keys have changed in V2:
+* 'allow_mutation' has been removed
+  warnings.warn(message, UserWarning)
+[14:55:50] INFO     Transforming                                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_A1/V12N28-333_A1.t             
+                    if to COG.                                                  
+           INFO     'V12N28-333_A1' Executing queued functions      logger.py:27
+           INFO     V12N28-333_A1 Adding coords 'coords'            logger.py:27
+           INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_A1/V12N28-333_A1_1             
+                    .tif                                                        
+[14:55:58] INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_A1/V12N28-333_A1_2             
+                    .tif                                                        
+[14:56:02] INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_A1/V12N28-333_A1_1             
+                    .tif                                                        
+           INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_A1/V12N28-333_A1_2             
+                    .tif                                                        
+[14:56:05] INFO     Transforming                                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_D1/V12N28-333_D1.t             
+                    if to COG.                                                  
+           INFO     'V12N28-333_D1' Executing queued functions      logger.py:27
+           INFO     V12N28-333_D1 Adding coords 'coords'            logger.py:27
+           INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_D1/V12N28-333_D1_1             
+                    .tif                                                        
+[14:56:11] INFO     V12N28-333_A1 Adding csv feature                logger.py:27
+                    'meanIntensities'                                           
+[14:56:12] INFO     V12N28-333_A1 Adding csv feature 'celltypes'    logger.py:27
+[14:56:12] INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_D1/V12N28-333_D1_2             
+                    .tif                                                        
+           INFO     'V12N28-333_A1' written to                      logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_A1                             
+**** Job ends ****
+Wed Jul 30 02:56:12 PM EDT 2025
+[14:56:16] INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_D1/V12N28-333_D1_1             
+                    .tif                                                        
+           INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_D1/V12N28-333_D1_2             
+                    .tif                                                        
+[14:56:25] INFO     V12N28-333_D1 Adding csv feature                logger.py:27
+                    'meanIntensities'                                           
+           INFO     V12N28-333_D1 Adding csv feature 'celltypes'    logger.py:27
+           INFO     'V12N28-333_D1' written to                      logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V12N28-333_D1                             
+**** Job ends ****
+Wed Jul 30 02:56:26 PM EDT 2025
