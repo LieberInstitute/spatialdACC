@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p gpu
 #SBATCH --mem=20G
-#SBATCH --job-name=create_samui
+#SBATCH --job-name=create_samui_postCART
 #SBATCH -o logs/create_samui.txt 
 #SBATCH -e logs/create_samui.txt 
 
@@ -17,7 +17,7 @@ echo "Hostname: ${SLURM_NODENAME}"
 echo "Task id: ${SLURM_ARRAY_TASK_ID}"
 
 module load samui/1.0.0-next.24
-python 02_build_samui.py 
+python 03_build_samui_postCART.py 
 
 echo "**** Job ends ****"
 date
