@@ -1,30 +1,91 @@
 **** Job starts ****
-**** Job starts ****
-Thu Jul 31 02:26:02 PM EDT 2025
-Thu Jul 31 02:26:02 PM EDT 2025
-**** JHPCE info ****
+Thu Jul 31 02:30:42 PM EDT 2025
 **** JHPCE info ****
 User: mtippani
-User: mtippani
-Job id: 21151577s
-Job id: 21151574s
-Job name: create_samui_postCART
+Job id: 21151611s
 Job name: create_samui_postCART
 Hostname: 
-Hostname: 
-Task id: 3
 Task id: 4
 Loading LIBD SLURM module for samui/1.0.0-next.24
-Loading LIBD SLURM module for samui/1.0.0-next.24
-  File "/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/02_samui/03_build_samui_postCART.py", line 28
-  File "/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/02_samui/03_build_samui_postCART.py", line 28
-    JSON_path = here('/dcs04/lieber/lcolladotor/spatialDLPFC_LIBD4035/spatialDLPFC/processed-data/01_spaceranger_IF/', '{}', 'outs', 'spatial','scalefactors_json.json') )
-    JSON_path = here('/dcs04/lieber/lcolladotor/spatialDLPFC_LIBD4035/spatialDLPFC/processed-data/01_spaceranger_IF/', '{}', 'outs', 'spatial','scalefactors_json.json') )
-                                                                                                                                                                         ^
-SyntaxError: unmatched ')'
-                                                                                                                                                                         ^
-SyntaxError: unmatched ')'
+/jhpce/shared/libd/core/samui/1.0.0-next.24/samui_env/lib/python3.10/site-packages/pydantic/_internal/_config.py:269: UserWarning: Valid config keys have changed in V2:
+* 'allow_mutation' has been removed
+  warnings.warn(message, UserWarning)
+/jhpce/shared/libd/core/samui/1.0.0-next.24/samui_env/lib/python3.10/site-packages/pydantic/_internal/_config.py:269: UserWarning: Valid config keys have changed in V2:
+* 'allow_mutation' has been removed
+  warnings.warn(message, UserWarning)
+sample_id: V10B01-087_A1
+brnum: Br2720_Ant_IF
+[14:31:05] INFO     Transforming                                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_A1/V10B01-087_A1.t             
+                    if to COG.                                                  
+           INFO     'V10B01-087_A1' Executing queued functions      logger.py:27
+           INFO     V10B01-087_A1 Adding coords 'coords'            logger.py:27
+           INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_A1/V10B01-087_A1_1             
+                    .tif                                                        
+sample_id: V10B01-087_D1
+brnum: Br8667_Post_IF
+[14:31:08] INFO     Transforming                                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_D1/V10B01-087_D1.t             
+                    if to COG.                                                  
+           INFO     'V10B01-087_D1' Executing queued functions      logger.py:27
+           INFO     V10B01-087_D1 Adding coords 'coords'            logger.py:27
+           INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_D1/V10B01-087_D1_1             
+                    .tif                                                        
+[14:31:20] INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_D1/V10B01-087_D1_2             
+                    .tif                                                        
+[14:31:20] INFO     Writing uncompressed GeoTIFF                    logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_A1/V10B01-087_A1_2             
+                    .tif                                                        
+[14:31:26] INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_A1/V10B01-087_A1_1             
+                    .tif                                                        
+           INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_A1/V10B01-087_A1_2             
+                    .tif                                                        
+[14:31:26] INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_D1/V10B01-087_D1_1             
+                    .tif                                                        
+           INFO     Writing COG                                     logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_D1/V10B01-087_D1_2             
+                    .tif                                                        
+[14:31:36] INFO     V10B01-087_A1 Adding csv feature                logger.py:27
+                    'meanIntensities'                                           
+           INFO     V10B01-087_A1 Adding csv feature 'celltypes'    logger.py:27
+           INFO     'V10B01-087_A1' written to                      logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_A1                             
+[14:31:36] INFO     V10B01-087_D1 Adding csv feature                logger.py:27
+                    'meanIntensities'                                           
 **** Job ends ****
+Thu Jul 31 02:31:37 PM EDT 2025
+[14:31:37] INFO     V10B01-087_D1 Adding csv feature 'celltypes'    logger.py:27
+           INFO     'V10B01-087_D1' written to                      logger.py:27
+                    /dcs04/lieber/marmaypag/spatialdACC_LIBD4125/sp             
+                    atialdACC/processed-data/VSPG/image_processing/             
+                    03_CART/dACC_CART/V10B01-087_D1                             
 **** Job ends ****
-Thu Jul 31 02:26:03 PM EDT 2025
-Thu Jul 31 02:26:03 PM EDT 2025
+Thu Jul 31 02:31:37 PM EDT 2025
