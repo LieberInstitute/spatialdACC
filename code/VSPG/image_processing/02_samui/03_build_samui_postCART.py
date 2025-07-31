@@ -22,9 +22,10 @@ inten_features = ['gfap', 'neun', 'olig2', 'tmem119', 'area']
 celltypes = ['cell_type']
 #spe_path = here('processed-data', 'spot_deconvo', 'shared_utilities', 'spe.h5ad')
 
-img_dir = here('processed-data', 'VSPG', 'image_processing', '02_samui', 'samui_input')
-coord_path =  here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', '{}_cell_metrics.csv')
-JSON_path = here('processed-data','01_spaceranger','spaceranger_if_2023-06-29_KMay061223', '{}', 'outs', 'spatial','scalefactors_json.json')
+img_dir = '/dcs04/lieber/lcolladotor/spatialDLPFC_LIBD4035/spatialDLPFC/raw-data/Images/VisiumIF/VistoSeg/'
+coord_path =  here('processed-data', 'VSPG', 'image_processing', '03_CART', 'DLPFC_CART', '{}_cell_metrics.csv')
+#JSON_path = here('processed-data','01_spaceranger','spaceranger_if_2023-06-29_KMay061223', '{}', 'outs', 'spatial','scalefactors_json.json')
+JSON_path = here('/dcs04/lieber/lcolladotor/spatialDLPFC_LIBD4035/spatialDLPFC/processed-data/01_spaceranger_IF/', '{}', 'outs', 'spatial','scalefactors_json.json') )
 OUT_dir = here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', '{}')
 
 ################################################################################
@@ -35,9 +36,18 @@ tif_files = glob.glob(os.path.join(img_dir, "*1.tif"))
 task_id = int(os.environ.get('SLURM_ARRAY_TASK_ID', 1))  # Default to 1 if not set
 sample_id = os.path.basename(tif_files[task_id - 1]).replace('.tif', '')
 
+sample_ids = pd.Series(['V10B01-087_A1', 'V10B01-087_B1', 'V10B01-087_C1', 'V10B01-087_D1'], dtype=object)
+brnums = pd.Series(['Br2720_Ant_IF', 'Br6432_Ant_IF', 'Br6522_Ant_IF', 'Br8667_Post_IF'], dtype=object)
+idx = sample_ids[sample_ids == sample_id].index[0]
+brnum = brnums.iloc[idx]
+
+# Print both
+print(f"sample_id: {sample_id}")
+print(f"brnum: {brnum}")
+
 #   Update paths for this sample ID
 out_dir = Path(str(OUT_dir).format(sample_id))
-json_path = Path(str(JSON_path).format(sample_id))
+json_path = Path(str(JSON_path).format(brnum))
 img_path = Path(tif_files[task_id - 1])
 coord_path = Path(str(coord_path).format(sample_id))
 out_dir.mkdir(exist_ok = True)
