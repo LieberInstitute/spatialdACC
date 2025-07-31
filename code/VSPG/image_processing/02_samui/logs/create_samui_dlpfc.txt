@@ -1,0 +1,30 @@
+**** Job starts ****
+**** Job starts ****
+Thu Jul 31 02:26:02 PM EDT 2025
+Thu Jul 31 02:26:02 PM EDT 2025
+**** JHPCE info ****
+**** JHPCE info ****
+User: mtippani
+User: mtippani
+Job id: 21151577s
+Job id: 21151574s
+Job name: create_samui_postCART
+Job name: create_samui_postCART
+Hostname: 
+Hostname: 
+Task id: 3
+Task id: 4
+Loading LIBD SLURM module for samui/1.0.0-next.24
+Loading LIBD SLURM module for samui/1.0.0-next.24
+  File "/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/02_samui/03_build_samui_postCART.py", line 28
+  File "/dcs04/lieber/marmaypag/spatialdACC_LIBD4125/spatialdACC/code/VSPG/image_processing/02_samui/03_build_samui_postCART.py", line 28
+    JSON_path = here('/dcs04/lieber/lcolladotor/spatialDLPFC_LIBD4035/spatialDLPFC/processed-data/01_spaceranger_IF/', '{}', 'outs', 'spatial','scalefactors_json.json') )
+    JSON_path = here('/dcs04/lieber/lcolladotor/spatialDLPFC_LIBD4035/spatialDLPFC/processed-data/01_spaceranger_IF/', '{}', 'outs', 'spatial','scalefactors_json.json') )
+                                                                                                                                                                         ^
+SyntaxError: unmatched ')'
+                                                                                                                                                                         ^
+SyntaxError: unmatched ')'
+**** Job ends ****
+**** Job ends ****
+Thu Jul 31 02:26:03 PM EDT 2025
+Thu Jul 31 02:26:03 PM EDT 2025
