@@ -2,8 +2,8 @@
 #SBATCH -p gpu
 #SBATCH --mem=20G
 #SBATCH --job-name=create_samui_postCART
-#SBATCH -o logs/create_samui.txt 
-#SBATCH -e logs/create_samui.txt 
+#SBATCH -o logs/create_samui_dlpfc.txt 
+#SBATCH -e logs/create_samui_dlpfc.txt 
 #SBATCH --array=1-4%2
 
 echo "**** Job starts ****"
