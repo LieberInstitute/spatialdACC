@@ -25,7 +25,7 @@ celltypes = ['cell_type']
 img_dir = '/dcs04/lieber/lcolladotor/spatialDLPFC_LIBD4035/spatialDLPFC/raw-data/Images/VisiumIF/VistoSeg/'
 coord_path =  here('processed-data', 'VSPG', 'image_processing', '03_CART', 'DLPFC_CART', '{}_cell_metrics.csv')
 #JSON_path = here('processed-data','01_spaceranger','spaceranger_if_2023-06-29_KMay061223', '{}', 'outs', 'spatial','scalefactors_json.json')
-JSON_path = here('/dcs04/lieber/lcolladotor/spatialDLPFC_LIBD4035/spatialDLPFC/processed-data/01_spaceranger_IF/', '{}', 'outs', 'spatial','scalefactors_json.json') )
+JSON_path = here('/dcs04/lieber/lcolladotor/spatialDLPFC_LIBD4035/spatialDLPFC/processed-data/01_spaceranger_IF/', '{}', 'outs', 'spatial','scalefactors_json.json')
 OUT_dir = here('processed-data', 'VSPG', 'image_processing', '03_CART', 'dACC_CART', '{}')
 
 ################################################################################
