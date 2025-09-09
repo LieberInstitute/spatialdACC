@@ -12,7 +12,8 @@ load("spe_nnSVG_PRECAST_9_labels.Rdata", verbose = TRUE)
 load("modeling-nnSVG_PRECAST_captureArea_9.Rdata", verbose = TRUE)
 load("nnSVG_PRECAST_captureArea_9.Rdata", verbose = TRUE)
 
-sig_genes <- readRDS("nnSVG_PRECAST_captureArea_9_sig_genes_all.rds")
+load("sig_genes_subset.Rdata", verbose = TRUE)
+# sig_genes <- readRDS("nnSVG_PRECAST_captureArea_9_sig_genes_all.rds")
 
 # Added biocGenerics specifically for finding the right colnames, also due to R update
 vars <- BiocGenerics::colnames(colData(spe))
