@@ -6,13 +6,17 @@ suppressPackageStartupMessages({
     library("here")
     library("sessioninfo")
     library("SpatialExperiment")
+    library("dplyr")
+    library("purrr")
+    library("tidyverse")
+    library("spatialLIBD")
     library("PRECAST")
     library("tictoc")
     library("aricode")
 })
 
-#start from spe without batch correction
-load(here("processed-data", "06_preprocessing", "spe_dimred.Rdata"))
+#start from spe without WM-CC
+load(here("processed-data", "08_clustering", "PRECAST", "spe_nnSVG_PRECAST_9_labels.Rdata"))
 
 #load nnSVG results
 load(file=here::here('processed-data', '08_clustering', 'nnSVG','nnSVG_1000.rda'))
@@ -80,8 +84,16 @@ spe_orig <- spe
 
 spe_orig <- spe_orig[, spe_orig$sample_id != leave_out]
 
-nmi_val <- NMI(spe_curr$PRECAST_cluster, spe_orig$nnSVG_PRECAST_captureArea_9)
-ari_val <- ARI(spe_curr$PRECAST_cluster, spe_orig$nnSVG_PRECAST_captureArea_9)
+print(dim(spe_curr))
+print(dim(spe_orig))
+
+na_idx <- is.na(spe_curr$PRECAST_cluster)
+
+nmi_val <- NMI(spe_curr$PRECAST_cluster[!na_idx], spe_orig$nnSVG_PRECAST_captureArea_9[!na_idx])
+ari_val <- ARI(spe_curr$PRECAST_cluster[!na_idx], spe_orig$nnSVG_PRECAST_captureArea_9[!na_idx])
+
+nmi_val
+ari_val
 
 NewData <- data.frame(X1 = leave_out, X2 = nmi_val, X3 = ari_val)
 write.table(NewData, file = here("processed-data", "08_clustering", "PRECAST", "nnSVG_PRECAST_9_crossval.csv"),
