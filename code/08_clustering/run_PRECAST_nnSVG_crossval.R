@@ -55,10 +55,10 @@ PRECASTObj <- AddAdjList(preobj, platform = "Visium")
 PRECASTObj <- AddParSetting(PRECASTObj, Sigma_equal = FALSE,  maxIter = 30, verbose = TRUE)
 
 tic()
-PRECASTObj <- PRECAST(PRECASTObj, K = 9)
+PRECASTObj <- PRECAST(PRECASTObj, K = 8)
 toc()
 
-save(PRECASTObj, file = here("processed-data", "08_clustering", "PRECAST", paste0("nnSVG_PRECASTObj_no_",leave_out,".Rdata")))
+save(PRECASTObj, file = here("processed-data", "08_clustering", "PRECAST", paste0("nnSVG_PRECASTObj_8_no_",leave_out,".Rdata")))
 
 PRECASTObj <- SelectModel(PRECASTObj)
 seuInt <- IntegrateSpaData(PRECASTObj, species = "Human")
@@ -96,7 +96,7 @@ nmi_val
 ari_val
 
 NewData <- data.frame(X1 = leave_out, X2 = nmi_val, X3 = ari_val)
-write.table(NewData, file = here("processed-data", "08_clustering", "PRECAST", "nnSVG_PRECAST_9_crossval.csv"),
+write.table(NewData, file = here("processed-data", "08_clustering", "PRECAST", "nnSVG_PRECAST_8_crossval.csv"),
             append = TRUE, sep = ",",
             col.names = FALSE, row.names = FALSE)
 
