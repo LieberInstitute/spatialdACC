@@ -237,7 +237,10 @@ dat_DLPFC_orig <- dat_DLPFC
 dat_DLPFC <- dat_DLPFC[which(dat_DLPFC$cellType_layer %in% c("Excit_L5")),]
 summary_DLPFC <- dat_DLPFC %>%
     group_by(BrNum) %>%
-    summarize(avg38 = mean(nmf38), avg61 = mean(nmf61))
+    summarize(
+        avg38 = mean(na_if(nmf38, 0), na.rm = TRUE),
+        avg61 = mean(na_if(nmf61, 0), na.rm = TRUE)
+    )
 
 summary_DLPFC$region <- rep("dlPFC", dim(summary_DLPFC)[1])
 summary_DLPFC$celltype <- rep("Excit_L5", dim(summary_DLPFC)[1])
@@ -246,8 +249,10 @@ dat_dACC_orig <- dat_dACC
 dat_dACC <- dat_dACC[which(dat_dACC$cellType_azimuth %in% c("L5_IT")),]
 summary_dACC_IT <- dat_dACC %>%
     group_by(brain) %>%
-    summarize(avg38 = mean(NMF_38), avg61 = mean(NMF_61))
-
+    summarize(
+        avg38 = mean(na_if(NMF_38, 0), na.rm = TRUE),
+        avg61 = mean(na_if(NMF_61, 0), na.rm = TRUE)
+    )
 summary_dACC_IT$region <- rep("dACC", 10)
 summary_dACC_IT$celltype <- rep("L5_IT", 10)
 
@@ -255,8 +260,10 @@ dat_dACC <- dat_dACC_orig
 dat_dACC <- dat_dACC[which(dat_dACC$cellType_azimuth %in% c("L5_ET")),]
 summary_dACC_ET <- dat_dACC %>%
     group_by(brain) %>%
-    summarize(avg38 = mean(NMF_38), avg61 = mean(NMF_61))
-
+    summarize(
+        avg38 = mean(na_if(NMF_38, 0), na.rm = TRUE),
+        avg61 = mean(na_if(NMF_61, 0), na.rm = TRUE)
+    )
 summary_dACC_ET$region <- rep("dACC", 10)
 summary_dACC_ET$celltype <- rep("L5_ET", 10)
 
@@ -265,7 +272,7 @@ summary_overall[c(11:20),] <- summary_DLPFC
 
 p7 <- ggplot(summary_overall, aes(x=region, y=avg38, color=region)) +
     geom_boxplot(outlier.shape = NA) +
-    ylim(c(0,0.00075)) +
+    ylim(c(0,0.0035)) +
     geom_point(size=1, alpha=0.8) +
     ylab("Avg. NMF38 Weight") +
     ggtitle("") +
@@ -300,3 +307,6 @@ t_test_38 <- t.test(summary_dACC_IT$avg38, summary_DLPFC$avg38, paired = T)
 t_test_61 <- t.test(summary_dACC_ET$avg61, summary_DLPFC$avg61, paired = T)
 
 
+pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC_nonzero.pdf"), height = 5, width = 5)
+wrap_plots(list(p7,p8), nrow = 2) + plot_annotation(title = "NMF38 and 61 in snRNA-seq")
+dev.off()
