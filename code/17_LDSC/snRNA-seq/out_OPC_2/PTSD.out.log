@@ -15,7 +15,7 @@ Call:
 --w-ld-chr /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC. \
 --print-coefficients  
 
-Beginning analysis at Mon Jun 10 16:18:42 2024
+Beginning analysis at Thu Jan 15 14:24:20 2026
 Reading summary statistics from /dcs04/lieber/shared/statsgen/LDSC/base/gwas_brain/PTSD.gz ...
 Read summary statistics for 1169745 SNPs.
 Dropped 20 SNPs with duplicated rs numbers.
@@ -35,5 +35,5 @@ Intercept: 1.0219 (0.0078)
 Ratio: 0.2812 (0.1006)
 Reading annot matrix from ./out_OPC/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (annot)
 Results printed to ./out_OPC_2/PTSD.out.results
-Analysis finished at Mon Jun 10 16:22:59 2024
-Total time elapsed: 4.0m:16.59s
+Analysis finished at Thu Jan 15 14:26:52 2026
+Total time elapsed: 2.0m:31.87s

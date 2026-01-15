@@ -15,7 +15,7 @@ Call:
 --w-ld-chr /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC. \
 --print-coefficients  
 
-Beginning analysis at Mon Jun 10 18:46:52 2024
+Beginning analysis at Thu Jan 15 13:52:41 2026
 Reading summary statistics from /dcs04/lieber/shared/statsgen/LDSC/base/gwas_brain/alcohol_ldscore.gz ...
 Read summary statistics for 1161773 SNPs.
 Reading reference panel LD Score from ./out_L5_ET/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (ldscore_fromlist)
@@ -34,5 +34,5 @@ Intercept: 0.9449 (0.0094)
 Ratio < 0 (usually indicates GC correction).
 Reading annot matrix from ./out_L5_ET/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (annot)
 Results printed to ./out_L5_ET_2/alcohol_ldscore.out.results
-Analysis finished at Mon Jun 10 19:08:58 2024
-Total time elapsed: 22.0m:6.36s
+Analysis finished at Thu Jan 15 13:54:27 2026
+Total time elapsed: 1.0m:46.0s

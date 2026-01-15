@@ -15,7 +15,7 @@ Call:
 --w-ld-chr /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC. \
 --print-coefficients  
 
-Beginning analysis at Mon Jun 10 17:42:37 2024
+Beginning analysis at Thu Jan 15 14:02:37 2026
 Reading summary statistics from /dcs04/lieber/shared/statsgen/LDSC/base/gwas_brain/MEGASTROKE.2.AIS.EUR_ldscore.gz ...
 Read summary statistics for 1163984 SNPs.
 Reading reference panel LD Score from ./out_Sncg/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (ldscore_fromlist)
@@ -34,5 +34,5 @@ Intercept: 1.0176 (0.008)
 Ratio: 0.1246 (0.0568)
 Reading annot matrix from ./out_Sncg/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (annot)
 Results printed to ./out_Sncg_2/MEGASTROKE.2.AIS.EUR_ldscore.out.results
-Analysis finished at Mon Jun 10 17:50:14 2024
-Total time elapsed: 7.0m:36.56s
+Analysis finished at Thu Jan 15 14:04:12 2026
+Total time elapsed: 1.0m:34.87s

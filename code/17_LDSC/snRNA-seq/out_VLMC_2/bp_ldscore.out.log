@@ -15,7 +15,7 @@ Call:
 --w-ld-chr /dcs04/lieber/shared/statsgen/LDSC/base/referencefiles/1000G_Phase3_weights_hm3_no_MHC/weights.hm3_noMHC. \
 --print-coefficients  
 
-Beginning analysis at Mon Jun 10 16:51:25 2024
+Beginning analysis at Thu Jan 15 14:16:47 2026
 Reading summary statistics from /dcs04/lieber/shared/statsgen/LDSC/base/gwas_brain/bp_ldscore.gz ...
 Read summary statistics for 1114546 SNPs.
 Dropped 104 SNPs with duplicated rs numbers.
@@ -35,5 +35,5 @@ Intercept: 1.0546 (0.0116)
 Ratio: 0.1434 (0.0303)
 Reading annot matrix from ./out_VLMC/chr.,/dcs04/lieber/shared/statsgen/LDSC/base/baseline2/baselineLD.[1-22] ... (annot)
 Results printed to ./out_VLMC_2/bp_ldscore.out.results
-Analysis finished at Mon Jun 10 17:01:17 2024
-Total time elapsed: 9.0m:51.72s
+Analysis finished at Thu Jan 15 14:19:18 2026
+Total time elapsed: 2.0m:30.9s
