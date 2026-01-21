@@ -30,6 +30,10 @@ sce
 # make gene_ids row names to allow overlap
 rownames(sce) <- rowData(sce)$gene_id
 
+#remove / character 
+library(stringr)
+sce$cellType_layer <- str_replace(sce$cellType_layer, "/", "_")
+sce$cellType_layer <- str_replace(sce$cellType_layer, "/", "_")
 
 # ========== RCTD ==========
 rctd_data <- createRctd(spe, sce, cell_type_col="cellType_layer")
