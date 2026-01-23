@@ -202,6 +202,29 @@ for (samp in samples) {
 
 dev.off()
 
+# help visualize for dlPFC -> dlPFC because the cell type signal is so weak
+# Calculate max weight for each cell type
+max_weights <- apply(weights[, cell_types], 2, max, na.rm = TRUE)
+
+pdf(file.path(plots_dir, paste0(file_prefix, "_rctd_celltype_weights_by_celltype.pdf")), width = 20, height = 16)
+
+for (ct in cell_types) {
+    # Get max weight for this cell type
+    max_wt <- max_weights[ct]
+
+    p <- ggplot(weights, aes(x = x, y = y, color = .data[[ct]])) +
+        geom_point(size = 0.3) +
+        scale_color_viridis_c(limits = c(0, max_wt), name = "Weight") +
+        scale_y_reverse() +
+        facet_wrap(~sample_id) +
+        labs(title = paste0("Cell Type: ", ct)) +
+        theme_minimal() +
+        theme(aspect.ratio = 1)  # Use aspect.ratio instead of coord_fixed()
+
+    print(p)
+}
+
+dev.off()
 
 # Add weights to colData of spe_sub
 for (ct in colnames(weights_mat)) {
