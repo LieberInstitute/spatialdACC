@@ -43,6 +43,7 @@ sce_pseudo <-
     )
 
 pca <- prcomp(t(assays(sce_pseudo)$logcounts))
+metadata(sce_pseudo) <- list("PCA_var_explained" = signif(pca$sdev^2 / sum(pca$sdev^2) * 100, digits = 3)) # something wrong with getPcaVars fxn
 pca_pseudo <- pca$x[, seq_len(20)]
 colnames(pca_pseudo) <- paste0("PC", sprintf("%02d", seq_len(ncol(pca_pseudo))))
 reducedDims(sce_pseudo) <- list(PCA = pca_pseudo)
@@ -94,6 +95,11 @@ wrap_plots(p1,p2,p3,p4,nrow=2)
 dev.off()
 
 save(sce_pseudo, file = here("processed-data", "snRNA-seq", "05_azimuth", "sce_dlPFC_pseudo.Rdata"))
+
+
+# compute correlation
+cor(colData(sce_pseudo)$sum_sample,reducedDims(sce_pseudo)$PCA[,'PC01'])
+cor(colData(sce_pseudo)$sum_sample,reducedDims(sce_pseudo)$PCA[,'PC02'])
 
 modeling_results <- registration_wrapper(
     sce,
