@@ -98,6 +98,9 @@ save(
     file = here("processed-data", "11_differential_expression", "pseudobulk", "nnSVG_precast_pseudobulk", paste0(nnSVG_precast_name,".Rdata"))
 )
 
+# compute correlation
+cor(colData(spe_pseudo)$sum_sample,reducedDims(spe_pseudo)$PCA[,'PC01'])
+cor(colData(spe_pseudo)$sum_sample,reducedDims(spe_pseudo)$PCA[,'PC02'])
 
 ## Plot PCs
 col_data_df <- as.data.frame(colData(spe_pseudo))

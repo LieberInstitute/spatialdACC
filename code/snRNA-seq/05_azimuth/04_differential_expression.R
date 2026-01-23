@@ -35,6 +35,10 @@ col_data_df <- left_join(col_data_df, sum_by_sample, by = "Sample")
 
 colData(sce_pseudo) <- DataFrame(col_data_df)
 
+# compute correlation
+cor(colData(sce_pseudo)$sum_sample,reducedDims(sce_pseudo)$PCA[,'PC01'])
+cor(colData(sce_pseudo)$sum_sample,reducedDims(sce_pseudo)$PCA[,'PC02'])
+
 # make supp figure
 p1 <- plotPCA(
     sce_pseudo,
