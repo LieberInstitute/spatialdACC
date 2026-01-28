@@ -305,31 +305,46 @@ cell_type_order <- names(sort(peak_layer +
                                   apply(heatmap_mat_scaled, 1, max) / (max(heatmap_mat_scaled) + 1)))
 
 # Reorder matrix
-heatmap_mat_scaled <- heatmap_mat_scaled[cell_type_order, ]
+heatmap_mat_scaled <- t(heatmap_mat_scaled[cell_type_order, ])
 
-# Column annotation
+# remove Sst Chodl
+heatmap_mat_scaled <- heatmap_mat_scaled[,-which(colnames(heatmap_mat_scaled)=="Sst Chodl")]
+
+# row annotation
+row_anno <- HeatmapAnnotation(
+    " " = rownames(heatmap_mat_scaled),
+    col = list(" " = layer_colors[rownames(heatmap_mat_scaled)]),
+    show_legend = FALSE,
+    which = "row"
+)
+
+load(file = here("processed-data", "snRNA-seq", "05_azimuth", "celltype_colors.Rdata"))
+
+# col annotation
 col_anno <- HeatmapAnnotation(
-    Layer = colnames(heatmap_mat_scaled),
-    col = list(Layer = layer_colors[colnames(heatmap_mat_scaled)]),
-    show_legend = FALSE
+    " " = colnames(heatmap_mat_scaled),
+    col = list(" " = celltype_colors),
+    show_legend = FALSE,
+    which = "column"
 )
 
 # Plot
-pdf(file.path(plots_dir, paste0(file_prefix, "_rctd_celltype_layer_heatmap.pdf")), width = 8, height = 10)
+pdf(file.path(plots_dir, paste0(file_prefix, "_rctd_celltype_layer_heatmap.pdf")), width = 8, height = 5)
 
 ht <- Heatmap(
     heatmap_mat_scaled,
-    name = "Scaled\nWeight",
+    name = "scaled\ncell type\nweight",
     col = colorRamp2(c(-2, 0, 2), c("blue", "white", "red")),
-    top_annotation = col_anno,
+    right_annotation = row_anno,
+    bottom_annotation = col_anno,
     cluster_columns = FALSE,
     cluster_rows = FALSE,  # No clustering, use diagonal order
     show_row_names = TRUE,
     show_column_names = TRUE,
     row_names_side = "left",
     column_names_rot = 45,
-    column_title = "Spatial Domain",
-    row_title = "Cell Type"
+    column_title = "",
+    row_title = ""
 )
 
 draw(ht)
