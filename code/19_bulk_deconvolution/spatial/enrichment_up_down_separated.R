@@ -172,7 +172,7 @@ for (i in c("L1","L2","L3","L5","L6a","L6b","WM")) {
                                         dimnames = list("Cluster" = c("DE", "nonDE"),
                                                         "Bulk" = c("DE", "nonDE")))
 
-    fisher_test_PTSD_up <- fisher.test(contingency_table_PTSD_up)
+    fisher_test_PTSD_up <- fisher.test(contingency_table_PTSD_up, alternative = "greater")
     results_PTSD_up[[i]] <- list(fisher_test = fisher_test_PTSD_up)
 
     # PTSD downregulated
@@ -187,7 +187,7 @@ for (i in c("L1","L2","L3","L5","L6a","L6b","WM")) {
                                           dimnames = list("Cluster" = c("DE", "nonDE"),
                                                           "Bulk" = c("DE", "nonDE")))
 
-    fisher_test_PTSD_down <- fisher.test(contingency_table_PTSD_down)
+    fisher_test_PTSD_down <- fisher.test(contingency_table_PTSD_down, alternative = "greater")
     results_PTSD_down[[i]] <- list(fisher_test = fisher_test_PTSD_down)
 
     # MDD upregulated
@@ -202,7 +202,7 @@ for (i in c("L1","L2","L3","L5","L6a","L6b","WM")) {
                                        dimnames = list("Cluster" = c("DE", "nonDE"),
                                                        "Bulk" = c("DE", "nonDE")))
 
-    fisher_test_MDD_up <- fisher.test(contingency_table_MDD_up)
+    fisher_test_MDD_up <- fisher.test(contingency_table_MDD_up, alternative = "greater")
     results_MDD_up[[i]] <- list(fisher_test = fisher_test_MDD_up)
 
     # MDD downregulated
@@ -217,7 +217,7 @@ for (i in c("L1","L2","L3","L5","L6a","L6b","WM")) {
                                          dimnames = list("Cluster" = c("DE", "nonDE"),
                                                          "Bulk" = c("DE", "nonDE")))
 
-    fisher_test_MDD_down <- fisher.test(contingency_table_MDD_down)
+    fisher_test_MDD_down <- fisher.test(contingency_table_MDD_down, alternative = "greater")
     results_MDD_down[[i]] <- list(fisher_test = fisher_test_MDD_down)
 }
 

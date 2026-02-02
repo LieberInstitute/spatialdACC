@@ -152,13 +152,11 @@ for (i in k) {
                                    dimnames = list("Cluster" = c("DE", "nonDE"),
                                                    "Bulk" = c("DE", "nonDE")))
 
-    # Perform the chi-square test and Fisher's exact test for upregulated genes
-    chi_sq_test_up <- chisq.test(contingency_table_up)
-    fisher_test_up <- fisher.test(contingency_table_up)
+    fisher_test_up <- fisher.test(contingency_table_up, alternative = "greater")
+    print(fisher_test_up)
 
     # Store the results for upregulated genes
     results_up[[i]] <- list(contingency_table = contingency_table_up,
-                            chi_sq_test = chi_sq_test_up,
                             fisher_test = fisher_test_up)
 
     # Count overlaps for downregulated genes
@@ -174,13 +172,11 @@ for (i in k) {
                                      dimnames = list("Cluster" = c("DE", "nonDE"),
                                                      "Bulk" = c("DE", "nonDE")))
 
-    # Perform the chi-square test and Fisher's exact test for downregulated genes
-    chi_sq_test_down <- chisq.test(contingency_table_down)
-    fisher_test_down <- fisher.test(contingency_table_down)
+    fisher_test_down <- fisher.test(contingency_table_down, alternative = "greater")
+    print(fisher_test_down)
 
     # Store the results for downregulated genes
     results_down[[i]] <- list(contingency_table = contingency_table_down,
-                              chi_sq_test = chi_sq_test_down,
                               fisher_test = fisher_test_down)
 }
 

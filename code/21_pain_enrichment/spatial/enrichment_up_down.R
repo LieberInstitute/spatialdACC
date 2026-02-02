@@ -175,7 +175,7 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
                                        dimnames = list("Cluster" = c("DE", "nonDE"),
                                                        "Bulk" = c("DE", "nonDE")))
 
-        fisher_test_up <- fisher.test(contingency_table_up)
+        fisher_test_up <- fisher.test(contingency_table_up, alternative = "greater")
         results_up[[i]] <- list(fisher_test = fisher_test_up)
 
         DE_clust_DE_bulk_down <- length(intersect(DE_clust_genes_down, DE_bulk_down))
@@ -189,7 +189,7 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
                                          dimnames = list("Cluster" = c("DE", "nonDE"),
                                                          "Bulk" = c("DE", "nonDE")))
 
-        fisher_test_down <- fisher.test(contingency_table_down)
+        fisher_test_down <- fisher.test(contingency_table_down, alternative = "greater")
         results_down[[i]] <- list(fisher_test = fisher_test_down)
     }
 
@@ -237,7 +237,7 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
         border_gp = gpar(col = "black", lwd = 2)
     )
 
-    return(combined_pvalues_ordered)
+    return(heatmap_combined)
 
 }
 
