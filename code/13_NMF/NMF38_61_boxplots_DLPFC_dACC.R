@@ -90,6 +90,11 @@ p2 <- ggplot(summary_overall, aes(x=region, y=frac61_dACC, color=region)) +
 t_test_38 <- t.test(summary_dACC$frac38_dACC, summary_DLPFC$frac38_DLPFC, paired = T)
 t_test_61 <- t.test(summary_dACC$frac61_dACC, summary_DLPFC$frac61_DLPFC, paired = T)
 
+
+pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC.pdf"), height = 5, width = 3)
+wrap_plots(list(p1,p2), nrow = 2) + plot_annotation(title = "NMF38 and 61 in SRT Layer 5")
+dev.off()
+
 # also calculate average weights for SRT data
 dat_dACC <- as.data.frame(colData(spe_dACC))
 dat_DLPFC <- as.data.frame(colData(spe_DLPFC))
@@ -97,24 +102,26 @@ dat_DLPFC <- as.data.frame(colData(spe_DLPFC))
 dat_DLPFC <- dat_DLPFC[which(dat_DLPFC$BayesSpace_harmony_09 == 4),]
 summary_DLPFC <- dat_DLPFC %>%
     group_by(subject) %>%
-    summarize(avg38 = mean(nmf38), avg61 = mean(nmf61))
+    summarize(avg38 = mean(na_if(nmf38,0), na.rm = T),
+              avg61 = mean(na_if(nmf61,0), na.rm = T))
 
 summary_DLPFC$region <- rep("dlPFC", 10)
 
 dat_dACC <- dat_dACC[which(dat_dACC$layer == "L5"),]
 summary_dACC <- dat_dACC %>%
     group_by(brnum) %>%
-    summarize(avg38 = mean(nmf38), avg61 = mean(nmf61))
+    summarize(avg38 = mean(na_if(nmf38,0), na.rm = T),
+              avg61 = mean(na_if(nmf61,0), na.rm = T))
 
 summary_dACC$region <- rep("dACC", 10)
 
 summary_overall <- summary_dACC
 summary_overall[c(11:20),] <- summary_DLPFC
-
+summary_overall <- summary_overall[-c(14),]
 
 p3 <- ggplot(summary_overall, aes(x=region, y=avg38, color=region)) +
     geom_boxplot(outlier.shape = NA) +
-    ylim(c(0,0.000125)) +
+    ylim(c(0,0.001)) +
     geom_point(size=1, alpha=0.8) +
     ylab("Avg. NMF38 Weight") +
     ggtitle("") +
@@ -130,7 +137,7 @@ p4 <- ggplot(summary_overall, aes(x=region, y=avg61, color=region)) +
     geom_boxplot(outlier.shape = NA) +
     geom_point(size=1, alpha=0.8) +
     ylab("Avg. NMF61 Weight") +
-    ylim(c(0.000,0.00024)) +
+    ylim(c(0.000,0.01)) +
     ggtitle("") +
     xlab("region") +
     scale_color_manual(values = c("black", "grey")) +
@@ -144,12 +151,6 @@ p4 <- ggplot(summary_overall, aes(x=region, y=avg61, color=region)) +
 # using t test
 t_test_38 <- t.test(summary_dACC$avg38, summary_DLPFC$avg38, paired = T)
 t_test_61 <- t.test(summary_dACC$avg61, summary_DLPFC$avg61, paired = T)
-
-
-pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC.pdf"), height = 5, width = 5)
-wrap_plots(list(p1,p3,p2,p4), nrow = 2) + plot_annotation(title = "NMF38 and 61 in Layer 5")
-dev.off()
-
 
 
 # calculate nonzero spots for snRNA-seq data
