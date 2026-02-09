@@ -212,8 +212,8 @@ generate_spatial_heatmap <- function(adj_pval_threshold = 0.1) {
     combined_pvalues_ordered <- combined_pvalues_ordered[c(1,3,2,4,5,6,7),]
 
     col_fun <- colorRamp2(
-        c(1.3, max(-log10(combined_pvalues_ordered))),
-        c("white", "blue") # White for -log10(p) >= 1.3 (p >= 0.05), blue for more significant p-values
+        c(0, 1.3, 1.31, 5, max(-log10(combined_pvalues_ordered))),
+        c("grey90", "grey90", "yellow", "orange", "red")
     )
 
     heatmap_combined <- Heatmap(

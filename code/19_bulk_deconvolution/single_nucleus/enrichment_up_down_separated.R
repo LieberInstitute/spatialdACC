@@ -171,13 +171,13 @@ save(combined_pvalues_ordered_sn_bulk, file=here("processed-data","19_bulk_decon
 
 
 col_fun <- colorRamp2(
-    c(1.3, max(-log10(combined_pvalues_ordered))),
-    c("white", "blue") # White for -log10(p) >= 1.3 (p >= 0.05), blue for more significant p-values
+    c(0, 1.3, 1.31, 5, max(-log10(combined_pvalues_ordered_sn_bulk))),
+    c("grey90", "grey90", "yellow", "orange", "red")
 )
 
 # Create heatmap for the combined p-values
 heatmap_combined <- Heatmap(
-    -log10(combined_pvalues_ordered),
+    -log10(combined_pvalues_ordered_sn_bulk),
     name = "-log(p)",
     col = col_fun,
     cluster_rows = FALSE,
