@@ -194,7 +194,21 @@ p1 <- ggplot(data = df_nnSVG_precast, aes(x = k, y = fasthplus, group = 1)) +
     theme_bw() +
     ggtitle("H+ Discordance nnSVG-Guided PRECAST")
 
-png(here("plots", "08_clustering", "diagnostics_nnSVG_PRECAST.png"), height=8, width = 12, units = "in", res = 300)
-wrap_plots(boxplot,p1, nrow=2) + plot_annotation(tag_levels = 'A')
+dat <- read.csv(here("processed-data", "08_clustering", "PRECAST", "nnSVG_PRECAST_8_crossval.csv"))
+colnames(dat) <- c("sample_id","NMI","ARI")
+
+p2 <- ggplot(data = dat, aes(y=NMI)) +
+    geom_boxplot() +
+    labs(title="Accuracy of PRECAST Leave-One-Out Cross-Validation") +
+    ylim(0.6,0.9) +
+    theme_bw() +
+    theme(
+        axis.title.x = element_blank(),
+        axis.text.x  = element_blank(),
+        axis.ticks.x = element_blank()
+    )
+
+png(here("plots", "08_clustering", "diagnostics_nnSVG_PRECAST.png"), height=12, width = 12, units = "in", res = 300)
+wrap_plots(boxplot,p1,p2, nrow=3) + plot_annotation(tag_levels = 'A')
 dev.off()
 
