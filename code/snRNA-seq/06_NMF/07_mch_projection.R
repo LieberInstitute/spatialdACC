@@ -113,11 +113,23 @@ create_custom_dot_plot <- function(data, category_col, features_cols,
 
     # Adjusting Feature as a factor with the specified order and reversing the category_col order
     stats$Feature <- factor(stats$Feature, levels = features_cols)
-    stats[[category_col]] <- fct_relevel(stats[[category_col]], rev)
+
+    if (category_col == "Target") {
+        print("yes")
+        cats <- c("AI","AUDp","ENT","MOp","PFC","PIR","PTLp","RSP","SSp","VISp",
+          "AMY","P","SC","STR","TH","VTA")
+        cats <- rev(cats)
+
+        stats[[category_col]] <- fct_relevel(stats[[category_col]], cats)
+    } else{
+        print("no")
+        stats[[category_col]] <- fct_relevel(stats[[category_col]], rev)
+    }
+
     print(stats$NonZeroProportion)
 
     # Creating the plot
-    ggplot(stats, aes(x = Feature, y = !!sym(category_col), size = NonZeroProportion, color = Sum)) +
+    p <- ggplot(stats, aes(x = Feature, y = !!sym(category_col), size = NonZeroProportion, color = Sum)) +
         geom_point() +
         scale_size_continuous(range = c(0,10)) + # Set minimum size to zero
         scale_color_gradient(low = "white", high = "black") + # Greyscale color scale
@@ -130,6 +142,8 @@ create_custom_dot_plot <- function(data, category_col, features_cols,
             color = legend_color_title
         ) +
         theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Adjust x-axis text angle for readability
+
+    return(p)
 }
 
 mch <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "mch_projection.RDS"))
@@ -199,18 +213,20 @@ p1 <- create_custom_dot_plot(data_subclass, "Subclass", feat_cols, "", "NMF patt
                        "Allen subclass", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
     theme(axis.text=element_text(size=32,color='black'),text=element_text(size=32,color='black'))
+print(p1)
 dev.off()
 
-pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_target_dotplot.pdf'),h=11,w=15)
+pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_target_dotplot_old.pdf'),h=11,w=15)
 p2 <- create_custom_dot_plot(data, "Target", feat_cols, "", "NMF pattern",
                        "Target", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
     theme(axis.text=element_text(size=32,color='black'),text=element_text(size=32,color='black'))
+print(p2)
 dev.off()
 
 p2 <- p2 + theme(legend.position="none")
 
 pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_dotplots.pdf'),h=21,w=15)
-wrap_plots(p1,p2,nrow=2,guides="collect")
+wrap_plots(p1,p2,nrow=2)
 
 dev.off()
