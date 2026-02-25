@@ -102,6 +102,67 @@ dat_DLPFC <- as.data.frame(colData(spe_DLPFC))
 dat_DLPFC <- dat_DLPFC[which(dat_DLPFC$BayesSpace_harmony_09 == 4),]
 summary_DLPFC <- dat_DLPFC %>%
     group_by(subject) %>%
+    summarize(avg38 = mean(nmf38),
+              avg61 = mean(nmf61))
+
+summary_DLPFC$region <- rep("dlPFC", 10)
+
+dat_dACC <- dat_dACC[which(dat_dACC$layer == "L5"),]
+summary_dACC <- dat_dACC %>%
+    group_by(brnum) %>%
+    summarize(avg38 = mean(nmf38),
+              avg61 = mean(nmf61))
+
+summary_dACC$region <- rep("dACC", 10)
+
+summary_overall <- summary_dACC
+summary_overall[c(11:20),] <- summary_DLPFC
+
+p3 <- ggplot(summary_overall, aes(x=region, y=avg38, color=region)) +
+    geom_boxplot(outlier.shape = NA) +
+    ylim(c(0,0.00015)) +
+    geom_point(size=1, alpha=0.8) +
+    ylab("Avg. NMF38 Weight") +
+    ggtitle("") +
+    xlab("region") +
+    scale_color_manual(values = c("black", "grey")) +
+    geom_signif(comparisons = list(c("dACC", "dlPFC")),
+                test = "t.test",
+                map_signif_level = TRUE) +
+    theme_bw() +
+    theme(legend.position="none")
+
+p4 <- ggplot(summary_overall, aes(x=region, y=avg61, color=region)) +
+    geom_boxplot(outlier.shape = NA) +
+    geom_point(size=1, alpha=0.8) +
+    ylab("Avg. NMF61 Weight") +
+    ylim(c(0.000,0.00025)) +
+    ggtitle("") +
+    xlab("region") +
+    scale_color_manual(values = c("black", "grey")) +
+    geom_signif(comparisons = list(c("dACC", "dlPFC")),
+                test = "t.test",
+                map_signif_level = TRUE) +
+    theme_bw() +
+    theme(legend.position="none")
+
+# calculate statistical significance of the 10 subjects
+# using t test
+t_test_38 <- t.test(summary_dACC$avg38, summary_DLPFC$avg38, paired = T)
+t_test_61 <- t.test(summary_dACC$avg61, summary_DLPFC$avg61, paired = T)
+
+pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC_avg.pdf"), height = 5, width = 3)
+wrap_plots(list(p3,p4), nrow = 2) + plot_annotation(title = "NMF38 and 61 in SRT Layer 5")
+dev.off()
+
+
+# also calculate average nonzero weights for SRT data
+dat_dACC <- as.data.frame(colData(spe_dACC))
+dat_DLPFC <- as.data.frame(colData(spe_DLPFC))
+
+dat_DLPFC <- dat_DLPFC[which(dat_DLPFC$BayesSpace_harmony_09 == 4),]
+summary_DLPFC <- dat_DLPFC %>%
+    group_by(subject) %>%
     summarize(avg38 = mean(na_if(nmf38,0), na.rm = T),
               avg61 = mean(na_if(nmf61,0), na.rm = T))
 
@@ -123,7 +184,7 @@ p3 <- ggplot(summary_overall, aes(x=region, y=avg38, color=region)) +
     geom_boxplot(outlier.shape = NA) +
     ylim(c(0,0.001)) +
     geom_point(size=1, alpha=0.8) +
-    ylab("Avg. NMF38 Weight") +
+    ylab("Avg. Nonzero NMF38 Weight") +
     ggtitle("") +
     xlab("region") +
     scale_color_manual(values = c("black", "grey")) +
@@ -136,7 +197,7 @@ p3 <- ggplot(summary_overall, aes(x=region, y=avg38, color=region)) +
 p4 <- ggplot(summary_overall, aes(x=region, y=avg61, color=region)) +
     geom_boxplot(outlier.shape = NA) +
     geom_point(size=1, alpha=0.8) +
-    ylab("Avg. NMF61 Weight") +
+    ylab("Avg. Nonzero NMF61 Weight") +
     ylim(c(0.000,0.01)) +
     ggtitle("") +
     xlab("region") +
@@ -152,6 +213,9 @@ p4 <- ggplot(summary_overall, aes(x=region, y=avg61, color=region)) +
 t_test_38 <- t.test(summary_dACC$avg38, summary_DLPFC$avg38, paired = T)
 t_test_61 <- t.test(summary_dACC$avg61, summary_DLPFC$avg61, paired = T)
 
+pdf(file = here::here("plots", "13_NMF", "NMF_boxplots_DLPFC_dACC_nonzero.pdf"), height = 5, width = 3)
+wrap_plots(list(p3,p4), nrow = 2) + plot_annotation(title = "NMF38 and 61 in SRT Layer 5")
+dev.off()
 
 # calculate nonzero spots for snRNA-seq data
 load(file = here("processed-data", "13_NMF", "DLPFC_dACC_celltype_NMF.Rdata"))
