@@ -4,7 +4,7 @@
 # tar -xvf CEMBA.epiretro.mcds.tar
 
 import pandas as pd
-
+import numpy as np
 import anndata
 import scanpy as sc
 from ALLCools.mcds import MCDS
@@ -88,6 +88,7 @@ print(er.obs.head())
 
 log_scale(er, with_mean=True)
 er.X = -er.X
+er.X = np.exp(er.X)
 
-path_2 = '../../../processed-data/snRNA-seq/06_NMF/rs2_mch_matrix.h5ad'
+path_2 = '../../../processed-data/snRNA-seq/06_NMF/rs2_mch_matrix_exp.h5ad'
 er.write_h5ad(path_2)

@@ -12,7 +12,7 @@ library(patchwork)
 
 ##load the data
 mch<-readH5AD(file=here::here('processed-data','snRNA-seq',
-                              '06_NMF','rs2_mch_matrix.h5ad'))
+                              '06_NMF','rs2_mch_matrix_exp.h5ad'))
 
 ##get gene names
 mart <- useMart(biomart = "ensembl", dataset = "mmusculus_gene_ensembl")
@@ -86,7 +86,7 @@ proj<-apply(proj,2,function(x){x/sum(x)})
 
 colData(mch)<-cbind(colData(mch),proj)
 
-saveRDS(mch, file = here("processed-data", "snRNA-seq", "06_NMF", "mch_projection.RDS"))
+saveRDS(mch, file = here("processed-data", "snRNA-seq", "06_NMF", "mch_projection_exp.RDS"))
 
 # visualize results
 
@@ -146,7 +146,7 @@ create_custom_dot_plot <- function(data, category_col, features_cols,
     return(p)
 }
 
-mch <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "mch_projection.RDS"))
+mch <- readRDS(file = here("processed-data", "snRNA-seq", "06_NMF", "mch_projection_exp.RDS"))
 data<-as.data.frame(colData(mch))
 # keep cols starting with "nmf"
 nmf_cols <- grep("^nmf", colnames(data), value = TRUE)
@@ -208,7 +208,7 @@ feat_cols <- colnames(data)[-c(1,2)]
 feat_cols <- feat_cols[-c(7)]
 feat_cols <- feat_cols[c(7,3,6,1,4,8,5,2)]
 
-pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_subclass_dotplot.pdf'),h=11,w=15)
+pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_subclass_dotplot_exp.pdf'),h=11,w=15)
 p1 <- create_custom_dot_plot(data_subclass, "Subclass", feat_cols, "", "NMF pattern",
                        "Allen subclass", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
@@ -216,7 +216,7 @@ p1 <- create_custom_dot_plot(data_subclass, "Subclass", feat_cols, "", "NMF patt
 print(p1)
 dev.off()
 
-pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_target_dotplot_old.pdf'),h=11,w=15)
+pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_target_dotplot_exp.pdf'),h=11,w=15)
 p2 <- create_custom_dot_plot(data, "Target", feat_cols, "", "NMF pattern",
                        "Target", "proportion nuclei\nwith nonzero\nweight",
                        "aggregate\nnuclei-level\nweights")+
@@ -226,7 +226,7 @@ dev.off()
 
 p2 <- p2 + theme(legend.position="none")
 
-pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_dotplots.pdf'),h=21,w=15)
+pdf(file=here::here('plots','snRNA-seq','06_NMF','mch_dotplots_exp.pdf'),h=21,w=15)
 wrap_plots(p1,p2,nrow=2)
 
 dev.off()
