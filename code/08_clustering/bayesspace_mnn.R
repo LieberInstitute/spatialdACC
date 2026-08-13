@@ -19,6 +19,11 @@ k <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))
 colData(spe)$row <- spe$array_row
 colData(spe)$col <- spe$array_col
 
+## -- 2026-08-13 update --
+## Note that the spatial coordinates were not offset and should have been.
+## See http://edward130603.github.io/BayesSpace/articles/joint_clustering.html#clustering-1
+## for more details.
+
 metadata(spe)$BayesSpace.data <- list(platform = "Visium", is.enhanced = FALSE)
 
 message("Running spatialCluster()")
